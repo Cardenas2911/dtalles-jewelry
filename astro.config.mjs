@@ -7,15 +7,16 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
-site: 'https://cardenas2911.github.io',
+export default defineConfig({
+  site: 'https://cardenas2911.github.io',
   base: '/talles-jewelry',
-    server: {
-  host: true,
+  server: {
+    host: true,
     port: 4325
-},
-integrations: [react(), sitemap()],
+  },
+  integrations: [react(), sitemap()],
 
   vite: {
-  plugins: [tailwindcss()]
-}
+    plugins: [tailwindcss()]
+  }
 });
