@@ -1,0 +1,69 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { client as shopifyClient } from "../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
+import ProductCard from "../../components/react/ProductCard";
+import StoreGrid from "../../components/react/StoreGrid";
+
+const seo = {
+  title: "Joyería Infantil: Aretes de Oro para Bebés y Niñas",
+  description:
+    "Cuida sus oídos con aretes de oro 14k hipoalergénicos. Broches de seguridad (tipo rosca) que no lastiman. El primer detalle para toda la vida.",
+};
+
+let products = [];
+try {
+  // Intentamos con 'infantil' o 'ninos', el handle debe existir en Shopify
+  const response = await shopifyClient.request(GET_PRODUCTS_BY_COLLECTION, {
+    variables: {
+      handle: "ninos",
+    },
+  });
+  products =
+    response.data?.collection?.products?.edges?.map((edge: any) => edge.node) ||
+    [];
+} catch (error) {
+  console.error("Error fetching Ninos collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+    <div class="px-6 mb-2">
+      <Breadcrumbs
+        items={[{ label: "Inicio", href: "/" }, { label: "Infantil" }]}
+      />
+    </div>
+
+    <div class="px-6 pb-6 text-center">
+      <h1 class="main-heading">
+        Colección Infantil: Aretes de Oro 14k - Hipoalergénicos
+      </h1>
+      <div class="h-0.5 w-12 bg-[#d4af37] mx-auto mb-4"></div>
+      <p
+        class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed mb-4"
+      >
+        Joyas de oro 14k hipoalergénicas para bebés y niñas. El primer detalle
+        para toda la vida.
+      </p>
+      <div
+        class="inline-block bg-[#d4af37]/10 text-[#d4af37] px-4 py-2 rounded-full text-xs"
+      >
+        <span class="font-bold">Seguridad Primero:</span> Broche de rosca
+      </div>
+    </div>
+
+    {
+      products.length > 0 ? (
+        <StoreGrid client:load initialProducts={products} />
+      ) : (
+        <div class="text-center py-20 px-4">
+          <p class="text-xl text-gray-500">
+            No se encontraron productos en esta colección.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</Layout>

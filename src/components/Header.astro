@@ -1,0 +1,244 @@
+---
+import DesktopHeader from "./react/DesktopHeader";
+import { isCartOpen } from "../store/cart";
+const SHOP_DOMAIN = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN;
+---
+
+<DesktopHeader client:load />
+
+{/* Fallback/Spacing for Sticky Header? No, fixed header sits on top. */}
+{/* Mobile Menu Overlay below... maintained for now if used by BottomMenu */}
+
+{/* Mobile Menu Overlay */}
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl translate-x-full invisible transition-transform duration-500 ease-in-out"
+>
+  <div class="flex flex-col h-full p-6">
+    <div class="flex justify-end">
+      <button
+        id="mobile-menu-close"
+        class="text-[#FAFAF5] hover:text-[#d4af37] transition-colors p-2 -mr-2"
+      >
+        <span class="material-symbols-outlined text-[32px]">close</span>
+      </button>
+    </div>
+
+    <div class="flex flex-col items-center justify-center flex-1 gap-8">
+      <nav class="flex flex-col items-center gap-6">
+        <a
+          href="/"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Inicio</a
+        >
+        <a
+          href="/tienda"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Tienda</a
+        >
+        <a
+          href="/mujer"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Mujer</a
+        >
+        <a
+          href="/hombre"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Hombre</a
+        >
+        <a
+          href="/ninos"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Niños</a
+        >
+        <a
+          href="/coleccion/religiosa"
+          class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
+          >Religiosa</a
+        >
+        <a
+          href="/servicios/vender-oro"
+          class="text-2xl font-serif text-[#d4af37] hover:text-white transition-colors"
+          >Vender Oro</a
+        >
+      </nav>
+    </div>
+
+    <div
+      class="text-center text-[#FAFAF5]/30 text-xs uppercase tracking-widest mt-auto"
+    >
+      DTALLES Jewelry &copy; {new Date().getFullYear()}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { setIsCartOpen, cartItems } from "../store/cart";
+  import { favoriteItems } from "../store/favorites";
+  import { setIsSearchOpen } from "../store/search";
+
+  document.addEventListener("astro:page-load", () => {
+    // Search Trigger
+    const searchTrigger = document.getElementById("search-trigger");
+    searchTrigger?.addEventListener("click", () => {
+      setIsSearchOpen(true);
+    });
+    // Favorites Count Logic
+    const favCountHeader = document.getElementById("favorites-count-header");
+
+    // Subscribe to Nanostore
+    favoriteItems.subscribe((items) => {
+      const count = Object.keys(items).length;
+
+      if (favCountHeader) {
+        favCountHeader.innerText = count.toString();
+        if (count > 0) {
+          favCountHeader.classList.remove("opacity-0");
+        } else {
+          favCountHeader.classList.add("opacity-0");
+        }
+      }
+    });
+
+    const cartTrigger = document.getElementById("cart-trigger");
+    const cartCount = document.getElementById("cart-count");
+
+    cartTrigger?.addEventListener("click", () => {
+      setIsCartOpen(true);
+    });
+
+    // Account Dropdown Logic
+    const accountTrigger = document.getElementById("account-trigger");
+    const accountDropdown = document.getElementById("account-dropdown");
+
+    /* Remove existing listeners if any to prevent duplicates in case of persistence (safety check) */
+    /* Actually for non-persisted elements, simpler is just to re-attach */
+
+    accountTrigger?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (accountDropdown) {
+        const isHidden = accountDropdown.classList.contains("hidden");
+        if (isHidden) {
+          accountDropdown.classList.remove("hidden");
+          // Small delay to allow display:block to apply before opacity transition
+          setTimeout(() => {
+            accountDropdown.classList.remove(
+              "opacity-0",
+              "invisible",
+              "translate-y-2",
+            );
+            accountDropdown.classList.add(
+              "opacity-100",
+              "visible",
+              "translate-y-0",
+            );
+          }, 10);
+        } else {
+          accountDropdown.classList.remove(
+            "opacity-100",
+            "visible",
+            "translate-y-0",
+          );
+          accountDropdown.classList.add(
+            "opacity-0",
+            "invisible",
+            "translate-y-2",
+          );
+          setTimeout(() => {
+            accountDropdown.classList.add("hidden");
+          }, 200);
+        }
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (
+        accountDropdown &&
+        !accountDropdown.contains(e.target as Node) &&
+        !accountTrigger?.contains(e.target as Node)
+      ) {
+        accountDropdown.classList.remove(
+          "opacity-100",
+          "visible",
+          "translate-y-0",
+        );
+        accountDropdown.classList.add(
+          "opacity-0",
+          "invisible",
+          "translate-y-2",
+        );
+        setTimeout(() => {
+          accountDropdown.classList.add("hidden");
+        }, 200);
+      }
+    });
+
+    // Update Cart Count
+    // Store subscription should stick across navigations, but we need to update the *new* DOM element
+    // Nanostores subscribe returns an unsubscribe function. We should probably accept that we might have multiple subscriptions if we don't clean up,
+    // OR we can just re-run the logic to update the *current* element.
+    // Better: simply update the element text when the store changes.
+    // The subscription keeps running.
+
+    // We need to unsubscribe when the component unmounts? Astro doesn't have a clean unmount for this easily in vanilla script.
+    // However, since we are inside astro:page-load, this runs every time.
+    // Let's use a pattern to avoid memory leaks if possible, but for this specific issue (DOM connection), simply re-subscribing
+    // might create duplicate listeners but updating the *current* ID reference.
+
+    // Actually, `cartCount` variable is scoped to this execution.
+    const unsubscribeCart = cartItems.subscribe((items) => {
+      const totalCount = Object.values(items).reduce(
+        (acc, item) => acc + item.quantity,
+        0,
+      );
+
+      const currentCartCount = document.getElementById("cart-count"); // Re-query just in case
+      if (currentCartCount) {
+        currentCartCount.innerText = totalCount.toString();
+        if (totalCount > 0) {
+          currentCartCount.classList.remove("opacity-0", "scale-0");
+          currentCartCount.classList.add("opacity-100", "scale-100");
+        } else {
+          currentCartCount.classList.remove("opacity-100", "scale-100");
+          currentCartCount.classList.add("opacity-0", "scale-0");
+        }
+      }
+    });
+
+    // Mobile Menu Logic
+    const menuOpen = document.getElementById("mobile-menu-open");
+    const menuClose = document.getElementById("mobile-menu-close");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    function toggleMenu() {
+      const isClosed = mobileMenu?.classList.contains("translate-x-full");
+      if (isClosed) {
+        // Open
+        mobileMenu?.classList.remove("translate-x-full", "invisible");
+        document.body.classList.add("overflow-hidden");
+      } else {
+        // Close
+        mobileMenu?.classList.add("translate-x-full");
+        document.body.classList.remove("overflow-hidden");
+        // Wait for transition to finish before hiding
+        setTimeout(() => {
+          if (mobileMenu?.classList.contains("translate-x-full")) {
+            mobileMenu?.classList.add("invisible");
+          }
+        }, 500);
+      }
+    }
+
+    menuOpen?.addEventListener("click", toggleMenu);
+    menuClose?.addEventListener("click", toggleMenu);
+
+    // Close menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll("a");
+    mobileLinks?.forEach((link) => {
+      link.addEventListener("click", () => {
+        // Only close if it's an internal link (anchor) or navigate
+        toggleMenu();
+      });
+    });
+  });
+</script>

@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const seo = {
+  title: "¡Gracias por tu Compra! | DTalles Jewelry",
+  description: "Tu pedido ha sido confirmado. Gracias por confiar en nosotros.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="py-20 text-center max-w-2xl mx-auto px-4">
+    <div class="text-6xl mb-6">💎</div>
+    <h1 class="text-4xl font-bold mb-4 text-[#FAFAF5]">
+      ¡Gracias por tu Compra!
+    </h1>
+    <p class="text-xl text-gray-300 mb-8">
+      Tu pedido está siendo procesado con el máximo cuidado. Recibirás un correo
+      de confirmación en breve.
+    </p>
+    <a
+      href="/"
+      class="underline text-gray-400 hover:text-[#d4af37] transition-colors"
+      >Volver a la tienda</a
+    >
+  </div>
+</Layout>

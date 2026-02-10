@@ -1,0 +1,220 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { client as shopifyClient } from "../../lib/shopify";
+import { gql } from "graphql-request";
+import ProductPage from "../../components/react/product/ProductPage";
+
+export async function getStaticPaths() {
+  const query = gql`
+    query getAllProductsInfo {
+      products(first: 100) {
+        edges {
+          node {
+            id
+            title
+            handle
+            vendor
+            descriptionHtml
+            description
+            totalInventory
+            availableForSale
+            tags
+            productType
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 20) {
+              edges {
+                node {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+            variants(first: 20) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  quantityAvailable
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+            # Metafields
+            pesoReal: metafield(namespace: "custom", key: "peso_real") {
+              value
+              type
+            }
+            anchoMm: metafield(namespace: "custom", key: "ancho_mm") {
+              value
+              type
+            }
+            material: metafield(namespace: "custom", key: "material") {
+              value
+              type
+            }
+            origen: metafield(namespace: "custom", key: "origen") {
+              value
+              type
+            }
+            videoUrl: metafield(namespace: "custom", key: "video_url") {
+              value
+              type
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await shopifyClient.request(query);
+    const products = response.data?.products;
+
+    if (!products?.edges) {
+      return [];
+    }
+
+    return products.edges.map((edge: any) => ({
+      params: { handle: edge.node.handle },
+      props: { product: edge.node },
+    }));
+  } catch (error) {
+    console.error("Error fetching paths from Shopify:", error);
+    return [];
+  }
+}
+
+const { handle } = Astro.params;
+const { product } = Astro.props as { product: any };
+
+if (!product) {
+  return new Response("Product Data Missing", { status: 404 });
+}
+
+// SEO & Schema
+const seoTitle = `${product.title} | DTalles Jewelry`;
+const seoDescription =
+  product.description?.substring(0, 160) ||
+  `Compra ${product.title} en DTalles. Oro Garantizado.`;
+const mainImage = product.images?.edges[0]?.node?.url;
+
+const schema: any = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  name: product.title,
+  image: product.images?.edges.map((e: any) => e.node.url),
+  description: product.description,
+  sku: product.variants?.edges[0]?.node?.id, // Using Variant ID as SKU proxy logic
+  brand: {
+    "@type": "Brand",
+    name: "DTalles Jewelry",
+  },
+  offers: {
+    "@type": "Offer",
+    url: `https://dtallesjewelry.com/producto/${product.handle}`,
+    priceCurrency: "USD",
+    price: product.priceRange.minVariantPrice.amount,
+    availability: product.availableForSale
+      ? "https://schema.org/InStock"
+      : "https://schema.org/OutOfStock",
+    itemCondition: "https://schema.org/NewCondition",
+  },
+  merchantReturnPolicy: {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: "US",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 30,
+    returnMethod: "https://schema.org/ReturnByMail",
+  },
+};
+
+// Add VideoObject if videoUrl exists
+if (product.videoUrl?.value) {
+  schema["subjectOf"] = {
+    "@type": "VideoObject",
+    name: `Video de ${product.title}`,
+    description: `Vista detallada de ${product.title}`,
+    thumbnailUrl: mainImage, // Fallback
+    contentUrl: product.videoUrl.value,
+    uploadDate: new Date().toISOString(),
+  };
+}
+
+// Breadcrumbs logic
+const tags = product.tags || [];
+let collectionName = "Tienda";
+let collectionUrl = "/tienda";
+
+if (tags.some((t: string) => t.toLowerCase() === "hombre")) {
+  collectionName = "Hombre";
+  collectionUrl = "/hombre";
+} else if (tags.some((t: string) => t.toLowerCase() === "mujer")) {
+  collectionName = "Mujer";
+  collectionUrl = "/mujer";
+} else if (
+  tags.some(
+    (t: string) =>
+      t.toLowerCase() === "ninos" || t.toLowerCase() === "infantil",
+  )
+) {
+  collectionName = "Infantil";
+  collectionUrl = "/ninos";
+} else if (tags.some((t: string) => t.toLowerCase() === "religiosa")) {
+  collectionName = "Religiosa";
+  collectionUrl = "/coleccion/religiosa";
+}
+
+const breadcrumbItems = [
+  { label: "Inicio", href: "/" },
+  { label: collectionName, href: collectionUrl },
+  { label: product.title },
+];
+---
+
+<Layout title={seoTitle} description={seoDescription} image={mainImage}>
+  {/* Inject JSON-LD */}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <div
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 lg:pt-40 lg:pb-16"
+  >
+    <Breadcrumbs items={breadcrumbItems} />
+
+    {/* React Orchestrator */}
+    <ProductPage client:load product={product} />
+
+    {
+      /* Cross Selling / Trust Footer (Static for now/placeholder or Part of Layout) */
+    }
+    <div class="mt-24 border-t border-white/5 pt-16 text-center">
+      <h3 class="text-2xl font-serif text-[#FAFAF5] mb-4">
+        ¿Dudas? Habla con un Experto
+      </h3>
+      <p class="text-gray-400 mb-6">
+        Estamos disponibles en Miami para asesorarte.
+      </p>
+      <a
+        href="/contacto"
+        class="inline-block px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
+      >
+        Contactar Soporte
+      </a>
+    </div>
+  </div>
+</Layout>

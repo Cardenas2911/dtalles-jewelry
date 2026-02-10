@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WishlistGrid from "../components/react/favorites/WishlistGrid";
+import ShareList from "../components/react/favorites/ShareList";
+---
+
+<Layout
+    title="Tu Cofre Personal - DTalles Jewelry"
+    description="Tus piezas de joyería guardadas."
+>
+    <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 lg:pt-40 lg:pb-24"
+    >
+        {/* Header */}
+        <div
+            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 border-b border-white/5 pb-8"
+        >
+            <div>
+                <span
+                    class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] font-medium mb-3 block"
+                >
+                    Tu Colección Personal
+                </span>
+                <h1 class="text-3xl md:text-5xl font-serif text-[#FAFAF5]">
+                    Tus Deseos Guardados
+                </h1>
+                <p class="text-white/40 font-light mt-3 max-w-sm">
+                    Piezas de oro amarillo seleccionadas por ti. Guárdalas o
+                    hazlas tuyas hoy.
+                </p>
+            </div>
+
+            {/* Share Action */}
+            <ShareList client:idle />
+        </div>
+
+        {/* Grid */}
+        <WishlistGrid client:load />
+    </div>
+</Layout>

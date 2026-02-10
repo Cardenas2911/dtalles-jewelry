@@ -1,0 +1,60 @@
+---
+interface Props {
+    items: {
+        label: string;
+        href?: string;
+    }[];
+}
+
+const { items } = Astro.props;
+
+// Schema.org BreadcrumbList
+const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+        item: item.href ? `https://dtallesjewelry.com${item.href}` : undefined,
+    })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="mb-5">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <ol
+        class="flex items-center text-xs font-light tracking-wide overflow-x-auto whitespace-nowrap hide-scrollbar py-2 font-['Montserrat']"
+    >
+        {
+            items.map((item, index) => {
+                const isLast = index === items.length - 1;
+
+                return (
+                    <li class="flex items-center">
+                        {index > 0 && (
+                            <span class="mx-2 text-[#d4af37]">›</span>
+                        )}
+
+                        {isLast ? (
+                            <span
+                                class="text-[#d4af37] font-medium"
+                                aria-current="page"
+                            >
+                                {item.label}
+                            </span>
+                        ) : (
+                            <a
+                                href={item.href}
+                                class="text-[#A0A0A0] hover:text-white transition-colors decoration-[#d4af37] hover:underline underline-offset-4"
+                            >
+                                {item.label}
+                            </a>
+                        )}
+                    </li>
+                );
+            })
+        }
+    </ol>
+</nav>

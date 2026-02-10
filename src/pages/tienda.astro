@@ -1,0 +1,157 @@
+---
+import Layout from "../layouts/Layout.astro";
+import StoreGrid from "../components/react/StoreGrid";
+import { client } from "../lib/shopify";
+import { ALL_PRODUCTS_QUERY } from "../lib/queries/allProducts";
+
+let products = [];
+try {
+    const response = await client.request(ALL_PRODUCTS_QUERY, {
+        variables: { first: 20 },
+    });
+    if (response.errors) {
+        console.error("Shopify API Errors:", response.errors);
+    }
+    products =
+        response.data?.products?.edges?.map((edge: any) => edge.node) || [];
+} catch (error) {
+    console.error("Error fetching products:", error);
+}
+---
+
+<Layout
+    title="Tienda - DTalles Jewelry"
+    description="Explora nuestra colección de joyas exquisitas."
+>
+    <div class="bg-[#050505] min-h-screen">
+        <!-- Hero Section -->
+        <div
+            class="relative w-full h-[40vh] min-h-[400px] flex flex-col items-center justify-center overflow-hidden"
+        >
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-yellow-900/20 via-[#050505] to-[#000000] z-0"
+            >
+            </div>
+
+            <!-- Content -->
+            <div
+                class="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in"
+            >
+                <h1
+                    class="text-4xl md:text-6xl font-serif text-[#FAFAF5] mb-3 tracking-wide"
+                >
+                    Colección Exclusiva
+                </h1>
+                <p
+                    class="text-[#d4af37] font-serif italic text-2xl md:text-3xl mb-6"
+                >
+                    El Arte del Detalle
+                </p>
+                <p
+                    class="text-gray-400 text-sm md:text-base font-sans max-w-lg mx-auto mb-8 tracking-wide"
+                >
+                    Joyería en Oro 14k Certificado y Diamantes en Miami. <br
+                        class="hidden md:block"
+                    /> Piezas sólidas con garantía de por vida.
+                </p>
+
+                <!-- Quick Filter Chips -->
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a
+                        href="/hombre/cuban-links"
+                        class="px-4 py-1.5 rounded-full border border-[#d4af37]/30 text-[#d4af37] text-xs uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-all"
+                    >
+                        Cuban Links
+                    </a>
+                    <a
+                        href="/mujer"
+                        class="px-4 py-1.5 rounded-full border border-[#d4af37]/30 text-[#d4af37] text-xs uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-all"
+                    >
+                        Para Ella
+                    </a>
+                    <a
+                        href="/coleccion/religiosa"
+                        class="px-4 py-1.5 rounded-full border border-[#d4af37]/30 text-[#d4af37] text-xs uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-all"
+                    >
+                        Religiosos
+                    </a>
+                    <a
+                        href="/tienda?sort=created-desc"
+                        class="px-4 py-1.5 rounded-full border border-[#d4af37]/30 text-[#d4af37] text-xs uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-all"
+                    >
+                        Lo Nuevo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store Grid (React Component) -->
+        <div class="max-w-[1920px] mx-auto pb-12">
+            <StoreGrid client:load initialProducts={products} />
+        </div>
+
+        <!-- Trust Section (Footer of Category) -->
+        <div class="border-t border-white/5 bg-[#0a0a0a] py-16 px-6">
+            <div
+                class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center"
+            >
+                <!-- Trust Item 1 -->
+                <div class="flex flex-col items-center group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-[#d4af37]/10 flex items-center justify-center mb-4 group-hover:bg-[#d4af37] transition-all duration-500"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[#d4af37] group-hover:text-black"
+                            >verified_user</span
+                        >
+                    </div>
+                    <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
+                        Autenticidad Garantizada
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
+                        Cada pieza incluye certificado de kilataje y peso real
+                        verificado.
+                    </p>
+                </div>
+
+                <!-- Trust Item 2 -->
+                <div class="flex flex-col items-center group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-[#d4af37]/10 flex items-center justify-center mb-4 group-hover:bg-[#d4af37] transition-all duration-500"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[#d4af37] group-hover:text-black"
+                            >local_shipping</span
+                        >
+                    </div>
+                    <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
+                        Envíos Asegurados a USA
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
+                        Tu detalle viaja protegido hasta tu puerta. Rastreo 24/7
+                        incluido.
+                    </p>
+                </div>
+
+                <!-- Trust Item 3 -->
+                <div class="flex flex-col items-center group">
+                    <div
+                        class="w-12 h-12 rounded-full bg-[#d4af37]/10 flex items-center justify-center mb-4 group-hover:bg-[#d4af37] transition-all duration-500"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[#d4af37] group-hover:text-black"
+                            >diamond</span
+                        >
+                    </div>
+                    <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
+                        Experiencia DTalles
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
+                        Empaque de lujo listo para regalar incluido en cada
+                        orden.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

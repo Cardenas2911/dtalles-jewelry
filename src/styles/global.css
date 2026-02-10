@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --color-primary: #d4af37;
+  --color-bg-dark: #050505;
+  --color-bg-light: #f8f7f6;
+  --color-text-light: #FAFAF5;
+  --color-surface-dark: #121212;
+
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  --animate-fade-in: fade-in 1s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Custom utilities from user request */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 20px -5px rgba(212, 175, 53, 0.15);
+}
+
+/* The Golden Headline - H1 Style */
+.main-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 32px;
+  /* Mobile */
+  line-height: 1.2;
+  margin-bottom: 24px;
+  background: linear-gradient(to right, #D4AF37, #FCEebb, #D4AF37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Fallback for browsers that don't support text clip */
+  @supports not (-webkit-background-clip: text) {
+    background: none;
+    color: #D4AF37;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-heading {
+    font-size: 48px;
+    /* Desktop */
+  }
+}

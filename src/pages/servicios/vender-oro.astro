@@ -1,0 +1,291 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const seo = {
+    title: "Compramos Oro en Miami: Mejor Precio por Gramo",
+    description:
+        "Convierte tus joyas antiguas en efectivo al instante. Tasación transparente y segura en nuestra tienda de Miami. Pagamos el máximo precio del día.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <!-- Hero Section -->
+    <div
+        class="relative w-full h-[600px] flex items-center justify-center overflow-hidden"
+    >
+        <div class="absolute inset-0 bg-black/60 z-10"></div>
+        <!-- Background Image (Pending Generation) -->
+        <div class="absolute inset-0 bg-[#0a0a0a] z-0">
+            <!-- Will replace with generated image -->
+            <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black">
+            </div>
+        </div>
+
+        <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
+            <span
+                class="inline-block py-1 px-3 border border-[#d4af37] text-[#d4af37] rounded-full text-xs uppercase tracking-[0.2em] mb-6"
+                >Miami, FL</span
+            >
+            <h1
+                class="text-5xl md:text-7xl font-serif text-[#FAFAF5] mb-6 leading-tight"
+            >
+                Convierte tu Oro en <br />
+                <span class="text-[#d4af37] italic">Efectivo al Instante</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
+                Sin trucos ni esperas. Usamos básculas certificadas a la vista y
+                pagamos el <strong>precio máximo del día</strong> garantizado.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a
+                    href="#cotizar"
+                    class="bg-[#d4af37] text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                >
+                    Obtener Oferta Hoy
+                </a>
+                <a
+                    href="tel:+17867644952"
+                    class="border border-white/30 text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                    <span class="material-symbols-outlined">call</span>
+                    Llamar Ahora
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Signals / Process -->
+    <div class="py-20 bg-[#050505] px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif text-[#FAFAF5] mb-4">
+                    Tu Oro, Tu Confianza, Tu Pago
+                </h2>
+                <div class="h-0.5 w-24 bg-[#d4af37] mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Step 1 -->
+                <div
+                    class="p-8 border border-white/5 rounded-2xl bg-[#0a0a0a] hover:border-[#d4af37]/30 transition-all group"
+                >
+                    <div
+                        class="w-16 h-16 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all"
+                    >
+                        <span
+                            class="material-symbols-outlined text-3xl text-[#d4af37] group-hover:text-black"
+                            >scale</span
+                        >
+                    </div>
+                    <h3 class="text-xl font-bold text-[#FAFAF5] mb-3">
+                        1. Tasación Transparente
+                    </h3>
+                    <p class="text-gray-400">
+                        Pesamos y probamos tus piezas <strong
+                            >frente a ti</strong
+                        >. Te mostramos el precio del oro en vivo. Nada oculto.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    class="p-8 border border-white/5 rounded-2xl bg-[#0a0a0a] hover:border-[#d4af37]/30 transition-all group"
+                >
+                    <div
+                        class="w-16 h-16 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all"
+                    >
+                        <span
+                            class="material-symbols-outlined text-3xl text-[#d4af37] group-hover:text-black"
+                            >verified</span
+                        >
+                    </div>
+                    <h3 class="text-xl font-bold text-[#FAFAF5] mb-3">
+                        2. Mejor Oferta Garantizada
+                    </h3>
+                    <p class="text-gray-400">
+                        ¿Tienes joyas rotas, desparejadas o dañadas? ¡Las
+                        compramos todas! Oro 10k, 14k, 18k y 24k.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="p-8 border border-white/5 rounded-2xl bg-[#0a0a0a] hover:border-[#d4af37]/30 transition-all group"
+                >
+                    <div
+                        class="w-16 h-16 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all"
+                    >
+                        <span
+                            class="material-symbols-outlined text-3xl text-[#d4af37] group-hover:text-black"
+                            >payments</span
+                        >
+                    </div>
+                    <h3 class="text-xl font-bold text-[#FAFAF5] mb-3">
+                        3. Pago Inmediato
+                    </h3>
+                    <p class="text-gray-400">
+                        Si te gusta nuestra oferta, te pagamos en efectivo o
+                        transferencia Zelle/Wire al instante.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What We Buy Grid -->
+    <div class="py-20 bg-[#0a0a0a] border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span
+                        class="text-[#d4af37] uppercase tracking-widest text-sm font-bold mb-2 block"
+                        >Aceptamos Todo Tipo de Oro</span
+                    >
+                    <h2 class="text-4xl font-serif text-[#FAFAF5] mb-6">
+                        ¿Qué puedes vender hoy?
+                    </h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Muchos clientes no saben que sus joyas rotas o antiguas
+                        tienen un gran valor. En DTalles Jewelry las
+                        transformamos en liquidez para ti.
+                    </p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[#d4af37]"
+                                >check_circle</span
+                            >
+                            <span>Cadenas y Esclavas (incluso rotas)</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[#d4af37]"
+                                >check_circle</span
+                            >
+                            <span>Anillos de Graduación y Compromiso</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[#d4af37]"
+                                >check_circle</span
+                            >
+                            <span>Monedas de Oro y Lingotes</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[#d4af37]"
+                                >check_circle</span
+                            >
+                            <span>Relojes de Lujo (Rolex, Cartier, Patek)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="relative h-[500px] bg-[#121212] rounded-lg overflow-hidden border border-white/5"
+                >
+                    <!-- Image Placeholder for 'Jeweler Appraising' -->
+                    <div
+                        class="absolute inset-0 flex items-center justify-center text-white/20"
+                    >
+                        <span class="material-symbols-outlined text-9xl"
+                            >diamond</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trade-In Offer (The Hook) -->
+    <div class="relative py-24 px-4 overflow-hidden">
+        <div class="absolute inset-0 bg-[#d4af37] z-0"></div>
+        <!-- Gold Background -->
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-10"
+        >
+        </div>
+
+        <div class="relative z-20 max-w-4xl mx-auto text-center">
+            <h2 class="text-black font-serif text-3xl md:text-5xl mb-6">
+                Plan "Renueva tu Joyero"
+            </h2>
+            <p class="text-black/80 text-xl font-medium mb-8 max-w-2xl mx-auto">
+                ¿No quieres efectivo? Te damos un <strong>20% EXTRA</strong> sobre
+                el valor de tu oro si lo usas como crédito para comprar una joya nueva
+                en DTalles.
+            </p>
+            <a
+                href="/mujer"
+                class="inline-block bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-900 transition-all shadow-xl"
+            >
+                Ver Colección Nueva
+            </a>
+            <p class="text-black/60 text-xs mt-6">
+                *Sujeto a verificación de la pieza en tienda. Aplican términos y
+                condiciones.
+            </p>
+        </div>
+    </div>
+
+    <!-- Map / Location -->
+    <div class="py-20 bg-[#050505] px-4" id="cotizar">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-serif text-[#FAFAF5] mb-8">
+                Visítanos en Miami
+            </h2>
+
+            <!-- Google Maps Embed -->
+            <div
+                class="w-full h-[400px] bg-gray-800 rounded-xl mb-12 overflow-hidden shadow-2xl border border-white/10"
+            >
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.7431858402165!2d-80.26412642454558!3d25.779044877341086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b76eca9d78e1%3A0x78e24354af26bf4!2s3949%20NW%207th%20St%20d%2C%20Miami%2C%20FL%2033126%2C%20EE.%20UU.!5e0!3m2!1ses-419!2sco!4v1770646756641!5m2!1ses-419!2sco"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div>
+                    <h3 class="text-[#d4af37] font-bold mb-2 uppercase text-sm">
+                        Dirección
+                    </h3>
+                    <p class="text-gray-300">
+                        3949 NW 7th St d<br />
+                        Miami, FL 33126
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-[#d4af37] font-bold mb-2 uppercase text-sm">
+                        Horario de Compra
+                    </h3>
+                    <p class="text-gray-300">
+                        Lunes - Sábado: 10am - 7pm<br />
+                        Domingo: Cita Previa
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-[#d4af37] font-bold mb-2 uppercase text-sm">
+                        Contacto
+                    </h3>
+                    <p class="text-gray-300">
+                        <a
+                            href="tel:+17867644952"
+                            class="hover:text-white transition-colors"
+                            >+1 (786) 764‑4952</a
+                        ><br />
+                        <a
+                            href="tel:+17867644952"
+                            class="hover:text-white transition-colors"
+                            >+1 (786) 764‑4952</a
+                        >
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

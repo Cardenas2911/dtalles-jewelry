@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const seo = {
+    title: "Cadenas Cubanas de Oro (Cuban Links) | Miami Style",
+    description:
+        "Auténticas Cadenas Cubanas fabricadas en Miami. Eslabones sólidos (no huecos), broches de seguridad y peso real. Mira el video de escala aquí.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <div class="py-12">
+        <nav class="text-sm text-gray-400 mb-6">
+            Inicio > Hombre > Cuban Links
+        </nav>
+        <h1 class="text-4xl font-bold mb-4 text-[#FAFAF5]">
+            Cadenas Cubanas: El Icono de Miami
+        </h1>
+        <div class="bg-gray-100 p-8 rounded-lg mb-8 text-center">
+            <p class="font-semibold text-xl text-gray-900">¿Sólido o Hueco?</p>
+            <p class="text-gray-600">
+                En DTalles garantizamos el **Peso Real**. Todas nuestras cubanas
+                son de oro macizo 14k.
+            </p>
+        </div>
+
+        <!-- Grid de productos específicos de Cuban Links -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="border border-white/10 p-4 rounded bg-[#121212]">
+                <div class="h-48 bg-gray-800 mb-4 rounded"></div>
+                <h3 class="font-bold text-[#FAFAF5]">Cubana 10mm 14k</h3>
+                <p class="text-sm text-gray-400">120gr Aprox</p>
+                <button class="mt-2 text-sm text-[#d4af37] hover:underline"
+                    >Ver Detalles</button
+                >
+            </div>
+        </div>
+    </div>
+</Layout>

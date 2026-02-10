@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const seo = {
+  title: "Mensaje Recibido | DTalles Jewelry",
+  description: "Hemos recibido tu mensaje correctamente.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="py-20 text-center max-w-2xl mx-auto px-4">
+    <h1 class="text-4xl font-bold mb-4 text-[#FAFAF5]">Mensaje Recibido</h1>
+    <p class="text-xl text-gray-300 mb-8">
+      Gracias por contactarnos. Nuestro equipo te responderá lo antes posible.
+    </p>
+    <a
+      href="/"
+      class="bg-[#d4af37] text-black px-8 py-3 rounded font-bold hover:bg-[#b08d29] transition-colors"
+      >Volver al Inicio</a
+    >
+  </div>
+</Layout>

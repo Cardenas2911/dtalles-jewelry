@@ -1,0 +1,61 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { client as shopifyClient } from "../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
+import StoreGrid from "../../components/react/StoreGrid";
+import Layout from "../../layouts/Layout.astro";
+
+const seo = {
+  title: "Joyería Religiosa de Oro: San Judas, Cruces y Rosarios",
+  description:
+    "Lleva tu fe con orgullo. Medallas de San Judas, Vírgenes y Rosarios en oro duradero. El regalo de protección ideal. Bendición y calidad garantizada.",
+};
+
+let products = [];
+try {
+  const response = await shopifyClient.request(GET_PRODUCTS_BY_COLLECTION, {
+    variables: {
+      handle: "religiosa",
+    },
+  });
+  products =
+    response.data?.collection?.products?.edges?.map((edge: any) => edge.node) ||
+    [];
+} catch (error) {
+  console.error("Error fetching Religiosa collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+    <div class="px-6 mb-2">
+      <Breadcrumbs
+        items={[{ label: "Inicio", href: "/" }, { label: "Religiosa" }]}
+      />
+    </div>
+
+    <div class="px-6 pb-6 text-center">
+      <h1 class="main-heading">
+        Colección Religiosa: Medallas y Cruces - Oro 14k
+      </h1>
+      <div class="h-0.5 w-12 bg-[#d4af37] mx-auto mb-4"></div>
+      <p
+        class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed"
+      >
+        Símbolos de devoción elaborados en el más fino oro 14k.
+      </p>
+    </div>
+
+    {
+      products.length > 0 ? (
+        <StoreGrid client:load initialProducts={products} />
+      ) : (
+        <div class="text-center py-20 px-4">
+          <p class="text-xl text-gray-500">
+            No se encontraron productos en esta colección.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</Layout>

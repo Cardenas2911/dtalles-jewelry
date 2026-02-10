@@ -1,0 +1,247 @@
+---
+import { isCartOpen } from "../store/cart";
+---
+
+<nav
+    class="fixed bottom-0 left-0 right-0 z-50 bg-[#050505]/95 backdrop-blur-xl border-t border-white/5 md:hidden safe-area-pb"
+>
+    <div
+        class="flex justify-between items-center px-6 h-16 max-w-md mx-auto relative"
+    >
+        {/* Home */}
+        <a
+            href="/"
+            class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1"
+        >
+            <span class="material-symbols-outlined text-[24px]">home</span>
+            <span class="text-[9px] uppercase tracking-wider">Inicio</span>
+        </a>
+
+        {/* Collections */}
+        <div class="relative">
+            <button
+                id="bottom-collections-trigger"
+                class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1"
+            >
+                <span class="material-symbols-outlined text-[24px]"
+                    >category</span
+                >
+                <span class="text-[9px] uppercase tracking-wider"
+                    >Colección</span
+                >
+            </button>
+
+            {/* Collections Popup Menu */}
+            <div
+                id="bottom-collections-menu"
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-40 bg-[#121212] border border-[#d4af37]/20 rounded-xl shadow-2xl p-2 invisible opacity-0 translate-y-2 transition-all duration-200 origin-bottom z-50"
+            >
+                <div class="flex flex-col gap-1">
+                    <a
+                        href="/mujer"
+                        class="px-4 py-2 text-sm text-gray-300 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors text-center"
+                        >Mujer</a
+                    >
+                    <a
+                        href="/hombre"
+                        class="px-4 py-2 text-sm text-gray-300 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors text-center"
+                        >Hombre</a
+                    >
+                    <a
+                        href="/ninos"
+                        class="px-4 py-2 text-sm text-gray-300 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors text-center"
+                        >Niños</a
+                    >
+                    <a
+                        href="/coleccion/religiosa"
+                        class="px-4 py-2 text-sm text-gray-300 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors text-center"
+                        >Religiosa</a
+                    >
+                </div>
+                {/* Arrow */}
+                <div
+                    class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#121212] border-r border-b border-[#d4af37]/20 rotate-45"
+                >
+                </div>
+            </div>
+        </div>
+
+        {/* Search */}
+        <button
+            id="bottom-search-trigger"
+            class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1"
+        >
+            <span class="material-symbols-outlined text-[24px]">search</span>
+            <span class="text-[9px] uppercase tracking-wider">Buscar</span>
+        </button>
+
+        {/* Center Action Button (Menu) */}
+        <div class="relative -top-6">
+            <button
+                id="bottom-menu-trigger"
+                class="w-14 h-14 rounded-full bg-[#050505] border border-[#d4af37] text-[#d4af37] flex items-center justify-center shadow-[0_0_20px_-5px_rgba(212,175,53,0.5)] transform active:scale-95 transition-all"
+            >
+                <span class="material-symbols-outlined text-[32px]">add</span>
+            </button>
+        </div>
+
+        {/* Cart */}
+        <button
+            id="bottom-cart-trigger"
+            class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1 relative"
+        >
+            <div class="relative">
+                <span class="material-symbols-outlined text-[24px]"
+                    >shopping_bag</span
+                >
+                <span
+                    id="bottom-cart-count"
+                    class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#d4af37] text-black text-[9px] font-bold rounded-full flex items-center justify-center opacity-0 transition-opacity"
+                    >0</span
+                >
+            </div>
+            <span class="text-[9px] uppercase tracking-wider">Carrito</span>
+        </button>
+
+        {/* Favorites */}
+        <a
+            href="/favoritos"
+            class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1 relative"
+        >
+            <div class="relative">
+                <span class="material-symbols-outlined text-[24px]"
+                    >favorite</span
+                >
+                <span
+                    id="bottom-favorites-count"
+                    class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#d4af37] text-black text-[9px] font-bold rounded-full flex items-center justify-center opacity-0 transition-opacity"
+                    >0</span
+                >
+            </div>
+            <span class="text-[9px] uppercase tracking-wider">Favoritos</span>
+        </a>
+
+        {/* Account */}
+        <a
+            href="/account"
+            class="flex flex-col items-center justify-center w-12 text-gray-400 hover:text-[#d4af37] transition-colors gap-1"
+        >
+            <span class="material-symbols-outlined text-[24px]">person</span>
+            <span class="text-[9px] uppercase tracking-wider">Perfil</span>
+        </a>
+    </div>
+</nav>
+
+<script>
+    import { setIsCartOpen, cartItems } from "../store/cart";
+    import { favoriteItems } from "../store/favorites";
+    import { setIsSearchOpen } from "../store/search";
+
+    document.addEventListener("astro:page-load", () => {
+        // Menu Logic
+        const menuTrigger = document.getElementById("bottom-menu-trigger");
+        // Reuse the logic from Header if possible, or trigger the existing button
+        // The Header script listens for click on #mobile-menu-open.
+        // We can simlpy trigger a click on that button, OR access the toggle function safely?
+        // Triggering the existing header button is safest interop without rewriting Header logic.
+
+        const headerMenuBtn = document.getElementById("mobile-menu-open");
+
+        menuTrigger?.addEventListener("click", () => {
+            headerMenuBtn?.click();
+        });
+
+        // Search Logic
+        const searchTrigger = document.getElementById("bottom-search-trigger");
+        searchTrigger?.addEventListener("click", () => {
+            setIsSearchOpen(true);
+        });
+
+        // Collections Menu Logic
+        const collectionsTrigger = document.getElementById(
+            "bottom-collections-trigger",
+        );
+        const collectionsMenu = document.getElementById(
+            "bottom-collections-menu",
+        );
+
+        collectionsTrigger?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (collectionsMenu) {
+                const isHidden =
+                    collectionsMenu.classList.contains("invisible");
+                if (isHidden) {
+                    collectionsMenu.classList.remove(
+                        "invisible",
+                        "opacity-0",
+                        "translate-y-2",
+                    );
+                } else {
+                    collectionsMenu.classList.add(
+                        "invisible",
+                        "opacity-0",
+                        "translate-y-2",
+                    );
+                }
+            }
+        });
+
+        // Close collections menu when clicking outside
+        document.addEventListener("click", (e) => {
+            if (
+                collectionsMenu &&
+                !collectionsMenu.classList.contains("invisible")
+            ) {
+                if (
+                    !collectionsMenu.contains(e.target as Node) &&
+                    !collectionsTrigger?.contains(e.target as Node)
+                ) {
+                    collectionsMenu.classList.add(
+                        "invisible",
+                        "opacity-0",
+                        "translate-y-2",
+                    );
+                }
+            }
+        });
+
+        // Cart Logic
+        const cartTrigger = document.getElementById("bottom-cart-trigger");
+        cartTrigger?.addEventListener("click", () => {
+            setIsCartOpen(true);
+        });
+
+        // Cart Count Update
+        const unsubscribe = cartItems.subscribe((items) => {
+            const totalCount = Object.values(items).reduce(
+                (acc, item) => acc + item.quantity,
+                0,
+            );
+            const countEl = document.getElementById("bottom-cart-count");
+
+            if (countEl) {
+                countEl.innerText = totalCount.toString();
+                if (totalCount > 0) {
+                    countEl.classList.remove("opacity-0");
+                } else {
+                    countEl.classList.add("opacity-0");
+                }
+            }
+        });
+
+        // Favorites Count Update
+        const unsubscribeFav = favoriteItems.subscribe((items) => {
+            const count = Object.keys(items).length;
+            const countEl = document.getElementById("bottom-favorites-count");
+
+            if (countEl) {
+                countEl.innerText = count.toString();
+                if (count > 0) {
+                    countEl.classList.remove("opacity-0");
+                } else {
+                    countEl.classList.add("opacity-0");
+                }
+            }
+        });
+    });
+</script>

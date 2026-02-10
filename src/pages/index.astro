@@ -1,0 +1,84 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/home/Hero.astro";
+import TrustBar from "../components/home/TrustBar.astro";
+import BentoGrid from "../components/home/BentoGrid.astro";
+import BestSellers from "../components/home/BestSellers";
+import ServiceBlock from "../components/home/ServiceBlock.astro";
+import SEOBlock from "../components/home/SEOBlock.astro";
+import ReviewsBlock from "../components/home/ReviewsBlock.astro";
+import { client as shopifyClient } from "../lib/shopify";
+import { gql } from "graphql-request";
+
+const seo = {
+    title: "DTalles Jewelry: Joyería en Miami | Oro 14k y Regalos Únicos",
+    description:
+        "El Portal de Oro en Miami. Cadenas Cubanas, religiosas y regalos inolvidables en oro 14k sólido. Calidad garantizada y envíos seguros a todo USA.",
+};
+
+const GET_BEST_SELLERS = gql`
+    query getBestSellers {
+        products(first: 8, sortKey: BEST_SELLING) {
+            edges {
+                node {
+                    id
+                    title
+                    handle
+                    availableForSale
+                    priceRange {
+                        minVariantPrice {
+                            amount
+                            currencyCode
+                        }
+                    }
+                    images(first: 2) {
+                        edges {
+                            node {
+                                url
+                                altText
+                                width
+                                height
+                            }
+                        }
+                    }
+                    featuredImage {
+                        url
+                        altText
+                        width
+                        height
+                    }
+                    variants(first: 1) {
+                        edges {
+                            node {
+                                id
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+let bestSellers = [];
+try {
+    const response = await shopifyClient.request(GET_BEST_SELLERS);
+    bestSellers = response.data?.products?.edges?.map((e: any) => e.node) || [];
+} catch (error) {
+    console.error("Error fetching Best Sellers:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <main class="w-full overflow-hidden">
+        <Hero />
+        <TrustBar />
+        <BentoGrid />
+
+        <BestSellers client:visible products={bestSellers} />
+
+        <ServiceBlock />
+        <SEOBlock />
+        <ReviewsBlock />
+    </main>
+</Layout>

@@ -1,0 +1,64 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { client as shopifyClient } from "../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
+import ProductCard from "../../components/react/ProductCard";
+import StoreGrid from "../../components/react/StoreGrid";
+
+const seo = {
+    title: "Joyas de Oro para Mujer | Collares, Aretes y Regalos",
+    description:
+        "Encuentra el detalle perfecto para ella. Desde gargantillas minimalistas hasta sets de regalo completos. Oro 14k hipoalergénico y empaque de lujo incluido.",
+};
+
+let products = [];
+try {
+    const response = await shopifyClient.request(GET_PRODUCTS_BY_COLLECTION, {
+        variables: {
+            handle: "mujer",
+        },
+    });
+    products =
+        response.data?.collection?.products?.edges?.map(
+            (edge: any) => edge.node,
+        ) || [];
+} catch (error) {
+    console.error("Error fetching Mujer collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+        <div class="px-6 mb-2">
+            <Breadcrumbs
+                items={[{ label: "Inicio", href: "/" }, { label: "Mujer" }]}
+            />
+        </div>
+
+        <div class="px-6 pb-6 text-center">
+            <h1 class="main-heading">
+                Colección Mujer: Joyas de Oro 14k - Elegancia Eterna
+            </h1>
+            <div class="h-0.5 w-12 bg-[#d4af37] mx-auto mb-4"></div>
+            <p
+                class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed"
+            >
+                Diseños finos y elegantes para resaltar su belleza natural. Oro
+                14k garantizado.
+            </p>
+        </div>
+
+        {
+            products.length > 0 ? (
+                <StoreGrid client:load initialProducts={products} />
+            ) : (
+                <div class="text-center py-20 px-4">
+                    <p class="text-xl text-gray-500">
+                        No se encontraron productos en esta colección.
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</Layout>
