@@ -96,29 +96,59 @@
   box-shadow: 0 0 20px -5px rgba(212, 175, 53, 0.15);
 }
 
-/* The Golden Headline - H1 Style */
-.main-heading {
+/* ═══════════════════════════════════════════════════════════════
+   ESTILO GLOBAL H1 — Degradé Dorado Serif Italic
+   Inspirado en diseño premium de joyería
+   ═══════════════════════════════════════════════════════════════ */
+h1 {
   font-family: 'Playfair Display', serif;
+  font-style: italic;
   font-weight: 700;
-  font-size: 32px;
-  /* Mobile */
-  line-height: 1.2;
-  margin-bottom: 24px;
-  background: linear-gradient(to right, #D4AF37, #FCEebb, #D4AF37);
+  font-size: clamp(1.75rem, 5vw, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(180deg,
+      #f5e6a3 0%,
+      /* Dorado claro — highlight superior */
+      #d4af37 40%,
+      /* Dorado medio — tono principal */
+      #b8962e 70%,
+      /* Dorado profundo — sombra */
+      #a07c24 100%
+      /* Dorado oscuro — base */
+    );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  /* Fallback for browsers that don't support text clip */
+  /* Línea decorativa dorada debajo */
+  &::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 0.75rem auto 0;
+  }
+
+  /* Fallback para navegadores sin soporte */
   @supports not (-webkit-background-clip: text) {
     background: none;
     color: #D4AF37;
   }
 }
 
+/* Alias de compatibilidad — para páginas que ya usan esta clase */
+.main-heading {
+  /* Hereda automáticamente del h1 global */
+}
+
 @media (min-width: 768px) {
-  .main-heading {
-    font-size: 48px;
-    /* Desktop */
+  h1::after {
+    width: 4rem;
+    height: 3px;
+    margin-top: 1rem;
   }
 }
