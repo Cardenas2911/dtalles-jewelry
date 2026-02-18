@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 const seo = {
     title: "Guía de Regalos: Joyas para Quinceañeras y Eventos",
@@ -9,10 +10,8 @@ const seo = {
 ---
 
 <Layout title={seo.title} description={seo.description}>
-    <article class="py-12 max-w-3xl mx-auto">
-        <nav class="text-sm text-gray-400 mb-6">
-            Inicio > Guías de Regalo > Quinceañeras
-        </nav>
+    <article class="py-12 max-w-3xl mx-auto px-6 pt-32">
+        <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Guía de Regalos", href: "/guia-regalos" }, { label: "Quinceañeras" }]} />
         <h1 class="text-4xl font-bold mb-4 text-[#FAFAF5]">
             El Regalo Eterno: Guía de Joyas para Quinceañeras
         </h1>

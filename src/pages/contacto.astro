@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ContactForm from "../components/react/ContactForm";
 
 const seo = {
@@ -38,8 +39,13 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
     <div class="bg-[#050505] min-h-screen text-[#FAFAF5]">
+        {/* BREADCRUMBS */}
+        <div class="max-w-7xl mx-auto px-6 pt-28">
+            <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Contacto" }]} />
+        </div>
+
         {/* HERO SECTION */}
-        <section class="pt-32 pb-16 px-6 text-center animate-fade-in">
+        <section class="pb-16 px-6 text-center animate-fade-in">
             <h1
                 class="text-4xl md:text-[42px] font-serif font-bold text-[#d4af37] mb-4 tracking-wide"
             >

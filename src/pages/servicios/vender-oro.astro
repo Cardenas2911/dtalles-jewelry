@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 const seo = {
     title: "Compramos Oro en Miami: Mejor Precio por Gramo",
@@ -9,6 +10,11 @@ const seo = {
 ---
 
 <Layout title={seo.title} description={seo.description}>
+    {/* BREADCRUMBS */}
+    <div class="max-w-7xl mx-auto px-6 pt-28">
+        <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Servicios", href: "#" }, { label: "Vender Oro" }]} />
+    </div>
+
     <!-- Hero Section -->
     <div
         class="relative w-full h-[600px] flex items-center justify-center overflow-hidden"

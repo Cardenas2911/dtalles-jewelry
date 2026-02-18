@@ -10,7 +10,8 @@ interface Props {
 
 const { items } = Astro.props;
 
-// Schema.org BreadcrumbList
+// Schema.org BreadcrumbList — Datos estructurados para SEO
+const siteUrl = "https://cardenas2911.github.io/dtalles-jewelry";
 const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -18,7 +19,7 @@ const schema = {
         "@type": "ListItem",
         position: index + 1,
         name: item.label,
-        item: item.href ? `https://dtallesjewelry.com${item.href}` : undefined,
+        item: item.href ? `${siteUrl}${item.href}` : undefined,
     })),
 };
 ---
@@ -27,29 +28,69 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
     <ol
-        class="flex items-center text-xs font-light tracking-wide overflow-x-auto whitespace-nowrap hide-scrollbar py-2 font-['Montserrat']"
+        class="flex flex-wrap items-center text-sm text-gray-500 font-medium gap-1 py-2"
     >
         {
             items.map((item, index) => {
+                const isFirst = index === 0;
                 const isLast = index === items.length - 1;
 
                 return (
-                    <li class="flex items-center">
-                        {index > 0 && (
-                            <span class="mx-2 text-[#d4af37]">›</span>
+                    <li class="flex items-center gap-1">
+                        {/* Separador chevron (excepto el primero) */}
+                        {!isFirst && (
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="flex-shrink-0"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="m14.413 10.663-6.25 6.25a.939.939 0 1 1-1.328-1.328L12.42 10 6.836 4.413a.939.939 0 1 1 1.328-1.328l6.25 6.25a.94.94 0 0 1-.001 1.328"
+                                    fill="#475569"
+                                />
+                            </svg>
                         )}
 
-                        {isLast ? (
+                        {/* Ícono Home para el primer elemento */}
+                        {isFirst && item.href ? (
+                            <a
+                                href={resolvePath(item.href)}
+                                aria-label="Inicio"
+                                class="hover:opacity-80 transition-opacity"
+                            >
+                                <svg
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 32 32"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M16 7.609c.352 0 .69.122.96.343l.111.1 6.25 6.25v.001a1.5 1.5 0 0 1 .445 1.071v7.5a.89.89 0 0 1-.891.891H9.125a.89.89 0 0 1-.89-.89v-7.5l.006-.149a1.5 1.5 0 0 1 .337-.813l.1-.11 6.25-6.25c.285-.285.67-.444 1.072-.444Zm5.984 7.876L16 9.5l-5.984 5.985v6.499h11.968z"
+                                        fill="#94a3b8"
+                                        stroke="#94a3b8"
+                                        stroke-width=".094"
+                                    />
+                                </svg>
+                            </a>
+                        ) : isLast ? (
+                            /* Último elemento: texto activo dorado */
                             <span
-                                class="text-[#d4af37] font-medium"
+                                class="text-[#d4af37] font-semibold"
                                 aria-current="page"
                             >
                                 {item.label}
                             </span>
                         ) : (
+                            /* Elementos intermedios: enlaces */
                             <a
                                 href={item.href ? resolvePath(item.href) : "#"}
-                                class="text-[#A0A0A0] hover:text-white transition-colors decoration-[#d4af37] hover:underline underline-offset-4"
+                                class="text-gray-400 hover:text-white transition-colors hover:underline underline-offset-4 decoration-[#d4af37]"
                             >
                                 {item.label}
                             </a>
