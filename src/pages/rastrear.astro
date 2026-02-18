@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Rastrear mi Pedido | DTalles Jewelry",
+  description: "Consulta el estado de tu envío de forma rápida y sencilla.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-4xl mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[70vh]">
+    <Breadcrumbs
+      items={[{ label: "Inicio", href: "/" }, { label: "Rastrear Pedido" }]}
+    />
+
+    <div class="max-w-xl mx-auto text-center mt-12 animate-fade-in">
+      <span class="material-symbols-outlined text-6xl text-[#d4af37] mb-6">
+        local_shipping
+      </span>
+      <h1 class="font-serif text-3xl md:text-5xl text-[#FAFAF5] mb-4">
+        Rastrea tu Pedido
+      </h1>
+      <p class="text-gray-400 font-light mb-10">
+        Ingresa tu número de guía (tracking number) que recibiste por correo
+        electrónico para ver el estado actual de tu envío.
+      </p>
+
+      <form
+        class="flex flex-col gap-4 bg-[#111] p-8 rounded-sm border border-white/10 shadow-xl"
+        id="tracking-form"
+      >
+        <div class="flex flex-col text-left gap-2">
+          <label
+            for="tracking-number"
+            class="text-[#d4af37] text-xs font-bold uppercase tracking-widest pl-1"
+          >
+            Número de Guía
+          </label>
+          <input
+            type="text"
+            id="tracking-number"
+            name="tracking-number"
+            placeholder="Ej: 1Z999AA10123456784"
+            required
+            class="w-full bg-[#050505] border border-gray-700 text-white px-4 py-3 focus:outline-none focus:border-[#d4af37] transition-colors placeholder-gray-600 font-mono"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-all duration-300 mt-2 flex items-center justify-center gap-2 group"
+        >
+          <span>Buscar Pedido</span>
+          <span
+            class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </button>
+      </form>
+      
+      <p class="text-xs text-gray-500 mt-6 max-w-sm mx-auto">
+        Serás redirigido a una plataforma de rastreo universal. Si tienes
+        dudas, contáctanos.
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById("tracking-form") as HTMLFormElement;
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = document.getElementById("tracking-number") as HTMLInputElement;
+    const trackingNumber = input?.value.trim();
+
+    if (trackingNumber) {
+      // Redirigir a 17TRACK (soporta casi todos los carriers)
+      window.open(
+        `https://t.17track.net/es#nums=${trackingNumber}`,
+        "_blank"
+      );
+    }
+  });
+</script>

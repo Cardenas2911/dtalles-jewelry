@@ -37,6 +37,10 @@ interface Product {
             node: {
                 id: string;
                 quantityAvailable?: number;
+                compareAtPrice?: {
+                    amount: string;
+                    currencyCode: string;
+                };
             };
         }>;
     };
@@ -65,6 +69,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     // Variant ID for Cart
     const variantId = product.variants?.edges?.[0]?.node?.id || product.id;
     const price = parseFloat(product.priceRange.minVariantPrice.amount);
+
+    // Discount Logic
+    const compareAtPriceData = product.variants?.edges?.[0]?.node?.compareAtPrice?.amount;
+    const compareAtPrice = compareAtPriceData ? parseFloat(compareAtPriceData) : 0;
+    const hasDiscount = compareAtPrice > price;
+    const discountPercentage = hasDiscount ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100) : 0;
 
     const handleQuickAdd = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -125,6 +135,11 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {isLowStock && (
                         <span className="bg-[#d4af37] text-black text-[10px] font-sans font-bold px-2 py-1 uppercase tracking-wider">
                             Pocas Piezas
+                        </span>
+                    )}
+                    {hasDiscount && (
+                        <span className="bg-red-600 text-white text-[10px] font-sans font-bold px-2 py-1 uppercase tracking-wider">
+                            -{discountPercentage}%
                         </span>
                     )}
                 </div>
@@ -195,7 +210,11 @@ export default function ProductCard({ product }: ProductCardProps) {
                         <span className="text-[#d4af37] font-serif text-lg md:text-xl">
                             ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                         </span>
-                        {/* Fake 'Compare At' logic if we had it, omitting for clean look unless data exists */}
+                        {hasDiscount && (
+                            <span className="text-gray-500 text-xs line-through decoration-gray-500">
+                                ${compareAtPrice.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                            </span>
+                        )}
                     </div>
 
                     {/* Finance Microcopy */}

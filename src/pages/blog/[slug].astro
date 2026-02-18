@@ -1,0 +1,120 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { client as shopifyClient } from "../../lib/shopify";
+import { GET_ARTICLE_BY_HANDLE } from "../../lib/queries/blog";
+import { gql } from "graphql-request";
+
+// SSG: Fetch all articles to generate paths
+export async function getStaticPaths() {
+  const GET_ALL_ARTICLES = gql`
+    query getAllArticles {
+      files(first: 1) { edges { node { id } } } # Dummy query if needed, but better use blog query
+      blog(handle: "news") {
+        articles(first: 50) {
+          edges {
+            node {
+              handle
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await shopifyClient.request(GET_ALL_ARTICLES);
+    const articles = response.data?.blog?.articles?.edges?.map((edge: any) => edge.node) || [];
+    
+    return articles.map((article: any) => ({
+      params: { slug: article.handle },
+    }));
+  } catch (error) {
+    console.error("Error fetching articles for SSG:", error);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+const BLOG_HANDLE = "news"; // Default blog handle
+
+let article = null;
+let error = false;
+
+if (slug) {
+  try {
+    const response = await shopifyClient.request(GET_ARTICLE_BY_HANDLE, {
+      handle: slug,
+      blogHandle: BLOG_HANDLE,
+    });
+    article = response.data?.blog?.articleByHandle;
+  } catch (err) {
+    console.error(`Error fetching article ${slug}:`, err);
+    error = true;
+  }
+}
+
+const seo = {
+  title: article?.seo?.title || article?.title || "Artículo no encontrado",
+  description: article?.seo?.description || article?.excerpt || "Artículo de DTalles Jewelry",
+  image: article?.image?.url
+};
+---
+
+<Layout title={seo.title} description={seo.description} image={seo.image}>
+  <article class="min-h-screen pb-20">
+    {article ? (
+        <>
+            {/* Hero Section */}
+            <div class="relative h-[50vh] min-h-[400px] w-full overflow-hidden">
+                 {article.image && (
+                    <img 
+                        src={article.image.url} 
+                        alt={article.image.altText || article.title} 
+                        class="absolute inset-0 w-full h-full object-cover animate-pan"
+                    />
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/40 to-black/30"></div>
+                
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 lg:p-20 max-w-5xl mx-auto">
+                     <Breadcrumbs
+                        items={[
+                        { label: "Blog", href: "/blog" },
+                        { label: article.title },
+                        ]}
+                    />
+                    <h1 class="font-serif text-4xl md:text-6xl text-white mt-6 mb-4 leading-tight animate-slide-up">
+                        {article.title}
+                    </h1>
+                    <div class="flex items-center gap-4 text-sm text-gray-300 font-light animate-slide-up delay-100">
+                        <span>{new Date(article.publishedAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        <span class="w-1 h-1 rounded-full bg-[#d4af37]"></span>
+                        <span class="text-[#d4af37]">{article.authorV2?.name}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Content Body */}
+            <div class="max-w-3xl mx-auto px-6 py-16">
+                 <div 
+                    class="prose prose-invert prose-lg text-gray-300 font-light leading-relaxed prose-headings:font-serif prose-headings:text-white prose-a:text-[#d4af37] prose-img:rounded-sm prose-img:shadow-xl prose-blockquote:border-l-[#d4af37]"
+                    set:html={article.contentHtml}
+                />
+                
+                {/* Back Link */}
+                <div class="mt-20 pt-10 border-t border-white/10 text-center">
+                    <a href="/blog" class="inline-block px-8 py-3 border border-white/20 text-white hover:border-[#d4af37] hover:text-[#d4af37] uppercase tracking-widest text-xs font-bold transition-all">
+                        Volver al Blog
+                    </a>
+                </div>
+            </div>
+        </>
+    ) : (
+        <div class="pt-40 text-center px-6">
+             <h1 class="text-3xl text-gray-500 mb-4">Artículo no encontrado</h1>
+             <p class="text-gray-400 mb-8">El artículo que buscas no existe o ha sido movido.</p>
+             <a href="/blog" class="text-[#d4af37] underline">Volver al Blog</a>
+        </div>
+    )}
+  </article>
+</Layout>

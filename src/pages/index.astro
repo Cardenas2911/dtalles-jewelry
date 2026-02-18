@@ -51,6 +51,10 @@ const GET_BEST_SELLERS = gql`
                         edges {
                             node {
                                 id
+                                compareAtPrice {
+                                    amount
+                                    currencyCode
+                                }
                             }
                         }
                     }

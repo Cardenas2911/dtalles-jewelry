@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 interface StickyAddToCartProps {
     productTitle: string;
     price: number;
+    compareAtPrice?: number;
     image: string;
     isSoldOut: boolean;
     onAddToCart: () => void;
     mainButtonId?: string; // ID of the main button to observe
 }
 
-export default function StickyAddToCart({ productTitle, price, image, isSoldOut, onAddToCart, mainButtonId = "main-add-to-cart" }: StickyAddToCartProps) {
+export default function StickyAddToCart({ productTitle, price, compareAtPrice, image, isSoldOut, onAddToCart, mainButtonId = "main-add-to-cart" }: StickyAddToCartProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -46,13 +47,23 @@ export default function StickyAddToCart({ productTitle, price, image, isSoldOut,
                     {image && <img src={image} alt={productTitle} className="w-10 h-10 object-cover rounded-sm border border-white/10" />}
                     <div>
                         <h4 className="text-[#FAFAF5] font-serif text-sm truncate max-w-[200px]">{productTitle}</h4>
-                        <span className="text-[#d4af37] text-xs font-bold">${price.toLocaleString()}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[#d4af37] text-xs font-bold">${price.toLocaleString()}</span>
+                            {compareAtPrice && compareAtPrice > price && (
+                                <span className="text-gray-500 text-xs line-through decoration-gray-500">${compareAtPrice.toLocaleString()}</span>
+                            )}
+                        </div>
                     </div>
                 </div>
 
                 {/* Mobile Info (Just Price maybe?) */}
                 <div className="md:hidden flex flex-col">
-                    <span className="text-[#d4af37] text-sm font-bold">${price.toLocaleString()}</span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-[#d4af37] text-sm font-bold">${price.toLocaleString()}</span>
+                        {compareAtPrice && compareAtPrice > price && (
+                            <span className="text-gray-500 text-xs line-through decoration-gray-500">${compareAtPrice.toLocaleString()}</span>
+                        )}
+                    </div>
                 </div>
 
                 {/* Button */}

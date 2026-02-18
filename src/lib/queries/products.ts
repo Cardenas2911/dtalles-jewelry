@@ -37,6 +37,14 @@ export const PRODUCT_FRAGMENT = gql`
         id
         sku
         quantityAvailable
+        price {
+          amount
+          currencyCode
+        }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
       }
     }
   }
@@ -97,6 +105,10 @@ export const GET_PRODUCT_DETAILS = gql`
             availableForSale
             quantityAvailable
             price {
+              amount
+              currencyCode
+            }
+            compareAtPrice {
               amount
               currencyCode
             }

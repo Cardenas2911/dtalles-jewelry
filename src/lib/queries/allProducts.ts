@@ -35,6 +35,10 @@ export const ALL_PRODUCTS_QUERY = gql`
                   amount
                   currencyCode
                 }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
               }
             }
           }

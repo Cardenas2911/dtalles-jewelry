@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Cambios y Devoluciones | DTalles Jewelry",
+  description: "Política de devoluciones de DTalles Jewelry. Satisfacción garantizada en todas sus compras de oro 14k.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Devoluciones" }]} />
+
+    <div class="max-w-4xl mx-auto mt-12 animate-fade-in">
+        <header class="text-center mb-16">
+            <h1 class="font-serif text-4xl md:text-5xl text-[#FAFAF5] mb-6">Cambios y Devoluciones</h1>
+            <div class="h-0.5 w-16 bg-[#d4af37] mx-auto opacity-70 mb-8"></div>
+            <p class="text-gray-400 font-light max-w-2xl mx-auto text-lg">
+                Su satisfacción es nuestra prioridad. Si no está completamente enamorado de su joya, estamos aquí para ayudarle.
+            </p>
+        </header>
+
+        <section class="space-y-12 text-gray-300 font-light leading-relaxed">
+            <div class="bg-[#111] p-8 border-l-2 border-[#d4af37]">
+                <h2 class="text-2xl font-serif text-white mb-4">Política General</h2>
+                <p>
+                    Aceptamos devoluciones para reembolso o cambio dentro de los <strong>14 días</strong> posteriores a la fecha de entrega. 
+                    El artículo debe estar en su estado original, sin usar, y con todas las etiquetas y embalajes originales intactos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-serif text-[#d4af37] mb-4">¿Qué se puede devolver?</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li>Joyas de stock regular (cadenas, pulseras estándar).</li>
+                        <li>Artículos con defectos de fabricación (reportados en 48h).</li>
+                        <li>Regalos (se procesarán como crédito en tienda).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif text-[#d4af37] mb-4">No Retornable</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li>Piezas personalizadas (con grabados o nombres).</li>
+                        <li>Artículos en liquidación ("Final Sale").</li>
+                        <li>Joyas que muestren señales de uso o alteración.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-serif text-white mb-4">Proceso de Devolución</h3>
+                 <ol class="list-decimal pl-5 space-y-4 marker:text-[#d4af37]">
+                    <li>
+                        <strong>Solicitud:</strong> Envíenos un correo a soporte@dtallesjewelry.com con su número de orden y motivo de la devolución.
+                    </li>
+                    <li>
+                        <strong>Aprobación:</strong> Recibirá una etiqueta de envío prepagada por correo electrónico (el costo del envío de retorno se deducirá de su reembolso, aprox. $15).
+                    </li>
+                    <li>
+                        <strong>Envío:</strong> Empaquete la joya de forma segura en su caja original y déjelo en la oficina de correos indicada.
+                    </li>
+                    <li>
+                        <strong>Reembolso:</strong> Una vez recibamos e inspeccionemos la pieza (3-5 días hábiles), procesaremos el reembolso a su método de pago original.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+    </div>
+  </div>
+</Layout>

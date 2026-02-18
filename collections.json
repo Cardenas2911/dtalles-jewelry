@@ -1,0 +1,161 @@
+[
+  {
+    "node": {
+      "title": "Hombre",
+      "handle": "hombre",
+      "products": {
+        "edges": []
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Mujer",
+      "handle": "mujer",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Niños",
+      "handle": "ninos",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Aretes Flor de Sakura con Circones en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Religioso",
+      "handle": "religioso",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Religiosos",
+      "handle": "religiosos",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Dijes/Medallas",
+      "handle": "dijes-medallas",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Oro 10k",
+      "handle": "oro-10k",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Regalos",
+      "handle": "regalos",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Pulseras",
+      "handle": "pulseras",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Lo nuevo",
+      "handle": "nuevo",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "node": {
+      "title": "Más Vendidos",
+      "handle": "best-sellers",
+      "products": {
+        "edges": [
+          {
+            "node": {
+              "title": "Pulsera Tejido Entrelazado Graduado en Oro 10k"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

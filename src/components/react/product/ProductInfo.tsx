@@ -13,6 +13,10 @@ interface Variant {
         amount: string;
         currencyCode: string;
     };
+    compareAtPrice?: {
+        amount: string;
+        currencyCode: string;
+    };
     selectedOptions: {
         name: string;
         value: string;
@@ -86,13 +90,26 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </h1>
 
                     {/* Price Row */}
-                    <div className="flex items-baseline gap-4 mb-4">
-                        <span className="text-2xl md:text-3xl font-light text-[#d4af37]">
-                            ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                        </span>
+                    <div className="flex flex-col gap-2 mb-6">
+                        <div className="flex items-baseline gap-4">
+                            <span className="text-3xl md:text-5xl font-serif text-[#d4af37]">
+                                ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                            </span>
+                            {selectedVariant.compareAtPrice && parseFloat(selectedVariant.compareAtPrice.amount) > price && (
+                                <div className="flex flex-col items-start leading-none">
+                                    <span className="text-lg md:text-xl text-gray-400 line-through decoration-red-500/60 decoration-2">
+                                        ${parseFloat(selectedVariant.compareAtPrice.amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                                    </span>
+                                    <span className="bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mt-1 animate-pulse-slow">
+                                        Ahorras {Math.round(((parseFloat(selectedVariant.compareAtPrice.amount) - price) / parseFloat(selectedVariant.compareAtPrice.amount)) * 100)}%
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+
                         {product.pesoReal?.value && (
                             <span className="text-xs text-gray-500 font-mono">
-                                ~${(price / parseFloat(product.pesoReal.value)).toLocaleString('en-US', { maximumFractionDigits: 0 })}/gr
+                                ~${(price / parseFloat(product.pesoReal.value)).toLocaleString('en-US', { maximumFractionDigits: 0 })}/gr (Oro Sólido)
                             </span>
                         )}
                     </div>
@@ -173,6 +190,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
             <StickyAddToCart
                 productTitle={product.title}
                 price={price}
+                compareAtPrice={selectedVariant.compareAtPrice ? parseFloat(selectedVariant.compareAtPrice.amount) : undefined}
                 image={product.featuredImage?.url || ''}
                 isSoldOut={isSoldOut}
                 onAddToCart={handleAddToCart}

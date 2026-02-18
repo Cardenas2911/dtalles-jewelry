@@ -1,0 +1,66 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Garantía de Por Vida | DTalles Jewelry",
+  description: "Nuestra promesa de calidad. Garantía de por vida en la autenticidad del Oro 14k.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Garantía" }]} />
+
+    <div class="max-w-4xl mx-auto mt-12 animate-fade-in">
+        <div class="text-center mb-16 bg-[#111] p-12 border border-[#d4af37]/30 relative overflow-hidden">
+             {/* Decorative background element */}
+             <div class="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-[#d4af37] rounded-full mix-blend-overlay opacity-10 filter blur-3xl"></div>
+             
+             <span class="material-symbols-outlined text-6xl text-[#d4af37] mb-6">verified_user</span>
+             <h1 class="font-serif text-4xl md:text-5xl text-[#FAFAF5] mb-6">Garantía de Por Vida</h1>
+             <p class="text-gray-300 text-lg font-light max-w-xl mx-auto">
+                Cuando compra en DTalles, está invirtiendo en calidad real. Respaldamos cada gramo que vendemos.
+             </p>
+        </div>
+
+        <section class="space-y-16">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1">
+                    <h2 class="text-2xl font-serif text-[#d4af37] mb-4">Autenticidad del Metal</h2>
+                    <p class="text-gray-400 font-light leading-relaxed mb-4">
+                        Garantizamos de por vida que su pieza es de <strong>Oro 14k Sólido</strong>. Si en algún momento, mediante prueba profesional, se determina que el metal no cumple con los estándares de kilataje (14k/585), le reemplazaremos la pieza o le devolveremos el 100% de su dinero.
+                    </p>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest">Nunca se despinta • Nunca se oxida</p>
+                </div>
+                <div class="flex-1 border-l border-white/10 pl-8">
+                     <h2 class="text-2xl font-serif text-white mb-4">Defectos de Fabricación</h2>
+                    <p class="text-gray-400 font-light leading-relaxed">
+                        Cubrimos cualquier defecto de estructura o ensamblaje durante los primeros <strong>30 días</strong>. Broches defectuosos, eslabones mal soldados o piedras sueltas (en engastes de fábrica) serán reparados sin costo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-red-900/10 border border-red-500/20 p-8 rounded-sm">
+                <h3 class="text-xl font-serif text-red-200 mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined">warning</span> Exclusiones
+                </h3>
+                <p class="text-gray-400 font-light text-sm mb-4">
+                    Nuestra garantía no cubre daños causados por el uso diario normal, accidentes, o negligencia. Esto incluye:
+                </p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-gray-500">
+                    <li>Cadenas estiradas o rotas por tirones.</li>
+                    <li>Abolladuras o rayones por impacto.</li>
+                    <li>Pérdida de piedras por golpes (después de 30 días).</li>
+                    <li>Piezas reparadas por terceros no autorizados.</li>
+                </ul>
+            </div>
+            
+             <div class="text-center">
+                <p class="text-gray-300 mb-6">¿Necesita solicitar servicio de garantía?</p>
+                <a href="/contacto" class="text-[#d4af37] underline underline-offset-4 hover:text-white transition-colors">Contáctenos aquí</a>
+            </div>
+        </section>
+    </div>
+  </div>
+</Layout>

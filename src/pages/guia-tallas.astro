@@ -1,0 +1,122 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Guía de Tallas | DTalles Jewelry",
+  description: "Encuentre su talla perfecta de anillo, cadena o pulsera con nuestra guía completa.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Guía de Tallas" }]} />
+
+    <div class="max-w-5xl mx-auto mt-12 animate-fade-in">
+        <div class="text-center mb-16">
+            <h1 class="font-serif text-4xl md:text-5xl text-[#FAFAF5] mb-6">Guía de Tallas</h1>
+            <p class="text-gray-400 font-light max-w-2xl mx-auto">
+                Asegure el ajuste perfecto. Use nuestras tablas de referencia para cadenas, anillos y pulseras.
+            </p>
+        </div>
+
+        {/* Chains Section */}
+        <section class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-px bg-[#d4af37] w-12"></span>
+                <h2 class="text-2xl font-serif text-white">Largo de Cadenas</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-gray-400 font-light text-sm leading-relaxed">
+                    <p>
+                        El largo adecuado depende de su estilo personal y de dónde desea que descanse la cadena.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex gap-4">
+                            <span class="font-bold text-white w-16">16" (40cm)</span>
+                            <span>Gargantilla (Choker). Descansa en la base del cuello. Ideal para mujeres.</span>
+                        </li>
+                         <li class="flex gap-4">
+                            <span class="font-bold text-white w-16">18" (45cm)</span>
+                            <span>Estándar Mujer. Cae justo sobre la clavícula.</span>
+                        </li>
+                         <li class="flex gap-4">
+                            <span class="font-bold text-white w-16">20" (50cm)</span>
+                            <span>Estándar Hombre / Largo Mujer. Cae unos centímetros debajo de la clavícula.</span>
+                        </li>
+                         <li class="flex gap-4">
+                            <span class="font-bold text-white w-16">22" (55cm)</span>
+                            <span>Largo Medio. Cae en la parte superior del pecho.</span>
+                        </li>
+                         <li class="flex gap-4">
+                            <span class="font-bold text-white w-16">24" (60cm)</span>
+                            <span>Largo Clásico Hombre. Cae en el centro del pecho.</span>
+                        </li>
+                    </ul>
+                </div>
+                 <div class="bg-[#111] h-64 border border-white/5 flex items-center justify-center text-gray-600">
+                     {/* Placeholder for visual aid */}
+                    <p class="text-xs uppercase tracking-widest">[Imagen de referencia cuellos]</p>
+                </div>
+            </div>
+        </section>
+
+        {/* Rings Section */}
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-px bg-[#d4af37] w-12"></span>
+                <h2 class="text-2xl font-serif text-white">Tallas de Anillos</h2>
+            </div>
+             <p class="text-gray-400 font-light mb-8 max-w-2xl">
+                Mida la circunferencia de su dedo en milímetros (mm) para encontrar su talla USA.
+            </p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-white/10 text-[#d4af37] text-xs uppercase tracking-widest">
+                            <th class="py-4 px-4">Talla USA</th>
+                            <th class="py-4 px-4">Diámetro (mm)</th>
+                            <th class="py-4 px-4">Circunferencia (mm)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 text-sm font-light">
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">5</td>
+                            <td class="py-4 px-4">15.7 mm</td>
+                            <td class="py-4 px-4">49.3 mm</td>
+                        </tr>
+                         <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">6</td>
+                            <td class="py-4 px-4">16.5 mm</td>
+                            <td class="py-4 px-4">51.9 mm</td>
+                        </tr>
+                         <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">7</td>
+                            <td class="py-4 px-4">17.3 mm</td>
+                            <td class="py-4 px-4">54.4 mm</td>
+                        </tr>
+                         <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">8</td>
+                            <td class="py-4 px-4">18.1 mm</td>
+                            <td class="py-4 px-4">57.0 mm</td>
+                        </tr>
+                         <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">9</td>
+                            <td class="py-4 px-4">19.0 mm</td>
+                            <td class="py-4 px-4">59.5 mm</td>
+                        </tr>
+                         <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-4 font-bold">10</td>
+                            <td class="py-4 px-4">19.8 mm</td>
+                            <td class="py-4 px-4">62.1 mm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+  </div>
+</Layout>

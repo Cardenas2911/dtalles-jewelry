@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Guía de Regalos | DTalles Jewelry",
+  description: "Encuentra el regalo perfecto. Joyas de oro 14k para cada ocasión: aniversarios, cumpleaños y momentos especiales.",
+};
+
+const categories = [
+    {
+        title: "Para Ella",
+        img: "/images/gifts-her.webp", // Placeholder needs real image or gradient
+        desc: "Piezas delicadas y elegantes",
+        href: "/coleccion/mujer",
+        color: "from-pink-900/50"
+    },
+    {
+        title: "Para Él",
+        img: "/images/gifts-him.webp",
+        desc: "Cadenas y esclavas sólidas",
+        href: "/coleccion/hombre",
+        color: "from-blue-900/50"
+    },
+    {
+        title: "Religiosos",
+        img: "/images/gifts-religious.webp",
+        desc: "Símbolos de fe y protección",
+        href: "/coleccion/religiosa",
+        color: "from-yellow-900/50"
+    },
+    {
+        title: "Para Niños",
+        img: "/images/gifts-kids.webp",
+        desc: "Sus primeras joyas de oro",
+        href: "/coleccion/ninos",
+        color: "from-purple-900/50"
+    }
+];
+
+const occasions = [
+    { title: "Cumpleaños", icon: "cake" },
+    { title: "Aniversario", icon: "favorite" },
+    { title: "Bautizo", icon: "water_drop" },
+    { title: "Graduación", icon: "school" }
+];
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Guía de Regalos" }]} />
+
+    {/* Hero Section */}
+    <div class="text-center max-w-4xl mx-auto mt-12 mb-20 animate-fade-in">
+        <span class="text-[#d4af37] text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+          The Gifting Suite
+        </span>
+        <h1 class="font-serif text-4xl md:text-6xl text-[#FAFAF5] mb-6">
+          El Arte de Regalar
+        </h1>
+        <p class="text-gray-400 font-light text-lg max-w-xl mx-auto">
+          Porque una joya de Oro 14k no es solo un regalo, es un recuerdo para toda la vida. Encuentra la pieza perfecta para esa persona especial.
+        </p>
+    </div>
+
+    {/* Main Categories Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto mb-24">
+        {categories.map((cat) => (
+            <a href={cat.href} class="group relative h-[400px] overflow-hidden rounded-sm border border-white/5 hover:border-[#d4af37]/50 transition-colors duration-500">
+                {/* Background (Gradient for now as generic images might not exist) */}
+                <div class={`absolute inset-0 bg-gradient-to-br ${cat.color} to-black opacity-60 group-hover:opacity-80 transition-opacity duration-500`}></div>
+                
+                {/* Content */}
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10">
+                    <h3 class="font-serif text-3xl md:text-4xl text-white mb-2 transform group-hover:-translate-y-2 transition-transform duration-500">{cat.title}</h3>
+                    <p class="text-gray-300 font-light text-sm tracking-wide opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                        {cat.desc}
+                    </p>
+                    <span class="mt-8 text-[#d4af37] text-xs uppercase tracking-widest border border-[#d4af37]/30 px-6 py-2 rounded-full hover:bg-[#d4af37] hover:text-black transition-all">
+                        Explorar Colección
+                    </span>
+                </div>
+            </a>
+        ))}
+    </div>
+
+    {/* Occasions Banner */}
+    <div class="bg-[#111] border-y border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+             <h2 class="font-serif text-2xl text-white mb-12">Regalos por Ocasión</h2>
+             <div class="flex flex-wrap justify-center gap-12 md:gap-24">
+                 {occasions.map((occ) => (
+                     <div class="flex flex-col items-center gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
+                         <div class="w-16 h-16 rounded-full border border-[#d4af37]/30 flex items-center justify-center text-[#d4af37] bg-[#050505] group-hover:scale-110 transition-transform duration-300">
+                             <span class="material-symbols-outlined text-2xl">{occ.icon}</span>
+                         </div>
+                         <span class="text-sm font-light text-gray-300 uppercase tracking-widest">{occ.title}</span>
+                     </div>
+                 ))}
+             </div>
+        </div>
+    </div>
+
+    {/* Concierge CTA */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0 max-w-6xl mx-auto mt-24 border border-white/10 bg-[#0a0a0a]">
+        <div class="p-12 md:p-20 flex flex-col justify-center">
+            <span class="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-4">Servicio Personalizado</span>
+            <h2 class="font-serif text-3xl text-white mb-6">¿Indeciso? Déjanos ayudarte.</h2>
+            <p class="text-gray-400 font-light mb-8 leading-relaxed">
+                Nuestros expertos en joyería pueden ayudarte a seleccionar la pieza perfecta basada en tu presupuesto y la ocasión. Escríbenos para una asesoría VIP.
+            </p>
+            <a href="/contacto" class="inline-flex items-center gap-2 text-white border-b border-[#d4af37] pb-1 hover:text-[#d4af37] transition-colors w-fit">
+                <span>Contactar a un Experto</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+        <div class="relative min-h-[300px] bg-[#111] flex items-center justify-center">
+             <span class="material-symbols-outlined text-8xl text-white/5">diamond</span>
+        </div>
+    </div>
+
+  </div>
+</Layout>

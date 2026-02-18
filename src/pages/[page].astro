@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { client as shopifyClient } from "../lib/shopify";
+import { gql } from "graphql-request";
+import { GET_PAGE } from "../lib/queries/pages";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+// SSG: Fetch all pages to generate paths
+export async function getStaticPaths() {
+  const GET_ALL_PAGES = gql`
+    query getAllPages {
+      pages(first: 20) {
+        edges {
+          node {
+            handle
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await shopifyClient.request(GET_ALL_PAGES);
+    const pages = response.data?.pages?.edges?.map((edge: any) => edge.node) || [];
+    
+    // Add default pages if not returned by Shopify to prevent build error if empty
+    // But ideally we only want pages that exist. 
+    // If Shopify returns 0 pages, this returns empty array -> no pages generated.
+    
+    return pages.map((page: any) => ({
+      params: { page: page.handle },
+    }));
+  } catch (error) {
+    console.error("Error fetching pages for SSG:", error);
+    return [];
+  }
+}
+
+const { page } = Astro.params;
+
+let pageData = null;
+let error = false;
+
+if (page) {
+  try {
+    const response = await shopifyClient.request(GET_PAGE, {
+      handle: page,
+    });
+    pageData = response.data?.pageByHandle;
+  } catch (err) {
+    console.error(`Error fetching page ${page}:`, err);
+    error = true;
+  }
+}
+
+// 404 Handling (Basic)
+if (!pageData && !error) {
+    // Ideally Astro.redirect('/404') or return a 404 response
+}
+
+const seo = {
+  title: pageData?.seo?.title || pageData?.title || "Página no encontrada",
+  description: pageData?.seo?.description || pageData?.bodySummary || "Información de DTalles Jewelry",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-4xl mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[60vh]">
+    <div class="mb-8">
+       <Breadcrumbs
+        items={[
+          { label: "Inicio", href: "/" },
+          { label: pageData?.title || page || "Información" },
+        ]}
+      />
+    </div>
+
+    {
+      pageData ? (
+        <article class="animate-fade-in">
+          <header class="text-center mb-12">
+             <h1 class="font-serif text-3xl md:text-5xl text-[#FAFAF5] mb-6">
+              {pageData.title}
+            </h1>
+            <div class="h-0.5 w-16 bg-[#d4af37] mx-auto opacity-70" />
+          </header>
+
+          <div 
+            class="prose prose-invert prose-lg mx-auto text-gray-300 font-light leading-relaxed prose-headings:font-serif prose-headings:text-[#d4af37] prose-a:text-[#d4af37] prose-strong:text-white prose-blockquote:border-l-[#d4af37] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-4"
+            set:html={pageData.body}
+          />
+        </article>
+      ) : (
+        <div class="text-center py-20">
+          <h1 class="text-3xl text-gray-500 mb-4">Página no disponible</h1>
+          <p class="text-gray-400 mb-8">
+            El contenido que buscas ({page}) no existe o ha sido movido.
+          </p>
+          <a
+            href="/"
+            class="inline-block px-8 py-3 border border-[#d4af37]/50 text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
+          >
+            Volver al Inicio
+          </a>
+        </div>
+      )
+    }
+  </div>
+</Layout>

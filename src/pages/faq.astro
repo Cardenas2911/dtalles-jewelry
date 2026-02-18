@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Preguntas Frecuentes | DTalles Jewelry",
+  description: "Respuestas a tus dudas sobre envíos, garantías, autenticidad del oro y métodos de pago.",
+};
+
+const faqs = [
+  {
+    question: "¿Las joyas son de oro auténtico?",
+    answer: "Absolutamente. En DTalles Jewelry garantizamos que todas nuestras piezas son de Oro 14k Sólido. No vendemos chapado (plated) ni 'gold filled'. Cada pieza viene con su sello de autenticidad y garantía de por vida sobre la calidad del metal."
+  },
+  {
+    question: "¿Hacen envíos a todo Estados Unidos?",
+    answer: "Sí, realizamos envíos seguros y asegurados a todos los estados de USA. Trabajamos con USPS y UPS para garantizar que su pedido llegue a tiempo y en perfectas condiciones."
+  },
+  {
+    question: "¿Cuánto tarda en llegar mi pedido?",
+    answer: "Los pedidos se procesan en 24-48 horas hábiles. El envío estándar suele tomar de 3 a 5 días laborables, mientras que el envío express puede llegar en 1-2 días dependiendo de su ubicación."
+  },
+  {
+    question: "¿Ofrecen financiamiento?",
+    answer: "Sí, ofrecemos opciones de financiamiento a través de Affirm y otros proveedores, permitiéndole pagar su joya en cómodas cuotas."
+  },
+  {
+    question: "¿Tienen tienda física?",
+    answer: "Sí, estamos ubicados en Miami, Florida. Puede visitarnos en 3949 NW 7th St d, Miami, FL 33126 para ver nuestra colección en persona."
+  },
+  {
+    question: "¿Cuál es la política de devoluciones?",
+    answer: "Aceptamos cambios y devoluciones dentro de los primeros días posteriores a su compra, siempre que la pieza esté en su estado original y sin uso. Por favor consulte nuestra página de Políticas de Devolución para más detalles específicos."
+  }
+];
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "FAQ" }]} />
+
+    <div class="max-w-4xl mx-auto mt-12">
+      <div class="text-center mb-16 animate-fade-in">
+        <span class="text-[#d4af37] text-xs font-bold uppercase tracking-[0.2em] mb-4 block">
+          Ayuda y Soporte
+        </span>
+        <h1 class="font-serif text-4xl md:text-6xl text-[#FAFAF5] mb-6">
+          Preguntas Frecuentes
+        </h1>
+        <p class="text-gray-400 font-light max-w-xl mx-auto">
+          Hemos recopilado las dudas más comunes de nuestros clientes. Si no encuentras tu respuesta, contáctanos.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <details class="group bg-[#111] border border-white/5 open:border-[#d4af37]/30 transition-all duration-300 rounded-sm">
+            <summary class="flex justify-between items-center p-6 cursor-pointer list-none text-white font-medium hover:text-[#d4af37] transition-colors">
+              <span class="text-lg font-serif tracking-wide">{faq.question}</span>
+              <span class="material-symbols-outlined text-[#d4af37] group-open:rotate-180 transition-transform duration-300">
+                expand_more
+              </span>
+            </summary>
+            <div class="px-6 pb-6 text-gray-400 font-light leading-relaxed border-t border-white/5 pt-4">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+       <div class="mt-20 text-center p-12 border border-[#d4af37]/20 bg-[#0a0a0a] rounded-sm">
+            <h3 class="text-2xl font-serif text-white mb-4">¿Aún tienes dudas?</h3>
+            <p class="text-gray-400 mb-8">Nuestro equipo está disponible para ayudarte por WhatsApp o Correo.</p>
+            <a href="/contacto" class="inline-block px-8 py-3 bg-[#d4af37] text-black font-bold uppercase tracking-widest text-xs hover:bg-white transition-colors">
+                Contactar Soporte
+            </a>
+       </div>
+    </div>
+  </div>
+</Layout>

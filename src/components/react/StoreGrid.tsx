@@ -13,6 +13,21 @@ interface Product {
             currencyCode: string;
         };
     };
+    compareAtPrice?: { // Add this if it comes from the top query, but specialized Grid queries often fetch it in variants
+        amount: string;
+        currencyCode: string;
+    };
+    variants?: { // Ensure variants structure matches what ProductCard expects
+        edges: Array<{
+            node: {
+                id: string;
+                compareAtPrice?: {
+                    amount: string;
+                    currencyCode: string;
+                };
+            };
+        }>;
+    };
     featuredImage: {
         url: string;
         altText: string;

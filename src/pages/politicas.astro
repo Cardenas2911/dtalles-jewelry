@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Política de Privacidad | DTalles Jewelry",
+  description: "Cómo protegemos y utilizamos sus datos personales en DTalles Jewelry.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Privacidad" }]} />
+
+    <div class="max-w-3xl mx-auto mt-12 animate-fade-in">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#FAFAF5] mb-8">Política de Privacidad</h1>
+        
+        <div class="prose prose-invert prose-sm text-gray-400 font-light leading-relaxed">
+            <p>Última actualización: {new Date().toLocaleDateString()}</p>
+            
+            <h3>1. Información que Recopilamos</h3>
+            <p>
+                Recopilamos información personal que usted nos proporciona voluntariamente al realizar una compra, registrarse en nuestro sitio o suscribirse a nuestro boletín. Esto puede incluir su nombre, dirección de correo electrónico, dirección postal, número de teléfono e información de pago.
+            </p>
+
+            <h3>2. Uso de su Información</h3>
+            <p>
+                Utilizamos su información para:
+            </p>
+            <ul>
+                <li>Procesar y enviar sus pedidos.</li>
+                <li>Comunicarnos con usted sobre el estado de su orden.</li>
+                <li>Mejorar nuestro sitio web y servicio al cliente.</li>
+                <li>Enviarle correos electrónicos promocionales (si ha optado por recibirlos).</li>
+            </ul>
+
+            <h3>3. Protección de Datos</h3>
+            <p>
+                Implementamos una variedad de medidas de seguridad para mantener la seguridad de su información personal. Su información de pago se procesa a través de pasarelas seguras (Shopify Payments) y no se almacena en nuestros servidores.
+            </p>
+
+            <h3>4. Cookies</h3>
+            <p>
+                Utilizamos cookies para mejorar su experiencia en nuestro sitio, recordar sus preferencias y analizar el tráfico del sitio.
+            </p>
+             <h3>5. Contacto</h3>
+            <p>
+                Si tiene preguntas sobre esta política, contáctenos en privacidad@dtallesjewelry.com.
+            </p>
+        </div>
+    </div>
+  </div>
+</Layout>

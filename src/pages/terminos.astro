@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Términos del Servicio | DTalles Jewelry",
+  description: "Términos y condiciones de uso del sitio web DTalles Jewelry.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Términos" }]} />
+
+    <div class="max-w-3xl mx-auto mt-12 animate-fade-in">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#FAFAF5] mb-8">Términos del Servicio</h1>
+        
+        <div class="prose prose-invert prose-sm text-gray-400 font-light leading-relaxed">
+            <p>Bienvenido a DTalles Jewelry. Al acceder a este sitio, usted acepta estar vinculado por estos términos y condiciones.</p>
+
+            <h3>1. Uso del Sitio</h3>
+            <p>
+                Usted acepta usar este sitio solo para fines legales y de una manera que no infrinja los derechos de, ni restrinja o inhiba el uso y disfrute del sitio por parte de terceros.
+            </p>
+
+            <h3>2. Productos y Precios</h3>
+            <p>
+                Nos esforzamos por mostrar con la mayor precisión posible los colores e imágenes de nuestros productos. Nos reservamos el derecho de limitar las cantidades de cualquier producto o servicio que ofrecemos. Los precios están sujetos a cambios sin previo aviso acorde al mercado del oro.
+            </p>
+
+            <h3>3. Exactitud de la Información</h3>
+            <p>
+                No somos responsables si la información disponible en este sitio no es precisa, completa o actual. El material en este sitio se proporciona solo para información general.
+            </p>
+            
+            <h3>4. Ley Aplicable</h3>
+            <p>
+                Estos términos se regirán e interpretarán de acuerdo con las leyes del Estado de Florida, Estados Unidos.
+            </p>
+        </div>
+    </div>
+  </div>
+</Layout>

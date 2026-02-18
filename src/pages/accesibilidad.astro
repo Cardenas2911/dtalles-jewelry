@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Declaración de Accesibilidad | DTalles Jewelry",
+  description: "Nuestro compromiso con la accesibilidad digital para todos nuestros clientes.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Accesibilidad" }]} />
+
+    <div class="max-w-3xl mx-auto mt-12 animate-fade-in">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#FAFAF5] mb-8">Accesibilidad</h1>
+        
+        <div class="prose prose-invert prose-sm text-gray-400 font-light leading-relaxed">
+            <p>
+                En DTalles Jewelry, estamos comprometidos a garantizar que nuestro sitio web sea accesible para personas con discapacidades. Continuamente buscamos mejorar la experiencia del usuario para todos y aplicar los estándares de accesibilidad relevantes.
+            </p>
+
+            <h3>Medidas de Apoyo</h3>
+            <p>DTalles Jewelry toma las siguientes medidas para garantizar la accesibilidad:</p>
+            <ul>
+                <li>Incluir accesibilidad como parte de nuestra declaración de misión interna.</li>
+                <li>Integrar prácticas de accesibilidad en nuestros procesos de desarrollo web (contraste de color, navegación por teclado, etiquetas ARIA).</li>
+            </ul>
+
+            <h3>Estado de Conformidad</h3>
+            <p>
+                Las Pautas de Accesibilidad al Contenido en la Web (WCAG) definen los requisitos para que los diseñadores y desarrolladores mejoren la accesibilidad para las personas con discapacidades. Nos esforzamos por cumplir con el nivel AA de WCAG 2.1.
+            </p>
+
+            <h3>Feedback</h3>
+            <p>
+                Agradecemos sus comentarios sobre la accesibilidad de DTalles Jewelry. Por favor avísenos si encuentra barreras de accesibilidad:
+                <br />
+                Email: accesibilidad@dtallesjewelry.com
+            </p>
+        </div>
+    </div>
+  </div>
+</Layout>
