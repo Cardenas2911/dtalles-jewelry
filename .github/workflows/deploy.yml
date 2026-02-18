@@ -16,6 +16,9 @@ concurrency:
 
 env:
   BUILD_PATH: "."
+  PUBLIC_SHOPIFY_STORE_DOMAIN: dtallesjewelry.com
+  PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: 851965f8a7e17cf35de22fdcbe44c100
+  PUBLIC_STOREFRONT_API_VERSION: "2025-10"
 
 jobs:
   build:
