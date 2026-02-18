@@ -9,8 +9,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://cardenas2911.github.io',
-  base: '/',
-  // base: process.env.NODE_ENV === 'production' ? '/dtalles-jewelry' : '/',
+  base: '/dtalles-jewelry',
   server: {
     host: true,
     port: 4321
