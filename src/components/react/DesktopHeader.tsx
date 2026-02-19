@@ -47,8 +47,8 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Box Chain', href: f(undefined, 'box chain') },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
-        alt: 'Cadena Cubana de Oro 10k - Joyeria Exclusiva para Hombre',
-        promoText: 'EL BRILLO CLASICO'
+        alt: 'Cadena Cubana de Oro 10k - Joyería Exclusiva para Hombre',
+        promoText: 'EL BRILLO CLÁSICO'
     },
     {
         label: 'Mujer', href: resolvePath('/mujer'),
@@ -65,50 +65,50 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Sets de Oro', href: f(undefined, 'set oro') },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
-        alt: 'Joyeria Fina de Oro para Mujer - Aretes y Collares',
+        alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
         promoText: 'ELEGANCIA PURA'
     },
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
-            { label: 'Cruces', href: f(undefined, 'joyeria religiosa') },
-            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyeria religiosa') },
-            { label: 'Anillos', href: f('Anillo', 'joyeria religiosa') },
+            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
+            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
+            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
             { label: 'Amuletos', href: f(undefined, 'amuleto') },
         ],
         styles: [
             { label: 'Cruz Minimalista', href: f(undefined, 'cruz minimalista') },
             { label: 'Casino', href: f(undefined, 'casino') },
             { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
-            { label: 'San Valentin', href: f(undefined, 'san valentin') },
+            { label: 'San Valentín', href: f(undefined, 'san valentin') },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
-        alt: 'Medallas y Cruces de Oro 10k - Coleccion Religiosa',
-        promoText: 'DEVOCION EN ORO'
+        alt: 'Medallas y Cruces de Oro 10k - Colección Religiosa',
+        promoText: 'DEVOCIÓN EN ORO'
     },
     {
-        label: 'Ninos', href: resolvePath('/ninos'),
+        label: 'Niños', href: resolvePath('/ninos'),
         categories: [
-            { label: 'Aretes', href: f('Aretes', 'nina') },
+            { label: 'Aretes', href: f('Aretes', 'niña') },
             { label: 'Broqueles', href: f(undefined, 'broqueles') },
-            { label: 'Pulseras', href: f('Pulsera', 'nina') },
-            { label: 'Cadenas', href: f('Cadena', 'nina') },
+            { label: 'Pulseras', href: f('Pulsera', 'niña') },
+            { label: 'Cadenas', href: f('Cadena', 'niña') },
         ],
         styles: [
             { label: 'Florales', href: f(undefined, 'floral jewelry') },
             { label: 'Mariquitas', href: f(undefined, 'aretes mariquita') },
             { label: 'Ligeros', href: f(undefined, 'ligeros') },
-            { label: 'Basicos', href: f(undefined, 'basicos') },
+            { label: 'Básicos', href: f(undefined, 'básicos') },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
-        alt: 'Joyeria de Oro para Ninos y Bebes - Hipoalergenico',
-        promoText: 'PEQUENOS TESOROS'
+        alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
+        promoText: 'PEQUEÑOS TESOROS'
     },
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: [
             { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
-            { label: 'Para El', href: f(undefined, 'regalo hombre') },
+            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
             { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
             { label: 'Lujo', href: f(undefined, 'regalo lujo') },
         ],
@@ -119,7 +119,7 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Para Novia', href: f(undefined, 'regalo novia') },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
-        alt: 'Regalos de Joyeria en Oro - Detalles Especiales y Aniversarios',
+        alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
         promoText: 'MOMENTOS DE ORO'
     },
     { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), highlight: true },
@@ -186,7 +186,7 @@ export default function DesktopHeader() {
             <div className={`w-full text-center py-2 text-[10px] uppercase tracking-widest font-medium transition-colors duration-300
                 ${isScrolled ? 'bg-[#050505]/95 text-[#d4af37]/60' : 'bg-[#d4af37]/10 text-[#d4af37]'}
             `}>
-                Envio asegurado a todo USA &nbsp; · &nbsp; Oro Solido 10k Certificado &nbsp; · &nbsp; Garantia de por vida
+                Envío asegurado a todo USA &nbsp; · &nbsp; Oro Sólido 10k Certificado &nbsp; · &nbsp; Garantía de por vida
             </div>
 
             {/* Main Header Bar */}
@@ -200,7 +200,7 @@ export default function DesktopHeader() {
                         <a href={resolvePath('/')} className="block group">
                             <img
                                 src={resolvePath('/images/Logo.webp')}
-                                alt="Dtalles Jewelry - Joyeria de Oro en Miami"
+                                alt="Dtalles Jewelry - Joyería de Oro en Miami"
                                 className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
                             />
                         </a>
@@ -295,7 +295,7 @@ export default function DesktopHeader() {
                 </div>
             </div>
 
-            {/* Overlay */}
+            {/* Overlay del mega menú */}
             {activeMenu && activeItem && !activeItem.highlight && (
                 <div
                     className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
@@ -324,10 +324,10 @@ export default function DesktopHeader() {
                     <div className="max-w-7xl mx-auto px-12 py-10 relative">
                         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
                         <div className="grid grid-cols-4 gap-8">
-                            {/* Col 1: Categorias */}
+                            {/* Col 1: Categorías */}
                             <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
-                                    <span className="w-3 h-px bg-[#d4af37]" /> Categorias
+                                    <span className="w-3 h-px bg-[#d4af37]" /> Categorías
                                 </h4>
                                 <ul className="space-y-3">
                                     {activeItem.categories?.map(cat => (
@@ -373,7 +373,7 @@ export default function DesktopHeader() {
                                 />
                                 <div className="absolute bottom-5 left-5 z-20">
                                     <span className="text-[#d4af37] text-[9px] font-bold uppercase tracking-[3px] mb-1.5 block">
-                                        Coleccion destacada
+                                        Colección destacada
                                     </span>
                                     <h3 className="text-white font-serif text-xl leading-tight">{activeItem.promoText}</h3>
                                     <a href={activeItem.href} className="mt-2 inline-block text-[10px] text-[#d4af37] uppercase tracking-widest border-b border-[#d4af37]/50 pb-0.5 hover:border-[#d4af37]">

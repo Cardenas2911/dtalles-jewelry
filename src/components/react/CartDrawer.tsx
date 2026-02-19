@@ -63,14 +63,14 @@ export default function CartDrawer() {
         <>
             {/* Overlay */}
             <div
-                className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300 ${$isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${$isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                     }`}
                 onClick={() => setIsCartOpen(false)}
             />
 
             {/* Drawer */}
             <div
-                className={`fixed top-0 right-0 h-full w-full max-w-md bg-[#050505] text-[#FAFAF5] shadow-2xl transform transition-transform duration-300 z-50 flex flex-col border-l border-[#d4af37]/20 ${$isCartOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-full w-full max-w-md bg-[#050505] text-[#FAFAF5] shadow-2xl transform transition-transform duration-300 z-[60] flex flex-col border-l border-[#d4af37]/20 ${$isCartOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 {/* Header */}
