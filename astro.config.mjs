@@ -8,8 +8,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cardenas2911.github.io',
-  base: '/dtalles-jewelry',
+  site: 'https://dtallesjewelry.com',
+  // Sin 'base' — con dominio personalizado el sitio sirve desde la raíz
   server: {
     host: true,
     port: 4321

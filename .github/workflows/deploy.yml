@@ -16,9 +16,6 @@ concurrency:
 
 env:
   BUILD_PATH: "."
-  PUBLIC_SHOPIFY_STORE_DOMAIN: dtallesjewelry.com
-  PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: 851965f8a7e17cf35de22fdcbe44c100
-  PUBLIC_STOREFRONT_API_VERSION: "2025-10"
 
 jobs:
   build:
@@ -44,11 +41,12 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Build with Astro
-        run: |
-          npx astro build \
-            --site "${{ steps.pages.outputs.origin }}" \
-            --base "${{ steps.pages.outputs.base_path }}"
+        run: npx astro build
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+          PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          PUBLIC_STOREFRONT_API_VERSION: "2025-10"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
