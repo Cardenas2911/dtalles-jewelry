@@ -28,7 +28,7 @@ const f = (productType?: string, tag?: string) => {
     return `${base}?${params.toString()}`;
 };
 
-// Navigation Data â€” tags verificados contra Shopify el 2026-02-19
+// Navigation Data — tags verificados contra Shopify el 2026-02-19
 const NAV_ITEMS: NavItem[] = [
     { label: 'Inicio', href: resolvePath('/'), simple: true },
     { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
@@ -47,8 +47,8 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Box Chain', href: f(undefined, 'box chain') },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
-        alt: 'Cadena Cubana de Oro 10k - JoyerÃ­a Exclusiva para Hombre',
-        promoText: 'EL BRILLO CLÃSICO'
+        alt: 'Cadena Cubana de Oro 10k - Joyeria Exclusiva para Hombre',
+        promoText: 'EL BRILLO CLASICO'
     },
     {
         label: 'Mujer', href: resolvePath('/mujer'),
@@ -65,50 +65,50 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Sets de Oro', href: f(undefined, 'set oro') },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
-        alt: 'JoyerÃ­a Fina de Oro para Mujer - Aretes y Collares',
+        alt: 'Joyeria Fina de Oro para Mujer - Aretes y Collares',
         promoText: 'ELEGANCIA PURA'
     },
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
-            { label: 'Cruces', href: f(undefined, 'joyerÃ­a religiosa') },
-            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyerÃ­a religiosa') },
-            { label: 'Anillos', href: f('Anillo', 'joyerÃ­a religiosa') },
+            { label: 'Cruces', href: f(undefined, 'joyeria religiosa') },
+            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyeria religiosa') },
+            { label: 'Anillos', href: f('Anillo', 'joyeria religiosa') },
             { label: 'Amuletos', href: f(undefined, 'amuleto') },
         ],
         styles: [
             { label: 'Cruz Minimalista', href: f(undefined, 'cruz minimalista') },
             { label: 'Casino', href: f(undefined, 'casino') },
             { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
-            { label: 'San ValentÃ­n', href: f(undefined, 'san valentin') },
+            { label: 'San Valentin', href: f(undefined, 'san valentin') },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
-        alt: 'Medallas y Cruces de Oro 10k - ColecciÃ³n Religiosa',
-        promoText: 'DEVOCIÃ“N EN ORO'
+        alt: 'Medallas y Cruces de Oro 10k - Coleccion Religiosa',
+        promoText: 'DEVOCION EN ORO'
     },
     {
-        label: 'NiÃ±os', href: resolvePath('/ninos'),
+        label: 'Ninos', href: resolvePath('/ninos'),
         categories: [
-            { label: 'Aretes', href: f('Aretes', 'niÃ±a') },
+            { label: 'Aretes', href: f('Aretes', 'nina') },
             { label: 'Broqueles', href: f(undefined, 'broqueles') },
-            { label: 'Pulseras', href: f('Pulsera', 'niÃ±a') },
-            { label: 'Cadenas', href: f('Cadena', 'niÃ±a') },
+            { label: 'Pulseras', href: f('Pulsera', 'nina') },
+            { label: 'Cadenas', href: f('Cadena', 'nina') },
         ],
         styles: [
             { label: 'Florales', href: f(undefined, 'floral jewelry') },
             { label: 'Mariquitas', href: f(undefined, 'aretes mariquita') },
             { label: 'Ligeros', href: f(undefined, 'ligeros') },
-            { label: 'BÃ¡sicos', href: f(undefined, 'bÃ¡sicos') },
+            { label: 'Basicos', href: f(undefined, 'basicos') },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
-        alt: 'JoyerÃ­a de Oro para NiÃ±os y BebÃ©s - HipoalergÃ©nico',
-        promoText: 'PEQUEÃ‘OS TESOROS'
+        alt: 'Joyeria de Oro para Ninos y Bebes - Hipoalergenico',
+        promoText: 'PEQUENOS TESOROS'
     },
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: [
             { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
-            { label: 'Para Ã‰l', href: f(undefined, 'regalo hombre') },
+            { label: 'Para El', href: f(undefined, 'regalo hombre') },
             { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
             { label: 'Lujo', href: f(undefined, 'regalo lujo') },
         ],
@@ -119,7 +119,7 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Para Novia', href: f(undefined, 'regalo novia') },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
-        alt: 'Regalos de JoyerÃ­a en Oro - Detalles Especiales y Aniversarios',
+        alt: 'Regalos de Joyeria en Oro - Detalles Especiales y Aniversarios',
         promoText: 'MOMENTOS DE ORO'
     },
     { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), highlight: true },
@@ -142,20 +142,15 @@ export default function DesktopHeader() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-
-            // Show background blur after scrolling a bit
             setIsScrolled(currentScrollY > 20);
 
             if (currentScrollY > 100) {
                 if (currentScrollY > lastScrollY) {
-                    // Scrolling DOWN -> Hide
                     setIsVisible(false);
                 } else {
-                    // Scrolling UP -> Show
                     setIsVisible(true);
                 }
             } else {
-                // Top of page -> Always Show
                 setIsVisible(true);
             }
 
@@ -166,7 +161,7 @@ export default function DesktopHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
 
-    // Menu Hover Handlers (with delay to prevent flickering)
+    // Menu Hover Handlers
     const handleMouseEnter = (label: string) => {
         if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
         setActiveMenu(label);
@@ -178,7 +173,6 @@ export default function DesktopHeader() {
         }, 150);
     };
 
-    // Active item data
     const activeItem = NAV_ITEMS.find(item => item.label === activeMenu);
 
     return (
@@ -188,14 +182,14 @@ export default function DesktopHeader() {
             `}
             onMouseLeave={handleMouseLeave}
         >
-            {/* â”€â”€ ANNOUNCEMENT BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-            <div className={`w-full text-center py-2 text-[11px] uppercase tracking-[2px] font-medium transition-colors duration-300
-                ${isScrolled ? 'bg-[#050505]/95 text-[#d4af37]/70' : 'bg-[#d4af37]/10 text-[#d4af37]'}
+            {/* Announcement Bar */}
+            <div className={`w-full text-center py-2 text-[10px] uppercase tracking-widest font-medium transition-colors duration-300
+                ${isScrolled ? 'bg-[#050505]/95 text-[#d4af37]/60' : 'bg-[#d4af37]/10 text-[#d4af37]'}
             `}>
-                âœ¦ EnvÃ­o asegurado a todo USA &nbsp;Â·&nbsp; Oro SÃ³lido 10k Certificado &nbsp;Â·&nbsp; GarantÃ­a de por vida âœ¦
+                Envio asegurado a todo USA &nbsp; · &nbsp; Oro Solido 10k Certificado &nbsp; · &nbsp; Garantia de por vida
             </div>
 
-            {/* â”€â”€ MAIN HEADER BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* Main Header Bar */}
             <div className={`w-full transition-all duration-300
                 ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15' : 'bg-[#050505]'}
             `}>
@@ -206,7 +200,7 @@ export default function DesktopHeader() {
                         <a href={resolvePath('/')} className="block group">
                             <img
                                 src={resolvePath('/images/Logo.webp')}
-                                alt="Dtalles Jewelry - JoyerÃ­a de Oro en Miami"
+                                alt="Dtalles Jewelry - Joyeria de Oro en Miami"
                                 className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
                             />
                         </a>
@@ -226,7 +220,7 @@ export default function DesktopHeader() {
                                 >
                                     <a
                                         href={item.href}
-                                        className={`relative flex flex-col items-center px-4 py-2 rounded-md text-[11.5px] font-semibold uppercase tracking-[1.8px] transition-all duration-200 group
+                                        className={`relative flex flex-col items-center px-4 py-2 rounded-md text-[11.5px] font-semibold uppercase tracking-[1.8px] transition-all duration-200
                                             ${item.highlight
                                                 ? 'text-[#d4af37] hover:bg-[#d4af37]/10'
                                                 : activeMenu === item.label
@@ -236,7 +230,7 @@ export default function DesktopHeader() {
                                         `}
                                     >
                                         {item.label}
-                                        {/* Active/Hover indicator dot */}
+                                        {/* Indicador activo */}
                                         {!item.highlight && (
                                             <span className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-[#d4af37] transition-all duration-300
                                                 ${activeMenu === item.label ? 'w-5 opacity-100' : 'w-0 opacity-0'}
@@ -301,7 +295,7 @@ export default function DesktopHeader() {
                 </div>
             </div>
 
-            {/* â”€â”€ OVERLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* Overlay */}
             {activeMenu && activeItem && !activeItem.highlight && (
                 <div
                     className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
@@ -309,7 +303,7 @@ export default function DesktopHeader() {
                 />
             )}
 
-            {/* â”€â”€ MEGA MENU PANEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* Mega Menu Panel */}
             <div
                 className={`absolute left-0 w-full z-50 transition-all duration-300 ease-out overflow-hidden
                     ${activeMenu && activeItem && !activeItem.highlight
@@ -321,20 +315,19 @@ export default function DesktopHeader() {
                     top: '100%',
                     background: 'linear-gradient(180deg, #111 0%, #0a0a0a 100%)',
                     borderTop: '1px solid rgba(212, 175, 55, 0.5)',
-                    boxShadow: '0 20px 60px -10px rgba(0,0,0,0.9), 0 2px 0 0 rgba(212,175,55,0.3), inset 0 1px 0 0 rgba(212,175,55,0.15)'
+                    boxShadow: '0 20px 60px -10px rgba(0,0,0,0.9), 0 2px 0 0 rgba(212,175,55,0.3)'
                 }}
                 onMouseEnter={() => { if (hoverTimeout.current) clearTimeout(hoverTimeout.current); }}
                 onMouseLeave={handleMouseLeave}
             >
                 {activeItem && !activeItem.highlight && (
                     <div className="max-w-7xl mx-auto px-12 py-10 relative">
-                        {/* LÃ­nea decorativa dorada superior */}
                         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
                         <div className="grid grid-cols-4 gap-8">
-                            {/* Col 1: CategorÃ­as */}
+                            {/* Col 1: Categorias */}
                             <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
-                                    <span className="w-3 h-px bg-[#d4af37]" /> CategorÃ­as
+                                    <span className="w-3 h-px bg-[#d4af37]" /> Categorias
                                 </h4>
                                 <ul className="space-y-3">
                                     {activeItem.categories?.map(cat => (
@@ -347,7 +340,7 @@ export default function DesktopHeader() {
                                     ))}
                                 </ul>
                                 <a href={activeItem.href} className="inline-flex items-center gap-1 mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37]/40 pb-1 hover:border-[#d4af37] transition-colors">
-                                    Ver Todo â†’
+                                    Ver Todo
                                 </a>
                             </div>
 
@@ -367,10 +360,10 @@ export default function DesktopHeader() {
                                 </ul>
                             </div>
 
-                            {/* Col 3: VacÃ­a / Spacer para balance */}
+                            {/* Spacer */}
                             <div />
 
-                            {/* Col 4: Visual Hook */}
+                            {/* Col 4: Visual */}
                             <div className="relative h-60 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
                                 <img
@@ -380,11 +373,11 @@ export default function DesktopHeader() {
                                 />
                                 <div className="absolute bottom-5 left-5 z-20">
                                     <span className="text-[#d4af37] text-[9px] font-bold uppercase tracking-[3px] mb-1.5 block">
-                                        ColecciÃ³n destacada
+                                        Coleccion destacada
                                     </span>
                                     <h3 className="text-white font-serif text-xl leading-tight">{activeItem.promoText}</h3>
                                     <a href={activeItem.href} className="mt-2 inline-block text-[10px] text-[#d4af37] uppercase tracking-widest border-b border-[#d4af37]/50 pb-0.5 hover:border-[#d4af37]">
-                                        Explorar â†’
+                                        Explorar
                                     </a>
                                 </div>
                             </div>
