@@ -208,16 +208,34 @@ export default function DesktopHeader() {
                 </div>
             </div>
 
-            {/* MEGA MENU PANEL (Full Width - 4 Cols) */}
+            {/* Overlay de fondo cuando el mega menú está abierto */}
+            {activeMenu && activeItem && !activeItem.highlight && (
+                <div
+                    className="fixed inset-0 top-[72px] bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
+                    style={{ animation: 'fadeIn 0.2s ease' }}
+                />
+            )}
+
+            {/* MEGA MENU PANEL */}
             <div
-                className={`absolute left-0 top-full w-full bg-[#050505] border-t border-[#d4af37]/20 shadow-2xl transition-all duration-300 ease-out overflow-hidden
-                    ${activeMenu && activeItem && !activeItem.highlight ? 'max-h-[500px] opacity-100 visible' : 'max-h-0 opacity-0 invisible'}
+                className={`absolute left-0 top-full w-full z-50 transition-all duration-300 ease-out overflow-hidden
+                    ${activeMenu && activeItem && !activeItem.highlight
+                        ? 'opacity-100 visible translate-y-0'
+                        : 'opacity-0 invisible -translate-y-3'
+                    }
                 `}
+                style={{
+                    background: 'linear-gradient(180deg, #111 0%, #0a0a0a 100%)',
+                    borderTop: '1px solid rgba(212, 175, 55, 0.5)',
+                    boxShadow: '0 20px 60px -10px rgba(0,0,0,0.9), 0 2px 0 0 rgba(212,175,55,0.3), inset 0 1px 0 0 rgba(212,175,55,0.15)'
+                }}
                 onMouseEnter={() => { if (hoverTimeout.current) clearTimeout(hoverTimeout.current); }}
                 onMouseLeave={handleMouseLeave}
             >
                 {activeItem && !activeItem.highlight && (
-                    <div className="max-w-7xl mx-auto px-12 py-12">
+                    <div className="max-w-7xl mx-auto px-12 py-10 relative">
+                        {/* Línea decorativa dorada superior */}
+                        <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
                         <div className="grid grid-cols-4 gap-8">
                             {/* Col 1: Categories */}
                             <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">

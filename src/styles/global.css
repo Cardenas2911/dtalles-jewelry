@@ -76,6 +76,17 @@
   }
 }
 
+/* Animación para overlays y mega menus */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* Stagger delays */
 .delay-100 {
   transition-delay: 100ms;
