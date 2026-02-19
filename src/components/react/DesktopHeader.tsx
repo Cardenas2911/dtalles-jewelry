@@ -28,7 +28,7 @@ const f = (productType?: string, tag?: string) => {
     return `${base}?${params.toString()}`;
 };
 
-// Navigation Data
+// Navigation Data — tags verificados contra Shopify el 2026-02-19
 const NAV_ITEMS: NavItem[] = [
     { label: 'Inicio', href: resolvePath('/'), simple: true },
     { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
@@ -36,18 +36,18 @@ const NAV_ITEMS: NavItem[] = [
         label: 'Hombre', href: resolvePath('/hombre'),
         categories: [
             { label: 'Cadenas', href: f('Cadena', 'hombre') },
-            { label: 'Esclavas', href: f('Esclava', 'hombre') },
+            { label: 'Pulseras', href: f('Pulsera', 'hombre') },
             { label: 'Anillos', href: f('Anillo', 'hombre') },
-            { label: 'Dijes', href: f('Dije', 'hombre') },
+            { label: 'Collares con Dije', href: f('Collar con Dije', 'hombre') },
         ],
         styles: [
-            { label: 'Cuban Links', href: f(undefined, 'cuban-link') },
-            { label: 'Soga (Rope)', href: f(undefined, 'soga') },
-            { label: 'Figaro', href: f(undefined, 'figaro') },
-            { label: 'Tenis', href: f(undefined, 'tenis') },
+            { label: 'Cuban Links', href: f(undefined, 'cuban links') },
+            { label: 'Cadena Soga', href: f(undefined, 'cadena soga') },
+            { label: 'Miami Cuban', href: f(undefined, 'miami cuban') },
+            { label: 'Box Chain', href: f(undefined, 'box chain') },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
-        alt: 'Cadena Cubana de Oro 14k - Joyería Exclusiva para Hombre',
+        alt: 'Cadena Cubana de Oro 10k - Joyería Exclusiva para Hombre',
         promoText: 'EL BRILLO CLÁSICO'
     },
     {
@@ -56,13 +56,13 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Collares', href: f('Collar', 'mujer') },
             { label: 'Aretes', href: f('Aretes', 'mujer') },
             { label: 'Anillos', href: f('Anillo', 'mujer') },
-            { label: 'Tobilleras', href: f('Tobillera', 'mujer') },
+            { label: 'Pulseras', href: f('Pulsera', 'mujer') },
         ],
         styles: [
             { label: 'Gargantillas', href: f(undefined, 'gargantilla') },
-            { label: 'Huggies', href: f(undefined, 'huggie') },
-            { label: 'Solitarios', href: f(undefined, 'solitario') },
-            { label: 'Sets', href: f(undefined, 'set') },
+            { label: 'Aretes de Aro', href: f(undefined, 'aretes de aro') },
+            { label: 'Minimalistas', href: f(undefined, 'minimalista') },
+            { label: 'Sets de Oro', href: f(undefined, 'set oro') },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
         alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
@@ -71,34 +71,34 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
-            { label: 'Cruces', href: f('Cruz', undefined) },
-            { label: 'Medallas', href: f('Medalla', undefined) },
-            { label: 'Rosarios', href: f('Rosario', undefined) },
-            { label: 'Juegos', href: f(undefined, 'juego') },
+            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
+            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
+            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
+            { label: 'Amuletos', href: f(undefined, 'amuleto') },
         ],
         styles: [
-            { label: 'San Judas', href: f(undefined, 'san-judas') },
-            { label: 'Virgen Guadalupe', href: f(undefined, 'virgen-guadalupe') },
-            { label: 'Cristo', href: f(undefined, 'cristo') },
-            { label: 'Ángeles', href: f(undefined, 'angel') },
+            { label: 'Cruz Minimalista', href: f(undefined, 'cruz minimalista') },
+            { label: 'Casino', href: f(undefined, 'casino') },
+            { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
+            { label: 'San Valentín', href: f(undefined, 'san valentin') },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
-        alt: 'Medallas y Cruces de Oro 14k - Colección Religiosa',
+        alt: 'Medallas y Cruces de Oro 10k - Colección Religiosa',
         promoText: 'DEVOCIÓN EN ORO'
     },
     {
         label: 'Niños', href: resolvePath('/ninos'),
         categories: [
             { label: 'Aretes', href: f('Aretes', 'niña') },
-            { label: 'Broqueles', href: f('Broquel', 'niños') },
-            { label: 'Esclavas', href: f('Esclava', 'niños') },
-            { label: 'Cadenas', href: f('Cadena', 'niños') },
+            { label: 'Broqueles', href: f(undefined, 'broqueles') },
+            { label: 'Pulseras', href: f('Pulsera', 'niña') },
+            { label: 'Cadenas', href: f('Cadena', 'niña') },
         ],
         styles: [
-            { label: 'Recién Nacido', href: f(undefined, 'bebe') },
-            { label: 'Bautizo', href: f(undefined, 'bautizo') },
-            { label: 'Primera Comunión', href: f(undefined, 'comunion') },
-            { label: 'Animalitos', href: f(undefined, 'animalito') },
+            { label: 'Florales', href: f(undefined, 'floral jewelry') },
+            { label: 'Mariquitas', href: f(undefined, 'aretes mariquita') },
+            { label: 'Ligeros', href: f(undefined, 'ligeros') },
+            { label: 'Básicos', href: f(undefined, 'básicos') },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
         alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
@@ -107,16 +107,16 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: [
-            { label: 'Para Ella', href: f(undefined, 'mujer') },
-            { label: 'Para Él', href: f(undefined, 'hombre') },
-            { label: 'Aniversario', href: f(undefined, 'aniversario') },
-            { label: 'Cumpleaños', href: f(undefined, 'cumpleanos') },
+            { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
+            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
+            { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
+            { label: 'Lujo', href: f(undefined, 'regalo lujo') },
         ],
         styles: [
-            { label: 'Personalizados', href: f(undefined, 'personalizado') },
-            { label: 'Iniciales', href: f(undefined, 'inicial') },
-            { label: 'Corazones', href: f(undefined, 'corazon') },
-            { label: 'Infinito', href: f(undefined, 'infinito') },
+            { label: 'Corazones', href: f(undefined, 'dije corazon') },
+            { label: 'Bridal', href: f(undefined, 'bridal') },
+            { label: 'Anillos de Compromiso', href: f(undefined, 'anillo compromiso') },
+            { label: 'Para Novia', href: f(undefined, 'regalo novia') },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
         alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
