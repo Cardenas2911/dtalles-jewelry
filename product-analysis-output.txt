@@ -1,0 +1,305 @@
+﻿ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+   AN├üLISIS COMPLETO DE PRODUCTOS - DTalles Jewelry
+   API: https://dtallesjewelry.com/api/2025-10/graphql.json
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+­ƒôª TOTAL PRODUCTOS: 13
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒôé PRODUCTOS POR TIPO (productType)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+  ­ƒôü Aretes (4 productos)
+     Ô£à Aretes Flor de Sakura con Circones en Oro 10k ÔÇö $710.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [aretes de flor, broqueles, floral jewelry, joyer├¡a fina, mujer, oro 10k, regalo mujer, solid gold]
+     Ô£à Aretes Gota de Agua Abombada en Oro 10k ÔÇö $320.00 (inv: 5) ÔÇö 1 var ÔÇö Tags: [aretes gota, broqueles, minimalista, mujer, ni├▒a, oro 10k, oro solido, regalo, teardrop earrings]
+     Ô£à Arracadas Tubulares Lisas (Grandes) en Oro 10k ÔÇö $590.00 (inv: 5) ÔÇö 1 var ÔÇö Tags: [aretes de aro, arracadas, b├ísicos, grandes, hoops, ligeros, mujer, oro 10k, regalo mujer, tubulares]
+     Ô£à Aretes Mariquita de la Suerte Esmaltada en Oro 10k ÔÇö $760.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [amuleto, aretes mariquita, buena suerte, esmalte, ladybug earrings, mujer, ni├▒a, oro 10k, regalo lujo, solid gold]
+
+  ­ƒôü Cadena (3 productos)
+     Ô£à Cadena Cubana Doble 7mm (22") en Oro 10k ÔÇö $3645.00 (inv: 5) ÔÇö 1 var ÔÇö Tags: [22 pulgadas, 7mm, cadena, cadena oro, cubana doble, diamantada, double link, hombre, oro 10k, regalo hombre]
+     ÔØî Cadena Paperclip Minimalista 2mm (18") en Oro 10k ÔÇö $290.00 (inv: 0) ÔÇö 1 var ÔÇö Tags: [18 pulgadas, cadena, cadena oro, eslabon rectangular, layering, minimalista, mujer, oro 10k, paperclip, regalo mujer]
+     Ô£à Cadena Cubana Cl├ísica 6mm (24") en Oro 10k ÔÇö $2550.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [24 pulgadas, 6mm, cadena, cadena ligera, cuban links, hombre, miami cuban, oro 10k, regalo hombre]
+
+  ­ƒôü Collar con Dije (2 productos)
+     Ô£à Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k ÔÇö $510.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [box chain, cruz minimalista, joyer├¡a religiosa, mujer, oro 10k, regalo, solid gold, veneciana]
+     ÔØî Collar Coraz├│n Abombado con Cadena Soga en Oro 10k ÔÇö $585.00 (inv: 0) ÔÇö 1 var ÔÇö Tags: [cadena soga, collar corazon, dije corazon, mujer, oro 10k, puff heart, regalo novia, rope chain, san valentin, set oro]
+
+  ­ƒôü Anillo (2 productos)
+     Ô£à Anillo de Compromiso Estilo Tr├¡o con Baguettes en Oro 10k ÔÇö $570.00 (inv: 5) ÔÇö 1 var ÔÇö Tags: [anillo compromiso, anillo oro, anillo trio, baguettes, bridal, circonia, mujer, oro 10k, regalo aniversario, talla 7]
+     Ô£à Anillo Sello Dise├▒o P├│ker con Circones en Oro 10k ÔÇö $1175.00 (inv: 5) ÔÇö 1 var ÔÇö Tags: [anillo grueso, anillo sello, buena suerte, casino, hombre, oro 10k, poker, regalo hombre, talla 10, zirconias]
+
+  ­ƒôü Collar (1 productos)
+     Ô£à Cadena Eslab├│n Cubano Graduado 17cm en Oro 10k ÔÇö $2095.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [cadena, cubana, eslab├│n graduado, gargantilla, lujo, mujer, oro 10k, regalo, solid gold]
+
+  ­ƒôü Pulsera (1 productos)
+     Ô£à Pulsera Tejido Entrelazado Graduado en Oro 10k ÔÇö $1320.00 (inv: 10) ÔÇö 1 var ÔÇö Tags: [eslab├│n graduado, lujo, mujer, oro 10k, pulsera, pulsera gruesa, regalo, solid gold, tejido entrelazado]
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒÅÀ´©Å  COLECCIONES EN SHOPIFY
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒöû ETIQUETAS ├ÜNICAS (Tags)
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  ÔÇó 18 pulgadas (1)
+  ÔÇó 22 pulgadas (1)
+  ÔÇó 24 pulgadas (1)
+  ÔÇó 6mm (1)
+  ÔÇó 7mm (1)
+  ÔÇó amuleto (1)
+  ÔÇó anillo compromiso (1)
+  ÔÇó anillo grueso (1)
+  ÔÇó anillo oro (1)
+  ÔÇó anillo sello (1)
+  ÔÇó anillo trio (1)
+  ÔÇó aretes de aro (1)
+  ÔÇó aretes de flor (1)
+  ÔÇó aretes gota (1)
+  ÔÇó aretes mariquita (1)
+  ÔÇó arracadas (1)
+  ÔÇó baguettes (1)
+  ÔÇó box chain (1)
+  ÔÇó bridal (1)
+  ÔÇó broqueles (2)
+  ÔÇó buena suerte (2)
+  ÔÇó b├ísicos (1)
+  ÔÇó cadena (4)
+  ÔÇó cadena ligera (1)
+  ÔÇó cadena oro (2)
+  ÔÇó cadena soga (1)
+  ÔÇó casino (1)
+  ÔÇó circonia (1)
+  ÔÇó collar corazon (1)
+  ÔÇó cruz minimalista (1)
+  ÔÇó cuban links (1)
+  ÔÇó cubana (1)
+  ÔÇó cubana doble (1)
+  ÔÇó diamantada (1)
+  ÔÇó dije corazon (1)
+  ÔÇó double link (1)
+  ÔÇó eslabon rectangular (1)
+  ÔÇó eslab├│n graduado (2)
+  ÔÇó esmalte (1)
+  ÔÇó floral jewelry (1)
+  ÔÇó gargantilla (1)
+  ÔÇó grandes (1)
+  ÔÇó hombre (3)
+  ÔÇó hoops (1)
+  ÔÇó joyer├¡a fina (1)
+  ÔÇó joyer├¡a religiosa (1)
+  ÔÇó ladybug earrings (1)
+  ÔÇó layering (1)
+  ÔÇó ligeros (1)
+  ÔÇó lujo (2)
+  ÔÇó miami cuban (1)
+  ÔÇó minimalista (2)
+  ÔÇó mujer (10)
+  ÔÇó ni├▒a (2)
+  ÔÇó oro 10k (13)
+  ÔÇó oro solido (1)
+  ÔÇó paperclip (1)
+  ÔÇó poker (1)
+  ÔÇó puff heart (1)
+  ÔÇó pulsera (1)
+  ÔÇó pulsera gruesa (1)
+  ÔÇó regalo (4)
+  ÔÇó regalo aniversario (1)
+  ÔÇó regalo hombre (3)
+  ÔÇó regalo lujo (1)
+  ÔÇó regalo mujer (3)
+  ÔÇó regalo novia (1)
+  ÔÇó rope chain (1)
+  ÔÇó san valentin (1)
+  ÔÇó set oro (1)
+  ÔÇó solid gold (5)
+  ÔÇó talla 10 (1)
+  ÔÇó talla 7 (1)
+  ÔÇó teardrop earrings (1)
+  ÔÇó tejido entrelazado (1)
+  ÔÇó tubulares (1)
+  ÔÇó veneciana (1)
+  ÔÇó zirconias (1)
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+ÔÜá´©Å  AN├üLISIS DE CAMPOS - PROBLEMAS DETECTADOS
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+  Encontrados 20 problemas:
+
+  ÔÜá´©Å "Aretes Flor de Sakura con Circones en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Aretes Flor de Sakura con Circones en Oro 10k" ÔÇö Imagen 2 sin alt text (SEO)
+  ÔÜá´©Å "Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Cadena Eslab├│n Cubano Graduado 17cm en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Pulsera Tejido Entrelazado Graduado en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Cadena Cubana Doble 7mm (22") en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Cadena Paperclip Minimalista 2mm (18") en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ­ƒö┤ "Cadena Paperclip Minimalista 2mm (18") en Oro 10k" ÔÇö No disponible para venta
+  ­ƒôª "Cadena Paperclip Minimalista 2mm (18") en Oro 10k" ÔÇö Inventario total: 0
+  ÔÜá´©Å "Cadena Cubana Cl├ísica 6mm (24") en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Aretes Gota de Agua Abombada en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Arracadas Tubulares Lisas (Grandes) en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Arracadas Tubulares Lisas (Grandes) en Oro 10k" ÔÇö Imagen 2 sin alt text (SEO)
+  ÔÜá´©Å "Aretes Mariquita de la Suerte Esmaltada en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Anillo de Compromiso Estilo Tr├¡o con Baguettes en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Anillo de Compromiso Estilo Tr├¡o con Baguettes en Oro 10k" ÔÇö Imagen 2 sin alt text (SEO)
+  ÔÜá´©Å "Anillo Sello Dise├▒o P├│ker con Circones en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ÔÜá´©Å "Collar Coraz├│n Abombado con Cadena Soga en Oro 10k" ÔÇö Imagen 1 sin alt text (SEO)
+  ­ƒö┤ "Collar Coraz├│n Abombado con Cadena Soga en Oro 10k" ÔÇö No disponible para venta
+  ­ƒôª "Collar Coraz├│n Abombado con Cadena Soga en Oro 10k" ÔÇö Inventario total: 0
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒÅó VENDORS
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  ÔÇó Dtalles Jewelry (13 productos)
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒôè PRODUCTO ÔåÆ COLECCIONES
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  ÔÇó Aretes Flor de Sakura con Circones en Oro 10k ÔåÆ [Mujer, Ni├▒os, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Aretes]
+  ÔÇó Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k ÔåÆ [Mujer, Religioso, Dijes/Medallas, Oro 10k, Lo nuevo, M├ís Vendidos]
+  ÔÇó Cadena Eslab├│n Cubano Graduado 17cm en Oro 10k ÔåÆ [Mujer, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos]
+  ÔÇó Pulsera Tejido Entrelazado Graduado en Oro 10k ÔåÆ [Mujer, Oro 10k, Regalos, Pulseras, Lo nuevo, M├ís Vendidos]
+  ÔÇó Cadena Cubana Doble 7mm (22") en Oro 10k ÔåÆ [Hombre, Oro 10k, Lo nuevo, M├ís Vendidos, Cadenas, Cuban Links]
+  ÔÇó Cadena Paperclip Minimalista 2mm (18") en Oro 10k ÔåÆ [Mujer, Oro 10k, Lo nuevo, M├ís Vendidos, Cadenas, Tendencias]
+  ÔÇó Cadena Cubana Cl├ísica 6mm (24") en Oro 10k ÔåÆ [Hombre, Oro 10k, Lo nuevo, M├ís Vendidos, Cadenas, Cuban Links]
+  ÔÇó Aretes Gota de Agua Abombada en Oro 10k ÔåÆ [Mujer, Ni├▒os, Oro 10k, Lo nuevo, M├ís Vendidos, Aretes]
+  ÔÇó Arracadas Tubulares Lisas (Grandes) en Oro 10k ÔåÆ [Mujer, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Aretes]
+  ÔÇó Aretes Mariquita de la Suerte Esmaltada en Oro 10k ÔåÆ [Mujer, Ni├▒os, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Aretes]
+  ÔÇó Anillo de Compromiso Estilo Tr├¡o con Baguettes en Oro 10k ÔåÆ [Mujer, Religioso, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Anillo]
+  ÔÇó Anillo Sello Dise├▒o P├│ker con Circones en Oro 10k ÔåÆ [Hombre, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Tendencias, Anillo]
+  ÔÇó Collar Coraz├│n Abombado con Cadena Soga en Oro 10k ÔåÆ [Mujer, Dijes/Medallas, Oro 10k, Regalos, Lo nuevo, M├ís Vendidos, Cadenas]
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒÄø´©Å  VARIANTES POR PRODUCTO
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+  ­ƒôª Aretes Flor de Sakura con Circones en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $710.00 (antes: $740.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $510.00 (antes: $610.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Cadena Eslab├│n Cubano Graduado 17cm en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $2095.00 (antes: $2295.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Pulsera Tejido Entrelazado Graduado en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $1320.00 (antes: $1420.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Cadena Cubana Doble 7mm (22") en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $3645.00 (antes: $3800.00) [inv: 5] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Cadena Paperclip Minimalista 2mm (18") en Oro 10k (1 variantes):
+     ÔØî Default Title ÔÇö $290.00 (antes: $315.00) [inv: 0] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Cadena Cubana Cl├ísica 6mm (24") en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $2550.00 (antes: $2700.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Aretes Gota de Agua Abombada en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $320.00 (antes: $410.00) [inv: 5] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Arracadas Tubulares Lisas (Grandes) en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $590.00 (antes: $610.00) [inv: 5] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Aretes Mariquita de la Suerte Esmaltada en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $760.00 (antes: $790.00) [inv: 10] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Anillo de Compromiso Estilo Tr├¡o con Baguettes en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $570.00 (antes: $590.00) [inv: 5] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Anillo Sello Dise├▒o P├│ker con Circones en Oro 10k (1 variantes):
+     Ô£à Default Title ÔÇö $1175.00 (antes: $1230.00) [inv: 5] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+  ­ƒôª Collar Coraz├│n Abombado con Cadena Soga en Oro 10k (1 variantes):
+     ÔØî Default Title ÔÇö $585.00 (antes: $600.00) [inv: 0] ÔÇö SKU: N/A ÔÇö Title: Default Title
+
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+­ƒö¼ METAFIELDS POR PRODUCTO
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+  ­ƒôª Aretes Flor de Sakura con Circones en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/173590020295"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015","gid://shopify/Metaobject/170062807239"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695"] (type: list.metaobject_reference)
+
+  ­ƒôª Cadena Veneciana con Cruz Lineal Minimalista en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695","gid://shopify/Metaobject/170062774471"] (type: list.metaobject_reference)
+
+  ­ƒôª Cadena Eslab├│n Cubano Graduado 17cm en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695"] (type: list.metaobject_reference)
+
+  ­ƒôª Pulsera Tejido Entrelazado Graduado en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/173591003335"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+
+  ­ƒôª Cadena Cubana Doble 7mm (22") en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/173942014151"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695"] (type: list.metaobject_reference)
+
+  ­ƒôª Cadena Paperclip Minimalista 2mm (18") en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695"] (type: list.metaobject_reference)
+
+  ­ƒôª Cadena Cubana Cl├ísica 6mm (24") en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/173942014151"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+     ÔÇó shopify.necklace-design = ["gid://shopify/Metaobject/169417834695"] (type: list.metaobject_reference)
+
+  ­ƒôª Aretes Gota de Agua Abombada en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/173943652551"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+
+  ­ƒôª Arracadas Tubulares Lisas (Grandes) en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/169417867463"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+
+  ­ƒôª Aretes Mariquita de la Suerte Esmaltada en Oro 10k:
+     ÔÇó shopify.color-pattern = ["gid://shopify/Metaobject/169418522823"] (type: list.metaobject_reference)
+     ÔÇó shopify.target-gender = ["gid://shopify/Metaobject/169417769159"] (type: list.metaobject_reference)
+     ÔÇó shopify.age-group = ["gid://shopify/Metaobject/173943652551"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-material = ["gid://shopify/Metaobject/169417507015"] (type: list.metaobject_reference)
+     ÔÇó shopify.jewelry-type = ["gid://shopify/Metaobject/169417801927"] (type: list.metaobject_reference)
+
+
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+   FIN DEL AN├üLISIS
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ

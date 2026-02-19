@@ -8,6 +8,14 @@ import { resolvePath } from '../../utils/paths';
 // Navigation Data
 const NAV_ITEMS = [
     {
+        label: 'Inicio', href: resolvePath('/'),
+        simple: true // Enlace simple, sin mega menu
+    },
+    {
+        label: 'Tienda', href: resolvePath('/tienda'),
+        simple: true
+    },
+    {
         label: 'Hombre', href: resolvePath('/hombre'),
         categories: ['Cadenas', 'Esclavas', 'Anillos', 'Dijes'],
         purity: ['Oro 10k (Resistencia)', 'Oro 14k (Estándar)', 'Oro 18k (Exclusivo)'],
@@ -131,7 +139,7 @@ export default function DesktopHeader() {
                             <li
                                 key={item.label}
                                 className="h-full flex items-center"
-                                onMouseEnter={() => !item.highlight && handleMouseEnter(item.label)}
+                                onMouseEnter={() => { if (item.highlight || item.simple) { setActiveMenu(null); } else { handleMouseEnter(item.label); } }}
                             >
                                 <a
                                     href={item.href}
