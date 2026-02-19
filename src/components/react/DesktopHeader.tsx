@@ -235,21 +235,7 @@ export default function DesktopHeader() {
                                 <a href={activeItem.href} className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37] pb-1">Ver Todo</a>
                             </div>
 
-                            {/* Col 2: Purity (New) */}
-                            <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
-                                <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Pureza del Oro</h4>
-                                <ul className="space-y-3">
-                                    {activeItem.purity?.map(p => (
-                                        <li key={p}>
-                                            <a href={`${activeItem.href}?purity=${p.split(' ')[1].toLowerCase()}`} className="text-[#FCEebb] text-sm hover:text-white transition-colors">
-                                                {p}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Col 3: Style */}
+                            {/* Col 2: Style */}
                             <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Estilos</h4>
                                 <ul className="space-y-3">
