@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
 import { isFavorite, toggleFavorite, favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
+import FilterSidebar from './StoreGrid/FilterSidebar'; // Import new component
 
 interface Product {
     id: string;
@@ -13,11 +14,11 @@ interface Product {
             currencyCode: string;
         };
     };
-    compareAtPrice?: { // Add this if it comes from the top query, but specialized Grid queries often fetch it in variants
+    compareAtPrice?: {
         amount: string;
         currencyCode: string;
     };
-    variants?: { // Ensure variants structure matches what ProductCard expects
+    variants?: {
         edges: Array<{
             node: {
                 id: string;
@@ -42,203 +43,200 @@ interface StoreGridProps {
 
 export default function StoreGrid({ initialProducts }: StoreGridProps) {
     const [products, setProducts] = useState(initialProducts);
-    const [filter, setFilter] = useState('All');
     const [sortBy, setSortBy] = useState('featured');
-    const $favorites = useStore(favoriteItems);
 
-    // Extract unique categories/tags for filters dynamically from products
-    const filters = React.useMemo(() => {
-        const uniqueTags = new Set<string>();
-        initialProducts.forEach(product => {
-            // Add Product Type
-            if (product.productType) uniqueTags.add(product.productType);
-            // Add Tags
-            if (product.tags && Array.isArray(product.tags)) {
-                product.tags.forEach(tag => uniqueTags.add(tag));
-            }
+    // Filter States
+    const [selectedFilters, setSelectedFilters] = useState({
+        category: [] as string[],
+        priceRange: '' as string, // Added to match interface, though we use priceRange state object for logic
+        collection: [] as string[],
+        material: [] as string[]
+    });
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile Drawer State
+
+    // 1. Extract Filter Options Dynamically
+    const filterOptions = useMemo(() => {
+        const categories = new Set<string>();
+        const collections = new Set<string>();
+        const materials = new Set<string>();
+
+        initialProducts.forEach(p => {
+            if (p.productType) categories.add(p.productType);
+
+            // Analyze Tags for Collections & Materials
+            p.tags.forEach(tag => {
+                const t = tag.toLowerCase();
+                // Material Heuristics
+                if (t.includes('oro 10k') || t.includes('10k')) materials.add('Oro 10k');
+                if (t.includes('oro 14k') || t.includes('14k')) materials.add('Oro 14k');
+                if (t.includes('silver') || t.includes('plata')) materials.add('Plata');
+
+                // Collection Heuristics (Simple mapping based on tag existence)
+                if (t === 'mujer' || t === 'hombre' || t === 'niños' || t === 'niña' || t === 'regalo') {
+                    collections.add(tag.charAt(0).toUpperCase() + tag.slice(1));
+                }
+            });
         });
-        // Sort alphabetically and add 'All'
-        return ['All', ...Array.from(uniqueTags).sort()];
+
+        return {
+            categories: Array.from(categories).sort(),
+            collections: Array.from(collections).sort(),
+            materials: Array.from(materials).sort()
+        };
     }, [initialProducts]);
 
+    // 2. Filter Logic
     useEffect(() => {
-        let filtered = [...initialProducts];
+        let result = initialProducts;
 
-        // 1. Filter
-        if (filter !== 'All') {
-            filtered = filtered.filter(p =>
-                p.productType === filter ||
-                p.tags.includes(filter) ||
-                p.title.toLowerCase().includes(filter.toLowerCase())
-            );
+        // Category Filter
+        if (selectedFilters.category.length > 0) {
+            result = result.filter(p => selectedFilters.category.includes(p.productType));
         }
 
-        // 2. Sort
+        // Collection Filter (Tag based)
+        if (selectedFilters.collection.length > 0) {
+            result = result.filter(p => p.tags.some(tag => selectedFilters.collection.includes(tag.charAt(0).toUpperCase() + tag.slice(1))));
+        }
+
+        // Material Filter (Tag based)
+        if (selectedFilters.material.length > 0) {
+            result = result.filter(p => p.tags.some(tag => {
+                const t = tag.toLowerCase();
+                return selectedFilters.material.some(mat => t.includes(mat.toLowerCase()));
+            }));
+        }
+
+        // Price Filter
+        result = result.filter(p => {
+            const price = parseFloat(p.priceRange.minVariantPrice.amount);
+            return price >= priceRange.min && price <= priceRange.max;
+        });
+
+        // Sort Logic
         if (sortBy === 'price-low-high') {
-            filtered.sort((a, b) => parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount));
+            result = [...result].sort((a, b) => parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount));
         } else if (sortBy === 'price-high-low') {
-            filtered.sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount));
+            result = [...result].sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount));
         }
 
-        setProducts(filtered);
-    }, [filter, sortBy, initialProducts]);
-
-    const [showSort, setShowSort] = useState(false);
-
-    // Toggle Sort Dropdown
-    const toggleSort = () => setShowSort(!showSort);
-    const closeSort = () => setShowSort(false);
-
-    // Filter Logic
-    const clearFilters = () => setFilter('All');
-
-    // Close sort on click outside (simple implementation or use overlay)
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (showSort && !(e.target as Element).closest('.sort-dropdown-container')) {
-                setShowSort(false);
-            }
-        };
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, [showSort]);
+        setProducts(result);
+    }, [selectedFilters, priceRange, sortBy, initialProducts]);
 
 
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    // Handlers
+    const handleFilterChange = (type: string, value: string) => {
+        setSelectedFilters(prev => {
+            const list = prev[type as keyof typeof prev] as string[];
+            const newList = list.includes(value)
+                ? list.filter(item => item !== value)
+                : [...list, value];
+            return { ...prev, [type]: newList };
+        });
+    };
 
-    // Toggle Drawer
-    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
-
-    // Sort logic handled in drawer or dropdown? Instructions say "Menu de Filtros... slide-in".
-    // I will put Sort inside the drawer for cleaner UI, or keep a small sort dropdown in toolbar?
-    // "Barra Superior... Derecha: Botón FILTRAR Y ORDENAR" -> Single button for both usually, or two.
-    // I'll put everything in the drawer for mobile-first simplicity, or keep sort separate?
-    // Let's do: Toolbar -> [Count] [Spacer] [Filter Btn]
-
-    // Dynamic Stats
-    const totalProducts = initialProducts.length;
-    const currentCount = products.length;
+    const clearFilters = () => {
+        setSelectedFilters({ category: [], priceRange: '', collection: [], material: [] });
+        setPriceRange({ min: 0, max: 5000 });
+        setSortBy('featured');
+    };
 
     return (
-        <div className="w-full relative min-h-screen">
-            {/* Sticky Toolbar */}
-            <div className="sticky top-0 z-30 bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/20 py-4 px-6 md:px-12 flex justify-between items-center transition-all">
-                <span className="text-gray-400 text-xs md:text-sm tracking-widest uppercase font-medium">
-                    Mostrando <span className="text-[#FAFAF5]">{currentCount}</span> de {totalProducts} Detalles
-                </span>
+        <div className="w-full relative min-h-screen flex flex-col lg:flex-row gap-8 px-4 md:px-12 pt-8">
 
+            {/* Mobile Filter Trigger */}
+            <div className="lg:hidden w-full flex justify-between items-center mb-6 pb-4 border-b border-[#d4af37]/20">
+                <span className="text-gray-400 text-xs uppercase tracking-widest">{products.length} Joyas</span>
                 <button
-                    onClick={toggleDrawer}
-                    className="flex items-center gap-2 group hover:opacity-80 transition-opacity"
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="flex items-center gap-2 text-[#d4af37] font-bold text-sm uppercase tracking-widest"
                 >
-                    <span className="text-[#d4af37] text-xs md:text-sm font-bold tracking-widest uppercase">Filtrar y Ordenar</span>
-                    <span className="material-symbols-outlined text-[#d4af37]">tune</span>
+                    <span className="material-symbols-outlined">tune</span>
+                    Filtros
                 </button>
             </div>
 
-            {/* Product Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-8 md:gap-x-6 md:gap-y-12 px-3 md:px-12 mt-6 pb-32">
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+            {/* Desktop Sidebar */}
+            <div className="hidden lg:block w-64 flex-shrink-0">
+                <FilterSidebar
+                    filters={filterOptions}
+                    selectedFilters={selectedFilters}
+                    onFilterChange={handleFilterChange}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    totalProducts={initialProducts.length}
+                    filteredCount={products.length}
+                />
             </div>
 
-            {/* Empty State */}
-            {products.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-32 text-center px-4">
-                    <h3 className="text-2xl font-serif text-[#FAFAF5] mb-4">Una joya muy exclusiva...</h3>
-                    <p className="text-gray-400 mb-8 max-w-md">No encontramos exactamente eso, pero tu próxima pieza favorita está cerca.</p>
-                    <button onClick={clearFilters} className="px-8 py-3 bg-[#d4af37] text-black font-bold uppercase tracking-widest hover:bg-white transition-colors">
-                        Ver Colección Completa
-                    </button>
-                </div>
-            )}
-
-            {/* Filter Drawer (Slide-in) */}
-            <div className={`fixed inset-0 z-50 transform transition-transform duration-500 ease-in-out ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                {/* Backdrop */}
-                <div
-                    className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                    onClick={toggleDrawer}
-                ></div>
-
-                {/* Sidebar */}
-                <div className="absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#0a0a0a] border-l border-[#d4af37]/20 shadow-2xl flex flex-col">
-                    {/* Header */}
-                    <div className="flex justify-between items-center p-6 border-b border-[#d4af37]/10">
-                        <h2 className="text-[#FAFAF5] font-serif text-xl tracking-wide">Refina tu Búsqueda</h2>
-                        <button onClick={toggleDrawer} className="text-gray-400 hover:text-[#d4af37] transition-colors">
-                            <span className="material-symbols-outlined text-3xl">close</span>
+            {/* Mobile Drawer Sidebar */}
+            <div className={`fixed inset-0 z-50 lg:hidden transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsSidebarOpen(false)}></div>
+                <div className="absolute right-0 top-0 bottom-0 w-80 bg-[#0a0a0a] border-l border-[#d4af37]/20 overflow-y-auto p-6">
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-[#FAFAF5] font-serif text-xl">Filtros</h2>
+                        <button onClick={() => setIsSidebarOpen(false)}>
+                            <span className="material-symbols-outlined text-gray-400">close</span>
                         </button>
                     </div>
-
-                    {/* Scrollable Content */}
-                    <div className="flex-1 overflow-y-auto p-6 space-y-8">
-                        {/* Sort Section */}
-                        <div>
-                            <h3 className="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-4">Ordenar Por</h3>
-                            <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-3 cursor-pointer group">
-                                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${sortBy === 'featured' ? 'border-[#d4af37]' : 'border-gray-600'}`}>
-                                        {sortBy === 'featured' && <div className="w-2 h-2 rounded-full bg-[#d4af37]"></div>}
-                                    </div>
-                                    <input type="radio" name="sort" className="hidden" onChange={() => setSortBy('featured')} checked={sortBy === 'featured'} />
-                                    <span className={`${sortBy === 'featured' ? 'text-white' : 'text-gray-400'} group-hover:text-[#d4af37] transition-colors`}>Destacado</span>
-                                </label>
-                                <label className="flex items-center gap-3 cursor-pointer group">
-                                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${sortBy === 'price-low-high' ? 'border-[#d4af37]' : 'border-gray-600'}`}>
-                                        {sortBy === 'price-low-high' && <div className="w-2 h-2 rounded-full bg-[#d4af37]"></div>}
-                                    </div>
-                                    <input type="radio" name="sort" className="hidden" onChange={() => setSortBy('price-low-high')} checked={sortBy === 'price-low-high'} />
-                                    <span className={`${sortBy === 'price-low-high' ? 'text-white' : 'text-gray-400'} group-hover:text-[#d4af37] transition-colors`}>Precio: Bajo a Alto</span>
-                                </label>
-                                <label className="flex items-center gap-3 cursor-pointer group">
-                                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${sortBy === 'price-high-low' ? 'border-[#d4af37]' : 'border-gray-600'}`}>
-                                        {sortBy === 'price-high-low' && <div className="w-2 h-2 rounded-full bg-[#d4af37]"></div>}
-                                    </div>
-                                    <input type="radio" name="sort" className="hidden" onChange={() => setSortBy('price-high-low')} checked={sortBy === 'price-high-low'} />
-                                    <span className={`${sortBy === 'price-high-low' ? 'text-white' : 'text-gray-400'} group-hover:text-[#d4af37] transition-colors`}>Precio: Alto a Bajo</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="h-[1px] bg-[#d4af37]/10 w-full"></div>
-
-                        {/* Filter Categories (Simplifying to Tags/Types for now based on available data) */}
-                        <div>
-                            <h3 className="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-4">Colección / Tipo</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {filters.map(f => (
-                                    <button
-                                        key={f}
-                                        onClick={() => setFilter(filter === f ? 'All' : f)}
-                                        className={`px-4 py-2 rounded-full text-xs transition-all border ${filter === f
-                                            ? 'bg-[#d4af37] text-black border-[#d4af37] font-bold'
-                                            : 'bg-transparent text-gray-400 border-gray-700 hover:border-[#d4af37] hover:text-[#d4af37]'}`}
-                                    >
-                                        {f}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Footer Actions */}
-                    <div className="p-6 border-t border-[#d4af37]/10 bg-[#050505]">
+                    <FilterSidebar
+                        filters={filterOptions}
+                        selectedFilters={selectedFilters}
+                        onFilterChange={handleFilterChange}
+                        priceRange={priceRange}
+                        setPriceRange={setPriceRange}
+                        totalProducts={initialProducts.length}
+                        filteredCount={products.length}
+                    />
+                    <div className="mt-8 pt-6 border-t border-[#d4af37]/10">
                         <button
-                            onClick={toggleDrawer}
-                            className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors"
+                            onClick={() => setIsSidebarOpen(false)}
+                            className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3 hover:bg-white transition-colors"
                         >
-                            Ver Resultados ({products.length})
-                        </button>
-                        <button
-                            onClick={clearFilters}
-                            className="w-full text-gray-500 text-xs uppercase tracking-widest mt-4 hover:text-[#d4af37]"
-                        >
-                            Limpiar Todo
+                            Ver {products.length} Joyas
                         </button>
                     </div>
                 </div>
+            </div>
+
+            {/* Main Grid Content */}
+            <div className="flex-1 pb-32">
+                {/* Desktop Toolbar (Sort) */}
+                <div className="hidden lg:flex justify-between items-center mb-8 pb-4 border-b border-[#d4af37]/10">
+                    <span className="text-gray-400 text-sm tracking-widest uppercase">Mostrando {products.length} Resultados</span>
+                    <div className="flex items-center gap-4">
+                        <span className="text-xs text-gray-500 uppercase">Ordenar:</span>
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="bg-transparent text-[#FAFAF5] text-sm border-none focus:ring-0 cursor-pointer"
+                        >
+                            <option value="featured" className="bg-black">Destacado</option>
+                            <option value="price-low-high" className="bg-black">Precio: Bajo a Alto</option>
+                            <option value="price-high-low" className="bg-black">Precio: Alto a Bajo</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* Grid */}
+                {products.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12">
+                        {products.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                        <span className="material-symbols-outlined text-4xl text-gray-600 mb-4">search_off</span>
+                        <h3 className="text-xl font-serif text-[#FAFAF5] mb-2">Sin resultados</h3>
+                        <p className="text-gray-400 mb-6 max-w-xs mx-auto">Prueba ajustando tus filtros para encontrar lo que buscas.</p>
+                        <button onClick={clearFilters} className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest">
+                            Limpiar Filtros
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
