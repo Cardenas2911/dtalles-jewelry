@@ -88,32 +88,49 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
     }, [initialProducts]);
 
     // 2. Filter Logic
+    // 2. Filter Logic
     useEffect(() => {
         let result = initialProducts;
 
-        // Category Filter
+        // Category Filter (Exact Match)
         if (selectedFilters.category.length > 0) {
             result = result.filter(p => selectedFilters.category.includes(p.productType));
         }
 
-        // Collection Filter (Tag based)
+        // Collection Filter (Fuzzy Match - Tag based)
         if (selectedFilters.collection.length > 0) {
-            result = result.filter(p => p.tags.some(tag => selectedFilters.collection.includes(tag.charAt(0).toUpperCase() + tag.slice(1))));
+            result = result.filter(p => {
+                // Check if ANY of the product tags contains ANY of the selected collection keywords
+                return p.tags.some(tag => {
+                    const t = tag.toLowerCase();
+                    return selectedFilters.collection.some(col => t.includes(col.toLowerCase()));
+                });
+            });
         }
 
-        // Material Filter (Tag based)
+        // Material Filter (Fuzzy Match - Tag based)
         if (selectedFilters.material.length > 0) {
-            result = result.filter(p => p.tags.some(tag => {
-                const t = tag.toLowerCase();
-                return selectedFilters.material.some(mat => t.includes(mat.toLowerCase()));
-            }));
+            result = result.filter(p => {
+                return p.tags.some(tag => {
+                    const t = tag.toLowerCase();
+                    return selectedFilters.material.some(mat => t.includes(mat.toLowerCase()));
+                });
+            });
         }
 
         // Price Filter
-        result = result.filter(p => {
-            const price = parseFloat(p.priceRange.minVariantPrice.amount);
-            return price >= priceRange.min && price <= priceRange.max;
-        });
+        if (priceRange.max < 5000) {
+            result = result.filter(p => {
+                const price = parseFloat(p.priceRange.minVariantPrice.amount);
+                return price >= priceRange.min && price <= priceRange.max;
+            });
+        } else {
+            // If max is 5000+, we treat it as "5000+" effectively (unbounded upper)
+            result = result.filter(p => {
+                const price = parseFloat(p.priceRange.minVariantPrice.amount);
+                return price >= priceRange.min;
+            });
+        }
 
         // Sort Logic
         if (sortBy === 'price-low-high') {
@@ -122,6 +139,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
             result = [...result].sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount));
         }
 
+        console.log(`Filtered Count: ${result.length} | Filters:`, selectedFilters); // Debug Log
         setProducts(result);
     }, [selectedFilters, priceRange, sortBy, initialProducts]);
 
