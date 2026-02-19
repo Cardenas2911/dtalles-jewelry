@@ -267,7 +267,9 @@ export default function DesktopHeader() {
 
                         {/* Account */}
                         <a
-                            href={resolvePath('/account/login')}
+                            href="https://dtallesjewelry.myshopify.com/account/login"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
                             aria-label="Cuenta"
                         >

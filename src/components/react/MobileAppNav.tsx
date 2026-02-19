@@ -129,7 +129,7 @@ export default function MobileAppNav() {
                     </a>
 
                     {/* Profile */}
-                    <a href={resolvePath('/account/login')} className="flex flex-col items-center justify-center gap-1 group">
+                    <a href="https://dtallesjewelry.myshopify.com/account/login" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1 group">
                         <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[24px]">person</span>
                         <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Perfil</span>
                     </a>
