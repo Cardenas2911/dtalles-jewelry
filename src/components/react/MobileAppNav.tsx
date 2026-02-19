@@ -3,36 +3,94 @@ import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
 import { favoriteItems } from '../../store/favorites';
 import { setIsSearchOpen } from '../../store/search';
-
 import { resolvePath } from '../../utils/paths';
 
-// Mock Data for Categories (Tabs)
-const CATEGORIES = {
-    HOMBRE: [
-        { id: 'h1', title: 'Cadenas de Oro', image: 'https://dtallesjewelry.com/images/cat-cuban.jpg', href: resolvePath('/hombre/cadenas') },
-        { id: 'h2', title: 'Esclavas de Oro', image: 'https://dtallesjewelry.com/images/cat-bracelet.jpg', href: resolvePath('/hombre/esclavas') },
-        { id: 'h3', title: 'Anillos', image: 'https://dtallesjewelry.com/images/cat-rings.jpg', href: resolvePath('/hombre/anillos') },
-        { id: 'h4', title: 'Dijes / Colgantes', image: 'https://dtallesjewelry.com/images/cat-id.jpg', href: resolvePath('/hombre/dijes') },
-    ],
-    MUJER: [
-        { id: 'm1', title: 'Collares / Cadenas', image: 'https://dtallesjewelry.com/images/cat-necklace.jpg', href: '/mujer/collares' },
-        { id: 'm2', title: 'Aretes / Huggies', image: 'https://dtallesjewelry.com/images/cat-earrings.jpg', href: '/mujer/aretes' },
-        { id: 'm3', title: 'Anillos', image: 'https://dtallesjewelry.com/images/cat-w-rings.jpg', href: '/mujer/anillos' },
-        { id: 'm4', title: 'Tobilleras', image: 'https://dtallesjewelry.com/images/cat-anklets.jpg', href: '/mujer/tobilleras' },
-    ],
-    NINOS: [
-        { id: 'n1', title: 'Esclavas Bebé', image: 'https://dtallesjewelry.com/images/cat-baby-id.jpg', href: '/ninos/esclavas' },
-        { id: 'n2', title: 'Broqueles', image: 'https://dtallesjewelry.com/images/cat-baby-earrings.jpg', href: '/ninos/aretes' },
-        { id: 'n3', title: 'Cadenas', image: 'https://dtallesjewelry.com/images/cat-baby-chain.jpg', href: '/ninos/cadenas' },
-    ]
+// Helper para construir URL de filtro (igual que DesktopHeader)
+const f = (productType?: string, tag?: string) => {
+    const base = resolvePath('/tienda');
+    const params = new URLSearchParams();
+    if (productType) params.set('productType', productType);
+    if (tag) params.set('tag', tag);
+    return `${base}?${params.toString()}`;
 };
 
-const PURITY_CHIPS = ['10k', '14k', 'Con Diamantes'];
+// Misma estructura de navegación que el DesktopHeader (tags verificados contra Shopify)
+const NAV_SECTIONS = [
+    {
+        label: 'Hombre',
+        href: resolvePath('/hombre'),
+        icon: 'male',
+        items: [
+            { label: 'Cadenas', href: f('Cadena', 'hombre') },
+            { label: 'Pulseras', href: f('Pulsera', 'hombre') },
+            { label: 'Anillos', href: f('Anillo', 'hombre') },
+            { label: 'Collares con Dije', href: f('Collar con Dije', 'hombre') },
+            { label: 'Cuban Links', href: f(undefined, 'cuban links') },
+            { label: 'Cadena Soga', href: f(undefined, 'cadena soga') },
+            { label: 'Miami Cuban', href: f(undefined, 'miami cuban') },
+        ],
+    },
+    {
+        label: 'Mujer',
+        href: resolvePath('/mujer'),
+        icon: 'female',
+        items: [
+            { label: 'Collares', href: f('Collar', 'mujer') },
+            { label: 'Aretes', href: f('Aretes', 'mujer') },
+            { label: 'Anillos', href: f('Anillo', 'mujer') },
+            { label: 'Pulseras', href: f('Pulsera', 'mujer') },
+            { label: 'Gargantillas', href: f(undefined, 'gargantilla') },
+            { label: 'Aretes de Aro', href: f(undefined, 'aretes de aro') },
+            { label: 'Sets de Oro', href: f(undefined, 'set oro') },
+        ],
+    },
+    {
+        label: 'Religiosos',
+        href: resolvePath('/coleccion/religiosa'),
+        icon: 'church',
+        items: [
+            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
+            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
+            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
+            { label: 'Amuletos', href: f(undefined, 'amuleto') },
+            { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
+        ],
+    },
+    {
+        label: 'Niños',
+        href: resolvePath('/ninos'),
+        icon: 'child_care',
+        items: [
+            { label: 'Aretes', href: f('Aretes', 'niña') },
+            { label: 'Broqueles', href: f(undefined, 'broqueles') },
+            { label: 'Pulseras', href: f('Pulsera', 'niña') },
+            { label: 'Cadenas', href: f('Cadena', 'niña') },
+        ],
+    },
+    {
+        label: 'Regalos',
+        href: resolvePath('/guia-regalos'),
+        icon: 'redeem',
+        items: [
+            { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
+            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
+            { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
+            { label: 'Corazones', href: f(undefined, 'dije corazon') },
+            { label: 'Bridal', href: f(undefined, 'bridal') },
+        ],
+    },
+];
+
+// Links directos (sin submenú)
+const DIRECT_LINKS = [
+    { label: 'Ver toda la Tienda', href: resolvePath('/tienda'), icon: 'storefront' },
+    { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), icon: 'auto_awesome', gold: true },
+    { label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'), icon: 'currency_exchange', gold: true },
+];
 
 export default function MobileAppNav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    // Removed local isSearchOpen and searchQuery
-    const [activeTab, setActiveTab] = useState<'HOMBRE' | 'MUJER' | 'NINOS'>('HOMBRE');
+    const [openSection, setOpenSection] = useState<string | null>(null);
     const [isTopBarVisible, setIsTopBarVisible] = useState(true);
     const lastScrollY = useRef(0);
 
@@ -41,16 +99,12 @@ export default function MobileAppNav() {
     const $favorites = useStore(favoriteItems);
     const favCount = Object.keys($favorites).length;
 
-    // Scroll Logic for Sticky Top Bar
+    // Smart Sticky Top Bar
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             if (currentScrollY > 50) {
-                if (currentScrollY > lastScrollY.current) {
-                    setIsTopBarVisible(false); // Hide on Scroll Down
-                } else {
-                    setIsTopBarVisible(true); // Show on Scroll Up
-                }
+                setIsTopBarVisible(currentScrollY < lastScrollY.current);
             } else {
                 setIsTopBarVisible(true);
             }
@@ -60,175 +114,252 @@ export default function MobileAppNav() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Prevent body scroll when overlays are open
+    // Bloquear scroll del body cuando el menú esté abierto
     useEffect(() => {
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
     }, [isMenuOpen]);
 
-
+    const toggleSection = (label: string) => {
+        setOpenSection(openSection === label ? null : label);
+    };
 
     return (
         <div className="lg:hidden">
-            {/* 1. TOP BAR (Sticky) */}
-            <header className={`fixed top-0 left-0 w-full z-40 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 h-16 flex items-center justify-between px-6 transition-transform duration-300 ${isTopBarVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+
+            {/* ── TOP BAR ────────────────────────────────────────── */}
+            <header className={`fixed top-0 left-0 w-full z-40 bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15 h-16 flex items-center justify-between px-5 transition-transform duration-300
+                ${isTopBarVisible ? 'translate-y-0' : '-translate-y-full'}`}
+            >
                 <a href={resolvePath('/')} className="block">
                     <img
                         src={resolvePath('/images/Logo.webp')}
                         alt="Dtalles Jewelry"
-                        className="h-12 w-auto object-contain"
+                        className="h-11 w-auto object-contain"
                     />
                 </a>
 
-                <button
-                    onClick={() => setIsCartOpen(true)}
-                    className="relative text-[#FAFAF5] p-2"
-                >
-                    <span className="material-symbols-outlined text-[24px]">shopping_bag</span>
-                    {cartCount > 0 && (
-                        <span className="absolute top-0 right-0 bg-[#d4af37] text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                            {cartCount}
-                        </span>
-                    )}
-                </button>
+                <div className="flex items-center gap-2">
+                    {/* Buscar */}
+                    <button
+                        onClick={() => setIsSearchOpen(true)}
+                        className="p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
+                        aria-label="Buscar"
+                    >
+                        <span className="material-symbols-outlined text-[22px]">search</span>
+                    </button>
+
+                    {/* Favoritos */}
+                    <a
+                        href={resolvePath('/favoritos')}
+                        className="relative p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
+                        aria-label="Favoritos"
+                    >
+                        <span className="material-symbols-outlined text-[22px]">favorite</span>
+                        {favCount > 0 && (
+                            <span className="absolute top-1 right-1 w-2 h-2 bg-[#d4af37] rounded-full"></span>
+                        )}
+                    </a>
+
+                    {/* Carrito */}
+                    <button
+                        onClick={() => setIsCartOpen(true)}
+                        className="relative p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
+                        aria-label="Carrito"
+                    >
+                        <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
+                        {cartCount > 0 && (
+                            <span className="absolute top-1 right-1 bg-[#d4af37] text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                {cartCount}
+                            </span>
+                        )}
+                    </button>
+                </div>
             </header>
 
-            {/* 2. BOTTOM NAV BAR (Fixed) */}
-            <nav className="fixed bottom-0 left-0 w-full z-50 bg-[#050505]/95 backdrop-blur-xl border-t border-[#d4af37]/30 h-[65px] px-2 shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+            {/* ── BOTTOM NAV BAR ─────────────────────────────────── */}
+            <nav className="fixed bottom-0 left-0 w-full z-50 bg-[#050505]/98 backdrop-blur-xl border-t border-[#d4af37]/20 h-[64px] px-2 shadow-[0_-4px_20px_rgba(0,0,0,0.6)]">
                 <div className="grid grid-cols-5 h-full items-center">
-                    {/* Home */}
+
+                    {/* Inicio */}
                     <a href={resolvePath('/')} className="flex flex-col items-center justify-center gap-1 group">
-                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[24px]">home</span>
+                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">home</span>
                         <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Inicio</span>
                     </a>
 
-                    {/* Search */}
+                    {/* Buscar */}
                     <button onClick={() => setIsSearchOpen(true)} className="flex flex-col items-center justify-center gap-1 group">
-                        <span className="material-symbols-outlined transition-colors text-[24px] text-[#A0A0A0] group-hover:text-[#FAFAF5]">search</span>
-                        <span className="text-[9px] font-medium tracking-wide text-[#A0A0A0]">Buscar</span>
+                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">search</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Buscar</span>
                     </button>
 
-                    {/* Menu (Center - Highlighted) */}
-                    <div className="relative -top-5">
+                    {/* Menú Central (FAB dorado) */}
+                    <div className="relative -top-4 flex justify-center">
                         <button
                             onClick={() => setIsMenuOpen(true)}
-                            className="w-14 h-14 rounded-full bg-[#d4af37] text-black flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.4)] border-4 border-[#050505] transform transition-transform active:scale-95"
+                            className="w-14 h-14 rounded-full bg-[#d4af37] text-black flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.5)] border-4 border-[#050505] transition-transform active:scale-95"
+                            aria-label="Abrir menú"
                         >
-                            <span className="material-symbols-outlined text-[28px]">grid_view</span>
+                            <span className="material-symbols-outlined text-[26px]">grid_view</span>
                         </button>
                     </div>
 
-                    {/* Wishlist */}
+                    {/* Favoritos */}
                     <a href={resolvePath('/favoritos')} className="flex flex-col items-center justify-center gap-1 group relative">
-                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[24px]">favorite</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Favoritos</span>
+                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">favorite</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Guardados</span>
                         {favCount > 0 && <span className="absolute top-1 right-3 w-1.5 h-1.5 bg-[#d4af37] rounded-full"></span>}
                     </a>
 
-                    {/* Profile */}
-                    <a href="https://dtallesjewelry.myshopify.com/account/login" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1 group">
-                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[24px]">person</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Perfil</span>
+                    {/* Cuenta */}
+                    <a
+                        href="https://dtallesjewelry.myshopify.com/account/login"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col items-center justify-center gap-1 group"
+                    >
+                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">person</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Cuenta</span>
                     </a>
                 </div>
             </nav>
 
-            {/* 3. MENU DRAWER (Off-canvas) */}
-            <div className={`fixed inset-0 z-[60] transition-visibility duration-300 ${isMenuOpen ? 'visible' : 'invisible'}`}>
+            {/* ── MENU DRAWER ────────────────────────────────────── */}
+            <div className={`fixed inset-0 z-[60] transition-[visibility] duration-300 ${isMenuOpen ? 'visible' : 'invisible'}`}>
+
                 {/* Backdrop */}
                 <div
-                    className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+                    className={`absolute inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
                     onClick={() => setIsMenuOpen(false)}
-                ></div>
+                />
 
-                {/* Drawer Content */}
-                <aside className={`absolute top-0 left-0 w-[85%] max-w-[320px] h-full bg-[#050505] shadow-2xl transform transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                {/* Drawer */}
+                <aside className={`absolute top-0 left-0 w-[88%] max-w-[340px] h-full bg-[#080808] flex flex-col shadow-2xl transform transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
+                    ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                >
                     {/* Drawer Header */}
-                    <div className="px-6 pt-12 pb-4 flex justify-between items-end border-b border-white/5">
-                        <div>
-                            <p className="text-[#A0A0A0] text-xs uppercase tracking-widest mb-1">Bienvenido</p>
-                            <h2 className="text-[#d4af37] font-serif text-2xl">Invitado</h2>
-                        </div>
+                    <div className="px-6 pt-14 pb-5 flex justify-between items-center border-b border-[#d4af37]/15 flex-shrink-0">
+                        <a href={resolvePath('/')} onClick={() => setIsMenuOpen(false)}>
+                            <img src={resolvePath('/images/Logo.webp')} alt="Dtalles Jewelry" className="h-10 w-auto object-contain" />
+                        </a>
                         <button
                             onClick={() => setIsMenuOpen(false)}
-                            className="p-2 text-white hover:text-[#d4af37] transition-colors"
+                            className="p-2 text-[#FAFAF5]/60 hover:text-[#d4af37] transition-colors"
+                            aria-label="Cerrar menú"
                         >
-                            <span className="material-symbols-outlined text-3xl">close</span>
+                            <span className="material-symbols-outlined text-[28px]">close</span>
                         </button>
                     </div>
 
-                    {/* Tabs (3 Levels) */}
-                    <div className="flex border-b border-white/10">
-                        {['HOMBRE', 'MUJER', 'NINOS'].map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab as any)}
-                                className={`flex-1 py-4 text-center text-xs sm:text-sm font-bold uppercase tracking-widest transition-colors relative ${activeTab === tab ? 'text-[#d4af37]' : 'text-[#FAFAF5]/50'}`}
+                    {/* Nav Links (con accordion) */}
+                    <div className="flex-1 overflow-y-auto">
+
+                        {/* Links directos (Lo Nuevo + Vender Oro) */}
+                        <div className="px-4 pt-4 pb-2 flex gap-2">
+                            <a
+                                href={resolvePath('/coleccion/nuevo')}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-[11px] font-bold uppercase tracking-widest hover:bg-[#d4af37]/20 transition-colors"
                             >
-                                {tab === 'NINOS' ? 'NIÑOS' : tab}
-                                {activeTab === tab && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#d4af37]"></span>}
-                            </button>
-                        ))}
-                    </div>
+                                <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
+                                Lo Nuevo
+                            </a>
+                            <a
+                                href={resolvePath('/servicios/vender-oro')}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-white/5 border border-white/10 text-[#FAFAF5]/70 text-[11px] font-bold uppercase tracking-widest hover:border-[#d4af37]/40 hover:text-[#d4af37] transition-colors"
+                            >
+                                <span className="material-symbols-outlined text-[14px]">currency_exchange</span>
+                                Vender Oro
+                            </a>
+                        </div>
 
-                    {/* Purity Chips (Filter Row) */}
-                    <div className="px-6 py-4 flex gap-2 overflow-x-auto no-scrollbar border-b border-white/5">
-                        {PURITY_CHIPS.map(chip => (
-                            <button key={chip} className="px-3 py-1.5 rounded-full border border-white/20 text-[#FCEebb] text-xs font-medium bg-white/5 whitespace-nowrap hover:border-[#d4af37] transition-colors">
-                                {chip}
-                            </button>
-                        ))}
-                    </div>
+                        {/* Divider */}
+                        <div className="mx-6 my-3 h-px bg-white/5" />
 
-                    {/* List Items */}
-                    <div className="overflow-y-auto h-[calc(100%-320px)] animate-fade-in">
-                        <ul className="divide-y divide-white/5">
-                            {CATEGORIES[activeTab].map((cat) => (
-                                <li key={cat.id}>
-                                    <a href={cat.href} className="flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-colors group">
-                                        <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden border border-white/10 group-hover:border-[#d4af37] transition-colors">
-                                            <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900"></div> {/* Placeholder */}
-                                        </div>
-                                        <span className="flex-1 text-[#FAFAF5] text-sm font-medium">{cat.title}</span>
-                                        <span className="material-symbols-outlined text-[#d4af37] text-sm">chevron_right</span>
-                                    </a>
-                                </li>
-                            ))}
-                            {/* Static Links */}
-                            <li>
-                                <a href={resolvePath('/tienda')} className="flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-colors">
-                                    <div className="w-10 h-10 rounded-full flex items-center justify-center border border-white/10 text-[#d4af37]">
-                                        <span className="material-symbols-outlined text-lg">storefront</span>
-                                    </div>
-                                    <span className="flex-1 text-[#FAFAF5] text-sm font-medium">Ver Tienda Completa</span>
-                                    <span className="material-symbols-outlined text-[#d4af37] text-sm">chevron_right</span>
-                                </a>
-                            </li>
-                        </ul>
+                        {/* Secciones con accordion */}
+                        {NAV_SECTIONS.map((section) => (
+                            <div key={section.label} className="border-b border-white/5">
+                                <button
+                                    onClick={() => toggleSection(section.label)}
+                                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/5 transition-colors"
+                                >
+                                    <span className="flex items-center gap-3">
+                                        <span className="material-symbols-outlined text-[#d4af37] text-[18px]">{section.icon}</span>
+                                        <span className="text-[#FAFAF5] text-[13px] font-semibold uppercase tracking-[1.5px]">{section.label}</span>
+                                    </span>
+                                    <span className={`material-symbols-outlined text-[#d4af37]/60 text-[18px] transition-transform duration-200 ${openSection === section.label ? 'rotate-180' : ''}`}>
+                                        expand_more
+                                    </span>
+                                </button>
+
+                                {/* Sub-items */}
+                                <div className={`overflow-hidden transition-all duration-300 ${openSection === section.label ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                    <ul className="pb-3">
+                                        {section.items.map((item) => (
+                                            <li key={item.label}>
+                                                <a
+                                                    href={item.href}
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                    className="flex items-center gap-3 pl-14 pr-6 py-3 text-[#FAFAF5]/60 text-[13px] hover:text-[#d4af37] hover:bg-white/5 transition-all"
+                                                >
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]/40 flex-shrink-0"></span>
+                                                    {item.label}
+                                                </a>
+                                            </li>
+                                        ))}
+                                        {/* Ver todo esta sección */}
+                                        <li>
+                                            <a
+                                                href={section.href}
+                                                onClick={() => setIsMenuOpen(false)}
+                                                className="flex items-center gap-2 pl-14 pr-6 py-3 text-[10px] font-bold text-[#d4af37] uppercase tracking-widest hover:opacity-70"
+                                            >
+                                                Ver todo
+                                                <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        ))}
+
+                        {/* Tienda completa */}
+                        <a
+                            href={resolvePath('/tienda')}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="flex items-center gap-3 px-6 py-4 border-b border-white/5 hover:bg-white/5 transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-[#d4af37] text-[18px]">storefront</span>
+                            <span className="text-[#FAFAF5] text-[13px] font-semibold uppercase tracking-[1.5px]">Ver Tienda Completa</span>
+                            <span className="material-symbols-outlined text-[#d4af37]/50 text-[16px] ml-auto">chevron_right</span>
+                        </a>
                     </div>
 
                     {/* Drawer Footer */}
-                    <div className="absolute bottom-0 left-0 w-full p-6 bg-[#0a0a0a] border-t border-white/5 space-y-3 z-10">
-                        <a href={resolvePath('/rastrear')} className="flex items-center gap-3 text-xs text-[#A0A0A0] uppercase tracking-widest hover:text-white">
-                            <span className="material-symbols-outlined text-sm">local_shipping</span>
+                    <div className="flex-shrink-0 px-6 py-5 border-t border-[#d4af37]/15 bg-[#0a0a0a] space-y-3">
+                        <a
+                            href={resolvePath('/rastrear')}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="flex items-center gap-3 text-[11px] text-[#A0A0A0] uppercase tracking-widest hover:text-white transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-[16px]">local_shipping</span>
                             Rastrear Pedido
                         </a>
-                        <a href="https://wa.me/17867644952" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs text-[#A0A0A0] uppercase tracking-widest hover:text-white">
-                            <span className="material-symbols-outlined text-sm">chat</span>
-                            WhatsApp: +1 (786) 764-4952
-                        </a>
-                        <a href={resolvePath('/servicios/vender-oro')} className="flex items-center gap-3 text-xs text-[#d4af37] uppercase tracking-widest font-bold">
-                            <span className="material-symbols-outlined text-sm">currency_exchange</span>
-                            Vender Oro
+                        <a
+                            href="https://wa.me/17867644952?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20joyas"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 text-[11px] text-[#25D366] uppercase tracking-widest hover:opacity-80 transition-opacity"
+                        >
+                            {/* WhatsApp icon */}
+                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 flex-shrink-0">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            +1 (786) 764-4952
                         </a>
                     </div>
                 </aside>
             </div>
-
-
         </div>
     );
 }
