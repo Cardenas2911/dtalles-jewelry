@@ -252,26 +252,34 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
             {/* Mobile Drawer Sidebar */}
             <div className={`fixed inset-0 z-50 lg:hidden transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsSidebarOpen(false)}></div>
-                <div className="absolute right-0 top-0 bottom-0 w-80 bg-[#0a0a0a] border-l border-[#d4af37]/20 overflow-y-auto p-6">
-                    <div className="flex justify-between items-center mb-8">
+                {/* Drawer: flex-col — header fijo + scroll + botones siempre visibles */}
+                <div className="absolute right-0 top-0 bottom-0 w-80 bg-[#0a0a0a] border-l border-[#d4af37]/20 flex flex-col">
+                    {/* Header fijo */}
+                    <div className="flex justify-between items-center p-6 border-b border-[#d4af37]/10 flex-shrink-0">
                         <h2 className="text-[#FAFAF5] font-serif text-xl">Filtros</h2>
                         <button onClick={() => setIsSidebarOpen(false)}>
-                            <span className="material-symbols-outlined text-gray-400">close</span>
+                            <span className="material-symbols-outlined text-gray-400 hover:text-[#d4af37] transition-colors">close</span>
                         </button>
                     </div>
-                    <FilterSidebar
-                        filters={filterOptions}
-                        selectedFilters={selectedFilters}
-                        onFilterChange={handleFilterChange}
-                        priceRange={priceRange}
-                        setPriceRange={setPriceRange}
-                        totalProducts={initialProducts.length}
-                        filteredCount={products.length}
-                    />
-                    <div className="mt-8 pt-6 border-t border-[#d4af37]/10 space-y-3">
+
+                    {/* Área de filtros scrollable */}
+                    <div className="flex-1 overflow-y-auto p-6">
+                        <FilterSidebar
+                            filters={filterOptions}
+                            selectedFilters={selectedFilters}
+                            onFilterChange={handleFilterChange}
+                            priceRange={priceRange}
+                            setPriceRange={setPriceRange}
+                            totalProducts={initialProducts.length}
+                            filteredCount={products.length}
+                        />
+                    </div>
+
+                    {/* Botones SIEMPRE visibles — pb-[84px] para no taparlos con la bottom nav de 64px */}
+                    <div className="flex-shrink-0 px-4 pt-4 pb-[84px] border-t border-[#d4af37]/10 space-y-3 bg-[#0a0a0a]">
                         <button
                             onClick={() => setIsSidebarOpen(false)}
-                            className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3 hover:bg-white transition-colors"
+                            className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-colors rounded-sm text-sm"
                         >
                             Ver {products.length} Joyas
                         </button>
