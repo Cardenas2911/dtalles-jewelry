@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import PredictiveSearch from './PredictiveSearch';
 import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
@@ -28,7 +28,7 @@ const f = (productType?: string, tag?: string) => {
     return `${base}?${params.toString()}`;
 };
 
-// Navigation Data — tags verificados contra Shopify el 2026-02-19
+// Navigation Data â€” tags verificados contra Shopify el 2026-02-19
 const NAV_ITEMS: NavItem[] = [
     { label: 'Inicio', href: resolvePath('/'), simple: true },
     { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
@@ -47,8 +47,8 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Box Chain', href: f(undefined, 'box chain') },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
-        alt: 'Cadena Cubana de Oro 10k - Joyería Exclusiva para Hombre',
-        promoText: 'EL BRILLO CLÁSICO'
+        alt: 'Cadena Cubana de Oro 10k - JoyerÃ­a Exclusiva para Hombre',
+        promoText: 'EL BRILLO CLÃSICO'
     },
     {
         label: 'Mujer', href: resolvePath('/mujer'),
@@ -65,50 +65,50 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Sets de Oro', href: f(undefined, 'set oro') },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
-        alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
+        alt: 'JoyerÃ­a Fina de Oro para Mujer - Aretes y Collares',
         promoText: 'ELEGANCIA PURA'
     },
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
-            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
-            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
-            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
+            { label: 'Cruces', href: f(undefined, 'joyerÃ­a religiosa') },
+            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyerÃ­a religiosa') },
+            { label: 'Anillos', href: f('Anillo', 'joyerÃ­a religiosa') },
             { label: 'Amuletos', href: f(undefined, 'amuleto') },
         ],
         styles: [
             { label: 'Cruz Minimalista', href: f(undefined, 'cruz minimalista') },
             { label: 'Casino', href: f(undefined, 'casino') },
             { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
-            { label: 'San Valentín', href: f(undefined, 'san valentin') },
+            { label: 'San ValentÃ­n', href: f(undefined, 'san valentin') },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
-        alt: 'Medallas y Cruces de Oro 10k - Colección Religiosa',
-        promoText: 'DEVOCIÓN EN ORO'
+        alt: 'Medallas y Cruces de Oro 10k - ColecciÃ³n Religiosa',
+        promoText: 'DEVOCIÃ“N EN ORO'
     },
     {
-        label: 'Niños', href: resolvePath('/ninos'),
+        label: 'NiÃ±os', href: resolvePath('/ninos'),
         categories: [
-            { label: 'Aretes', href: f('Aretes', 'niña') },
+            { label: 'Aretes', href: f('Aretes', 'niÃ±a') },
             { label: 'Broqueles', href: f(undefined, 'broqueles') },
-            { label: 'Pulseras', href: f('Pulsera', 'niña') },
-            { label: 'Cadenas', href: f('Cadena', 'niña') },
+            { label: 'Pulseras', href: f('Pulsera', 'niÃ±a') },
+            { label: 'Cadenas', href: f('Cadena', 'niÃ±a') },
         ],
         styles: [
             { label: 'Florales', href: f(undefined, 'floral jewelry') },
             { label: 'Mariquitas', href: f(undefined, 'aretes mariquita') },
             { label: 'Ligeros', href: f(undefined, 'ligeros') },
-            { label: 'Básicos', href: f(undefined, 'básicos') },
+            { label: 'BÃ¡sicos', href: f(undefined, 'bÃ¡sicos') },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
-        alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
-        promoText: 'PEQUEÑOS TESOROS'
+        alt: 'JoyerÃ­a de Oro para NiÃ±os y BebÃ©s - HipoalergÃ©nico',
+        promoText: 'PEQUEÃ‘OS TESOROS'
     },
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: [
             { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
-            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
+            { label: 'Para Ã‰l', href: f(undefined, 'regalo hombre') },
             { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
             { label: 'Lujo', href: f(undefined, 'regalo lujo') },
         ],
@@ -119,7 +119,7 @@ const NAV_ITEMS: NavItem[] = [
             { label: 'Para Novia', href: f(undefined, 'regalo novia') },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
-        alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
+        alt: 'Regalos de JoyerÃ­a en Oro - Detalles Especiales y Aniversarios',
         promoText: 'MOMENTOS DE ORO'
     },
     { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), highlight: true },
@@ -183,104 +183,142 @@ export default function DesktopHeader() {
 
     return (
         <header
-            className={`hidden lg:block fixed top-0 w-full z-50 transition-all duration-500 ease-in-out transform 
+            className={`hidden lg:flex flex-col fixed top-0 w-full z-50 transition-all duration-500 ease-in-out transform
                 ${isVisible ? 'translate-y-0' : '-translate-y-full'}
-                ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-md shadow-[0_1px_0_rgba(212,175,55,0.2)]' : 'bg-[#050505] shadow-none'}
             `}
             onMouseLeave={handleMouseLeave}
         >
-            <div className="max-w-[1920px] mx-auto px-12 h-24 flex items-center justify-between relative z-50">
-                {/* 1. Left: Logo */}
-                <div className="w-1/4 flex items-center">
-                    <a href={resolvePath('/')} className="group block">
-                        <img
-                            src={resolvePath('/images/Logo.webp')}
-                            alt="Dtalles Jewelry - Joyería de Oro en Miami"
-                            className="h-20 md:h-24 w-auto object-contain"
-                        />
-                    </a>
-                </div>
+            {/* â”€â”€ ANNOUNCEMENT BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            <div className={`w-full text-center py-2 text-[11px] uppercase tracking-[2px] font-medium transition-colors duration-300
+                ${isScrolled ? 'bg-[#050505]/95 text-[#d4af37]/70' : 'bg-[#d4af37]/10 text-[#d4af37]'}
+            `}>
+                âœ¦ EnvÃ­o asegurado a todo USA &nbsp;Â·&nbsp; Oro SÃ³lido 10k Certificado &nbsp;Â·&nbsp; GarantÃ­a de por vida âœ¦
+            </div>
 
-                {/* 2. Center: Mega Menu Navigation */}
-                <nav className="w-1/2 flex justify-center items-center h-full">
-                    <ul className="flex items-center gap-10 h-full">
-                        {NAV_ITEMS.map((item) => (
-                            <li
-                                key={item.label}
-                                className="h-full flex items-center"
-                                onMouseEnter={() => { if (item.highlight || item.simple) { setActiveMenu(null); } else { handleMouseEnter(item.label); } }}
-                            >
-                                <a
-                                    href={item.href}
-                                    className={`relative text-[13px] font-bold uppercase tracking-[1.5px] transition-colors py-8
-                                        ${item.highlight ? 'text-[#d4af37]' : 'text-[#FAFAF5] hover:text-[#d4af37]'}
-                                        ${activeMenu === item.label ? 'text-[#d4af37]' : ''}
-                                    `}
+            {/* â”€â”€ MAIN HEADER BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            <div className={`w-full transition-all duration-300
+                ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15' : 'bg-[#050505]'}
+            `}>
+                <div className="max-w-[1440px] mx-auto px-10 h-20 flex items-center justify-between relative z-50">
+
+                    {/* LEFT: Logo */}
+                    <div className="flex-shrink-0">
+                        <a href={resolvePath('/')} className="block group">
+                            <img
+                                src={resolvePath('/images/Logo.webp')}
+                                alt="Dtalles Jewelry - JoyerÃ­a de Oro en Miami"
+                                className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+                            />
+                        </a>
+                    </div>
+
+                    {/* CENTER: Navigation */}
+                    <nav className="flex-1 flex justify-center">
+                        <ul className="flex items-center gap-1">
+                            {NAV_ITEMS.map((item) => (
+                                <li
+                                    key={item.label}
+                                    className="relative"
+                                    onMouseEnter={() => {
+                                        if (item.highlight || item.simple) setActiveMenu(null);
+                                        else handleMouseEnter(item.label);
+                                    }}
                                 >
-                                    {item.label}
-                                    {/* Animated Underline */}
-                                    {!item.highlight && (
-                                        <span className={`absolute bottom-6 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#d4af37] transition-all duration-300 ${activeMenu === item.label ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-                                    )}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
+                                    <a
+                                        href={item.href}
+                                        className={`relative flex flex-col items-center px-4 py-2 rounded-md text-[11.5px] font-semibold uppercase tracking-[1.8px] transition-all duration-200 group
+                                            ${item.highlight
+                                                ? 'text-[#d4af37] hover:bg-[#d4af37]/10'
+                                                : activeMenu === item.label
+                                                    ? 'text-[#d4af37] bg-white/5'
+                                                    : 'text-[#FAFAF5]/80 hover:text-[#FAFAF5] hover:bg-white/5'
+                                            }
+                                        `}
+                                    >
+                                        {item.label}
+                                        {/* Active/Hover indicator dot */}
+                                        {!item.highlight && (
+                                            <span className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-[#d4af37] transition-all duration-300
+                                                ${activeMenu === item.label ? 'w-5 opacity-100' : 'w-0 opacity-0'}
+                                            `} />
+                                        )}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
 
-                {/* 3. Right: Tools */}
-                <div className="w-1/4 flex justify-end items-center gap-6">
-                    {/* Predictive Search */}
-                    <PredictiveSearch />
+                    {/* RIGHT: Actions */}
+                    <div className="flex-shrink-0 flex items-center gap-1">
+                        {/* Search */}
+                        <PredictiveSearch />
 
-                    {/* Favorites */}
-                    <a href={resolvePath('/favoritos')} className="text-[#FAFAF5] hover:text-[#d4af37] transition-colors relative" aria-label="Favoritos">
-                        <span className="material-symbols-outlined text-[24px]">favorite</span>
-                        {favCount > 0 && (
-                            <span className="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-[#d4af37] text-[8px] font-bold text-black">
-                                {favCount}
+                        {/* Divider */}
+                        <div className="w-px h-6 bg-[#d4af37]/20 mx-2" />
+
+                        {/* Favorites */}
+                        <a
+                            href={resolvePath('/favoritos')}
+                            className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            aria-label="Favoritos"
+                        >
+                            <span className="material-symbols-outlined text-[22px]">favorite</span>
+                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Guardados</span>
+                            {favCount > 0 && (
+                                <span className="absolute top-1.5 right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-black">
+                                    {favCount}
+                                </span>
+                            )}
+                        </a>
+
+                        {/* Account */}
+                        <a
+                            href={resolvePath('/account/login')}
+                            className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            aria-label="Cuenta"
+                        >
+                            <span className="material-symbols-outlined text-[22px]">person</span>
+                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Cuenta</span>
+                        </a>
+
+                        {/* Cart */}
+                        <button
+                            onClick={() => setIsCartOpen(true)}
+                            className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            aria-label="Carrito"
+                        >
+                            <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
+                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                {cartCount > 0 ? `${cartCount} items` : 'Carrito'}
                             </span>
-                        )}
-                    </a>
-
-                    {/* Account */}
-                    <a href={resolvePath('/account/login')} className="text-[#FAFAF5] hover:text-[#d4af37] transition-colors" aria-label="Cuenta">
-                        <span className="material-symbols-outlined text-[24px]">person</span>
-                    </a>
-
-                    {/* Cart Trigger */}
-                    <button
-                        onClick={() => setIsCartOpen(true)}
-                        className="text-[#FAFAF5] hover:text-[#d4af37] transition-colors relative"
-                        aria-label="Carrito"
-                    >
-                        <span className="material-symbols-outlined text-[24px]">shopping_bag</span>
-                        {cartCount > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[10px] font-bold text-black">
-                                {cartCount}
-                            </span>
-                        )}
-                    </button>
+                            {cartCount > 0 && (
+                                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[10px] font-bold text-black">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* Overlay de fondo cuando el mega menú está abierto */}
+            {/* â”€â”€ OVERLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             {activeMenu && activeItem && !activeItem.highlight && (
                 <div
-                    className="fixed inset-0 top-[72px] bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
-                    style={{ animation: 'fadeIn 0.2s ease' }}
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
+                    style={{ top: '0', animation: 'fadeIn 0.2s ease' }}
                 />
             )}
 
-            {/* MEGA MENU PANEL */}
+            {/* â”€â”€ MEGA MENU PANEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <div
-                className={`absolute left-0 top-full w-full z-50 transition-all duration-300 ease-out overflow-hidden
+                className={`absolute left-0 w-full z-50 transition-all duration-300 ease-out overflow-hidden
                     ${activeMenu && activeItem && !activeItem.highlight
                         ? 'opacity-100 visible translate-y-0'
                         : 'opacity-0 invisible -translate-y-3'
                     }
                 `}
                 style={{
+                    top: '100%',
                     background: 'linear-gradient(180deg, #111 0%, #0a0a0a 100%)',
                     borderTop: '1px solid rgba(212, 175, 55, 0.5)',
                     boxShadow: '0 20px 60px -10px rgba(0,0,0,0.9), 0 2px 0 0 rgba(212,175,55,0.3), inset 0 1px 0 0 rgba(212,175,55,0.15)'
@@ -290,32 +328,38 @@ export default function DesktopHeader() {
             >
                 {activeItem && !activeItem.highlight && (
                     <div className="max-w-7xl mx-auto px-12 py-10 relative">
-                        {/* Línea decorativa dorada superior */}
+                        {/* LÃ­nea decorativa dorada superior */}
                         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
                         <div className="grid grid-cols-4 gap-8">
-                            {/* Col 1: Categorías */}
-                            <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
-                                <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Categorías</h4>
+                            {/* Col 1: CategorÃ­as */}
+                            <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
+                                <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
+                                    <span className="w-3 h-px bg-[#d4af37]" /> CategorÃ­as
+                                </h4>
                                 <ul className="space-y-3">
                                     {activeItem.categories?.map(cat => (
                                         <li key={cat.label}>
-                                            <a href={cat.href} className="text-[#FAFAF5] text-sm hover:text-[#d4af37] transition-colors hover:pl-2 duration-300 flex items-center gap-2">
-                                                <span className="w-4 h-px bg-[#d4af37] opacity-0 group-hover:opacity-100 flex-shrink-0"></span>
+                                            <a href={cat.href} className="text-[#FAFAF5]/80 text-sm hover:text-[#d4af37] hover:pl-2 transition-all duration-200 flex items-center gap-2 group/link">
+                                                <span className="w-0 group-hover/link:w-3 h-px bg-[#d4af37] transition-all duration-300 flex-shrink-0" />
                                                 {cat.label}
                                             </a>
                                         </li>
                                     ))}
                                 </ul>
-                                <a href={activeItem.href} className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37] pb-1">Ver Todo</a>
+                                <a href={activeItem.href} className="inline-flex items-center gap-1 mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37]/40 pb-1 hover:border-[#d4af37] transition-colors">
+                                    Ver Todo â†’
+                                </a>
                             </div>
 
                             {/* Col 2: Estilos */}
-                            <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
-                                <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Estilos</h4>
+                            <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
+                                <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
+                                    <span className="w-3 h-px bg-[#d4af37]" /> Estilos
+                                </h4>
                                 <ul className="space-y-3">
                                     {activeItem.styles?.map(style => (
                                         <li key={style.label}>
-                                            <a href={style.href} className="text-gray-400 text-sm hover:text-white transition-colors">
+                                            <a href={style.href} className="text-gray-400 text-sm hover:text-white hover:pl-2 transition-all duration-200">
                                                 {style.label}
                                             </a>
                                         </li>
@@ -323,17 +367,25 @@ export default function DesktopHeader() {
                                 </ul>
                             </div>
 
+                            {/* Col 3: VacÃ­a / Spacer para balance */}
+                            <div />
+
                             {/* Col 4: Visual Hook */}
-                            <div className="relative h-64 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
-                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
+                            <div className="relative h-60 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
                                 <img
                                     src={activeItem.image}
                                     alt={activeItem.alt || activeItem.promoText}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute bottom-6 left-6 z-20">
-                                    <span className="text-[#d4af37] text-[10px] font-bold uppercase tracking-widest mb-2 block">Lo más vendido</span>
-                                    <h3 className="text-white font-serif text-2xl">{activeItem.promoText}</h3>
+                                <div className="absolute bottom-5 left-5 z-20">
+                                    <span className="text-[#d4af37] text-[9px] font-bold uppercase tracking-[3px] mb-1.5 block">
+                                        ColecciÃ³n destacada
+                                    </span>
+                                    <h3 className="text-white font-serif text-xl leading-tight">{activeItem.promoText}</h3>
+                                    <a href={activeItem.href} className="mt-2 inline-block text-[10px] text-[#d4af37] uppercase tracking-widest border-b border-[#d4af37]/50 pb-0.5 hover:border-[#d4af37]">
+                                        Explorar â†’
+                                    </a>
                                 </div>
                             </div>
                         </div>
