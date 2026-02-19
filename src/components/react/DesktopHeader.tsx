@@ -5,69 +5,125 @@ import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
 import { favoriteItems } from '../../store/favorites';
 import { resolvePath } from '../../utils/paths';
 
+// Tipos auxiliares
+interface NavSubItem { label: string; href: string; }
+interface NavItem {
+    label: string;
+    href: string;
+    simple?: boolean;
+    highlight?: boolean;
+    categories?: NavSubItem[];
+    styles?: NavSubItem[];
+    image?: string;
+    alt?: string;
+    promoText?: string;
+}
+
+// Ayudante para construir URL de filtro
+const f = (productType?: string, tag?: string) => {
+    const base = resolvePath('/tienda');
+    const params = new URLSearchParams();
+    if (productType) params.set('productType', productType);
+    if (tag) params.set('tag', tag);
+    return `${base}?${params.toString()}`;
+};
+
 // Navigation Data
-const NAV_ITEMS = [
-    {
-        label: 'Inicio', href: resolvePath('/'),
-        simple: true // Enlace simple, sin mega menu
-    },
-    {
-        label: 'Tienda', href: resolvePath('/tienda'),
-        simple: true
-    },
+const NAV_ITEMS: NavItem[] = [
+    { label: 'Inicio', href: resolvePath('/'), simple: true },
+    { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
     {
         label: 'Hombre', href: resolvePath('/hombre'),
-        categories: ['Cadenas', 'Esclavas', 'Anillos', 'Dijes'],
-        purity: ['Oro 10k (Resistencia)', 'Oro 14k (Estándar)', 'Oro 18k (Exclusivo)'],
-        styles: ['Cuban Links', 'Soga (Rope)', 'Figaro', 'Tenis'],
+        categories: [
+            { label: 'Cadenas', href: f('Cadena', 'hombre') },
+            { label: 'Esclavas', href: f('Esclava', 'hombre') },
+            { label: 'Anillos', href: f('Anillo', 'hombre') },
+            { label: 'Dijes', href: f('Dije', 'hombre') },
+        ],
+        styles: [
+            { label: 'Cuban Links', href: f(undefined, 'cuban-link') },
+            { label: 'Soga (Rope)', href: f(undefined, 'soga') },
+            { label: 'Figaro', href: f(undefined, 'figaro') },
+            { label: 'Tenis', href: f(undefined, 'tenis') },
+        ],
         image: resolvePath('/images/menu-hombre.webp'),
         alt: 'Cadena Cubana de Oro 14k - Joyería Exclusiva para Hombre',
         promoText: 'EL BRILLO CLÁSICO'
     },
     {
         label: 'Mujer', href: resolvePath('/mujer'),
-        categories: ['Collares', 'Aretes', 'Anillos', 'Tobilleras'],
-        purity: ['Oro 10k', 'Oro 14k', 'Oro 18k'],
-        styles: ['Gargantillas', 'Huggies', 'Solitarios', 'Sets'],
+        categories: [
+            { label: 'Collares', href: f('Collar', 'mujer') },
+            { label: 'Aretes', href: f('Aretes', 'mujer') },
+            { label: 'Anillos', href: f('Anillo', 'mujer') },
+            { label: 'Tobilleras', href: f('Tobillera', 'mujer') },
+        ],
+        styles: [
+            { label: 'Gargantillas', href: f(undefined, 'gargantilla') },
+            { label: 'Huggies', href: f(undefined, 'huggie') },
+            { label: 'Solitarios', href: f(undefined, 'solitario') },
+            { label: 'Sets', href: f(undefined, 'set') },
+        ],
         image: resolvePath('/images/menu-mujer.webp'),
         alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
         promoText: 'ELEGANCIA PURA'
     },
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
-        categories: ['Cruces', 'Medallas', 'Rosarios', 'Juegos'],
-        purity: ['Oro 10k', 'Oro 14k'],
-        styles: ['San Judas', 'Virgen Guadalupe', 'Cristo', 'Ángeles'],
+        categories: [
+            { label: 'Cruces', href: f('Cruz', undefined) },
+            { label: 'Medallas', href: f('Medalla', undefined) },
+            { label: 'Rosarios', href: f('Rosario', undefined) },
+            { label: 'Juegos', href: f(undefined, 'juego') },
+        ],
+        styles: [
+            { label: 'San Judas', href: f(undefined, 'san-judas') },
+            { label: 'Virgen Guadalupe', href: f(undefined, 'virgen-guadalupe') },
+            { label: 'Cristo', href: f(undefined, 'cristo') },
+            { label: 'Ángeles', href: f(undefined, 'angel') },
+        ],
         image: resolvePath('/images/menu-religiosos.webp'),
         alt: 'Medallas y Cruces de Oro 14k - Colección Religiosa',
         promoText: 'DEVOCIÓN EN ORO'
     },
     {
         label: 'Niños', href: resolvePath('/ninos'),
-        categories: ['Aretes', 'Broqueles', 'Esclavas', 'Cadenas'],
-        purity: ['Oro 10k', 'Oro 14k'],
-        styles: ['Recién Nacido', 'Bautizo', 'Primera Comunión', 'Animalitos'],
+        categories: [
+            { label: 'Aretes', href: f('Aretes', 'niña') },
+            { label: 'Broqueles', href: f('Broquel', 'niños') },
+            { label: 'Esclavas', href: f('Esclava', 'niños') },
+            { label: 'Cadenas', href: f('Cadena', 'niños') },
+        ],
+        styles: [
+            { label: 'Recién Nacido', href: f(undefined, 'bebe') },
+            { label: 'Bautizo', href: f(undefined, 'bautizo') },
+            { label: 'Primera Comunión', href: f(undefined, 'comunion') },
+            { label: 'Animalitos', href: f(undefined, 'animalito') },
+        ],
         image: resolvePath('/images/menu-ninos.webp'),
         alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
         promoText: 'PEQUEÑOS TESOROS'
     },
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
-        categories: ['Para Ella', 'Para Él', 'Aniversario', 'Cumpleaños'],
-        purity: ['Oro 10k', 'Oro 14k'],
-        styles: ['Personalizados', 'Iniciales', 'Corazones', 'Infinito'],
+        categories: [
+            { label: 'Para Ella', href: f(undefined, 'mujer') },
+            { label: 'Para Él', href: f(undefined, 'hombre') },
+            { label: 'Aniversario', href: f(undefined, 'aniversario') },
+            { label: 'Cumpleaños', href: f(undefined, 'cumpleanos') },
+        ],
+        styles: [
+            { label: 'Personalizados', href: f(undefined, 'personalizado') },
+            { label: 'Iniciales', href: f(undefined, 'inicial') },
+            { label: 'Corazones', href: f(undefined, 'corazon') },
+            { label: 'Infinito', href: f(undefined, 'infinito') },
+        ],
         image: resolvePath('/images/menu-regalos.webp'),
         alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
         promoText: 'MOMENTOS DE ORO'
     },
-    {
-        label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'),
-        highlight: true
-    },
-    {
-        label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'),
-        highlight: true // Special style
-    }
+    { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), highlight: true },
+    { label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'), highlight: true },
 ];
 
 export default function DesktopHeader() {
@@ -237,15 +293,15 @@ export default function DesktopHeader() {
                         {/* Línea decorativa dorada superior */}
                         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
                         <div className="grid grid-cols-4 gap-8">
-                            {/* Col 1: Categories */}
+                            {/* Col 1: Categorías */}
                             <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Categorías</h4>
                                 <ul className="space-y-3">
                                     {activeItem.categories?.map(cat => (
-                                        <li key={cat}>
-                                            <a href={`${activeItem.href}?category=${cat.toLowerCase()}`} className="text-[#FAFAF5] text-sm hover:text-[#d4af37] transition-colors hover:pl-2 duration-300 flex items-center gap-2">
-                                                <span className="w-1 h-px bg-[#d4af37] opacity-0 group-hover:opacity-100"></span>
-                                                {cat}
+                                        <li key={cat.label}>
+                                            <a href={cat.href} className="text-[#FAFAF5] text-sm hover:text-[#d4af37] transition-colors hover:pl-2 duration-300 flex items-center gap-2">
+                                                <span className="w-4 h-px bg-[#d4af37] opacity-0 group-hover:opacity-100 flex-shrink-0"></span>
+                                                {cat.label}
                                             </a>
                                         </li>
                                     ))}
@@ -253,14 +309,14 @@ export default function DesktopHeader() {
                                 <a href={activeItem.href} className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37] pb-1">Ver Todo</a>
                             </div>
 
-                            {/* Col 2: Style */}
+                            {/* Col 2: Estilos */}
                             <div className="space-y-6 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-lg italic mb-2">Estilos</h4>
                                 <ul className="space-y-3">
                                     {activeItem.styles?.map(style => (
-                                        <li key={style}>
-                                            <a href={`${activeItem.href}?style=${style.toLowerCase().replace(' ', '-')}`} className="text-gray-400 text-sm hover:text-white transition-colors">
-                                                {style}
+                                        <li key={style.label}>
+                                            <a href={style.href} className="text-gray-400 text-sm hover:text-white transition-colors">
+                                                {style.label}
                                             </a>
                                         </li>
                                     ))}

@@ -67,6 +67,29 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
     });
     const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    // Label descriptivo para el estado vacío cuando viene desde mega menú
+    const [filterLabel, setFilterLabel] = useState<string>('');
+
+    // -------------------------------------------------------
+    // 0. Leer URL params al montar (desde mega menú links)
+    // -------------------------------------------------------
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const productType = params.get('productType');
+        const tag = params.get('tag');
+
+        if (productType || tag) {
+            // Pre-aplicar filtros basados en URL
+            setSelectedFilters(prev => ({
+                ...prev,
+                category: productType ? [productType] : [],
+                collection: tag ? [tag] : [],
+            }));
+            // Guardar etiqueta para el mensaje de estado vacío
+            const parts = [productType, tag].filter(Boolean);
+            setFilterLabel(parts.join(' · '));
+        }
+    }, []); // Solo al montar
 
     // -------------------------------------------------------
     // 1. Extraer opciones de filtro desde los datos reales
@@ -316,17 +339,27 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <span className="material-symbols-outlined text-4xl text-gray-600 mb-4">search_off</span>
-                        <h3 className="text-xl font-serif text-[#FAFAF5] mb-2">Sin resultados</h3>
-                        <p className="text-gray-400 mb-6 max-w-xs mx-auto">
-                            Prueba ajustando tus filtros para encontrar lo que buscas.
+                        <span className="material-symbols-outlined text-5xl text-[#d4af37]/30 mb-4">diamond</span>
+                        <h3 className="text-xl font-serif text-[#FAFAF5] mb-2">
+                            {filterLabel
+                                ? 'No hay productos con este estilo todavía'
+                                : 'Sin resultados'
+                            }
+                        </h3>
+                        <p className="text-gray-400 mb-6 max-w-sm mx-auto text-sm">
+                            {filterLabel
+                                ? `Aún no tenemos piezas para "${filterLabel}". Estamos trabajando en traer lo mejor para ti muy pronto. ✨`
+                                : 'Prueba ajustando tus filtros para encontrar lo que buscas.'
+                            }
                         </p>
-                        <button
-                            onClick={clearFilters}
-                            className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest"
-                        >
-                            Limpiar Filtros
-                        </button>
+                        <div className="flex items-center gap-4 flex-wrap justify-center">
+                            <button
+                                onClick={clearFilters}
+                                className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest"
+                            >
+                                Ver toda la tienda
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
