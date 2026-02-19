@@ -218,8 +218,9 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                 {hasActiveFilters && (
                     <button
                         onClick={clearFilters}
-                        className="mt-4 w-full text-center text-xs text-gray-500 uppercase tracking-widest hover:text-[#d4af37] transition-colors py-2"
+                        className="mt-4 w-full flex items-center justify-center gap-2 border border-[#d4af37]/40 text-[#d4af37] text-xs uppercase tracking-widest font-bold py-2.5 hover:bg-[#d4af37] hover:text-black transition-all duration-300 rounded-sm"
                     >
+                        <span className="material-symbols-outlined text-[14px]">filter_alt_off</span>
                         Limpiar Filtros
                     </button>
                 )}
@@ -254,9 +255,10 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                         {hasActiveFilters && (
                             <button
                                 onClick={clearFilters}
-                                className="w-full text-center text-xs text-gray-500 uppercase tracking-widest hover:text-[#d4af37] transition-colors py-2"
+                                className="w-full flex items-center justify-center gap-2 border border-[#d4af37]/40 text-[#d4af37] text-xs uppercase tracking-widest font-bold py-2.5 hover:bg-[#d4af37] hover:text-black transition-all duration-300 rounded-sm"
                             >
-                                Limpiar Todo
+                                <span className="material-symbols-outlined text-[14px]">filter_alt_off</span>
+                                Limpiar Filtros
                             </button>
                         )}
                     </div>
