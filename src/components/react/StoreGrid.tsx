@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
-import { isFavorite, toggleFavorite, favoriteItems } from '../../store/favorites';
+import { favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
-import FilterSidebar from './StoreGrid/FilterSidebar'; // Import new component
+import FilterSidebar from './StoreGrid/FilterSidebar';
 
 interface Product {
     id: string;
@@ -41,42 +41,62 @@ interface StoreGridProps {
     initialProducts: Product[];
 }
 
+// -------------------------------------------------------
+// Helper: Obtener materiales normalizados de los tags
+// -------------------------------------------------------
+function getProductMaterials(tags: string[]): string[] {
+    const mats = new Set<string>();
+    tags.forEach(tag => {
+        const t = tag.toLowerCase().trim();
+        if (t.includes('10k')) mats.add('Oro 10k');
+        if (t.includes('14k')) mats.add('Oro 14k');
+        if (t === 'plata' || t.includes('silver')) mats.add('Plata');
+        if (t.includes('tricolor')) mats.add('Tricolor');
+    });
+    return Array.from(mats);
+}
+
 export default function StoreGrid({ initialProducts }: StoreGridProps) {
     const [products, setProducts] = useState(initialProducts);
     const [sortBy, setSortBy] = useState('featured');
-
-    // Filter States
     const [selectedFilters, setSelectedFilters] = useState({
         category: [] as string[],
-        priceRange: '' as string, // Added to match interface, though we use priceRange state object for logic
+        priceRange: '' as string,
         collection: [] as string[],
         material: [] as string[]
     });
     const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile Drawer State
-
-    // 1. Extract Filter Options Dynamically
+    // -------------------------------------------------------
+    // 1. Extraer opciones de filtro desde los datos reales
+    // -------------------------------------------------------
     const filterOptions = useMemo(() => {
         const categories = new Set<string>();
         const collections = new Set<string>();
         const materials = new Set<string>();
 
+        // Keywords para detectar colecciones (género/audiencia)
+        const collectionKeywords = ['mujer', 'hombre', 'niños', 'niña', 'regalo', 'bebé', 'bebe', 'unisex', 'pareja'];
+
         initialProducts.forEach(p => {
+            // Categorías desde productType
             if (p.productType) categories.add(p.productType);
 
-            // Analyze Tags for Collections & Materials
             p.tags.forEach(tag => {
-                const t = tag.toLowerCase();
-                // Material Heuristics
-                if (t.includes('oro 10k') || t.includes('10k')) materials.add('Oro 10k');
-                if (t.includes('oro 14k') || t.includes('14k')) materials.add('Oro 14k');
-                if (t.includes('silver') || t.includes('plata')) materials.add('Plata');
+                const tagNorm = tag.trim().toLowerCase();
 
-                // Collection Heuristics (Simple mapping based on tag existence)
-                if (t === 'mujer' || t === 'hombre' || t === 'niños' || t === 'niña' || t === 'regalo') {
-                    collections.add(tag.charAt(0).toUpperCase() + tag.slice(1));
+                // Detectar colecciones por coincidencia exacta con keywords
+                if (collectionKeywords.includes(tagNorm)) {
+                    // Usar el tag original con trim para mantener capitalización
+                    collections.add(tag.trim());
                 }
+
+                // Detectar materiales
+                if (tagNorm.includes('10k')) materials.add('Oro 10k');
+                if (tagNorm.includes('14k')) materials.add('Oro 14k');
+                if (tagNorm === 'plata' || tagNorm.includes('silver')) materials.add('Plata');
+                if (tagNorm.includes('tricolor')) materials.add('Tricolor');
             });
         });
 
@@ -87,64 +107,60 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
         };
     }, [initialProducts]);
 
-    // 2. Filter Logic
-    // 2. Filter Logic
+    // -------------------------------------------------------
+    // 2. Lógica de Filtrado — AND entre grupos, OR dentro del grupo
+    // -------------------------------------------------------
     useEffect(() => {
         let result = initialProducts;
 
-        // Category Filter (Exact Match)
+        // Paso 1: Categoría (productType) — OR interno
         if (selectedFilters.category.length > 0) {
             result = result.filter(p => selectedFilters.category.includes(p.productType));
         }
 
-        // Collection Filter (Fuzzy Match - Tag based)
+        // Paso 2: Colección (tag exacto) — OR interno
         if (selectedFilters.collection.length > 0) {
             result = result.filter(p => {
-                // Check if ANY of the product tags contains ANY of the selected collection keywords
-                return p.tags.some(tag => {
-                    const t = tag.toLowerCase();
-                    return selectedFilters.collection.some(col => t.includes(col.toLowerCase()));
-                });
+                const productTagsLower = p.tags.map(t => t.trim().toLowerCase());
+                return selectedFilters.collection.some(col =>
+                    productTagsLower.includes(col.trim().toLowerCase())
+                );
             });
         }
 
-        // Material Filter (Fuzzy Match - Tag based)
+        // Paso 3: Material (normalizado) — OR interno
         if (selectedFilters.material.length > 0) {
             result = result.filter(p => {
-                return p.tags.some(tag => {
-                    const t = tag.toLowerCase();
-                    return selectedFilters.material.some(mat => t.includes(mat.toLowerCase()));
-                });
+                const productMaterials = getProductMaterials(p.tags);
+                return selectedFilters.material.some(mat => productMaterials.includes(mat));
             });
         }
 
-        // Price Filter
-        if (priceRange.max < 5000) {
+        // Paso 4: Precio (solo si el usuario movió el slider)
+        if (priceRange.min > 0 || priceRange.max < 5000) {
             result = result.filter(p => {
                 const price = parseFloat(p.priceRange.minVariantPrice.amount);
-                return price >= priceRange.min && price <= priceRange.max;
-            });
-        } else {
-            // If max is 5000+, we treat it as "5000+" effectively (unbounded upper)
-            result = result.filter(p => {
-                const price = parseFloat(p.priceRange.minVariantPrice.amount);
-                return price >= priceRange.min;
+                return price >= priceRange.min && (priceRange.max >= 5000 ? true : price <= priceRange.max);
             });
         }
 
-        // Sort Logic
+        // Paso 5: Ordenar
         if (sortBy === 'price-low-high') {
-            result = [...result].sort((a, b) => parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount));
+            result = [...result].sort((a, b) =>
+                parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount)
+            );
         } else if (sortBy === 'price-high-low') {
-            result = [...result].sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount));
+            result = [...result].sort((a, b) =>
+                parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount)
+            );
         }
 
-        console.log(`Filtered Count: ${result.length} | Filters:`, selectedFilters); // Debug Log
         setProducts(result);
     }, [selectedFilters, priceRange, sortBy, initialProducts]);
 
-
+    // -------------------------------------------------------
     // Handlers
+    // -------------------------------------------------------
     const handleFilterChange = (type: string, value: string) => {
         setSelectedFilters(prev => {
             const list = prev[type as keyof typeof prev] as string[];
@@ -161,6 +177,16 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
         setSortBy('featured');
     };
 
+    const hasActiveFilters =
+        selectedFilters.category.length > 0 ||
+        selectedFilters.collection.length > 0 ||
+        selectedFilters.material.length > 0 ||
+        priceRange.min > 0 ||
+        priceRange.max < 5000;
+
+    // -------------------------------------------------------
+    // Render
+    // -------------------------------------------------------
     return (
         <div className="w-full relative min-h-screen flex flex-col lg:flex-row gap-8 px-4 md:px-12 pt-8">
 
@@ -172,7 +198,9 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                     className="flex items-center gap-2 text-[#d4af37] font-bold text-sm uppercase tracking-widest"
                 >
                     <span className="material-symbols-outlined">tune</span>
-                    Filtros
+                    Filtros {hasActiveFilters && <span className="bg-[#d4af37] text-black rounded-full w-4 h-4 text-[10px] flex items-center justify-center ml-1">
+                        {selectedFilters.category.length + selectedFilters.collection.length + selectedFilters.material.length}
+                    </span>}
                 </button>
             </div>
 
@@ -187,6 +215,14 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                     totalProducts={initialProducts.length}
                     filteredCount={products.length}
                 />
+                {hasActiveFilters && (
+                    <button
+                        onClick={clearFilters}
+                        className="mt-4 w-full text-center text-xs text-gray-500 uppercase tracking-widest hover:text-[#d4af37] transition-colors py-2"
+                    >
+                        Limpiar Filtros
+                    </button>
+                )}
             </div>
 
             {/* Mobile Drawer Sidebar */}
@@ -208,34 +244,65 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                         totalProducts={initialProducts.length}
                         filteredCount={products.length}
                     />
-                    <div className="mt-8 pt-6 border-t border-[#d4af37]/10">
+                    <div className="mt-8 pt-6 border-t border-[#d4af37]/10 space-y-3">
                         <button
                             onClick={() => setIsSidebarOpen(false)}
                             className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3 hover:bg-white transition-colors"
                         >
                             Ver {products.length} Joyas
                         </button>
+                        {hasActiveFilters && (
+                            <button
+                                onClick={clearFilters}
+                                className="w-full text-center text-xs text-gray-500 uppercase tracking-widest hover:text-[#d4af37] transition-colors py-2"
+                            >
+                                Limpiar Todo
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
 
             {/* Main Grid Content */}
             <div className="flex-1 pb-32">
-                {/* Desktop Toolbar (Sort) */}
-                <div className="hidden lg:flex justify-between items-center mb-8 pb-4 border-b border-[#d4af37]/10">
-                    <span className="text-gray-400 text-sm tracking-widest uppercase">Mostrando {products.length} Resultados</span>
-                    <div className="flex items-center gap-4">
-                        <span className="text-xs text-gray-500 uppercase">Ordenar:</span>
-                        <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className="bg-transparent text-[#FAFAF5] text-sm border-none focus:ring-0 cursor-pointer"
-                        >
-                            <option value="featured" className="bg-black">Destacado</option>
-                            <option value="price-low-high" className="bg-black">Precio: Bajo a Alto</option>
-                            <option value="price-high-low" className="bg-black">Precio: Alto a Bajo</option>
-                        </select>
+                {/* Desktop Toolbar (Sort + Active Filter Chips) */}
+                <div className="hidden lg:flex flex-col gap-4 mb-8 pb-4 border-b border-[#d4af37]/10">
+                    <div className="flex justify-between items-center">
+                        <span className="text-gray-400 text-sm tracking-widest uppercase">
+                            Mostrando <span className="text-[#FAFAF5]">{products.length}</span> de {initialProducts.length} Resultados
+                        </span>
+                        <div className="flex items-center gap-4">
+                            <span className="text-xs text-gray-500 uppercase">Ordenar:</span>
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="bg-transparent text-[#FAFAF5] text-sm border-none focus:ring-0 cursor-pointer"
+                            >
+                                <option value="featured" className="bg-black">Destacado</option>
+                                <option value="price-low-high" className="bg-black">Precio: Bajo a Alto</option>
+                                <option value="price-high-low" className="bg-black">Precio: Alto a Bajo</option>
+                            </select>
+                        </div>
                     </div>
+
+                    {/* Chips de filtros activos */}
+                    {hasActiveFilters && (
+                        <div className="flex flex-wrap gap-2">
+                            {[...selectedFilters.category, ...selectedFilters.collection, ...selectedFilters.material].map(f => (
+                                <span key={f} className="flex items-center gap-1 px-3 py-1 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-xs rounded-full">
+                                    {f}
+                                    <button
+                                        onClick={() => {
+                                            if (selectedFilters.category.includes(f)) handleFilterChange('category', f);
+                                            else if (selectedFilters.collection.includes(f)) handleFilterChange('collection', f);
+                                            else handleFilterChange('material', f);
+                                        }}
+                                        className="ml-1 hover:text-white"
+                                    >✕</button>
+                                </span>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* Grid */}
@@ -249,8 +316,13 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                     <div className="flex flex-col items-center justify-center py-20 text-center">
                         <span className="material-symbols-outlined text-4xl text-gray-600 mb-4">search_off</span>
                         <h3 className="text-xl font-serif text-[#FAFAF5] mb-2">Sin resultados</h3>
-                        <p className="text-gray-400 mb-6 max-w-xs mx-auto">Prueba ajustando tus filtros para encontrar lo que buscas.</p>
-                        <button onClick={clearFilters} className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest">
+                        <p className="text-gray-400 mb-6 max-w-xs mx-auto">
+                            Prueba ajustando tus filtros para encontrar lo que buscas.
+                        </p>
+                        <button
+                            onClick={clearFilters}
+                            className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest"
+                        >
                             Limpiar Filtros
                         </button>
                     </div>

@@ -63,6 +63,19 @@
   transform: translateY(0);
 }
 
+/* Animación para productos en grid de React (no usa IntersectionObserver) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Stagger delays */
 .delay-100 {
   transition-delay: 100ms;

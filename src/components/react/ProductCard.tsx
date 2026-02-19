@@ -100,7 +100,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <article
-            className="group relative flex flex-col h-full bg-transparent transition-all duration-300 animate-on-scroll"
+            className="group relative flex flex-col h-full bg-transparent transition-all duration-300"
+            style={{ animation: 'fadeInUp 0.4s ease forwards' }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
