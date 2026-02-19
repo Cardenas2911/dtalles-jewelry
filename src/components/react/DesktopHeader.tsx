@@ -43,6 +43,15 @@ const NAV_ITEMS = [
         promoText: 'DEVOCIÓN EN ORO'
     },
     {
+        label: 'Niños', href: resolvePath('/ninos'),
+        categories: ['Aretes', 'Broqueles', 'Esclavas', 'Cadenas'],
+        purity: ['Oro 10k', 'Oro 14k'],
+        styles: ['Recién Nacido', 'Bautizo', 'Primera Comunión', 'Animalitos'],
+        image: resolvePath('/images/menu-ninos.webp'),
+        alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
+        promoText: 'PEQUEÑOS TESOROS'
+    },
+    {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: ['Para Ella', 'Para Él', 'Aniversario', 'Cumpleaños'],
         purity: ['Oro 10k', 'Oro 14k'],
@@ -50,6 +59,10 @@ const NAV_ITEMS = [
         image: resolvePath('/images/menu-regalos.webp'),
         alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
         promoText: 'MOMENTOS DE ORO'
+    },
+    {
+        label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'),
+        highlight: true
     },
     {
         label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'),
