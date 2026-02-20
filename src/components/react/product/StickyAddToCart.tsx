@@ -40,7 +40,7 @@ export default function StickyAddToCart({ productTitle, price, compareAtPrice, i
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-[#050505] border-t border-[#d4af37]/30 p-4 z-50 animate-slide-up shadow-2xl">
+        <div className="fixed bottom-[64px] lg:bottom-0 left-0 right-0 bg-[#050505] border-t border-[#d4af37]/30 p-4 z-50 animate-slide-up shadow-2xl">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
                 {/* Product Info (Mobile Hidden or Simplified) */}
                 <div className="hidden md:flex items-center gap-3">
