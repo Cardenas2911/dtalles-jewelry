@@ -14,9 +14,10 @@ interface Props {
     title: string;
     description: string;
     image?: string;
+    hideFloatingSupport?: boolean;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, hideFloatingSupport = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -102,7 +103,7 @@ const { title, description, image } = Astro.props;
 
         <Footer client:visible />
         <MobileAppNav client:load />
-        <FloatingSupport client:load />
+        {!hideFloatingSupport && <FloatingSupport client:load />}
 
         <script>
             document.addEventListener("astro:page-load", () => {

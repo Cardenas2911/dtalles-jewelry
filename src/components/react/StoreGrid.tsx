@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
 import { favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
-import FilterSidebar from './StoreGrid/FilterSidebar';
+import FilterSidebar from './StoreGridShared/FilterSidebar';
 
 interface Product {
     id: string;

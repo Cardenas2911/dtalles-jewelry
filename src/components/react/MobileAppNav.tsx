@@ -46,7 +46,7 @@ const NAV_SECTIONS = [
     },
     {
         label: 'Religiosos',
-        href: resolvePath('/coleccion/religiosa'),
+        href: resolvePath('/coleccion/religioso'),
         icon: 'church',
         items: [
             { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
@@ -192,14 +192,15 @@ export default function MobileAppNav() {
                         <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Buscar</span>
                     </button>
 
-                    {/* Menú Central (FAB dorado) */}
+                    {/* Menú Central (FAB dorado vibrante) */}
                     <div className="relative -top-4 flex justify-center">
+                        <div className="absolute inset-0 w-14 h-14 rounded-full bg-[#d4af37]/40 blur-xl animate-pulse -z-10 mx-auto"></div>
                         <button
                             onClick={() => setIsMenuOpen(true)}
-                            className="w-14 h-14 rounded-full bg-[#d4af37] text-black flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.5)] border-4 border-[#050505] transition-transform active:scale-95"
+                            className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#8a6d2b] via-[#d4af37] to-[#f5e3a3] text-black flex items-center justify-center shadow-[0_0_25px_rgba(212,175,55,0.6)] border-4 border-[#050505] transition-all active:scale-90 hover:scale-105"
                             aria-label="Abrir menú"
                         >
-                            <span className="material-symbols-outlined text-[26px]">grid_view</span>
+                            <span className="material-symbols-outlined text-[26px] drop-shadow-sm font-bold">grid_view</span>
                         </button>
                     </div>
 
@@ -323,16 +324,19 @@ export default function MobileAppNav() {
                             </div>
                         ))}
 
-                        {/* Tienda completa */}
-                        <a
-                            href={resolvePath('/tienda')}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="flex items-center gap-3 px-6 py-4 border-b border-white/5 hover:bg-white/5 transition-colors"
-                        >
-                            <span className="material-symbols-outlined text-[#d4af37] text-[18px]">storefront</span>
-                            <span className="text-[#FAFAF5] text-[13px] font-semibold uppercase tracking-[1.5px]">Ver Tienda Completa</span>
-                            <span className="material-symbols-outlined text-[#d4af37]/50 text-[16px] ml-auto">chevron_right</span>
-                        </a>
+                        {/* Tienda completa - Vibrante e Intensa */}
+                        <div className="px-4 py-6">
+                            <a
+                                href={resolvePath('/tienda')}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-[#8a6d2b] via-[#d4af37] to-[#f5e3a3] shadow-[0_4px_20px_rgba(212,175,55,0.4)] transition-all active:scale-95 overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 skew-x-[-20deg]"></div>
+                                <span className="material-symbols-outlined text-black text-[20px] font-bold">storefront</span>
+                                <span className="text-black text-[14px] font-black uppercase tracking-[2px]">Ver Tienda Completa</span>
+                                <span className="material-symbols-outlined text-black/70 text-[18px] ml-auto animate-bounce-x">arrow_forward</span>
+                            </a>
+                        </div>
                     </div>
 
                     {/* Drawer Footer */}
@@ -360,6 +364,20 @@ export default function MobileAppNav() {
                     </div>
                 </aside>
             </div>
+
+            <style>{`
+                @keyframes bounce-x {
+                    0%, 100% { transform: translateX(0); }
+                    50% { transform: translateX(5px); }
+                }
+                .animate-bounce-x {
+                    animation: bounce-x 1s infinite;
+                }
+                @keyframes shine {
+                    from { transform: translateX(-100%) skewX(-20deg); }
+                    to { transform: translateX(100%) skewX(-20deg); }
+                }
+            `}</style>
         </div>
     );
 }

@@ -95,10 +95,10 @@ export default function ProductPage({ product }: ProductPageProps) {
     return (
         <div className="pb-32 lg:pb-0"> {/* Padding for sticky bar */}
             {/* Main Grid: Gallery + Buy Box */}
-            <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-start">
+            <div className="flex flex-col lg:grid lg:grid-cols-[40%_60%] lg:gap-16 items-start">
 
                 {/* Left Col: Gallery (Sticky) */}
-                <div className="w-full lg:sticky lg:top-36 lg:self-start max-h-[calc(100vh-150px)] overflow-y-auto hide-scrollbar">
+                <div className="w-full lg:max-w-[500px] lg:mx-auto lg:sticky lg:top-[300px] lg:self-start max-h-[calc(100vh-320px)] overflow-y-auto hide-scrollbar">
                     <ProductGallery
                         images={images}
                         videoUrl={product.videoUrl?.value}

@@ -8,16 +8,16 @@ const SLIDES = [
         image: '/images/hombre carrusel.webp',
         width: 1920,
         height: 1080,
-        alt: 'Colección Masculina - Cadenas Cubanas de Oro 14k Miami',
-        titleAttribute: 'Cadenas Cubanas de Oro 14k - DTalles Jewelry',
+        alt: 'Joyas de Oro Italiano 10k y 14k - DTalles Jewelry',
+        titleAttribute: 'Oro Original Italiano 10 y 14 Kilates - DTalles Jewelry',
         alignment: 'items-start text-left', // Desktop: Left
         mobileAlignment: 'items-center text-center justify-end pb-20', // Mobile: Bottom Center
-        bgPosition: 'object-center md:object-right',
-        overline: 'BEST SELLER EN MIAMI',
-        title: 'Cadenas Cubanas: Poder Sólido',
-        subtitle: 'Oro 14k Real y peso certificado. Nada hueco, solo estatus.',
-        cta: 'VER CUBAN LINKS',
-        ctaLink: '/hombre/cuban-links',
+        bgPosition: 'object-[75%_center] md:object-right',
+        overline: 'EXCLUSIVIDAD ITALIANA',
+        title: 'Oro Original Italiano 10 y 14 Kilates',
+        subtitle: 'Autenticidad garantizada en cada gramo. El lujo del oro italiano directamente a tus manos.',
+        cta: 'EXPLORAR COLECCIÓN',
+        ctaLink: '/tienda',
         ctaStyle: 'bg-[#d4af37] text-black border-[#d4af37] hover:bg-white hover:border-white'
     },
     {
@@ -29,7 +29,7 @@ const SLIDES = [
         titleAttribute: 'Colección de Joyas para Mujer - Layering',
         alignment: 'items-start text-left', // Desktop: Left
         mobileAlignment: 'items-center text-center justify-end pb-20', // Mobile: Bottom Center
-        bgPosition: 'object-center md:object-right',
+        bgPosition: 'object-[75%_center] md:object-right',
         overline: 'NUEVA COLECCIÓN',
         title: 'Elegancia en Capas',
         subtitle: 'Descubre el arte del layering. Crea un look único para cada día.',
@@ -44,8 +44,8 @@ const SLIDES = [
         height: 1080,
         alt: 'Guía de Regalos de Joyería - Empaque de Lujo',
         titleAttribute: 'El Arte de Regalar Joyas - DTalles Jewelry',
-        alignment: 'items-center text-center', // Desktop: Center
-        mobileAlignment: 'items-center text-center justify-center', // Mobile: Center
+        alignment: 'items-start text-left', // Desktop: Left
+        mobileAlignment: 'items-center text-left justify-end pb-20', // Mobile: Bottom Left
         bgPosition: 'object-center',
         overline: 'EL ARTE DE REGALAR',
         title: 'Un D-Talle Inolvidable',
@@ -119,9 +119,17 @@ export default function HeroSlider() {
                                 </span>
 
                                 {/* Title */}
-                                <h2 className="text-white font-serif text-[2.5rem] leading-[1.1] md:text-[3.5rem] md:leading-tight mb-4 md:mb-6 text-balance font-bold drop-shadow-lg">
-                                    {slide.title}
-                                </h2>
+                                {index === 0 ? (
+                                    <h2 className="text-white font-serif text-[2.8rem] leading-[1.1] md:text-[4.5rem] md:leading-[1.1] mb-4 md:mb-6 text-balance font-bold drop-shadow-lg">
+                                        <span className="bg-gradient-to-r from-[#f5e3a3] via-[#d4af37] to-[#f5e3a3] bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+                                            {slide.title}
+                                        </span>
+                                    </h2>
+                                ) : (
+                                    <h2 className="text-white font-serif text-[2.5rem] leading-[1.1] md:text-[3.5rem] md:leading-tight mb-4 md:mb-6 text-balance font-bold drop-shadow-lg">
+                                        {slide.title}
+                                    </h2>
+                                )}
 
                                 {/* Subtitle */}
                                 <p className="text-gray-100 text-sm md:text-[1.1rem] font-light mb-8 md:mb-10 leading-relaxed max-w-sm md:max-w-lg text-balance font-sans drop-shadow-md mx-auto md:mx-0">

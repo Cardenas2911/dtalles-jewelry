@@ -9,7 +9,7 @@ export default function FloatingSupport() {
     }, []);
 
     return (
-        <div className={`fixed bottom-24 right-6 z-[45] transition-all duration-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className={`fixed bottom-20 lg:bottom-24 right-6 z-[60] transition-all duration-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <a
                 href="https://wa.me/17867644952?text=Hola%2C%20necesito%20ayuda%20VIP%20con%20una%20joya"
                 target="_blank"

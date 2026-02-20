@@ -69,7 +69,7 @@ const NAV_ITEMS: NavItem[] = [
         promoText: 'ELEGANCIA PURA'
     },
     {
-        label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
+        label: 'Religiosos', href: resolvePath('/coleccion/religioso'),
         categories: [
             { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
             { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
@@ -193,10 +193,7 @@ export default function DesktopHeader() {
                                 <li
                                     key={item.label}
                                     className="relative"
-                                    onMouseEnter={() => {
-                                        if (item.highlight || item.simple) setActiveMenu(null);
-                                        else handleMouseEnter(item.label);
-                                    }}
+                                    onMouseEnter={() => handleMouseEnter(item.label)}
                                 >
                                     <a
                                         href={item.href}
@@ -273,7 +270,7 @@ export default function DesktopHeader() {
             </div>
 
             {/* Overlay del mega menú */}
-            {activeMenu && activeItem && !activeItem.highlight && (
+            {activeMenu && activeItem && !activeItem.highlight && !activeItem.simple && (
                 <div
                     className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
                     style={{ top: '0', animation: 'fadeIn 0.2s ease' }}
@@ -283,7 +280,7 @@ export default function DesktopHeader() {
             {/* Mega Menu Panel */}
             <div
                 className={`absolute left-1/2 -translate-x-1/2 w-full max-w-5xl z-50 transition-all duration-300 ease-out overflow-hidden rounded-b-xl border-x border-b border-[#d4af37]/30
-                    ${activeMenu && activeItem && !activeItem.highlight
+                    ${activeMenu && activeItem && !activeItem.highlight && !activeItem.simple
                         ? 'opacity-100 visible translate-y-0'
                         : 'opacity-0 invisible -translate-y-3'
                     }

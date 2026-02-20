@@ -133,8 +133,8 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                         </span>
                     </div>
 
-                    {/* Countdown Timer - NEW */}
-                    <CountdownTimer />
+                    {/* Countdown Timer - REMOVED (Now in Sticky Bar) */}
+                    {/* <CountdownTimer /> */}
 
                     {/* Stock Urgency */}
                     {selectedVariant.quantityAvailable !== undefined && selectedVariant.quantityAvailable > 0 && selectedVariant.quantityAvailable < 5 && (
