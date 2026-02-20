@@ -79,9 +79,9 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
         <>
             <div className="lg:sticky lg:top-24 flex flex-col gap-6">
                 {/* Header */}
-                <div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
                     {/* Vendor */}
-                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-[2px] mb-2 block animate-fade-in">
+                    <span className="text-[#d4af37] text-[10px] md:text-xs font-bold uppercase tracking-[2px] mb-2 block animate-fade-in">
                         {product.vendor || 'DTalles Gold Collection'}
                     </span>
 
@@ -91,8 +91,8 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </h1>
 
                     {/* Price Row */}
-                    <div className="flex flex-col gap-2 mb-6">
-                        <div className="flex items-baseline gap-4 flex-wrap">
+                    <div className="flex flex-col items-center md:items-start gap-2 mb-6">
+                        <div className="flex items-baseline gap-4 flex-wrap justify-center md:justify-start">
                             <span className="text-3xl md:text-5xl font-serif text-[#d4af37] break-words">
                                 ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                             </span>

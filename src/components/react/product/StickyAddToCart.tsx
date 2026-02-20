@@ -40,17 +40,17 @@ export default function StickyAddToCart({ productTitle, price, compareAtPrice, i
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-[64px] lg:bottom-0 left-0 right-0 bg-[#050505] border-t border-[#d4af37]/30 p-4 z-50 animate-slide-up shadow-2xl">
+        <div className="fixed bottom-[64px] lg:bottom-0 left-0 right-0 bg-white border-t border-[#d4af37]/20 p-4 z-50 animate-slide-up shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
                 {/* Product Info (Mobile Hidden or Simplified) */}
                 <div className="hidden md:flex items-center gap-3">
-                    {image && <img src={image} alt={productTitle} className="w-10 h-10 object-cover rounded-sm border border-white/10" />}
+                    {image && <img src={image} alt={productTitle} className="w-10 h-10 object-cover rounded-sm border border-gray-200" />}
                     <div>
-                        <h4 className="text-[#FAFAF5] font-serif text-sm truncate max-w-[200px]">{productTitle}</h4>
+                        <h4 className="text-black font-serif text-sm truncate max-w-[200px]">{productTitle}</h4>
                         <div className="flex items-center gap-2">
-                            <span className="text-[#d4af37] text-xs font-bold">${price.toLocaleString()}</span>
+                            <span className="text-[#bfa15f] text-xs font-bold">${price.toLocaleString()}</span>
                             {compareAtPrice && compareAtPrice > price && (
-                                <span className="text-gray-500 text-xs line-through decoration-gray-500">${compareAtPrice.toLocaleString()}</span>
+                                <span className="text-gray-400 text-xs line-through decoration-gray-400">${compareAtPrice.toLocaleString()}</span>
                             )}
                         </div>
                     </div>
@@ -59,9 +59,9 @@ export default function StickyAddToCart({ productTitle, price, compareAtPrice, i
                 {/* Mobile Info (Just Price maybe?) */}
                 <div className="md:hidden flex flex-col">
                     <div className="flex items-center gap-2">
-                        <span className="text-[#d4af37] text-sm font-bold">${price.toLocaleString()}</span>
+                        <span className="text-black text-sm font-bold">${price.toLocaleString()}</span>
                         {compareAtPrice && compareAtPrice > price && (
-                            <span className="text-gray-500 text-xs line-through decoration-gray-500">${compareAtPrice.toLocaleString()}</span>
+                            <span className="text-gray-400 text-xs line-through decoration-gray-400">${compareAtPrice.toLocaleString()}</span>
                         )}
                     </div>
                 </div>
