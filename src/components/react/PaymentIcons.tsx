@@ -4,9 +4,9 @@ import {
     Mastercard,
     Amex,
     Paypal,
-    ShopPay,
-    ApplePay,
-    GooglePay,
+    Shopify,
+    Applepay,
+    Googlepay,
     Affirm
 } from 'react-pay-icons';
 
@@ -51,19 +51,19 @@ export default function PaymentIcons({ className = "flex flex-wrap justify-cente
                 <Paypal {...commonIconProps} />
             </CardWrapper>
 
-            {/* Shop Pay */}
+            {/* Shop Pay (Using Shopify icon as fallback/primary) */}
             <CardWrapper bg="bg-[#5A31F4]">
-                <ShopPay {...commonIconProps} />
+                <Shopify {...commonIconProps} />
             </CardWrapper>
 
             {/* Apple Pay */}
             <CardWrapper>
-                <ApplePay {...commonIconProps} />
+                <Applepay {...commonIconProps} />
             </CardWrapper>
 
             {/* Google Pay */}
             <CardWrapper>
-                <GooglePay {...commonIconProps} />
+                <Googlepay {...commonIconProps} />
             </CardWrapper>
 
             {/* Affirm */}
