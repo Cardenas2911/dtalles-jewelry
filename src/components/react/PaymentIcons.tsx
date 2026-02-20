@@ -5,10 +5,10 @@ interface PaymentIconsProps {
     iconClassName?: string;
 }
 
-export default function PaymentIcons({ className = "flex flex-wrap justify-center gap-2", iconClassName = "h-5" }: PaymentIconsProps) {
+export default function PaymentIcons({ className = "flex flex-wrap justify-center gap-2", iconClassName = "h-5 w-auto" }: PaymentIconsProps) {
     // Contenedor base para tarjeta
     const CardWrapper = ({ children, bg = "bg-white" }: { children: React.ReactNode, bg?: string }) => (
-        <div className={`${bg} h-8 w-12 rounded flex items-center justify-center border border-white/10 shadow-sm overflow-hidden p-1`}>
+        <div className={`${bg} h-8 w-12 rounded flex items-center justify-center border border-white/10 shadow-sm overflow-hidden p-1 relative`}>
             {children}
         </div>
     );
@@ -17,48 +17,72 @@ export default function PaymentIcons({ className = "flex flex-wrap justify-cente
         <div className={className}>
             {/* Visa */}
             <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg" alt="Visa" className="w-full h-full object-contain" />
+                <svg viewBox="0 0 384 121" className="w-full h-full" aria-label="Visa">
+                    <path fill="#1A1F71" d="M147.2 11.2h31L200 110h-29l-4.5-23.7H118l-9.1 23.7H81.2l66-98.8zM125 71.9h32.1L143.5 25l-18.5 46.9zm135.7 39.5L228.6 15h28.2l20.4 68 24.2-68h28.1l-41.9 101.9-8.4-1.9-18.5-4.5zM384 109.9l-22.3-99H333l-34.9 83.1-13-68.9h-28.7l46.2 107.5h30.2l49.3-120.3-1.4-.4zM53.1 11.2H12v98.7h41.1c37 0 62.7-25 62.7-49.4 0-24.3-25.6-49.3-62.7-49.3zm0 77.5H38.7V32.4h14.4c21.8 0 35.8 12.8 35.8 28.2 0 15.3-14 28.1-35.8 28.1z" />
+                </svg>
             </CardWrapper>
 
             {/* Mastercard */}
             <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/master-1730d647918f7230b7613c28ac63bfa5938c4cd80f38d72669d58c52f2a7b74f.svg" alt="Mastercard" className="w-full h-full object-contain" />
+                <svg viewBox="0 0 36 22" className="w-full h-full" aria-label="Mastercard">
+                    <path fill="#FF5F00" d="M14.5 11c0-3.1 1.6-5.8 4-7.5-2.5-1.7-5.5-2.7-8.8-2.7-8.1 0-14.7 6.6-14.7 14.7s6.6 14.7 14.7 14.7c3.3 0 6.3-1 8.8-2.7-2.4-1.7-4-4.4-4-7.5z" transform="translate(3.7 1) scale(.57)" />
+                    <path fill="#EB001B" d="M29.2 11c0 8.1-6.6 14.7-14.7 14.7-3.3 0-6.3-1-8.8-2.7 2.4-1.7 4-4.4 4-7.5s-1.6-5.8-4-7.5c2.5-1.7 5.5-2.7 8.8-2.7 8.1 0 14.7 6.6 14.7 14.7z" transform="translate(18.3 1) scale(.57)" />
+                    <path fill="#F79E1B" d="M23.5 11c0 3.1-1.6 5.8-4 7.5-2.4-1.7-4-4.4-4-7.5s1.6-5.8 4-7.5c2.4 1.7 4 4.4 4 7.5z" transform="translate(13.7 1) scale(.57)" />
+                </svg>
             </CardWrapper>
 
             {/* Amex */}
             <CardWrapper bg="bg-[#006FCF]">
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/american_express-2269c9bcf158e6599f7de8f6e2190b6f9ebb371a55f8c7da967e2343a486af20.svg" alt="American Express" className="w-full h-full object-contain" />
+                <svg viewBox="0 0 36 22" className="w-full h-full" aria-label="Amex">
+                    <path fill="#FFF" d="M21.2 15h-2.3l-.3-1h-2.2l-.3 1h-2.2l2.3-6.1h3l2.2 6.1h-.2zm-3-2.6l-.6-2-.6 2h1.2zm6.6 2.6h-2.5l-1.3-3.2-1.3 3.2h-2.5l2.6-6.1h2.5l2.5 6.1zm-13.6-4.9h2.3l1.1 2.3 1.2-2.3h2.1l-2.2 3.8 2.3 3.7h-2.3l-1.2-2.3-1.1 2.3h-2.2l2.3-3.8-2.3-3.7zm-4.3 0h3.8c.8 0 1.2.1 1.6.4.3.3.4.7.4 1.3 0 .4-.1.7-.3 1-.2.2-.5.4-.9.5.5.1.9.4.9.9s-.2 1-.5 1.3c-.4.3-.9.4-1.6.4h-3.4v-6.1h0zm2.2 1.9v-1l-2 .1v2.1h1.9c.3 0 .5-.2.5-.5s-.1-.6-.4-.7zm.2 3.1c.3 0 .5-.2.5-.5s-.2-.5-.5-.6h-2.2v1.2h2.2zm-12.2-4.9h2.3l1.1 2.3 1.2-2.3h2.1l-2.2 3.8 2.3 3.7h-2.3l-1.2-2.3-1.1 2.3h-2.1l2.3-3.8-2.3-3.7z" transform="translate(4 3) scale(.75)" />
+                </svg>
             </CardWrapper>
 
             {/* PayPal */}
             <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/paypal-49e4c1e03244b6d2038404cb39e01a61525a5609e900c7d425712e239017684d.svg" alt="PayPal" className="w-full h-full object-contain" />
+                <svg viewBox="0 0 36 22" className="w-full h-full" aria-label="PayPal">
+                    <path fill="#003087" d="M12.4 2.8h-4.3l-2.7 17.1h3.3l.7-4.4h1.7c3.1 0 5.6-2.1 6.5-5.9.6-2.8-.8-6.1-5.2-6.8z" transform="translate(1 1) scale(.7)" />
+                    <path fill="#009cde" d="M25.7 2.8h-4.3L18.7 20h3.3l.7-4.4h1.7c3.1 0 5.6-2.1 6.5-5.9.5-2.8-.8-6.1-5.2-6.9z" transform="translate(4 1) scale(.7)" />
+                    <path fill="#012169" d="M13.2 2.8h-4.3l-.4 2.3c3.2 0 5.8 2 6.6 5.6.5-2.7-.6-5.9-4.7-6.5l.4-1.4h2.4z" transform="translate(1 1) scale(.7)" />
+                </svg>
             </CardWrapper>
 
             {/* Shop Pay */}
-            <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/shop_pay-1906a241af161aed48f32463e264ab3da28471be8bd93a7e5898d975ab49af04.svg" alt="Shop Pay" className="w-full h-full object-contain" />
+            <CardWrapper bg="bg-[#5A31F4]">
+                <svg viewBox="0 0 68 37" className="w-full h-full p-0.5" aria-label="Shop Pay">
+                    <path fill="#fff" d="M37.9 2.5h-5.9c-2.3 0-3.6 1-4.1 2.1l-6.3 13.5v9.8c.2.8.9 1.4 1.8 1.4h4.5c.8 0 1.5-.5 1.7-1.3V18l8.6-14.7c.3-.5-.1-1.2-.6-1.2l.3.4zm10.7 0H45c-.4 0-.8.1-1.1.4L37 13.5l-6.9-10.6c-.3-.3-.7-.4-1.1-.4h-3.6c-.6 0-1 .6-.6 1.1l9.1 13.9c.7 1 2.1 1 2.8 0l9.1-13.9c.4-.5 0-1.1-.6-1.1zM20.2 16.6H17l-1.1 2.6c-.3.7-1 1.2-1.9 1.2H7.2c-.6 0-1-.8-.5-1.1L12 8.4c.5-.8.5-1.8-.1-2.5-.5-.7-1.4-1.1-2.3-1H3.5C1.6 4.9 0 6.5 0 8.4v13.2c0 1.9 1.6 3.5 3.5 3.5h16.7c1.9 0 3.5-1.6 3.5-3.5v-1.6c0-1.9-1.6-3.4-3.5-3.4z" transform="scale(0.8) translate(8 5)" />
+                </svg>
             </CardWrapper>
 
             {/* Apple Pay */}
             <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/apple_pay-f6db0077dc7c325b436ecbdcf254239100b35b70b1663bc7523d7c424901fa09.svg" alt="Apple Pay" className="w-full h-full object-contain" />
+                <svg viewBox="0 0 38 18" className="w-full h-full scale-90" aria-label="Apple Pay">
+                    <path fill="black" d="M6.16 7.64h1.56v-4.1h2.52V2.1H3.64v1.44H6.16v4.1zM13.54 7.78c1.38 0 2.22-.64 2.44-1.62h-1.44c-.16.34-.52.5-1.02.5-.78 0-1.28-.48-1.28-1.42 0-1.04.56-1.5 1.38-1.5.54 0 1.04.22 1.34.8h1.42c-.36-1.24-1.58-1.92-2.86-1.92-1.7 0-2.92 1.02-2.92 2.66 0 1.6 1.08 2.5 2.94 2.5zM17.44 7.64h1.52V4.54h.04c.26-.6.82-1.06 1.6-1.06.1 0 .22.02.32.04V2.12c-.12-.02-.26-.04-.42-.04-1.02 0-1.62.62-1.8 1.4h-.04V2.16h-1.22v5.48zM24.78 4.74c0-1.18-.76-1.82-2.22-1.82-1.32 0-2.16.58-2.36 1.48h1.36c.12-.3.44-.46.92-.46.54 0 .82.22.82.6v.2l-1.02.06c-1.56.08-2.42.54-2.42 1.64 0 .96.76 1.48 1.76 1.48.86 0 1.46-.38 1.72-.94h.04l.1.8h1.3V4.74zm-1.42 1.5c-.14.28-.48.46-.9.46-.5 0-.82-.24-.82-.66 0-.44.36-.62 1.04-.66l.68-.04v.9zM30.76 2.16h-1.58l-1.42 4.1h-.04l-1.38-4.1h-1.6l2.16 5.6-1.26 2.82h1.58l3.54-8.42z" />
+                    <path fill="black" d="M35.66 4.78c.08-.12.14-.28.14-.44 0-.4-.32-.72-.74-.72-.38 0-.66.24-.78.6l-.16.48-.46 1.36h1.28l.38-.82c.08-.16.34-.62.34-.46zM35.1 2.86c.06.14.04.1.1.26-.52-.14-.94-.28-1.52-.28-1.3 0-2.02.9-2.02 2.12 0 1.28.84 2.06 1.94 2.06.58 0 1.08-.16 1.62-.36-.04.14-.04.12-.1.28-.36.14-.8.24-1.32.24-1.92 0-3.48-1.28-3.48-3.26 0-1.96 1.42-3.32 3.42-3.32.54 0 .94.1 1.36.26zM35.94 1.76c.72 0 1.32-.52 1.32-1.22 0-.66-.46-1.16-1.12-1.2.06.5.4 1 1 1.02-.02.48-.52 1.02-1.2 1.4z" />
+                </svg>
             </CardWrapper>
 
             {/* Google Pay */}
             <CardWrapper>
-                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/google_pay-c66a29c63facf2053bf69352982c958e9675cabea4f2f7cbb0821953c2c771ee.svg" alt="Google Pay" className="w-full h-full object-contain" />
-            </CardWrapper>
-
-            {/* Affirm */}
-            <CardWrapper>
-                <svg viewBox="0 0 42 16" className="w-full h-full object-contain" aria-label="Affirm">
-                    <g fill="#000" fillRule="evenodd">
-                        <path d="M7.8 0C3.5 0 0 3.6 0 8s3.5 8 7.8 8c4.3 0 7.8-3.6 7.8-8S12.1 0 7.8 0zm0 13.9C4.6 13.9 2 11.2 2 8s2.6-5.9 5.8-5.9c3.2 0 5.8 2.7 5.8 5.9s-2.6 5.9-5.8 5.9" />
-                        <path d="M23.1 3.4h-2.1v9.3c0 .8.2 1.2.9 1.2h1.2v2h-1.6c-2.3 0-2.6-1.7-2.6-3.2v-9.3h-1.6V1.3h1.6V0h2.1v1.3h2.1v2.1M29.6 3.4h-2.1v9.3c0 .8.2 1.2.9 1.2h1.2v2H28c-2.3 0-2.6-1.7-2.6-3.2v-9.3h-1.6V1.3h1.6V0h2.1v1.3h2.1v2.1M32.8 3.5h2.1v8.5h2V3.5h2.1V12h-2v3.9H34.9V12h-2.1V3.5M40.9 3.5h2.1v3.9h-2.1z" />
-                    </g>
+                <svg viewBox="0 0 36 14" className="w-full h-full scale-90" aria-label="Google Pay">
+                    <path fill="#5F6368" d="M14.9 5.7h2.5v7.7h-2.5V5.7zm1.2-4.1C16.9 1.6 17.5 2.1 17.5 3c0 .8-.6 1.4-1.4 1.4-.8 0-1.4-.6-1.4-1.4 0-.9.6-1.4 1.4-1.4zM20.6 5.7h2.4v7.7h-2.4V5.7zM20.6 1h2.4v2.7h-2.4V1z" transform="translate(1 0) scale(0.9)" />
+                    <path fill="#4285F4" d="M4.6 6.3V6c0-.2 0-.5-.1-.7H.2v2.7h2.5c-.1.7-.4 1.3-.9 1.7v1.4h1.5C4.2 10.3 4.7 9 4.7 7.5 4.6 7.1 4.6 6.7 4.6 6.3z" transform="translate(1 3.5) scale(0.9)" />
+                    <path fill="#34A853" d="M.2 10.8c1.2 0 2.3-.4 3.1-1.1l-1.5-1.4c-.4.3-.9.4-1.6.4-1.2 0-2.3-.8-2.6-2h-1.6v1.5C-2.4 9.9-1.2 10.8.2 10.8z" transform="translate(1 3.5) scale(0.9)" />
+                    <path fill="#FBBC04" d="M-2.4 6.7c-.1-.4-.2-.8-.2-1.2s.1-.8.2-1.2V2.8h-1.6C-4.4 3.7-4.6 4.7-4.6 5.5c0 .9.2 1.8.6 2.7l1.6-1.5z" transform="translate(1 3.5) scale(0.9)" />
+                    <path fill="#EA4335" d="M.2 .2c.7 0 1.3.2 1.8.7l1.3-1.3C2.5-.9 1.2-1.3.2-1.3c-1.4 0-2.6 1-3 2.5l1.6 1.5C-1 1.4-1.2 .2 .2 .2z" transform="translate(1 3.5) scale(0.9)" />
+                    <path fill="#5F6368" d="M25.7 5.7h1.4c1.9 0 3.1 1 3.1 3v.1c0 .2-.1.4-.2.5-.3-.4-.8-.6-1.4-.6-1.3 0-2.7.7-2.7 2 0 .9.7 1.4 1.5 1.4.6 0 1.2-.3 1.5-.7l.1.6h1.3v-2.8c0-1.7-1.3-3.1-3.6-3.1-1.6 0-2.8.7-3.2 1.6l1 .6c.3-.6.9-1 1.9-1zm-.1 5.1c0-.7.6-1.2 1.6-1.2.6 0 1 .2 1.3.5-.1 1.2-1.1 1.6-2 1.6-.4 0-.9-.2-.9-.9zM36.1 11.5L34 5.7h1.6l1.2 4 1.2-4h1.5l-2.4 6.8h-1.6l.6-1z" transform="translate(1 0) scale(0.9)" />
                 </svg>
-            </CardWrapper>
         </div>
+             
+             {/* Affirm */ }
+    <CardWrapper>
+        <svg viewBox="0 0 42 16" className="w-full h-full scale-100" aria-label="Affirm">
+            <g fill="#000" fillRule="evenodd">
+                <path d="M7.8 0C3.5 0 0 3.6 0 8s3.5 8 7.8 8c4.3 0 7.8-3.6 7.8-8S12.1 0 7.8 0zm0 13.9C4.6 13.9 2 11.2 2 8s2.6-5.9 5.8-5.9c3.2 0 5.8 2.7 5.8 5.9s-2.6 5.9-5.8 5.9" />
+                <path d="M23.1 3.4h-2.1v9.3c0 .8.2 1.2.9 1.2h1.2v2h-1.6c-2.3 0-2.6-1.7-2.6-3.2v-9.3h-1.6V1.3h1.6V0h2.1v1.3h2.1v2.1M29.6 3.4h-2.1v9.3c0 .8.2 1.2.9 1.2h1.2v2H28c-2.3 0-2.6-1.7-2.6-3.2v-9.3h-1.6V1.3h1.6V0h2.1v1.3h2.1v2.1M32.8 3.5h2.1v8.5h2V3.5h2.1V12h-2v3.9H34.9V12h-2.1V3.5M40.9 3.5h2.1v3.9h-2.1z" />
+            </g>
+        </svg>
+    </CardWrapper>
+        </div >
     );
 }
