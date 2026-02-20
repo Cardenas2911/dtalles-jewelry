@@ -121,6 +121,17 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     {/* Review Snippet - NEW */}
                     <ReviewSnippet />
 
+                    {/* Social Proof Counter - NEW */}
+                    <div className="mb-4 flex items-center gap-2 text-xs text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                        <span className="flex h-2 w-2 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
+                        </span>
+                        <span className="font-medium">
+                            <span className="text-orange-400 font-bold">{Math.floor(Math.random() * (22 - 8 + 1) + 8)}</span> personas viendo esta joya ahora mismo
+                        </span>
+                    </div>
+
                     {/* Stock Urgency */}
                     {selectedVariant.quantityAvailable !== undefined && selectedVariant.quantityAvailable > 0 && selectedVariant.quantityAvailable < 5 && (
                         <div className="mb-4 inline-flex items-center gap-2 text-xs font-bold text-[#d4af37] bg-[#d4af37]/10 px-3 py-1.5 rounded-full animate-pulse-slow">

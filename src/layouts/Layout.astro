@@ -6,6 +6,7 @@ import MobileAppNav from "../components/react/MobileAppNav";
 import Footer from "../components/react/Footer";
 import CartDrawer from "../components/react/CartDrawer";
 import SearchModal from "../components/react/SearchModal";
+import FloatingSupport from "../components/react/FloatingSupport";
 
 import "../styles/global.css";
 
@@ -101,6 +102,7 @@ const { title, description, image } = Astro.props;
 
         <Footer client:visible />
         <MobileAppNav client:load />
+        <FloatingSupport client:load />
 
         <script>
             document.addEventListener("astro:page-load", () => {

@@ -169,10 +169,34 @@ h1 {
   /* Hereda automáticamente del h1 global */
 }
 
-@media (min-width: 768px) {
-  h1::after {
-    width: 4rem;
-    height: 3px;
-    margin-top: 1rem;
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
   }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2.5s infinite linear;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite ease-in-out;
 }
