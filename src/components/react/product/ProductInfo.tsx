@@ -4,6 +4,7 @@ import TrustBadges from './TrustBadges';
 import ReviewSnippet from './ReviewSnippet';
 import StickyAddToCart from './StickyAddToCart';
 import PaymentIcons from '../PaymentIcons';
+import CountdownTimer from './CountdownTimer';
 
 interface Variant {
     id: string;
@@ -131,6 +132,9 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                             <span className="text-orange-400 font-bold">{Math.floor(Math.random() * (22 - 8 + 1) + 8)}</span> personas viendo esta joya ahora mismo
                         </span>
                     </div>
+
+                    {/* Countdown Timer - NEW */}
+                    <CountdownTimer />
 
                     {/* Stock Urgency */}
                     {selectedVariant.quantityAvailable !== undefined && selectedVariant.quantityAvailable > 0 && selectedVariant.quantityAvailable < 5 && (
