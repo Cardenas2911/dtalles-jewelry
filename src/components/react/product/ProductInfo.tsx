@@ -86,7 +86,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </span>
 
                     {/* Title */}
-                    <h1 className="text-3xl md:text-5xl font-serif text-white mb-2 leading-tight break-words">
+                    <h1 className="text-2xl md:text-5xl font-serif text-white mb-2 leading-tight break-words">
                         {product.title}
                     </h1>
 
