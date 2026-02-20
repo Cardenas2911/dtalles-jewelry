@@ -77,7 +77,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
 
     return (
         <>
-            <div className="lg:sticky lg:top-24 flex flex-col gap-6">
+            <div className="flex flex-col gap-6">
                 {/* Header */}
                 <div className="flex flex-col items-center md:items-start text-center md:text-left">
                     {/* Vendor */}
