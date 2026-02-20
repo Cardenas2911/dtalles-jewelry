@@ -1,86 +1,74 @@
 import React from 'react';
+import {
+    Visa,
+    Mastercard,
+    Amex,
+    Paypal,
+    ShopPay,
+    ApplePay,
+    GooglePay,
+    Affirm
+} from 'react-pay-icons';
 
 interface PaymentIconsProps {
     className?: string;
     iconClassName?: string;
 }
 
-export default function PaymentIcons({ className = "flex flex-wrap justify-center gap-2", iconClassName = "h-full w-auto" }: PaymentIconsProps) {
-    // Contenedor base para tarjeta
+export default function PaymentIcons({ className = "flex flex-wrap justify-center gap-2", iconClassName = "h-5 w-auto" }: PaymentIconsProps) {
+    // Contenedor base para tarjeta - Mantenemos el mismo estilo para consistencia
     const CardWrapper = ({ children, bg = "bg-white" }: { children: React.ReactNode, bg?: string }) => (
         <div className={`${bg} h-7 w-11 rounded-[3px] flex items-center justify-center border border-white/10 shadow-sm overflow-hidden p-0.5`}>
             {children}
         </div>
     );
 
+    // Style props for icons to fit properly in our wrapper
+    const commonIconProps = {
+        style: { width: '100%', height: '100%', display: 'block' },
+        margin: 0 // some libraries add default margin
+    };
+
     return (
         <div className={className}>
             {/* Visa */}
             <CardWrapper>
-                <svg viewBox="0 0 48 16" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Visa">
-                    <path fill="#142787" d="M19.336 1.25h2.827l1.767 10.74h-2.827L19.336 1.25zm12.835-1.053c-1.115-.443-2.158-.752-3.755-.752-4.155 0-7.08 2.18-7.108 5.293-.028 2.3 2.102 3.58 3.707 4.358 1.648.795 2.204 1.306 2.204 2.02 0 1.092-1.34 1.597-2.583 1.597-1.73 0-2.652-.258-4.067-.88l-.57-.272-.596 3.636c.995.452 2.825.845 4.73.845 4.475 0 7.362-2.164 7.388-5.518.013-1.84-.136-3.235-2.584-4.39-1.077-.524-1.74-.887-1.74-1.425 0-.484.542-.98 1.992-.98 1.13.013 1.95.242 2.583.51l.31.148.51-3.19zm3.523 10.435L38.385 1.25h-2.684c-.815 0-1.52.47-1.815 1.21l-6.42 14h3.29l.654-1.787h4.027l.378 1.787h2.88zm-5.06-2.66l2.126-5.71 1.217 5.71h-3.344zm17.365-6.722c-.415-.417-1.022-1.25-2.072-1.25-2.28 0-3.868 1.196-4.63 2.783L35.91 14.392h3.04l.605-1.654 1.767 1.654h2.682l-3.99-9.155L41.347 1.25h-2.73l-1.618 7.37z" />
-                </svg>
+                <Visa {...commonIconProps} />
             </CardWrapper>
 
             {/* Mastercard */}
             <CardWrapper>
-                <svg viewBox="0 0 32 20" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Mastercard">
-                    <rect fill="#fff" width="32" height="20" rx="2" />
-                    <path fill="#FF5F00" d="M12.925 10.003c0-2.665 1.332-5.035 3.39-6.488-2.128-1.48-4.69-2.355-7.46-2.355C3.967 1.16 0 5.12 0 10.003c0 4.887 3.967 8.845 8.855 8.845 2.77 0 5.332-.876 7.46-2.355-2.058-1.455-3.39-3.824-3.39-6.49z" />
-                    <path fill="#EB001B" d="M23.145 1.16c-2.77 0-5.332.875-7.46 2.355 2.058 1.453 3.39 3.823 3.39 6.488 0 2.666-1.332 5.035-3.39 6.49 2.128 1.48 4.69 2.353 7.46 2.353 4.888 0 8.855-3.957 8.855-8.843C32 5.12 28.033 1.16 23.145 1.16z" />
-                    <path fill="#F79E1B" d="M16.315 10.003c0 2.666-.665 5.184-1.82 7.384 1.155.617 2.478.97 3.878.97 1.4 0 2.723-.353 3.878-.97-1.155-2.2-1.82-4.718-1.82-7.384 0-2.665.665-5.184 1.82-7.384-1.155-.62-2.478-.974-3.878-.974-1.4 0-2.723.354-3.878.974 1.155 2.2 1.82 4.72 1.82 7.384z" />
-                </svg>
+                <Mastercard {...commonIconProps} />
             </CardWrapper>
 
             {/* Amex */}
             <CardWrapper bg="bg-[#006FCF]">
-                <svg viewBox="0 0 50 30" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Amex">
-                    <path fill="#FFF" d="M43.02 18.232l-3.238-7.79H35.2l2.368 5.485-2.373 5.352h4.522l.535-1.282h3.137l.55 1.282h4.636l-5.128-10.838h-4.32l.14 1.096-3.792-1.096-4.225 10.838h4.58l.68-1.742.678 1.742h4.945zm-1.045-2.553h-1.86l.91-2.18.95 2.18zM24.775 21.28H30.4v-4.635l2.766-.17v5.03h3.58V10.833h-6.32v-.194l-5.65.195V21.28zm2.66-8.79h2.235l-.023 2-2.213.064v-2.064zm-.258 6.904v-2.345l2.457.11v2.19l-2.457.043zM10.95 10.834H5.21l1.545 3.323L5 17.598h4.633l1.838-3.483 1.897 3.483H18l-3.37-6.764 3.097-3.323h-4.32l-1.044 2.232-1.412-2.394v.053zM5.388 21.28h6.29V16.6l-5.698-.24v4.92h5.72V21.1l-2.618.18H5.388V10.834h-4.43v.24l.024 9.112 4.407 1.094zM7.22 13.04v1.898l2.946-.11V13.04L7.22 13.04zm.32 6.53v-2.22l2.624.162v2.133l-2.624-.075z" />
-                </svg>
+                <Amex {...commonIconProps} />
             </CardWrapper>
 
             {/* PayPal */}
             <CardWrapper>
-                <svg viewBox="0 0 24 24" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="PayPal">
-                    <path fill="#003087" d="M9.1 2.8h4.3c3.9 0 6.6 2.3 7 6.4.2 1.5-.2 2.9-1.2 4.1.3-.2.6-.5.9-.9.8-1.3 1.1-2.7 1.1-4.2 0-3.3-2.6-6-5.9-6H9.4c-.3 0-.6.3-.7.6L7.3 14h2.5l-.7 4.2h-2L9.1 2.8z" />
-                    <path fill="#009cde" d="M20.4 9.2c-1 4.1-4.2 6.5-8 6.5h-1.8l-.7 4.4h-2.3l4-20.1h4.3c4 0 7.2 2.3 8.2 6.4.5 2.1.2 4.3-.9 6 .3-.6.8-1.8 1.2-3.2z" />
-                    <path fill="#012169" d="M8.7 2.8h4.3c3.9 0 6.6 2.3 7 6.4.2 1.4-.1 2.8-1.1 3.9-.2.2-.4.4-.7.6-.8 1-2 1.7-3.3 2-1 .2-2.1.2-3.1.2H9.9l-.7 4.3H6.9l.4-2.5 3.3-17.1c0-.4.3-.8.8-.8z" />
-                </svg>
+                <Paypal {...commonIconProps} />
             </CardWrapper>
 
             {/* Shop Pay */}
             <CardWrapper bg="bg-[#5A31F4]">
-                <svg viewBox="0 0 46 20" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Shop Pay">
-                    <path fill="#fff" d="M19 4.5h-5.9c-2.3 0-3.6 1-4.1 2.1l-6.3 13.5v9.8c.2.8.9 1.4 1.8 1.4h4.5c.8 0 1.5-.5 1.7-1.3V20l8.6-14.7c.3-.5-.1-1.2-.6-1.2l.3.4zm10.7 0h-3.6c-.4 0-.8.1-1.1.4L18.1 15.5l-6.9-10.6c-.3-.3-.7-.4-1.1-.4H6.5c-.6 0-1 .6-.6 1.1l9.1 13.9c.7 1 2.1 1 2.8 0l9.1-13.9c.4-.5 0-1.1-.6-1.1zM1.3 10.4c.5-.8.5-1.8-.1-2.5-.5-.7-1.4-1.1-2.3-1H-7.6C-9.5 6.9-11.1 8.5-11.1 10.4v13.2c0 1.9 1.6 3.5 3.5 3.5h16.7c1.9 0 3.5-1.6 3.5-3.5v-1.6c0-1.9-1.6-3.4-3.5-3.4H5.9l-1.1 2.6c-.3.7-1 1.2-1.9 1.2H-3.9c-.6 0-1-.8-.5-1.1L1.3 10.4z" transform="translate(14 -2) scale(0.6)" />
-                    <text x="5" y="14" fontFamily="sans-serif" fontSize="11" fontWeight="bold" fill="white">shop</text>
-                </svg>
+                <ShopPay {...commonIconProps} />
             </CardWrapper>
 
             {/* Apple Pay */}
             <CardWrapper>
-                <svg viewBox="0 0 32 14" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Apple Pay">
-                    <path fill="#000" d="M5 6.1h1.3v-3.4H8.4V1.5H2.9v1.2H5v3.4zm6.1.1c1.2 0 1.9-.5 2.1-1.3h-1.2c-.1.3-.4.4-.9.4-.7 0-1.1-.4-1.1-1.2 0-.9.5-1.3 1.2-1.3.5 0 .9.2 1.2.7h1.2c-.3-1.1-1.4-1.6-2.5-1.6-1.5 0-2.5.9-2.5 2.3 0 1.4.9 2.2 2.5 2.2zm3.3-.1h1.3V3.4h0c.2-.5.7-.9 1.4-.9.1 0 .2 0 .3 0V1.4c-.1 0-.2 0-.4 0-.9 0-1.4.5-1.5 1.2H15.6V1.5H14.5v4.6zm6.3-2.5c0-1-.7-1.5-1.9-1.5-1.1 0-1.9.5-2 1.3h1.2c.1-.3.4-.4.8-.4.5 0 .7.2.7.5v.2h-.9c-1.4.1-2.1.5-2.1 1.4 0 .8.7 1.3 1.5 1.3.7 0 1.3-.3 1.5-.8h0l.1.7h1.1V3.6zm-1.2 1.3c-.1.2-.4.4-.8.4-.4 0-.7-.2-.7-.6 0-.4.3-.5.9-.6h.6v.8zm5.3-2.7H29.6l-1.2 3.5h0l-1.2-3.5h-1.4l1.9 4.8-1.1 2.4h1.4l3.1-7.2z" />
-                    <path fill="#000" d="M30.4 4.1c.1-.1.1-.2.1-.4 0-.3-.3-.6-.6-.6-.3 0-.6.2-.7.5l-.1.4-.4 1.2h1.1l.3-.7c.1-.1.3-.5.3-.4zm-.5-1.6c0 .1 0 .1.1.2-.4-.1-.8-.2-1.3-.2-1.1 0-1.7.8-1.7 1.8 0 1.1.7 1.8 1.7 1.8.5 0 .9-.1 1.4-.3 0 .1 0 .1-.1.2-.3.1-.7.2-1.1.2-1.7 0-3-1.1-3-2.8 0-1.7 1.2-2.9 3-2.9.5 0 .8.1 1.2.2zm.7-.9c.6 0 1.1-.4 1.1-1 0-.6-.4-1-.1-1 .1.4.3.9.9.9 0 .4-.4.9-1 1.2z" />
-                </svg>
+                <ApplePay {...commonIconProps} />
             </CardWrapper>
 
             {/* Google Pay */}
             <CardWrapper>
-                <svg viewBox="0 0 40 16" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Google Pay">
-                    <path fill="#5F6368" d="M15.9 7.1h2.2v6.6h-2.2V7.1zm1.1-3.6c.8 0 1.4.6 1.4 1.4 0 .8-.6 1.4-1.4 1.4-.8 0-1.4-.6-1.4-1.4 0-.8.6-1.4 1.4-1.4zM20.8 7.1h2.1v6.6h-2.1V7.1zM20.8 2.8h2.1v2.3h-2.1V2.8z" />
-                    <path fill="#4285F4" d="M6.8 7.7V7.4c0-.2 0-.4-.1-.6H3v2.3h2.2c-.1.6-.4 1.1-.8 1.4v1.2h1.3c.8-.7 1.2-1.8 1.2-3.1 0-.3 0-.7-.1-1z" />
-                    <path fill="#34A853" d="M3 11.5c1.1 0 2-.3 2.7-1l-1.3-1c-.3.3-.8.4-1.4.4-1 0-1.9-.7-2.2-1.7H.4v1.1C1.1 10.7 2 11.5 3 11.5z" />
-                    <path fill="#FBBC04" d="M.8 8.1c-.1-.3-.1-.6-.1-1s.1-.7.2-1V5h-1.4C.1 5.7 0 6.5 0 7.3c0 .8.1 1.6.4 2.2l1.4-1.1z" />
-                    <path fill="#EA4335" d="M3 4.1c.6 0 1.1.2 1.5.6l1.1-1.1C4.9 2.9 4 2.5 3 2.5 1.9 2.5 1 3.3.4 4.3l1.4 1.1c.3-1 1.2-1.7 2.2-1.7z" />
-                    <path fill="#5F6368" d="M25.2 7.1h1.2c1.6 0 2.7.8 2.7 2.6v.1c0 .2-.1.3-.2.4-.3-.3-.7-.5-1.2-.5-1.1 0-2.3.6-2.3 1.7 0 .8.6 1.2 1.3 1.2.5 0 1-.3 1.3-.6l.1.5h1.1V10c0-1.4-1.1-2.7-3.1-2.7-1.4 0-2.4.6-2.8 1.4l.9.5c.3-.5.8-.8 1.6-.8zm-.1 4.4c0-.6.5-1 1.4-1 .5 0 .9.2 1.1.4-.1 1-1 1.4-1.7 1.4-.4 0-.8-.2-.8-.8zM34.2 12.1L32.4 7.1h2.2l.9 2.9 1-2.9h2.1l-3 8.3h-2.1l.6-1z" />
-                </svg>
+                <GooglePay {...commonIconProps} />
             </CardWrapper>
 
             {/* Affirm */}
             <CardWrapper>
-                <svg viewBox="0 0 50 20" className={iconClassName} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet" aria-label="Affirm">
-                    <path fill="#000" d="M10 4C5 4 1 8.2 1 13.3S5 22.7 10 22.7s9-4.2 9-9.3S15 4 10 4zm0 16.2c-3.7 0-6.7-3.1-6.7-6.9S6.3 6.4 10 6.4s6.7 3.1 6.7 6.9-3 10-6.7 10zM27.8 8h-2.4v10.8c0 .9.2 1.4 1 1.4h1.4v2.3h-1.9c-2.7 0-3-2-3-3.7V8h-1.9V5.5h1.9V4h2.4v1.5h2.4V8zm7.5 0h-2.4v10.8c0 .9.2 1.4 1 1.4h1.4v2.3h-1.9c-2.7 0-3-2-3-3.7V8h-1.9V5.5h1.9V4h2.4v1.5h2.4V8zm3.7.1h2.4v9.9h2.3V8.1h2.4V18h-2.3v4.5h-1.3V18H40V8.1zm9.4 0h2.4v4.5h-2.4V8.1z" transform="translate(0 -2) scale(0.9)" />
-                </svg>
+                <Affirm {...commonIconProps} />
             </CardWrapper>
         </div>
     );
