@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { resolvePath } from '../../utils/paths';
+import PaymentIcons from './PaymentIcons';
 
 export default function Footer() {
     // Accordion State para movil
@@ -192,12 +193,8 @@ export default function Footer() {
                     </div>
 
                     {/* Métodos de pago */}
-                    <div className="flex gap-3 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                        <div className="h-6 px-2 border border-white/10 rounded flex items-center justify-center bg-white/5 text-[8px] text-white">VISA</div>
-                        <div className="h-6 px-2 border border-white/10 rounded flex items-center justify-center bg-white/5 text-[8px] text-white">MASTERCARD</div>
-                        <div className="h-6 px-2 border border-white/10 rounded flex items-center justify-center bg-white/5 text-[8px] text-white">AMEX</div>
-                        <div className="h-6 px-2 border border-white/10 rounded flex items-center justify-center bg-white/5 text-[8px] text-white">PAYPAL</div>
-                        <div className="h-6 px-2 border border-white/10 rounded flex items-center justify-center bg-white/5 text-[8px] text-white">AFFIRM</div>
+                    <div className="opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                        <PaymentIcons iconClassName="h-5 w-auto" />
                     </div>
                 </div>
             </div>

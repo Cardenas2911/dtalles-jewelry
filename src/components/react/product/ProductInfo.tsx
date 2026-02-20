@@ -3,6 +3,7 @@ import { addCartItem, setIsCartOpen } from '../../../store/cart';
 import TrustBadges from './TrustBadges';
 import ReviewSnippet from './ReviewSnippet';
 import StickyAddToCart from './StickyAddToCart';
+import PaymentIcons from '../PaymentIcons';
 
 interface Variant {
     id: string;
@@ -177,6 +178,15 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                             'Agregar a la Bolsa'
                         )}
                     </button>
+                </div>
+
+                {/* Secure Checkout Icons */}
+                <div className="flex flex-col items-center justify-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                        <span className="material-symbols-outlined text-sm">lock</span>
+                        <span>Pago 100% Seguro y Encriptado</span>
+                    </div>
+                    <PaymentIcons className="flex gap-2 opacity-80" iconClassName="h-5 w-auto" />
                 </div>
 
                 {/* Affirm info moved to bottom */}

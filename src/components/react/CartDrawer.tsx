@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { isCartOpen, cartItems, setIsCartOpen, removeCartItem, updateCartItemQuantity } from '../../store/cart';
 import { client } from '../../lib/shopify';
 import { CART_CREATE } from '../../lib/mutations/cart';
+import PaymentIcons from './PaymentIcons';
 
 export default function CartDrawer() {
     const $isCartOpen = useStore(isCartOpen);
@@ -163,6 +164,10 @@ export default function CartDrawer() {
                             <span className="material-symbols-outlined text-sm">verified_user</span>
                             Sin cargos ocultos. El precio que ves es el que pagas.
                         </p>
+
+                        <div className="flex justify-center pb-2 opacity-70">
+                            <PaymentIcons iconClassName="h-4 w-auto text-white" />
+                        </div>
 
                         <button
                             onClick={handleCheckout}
