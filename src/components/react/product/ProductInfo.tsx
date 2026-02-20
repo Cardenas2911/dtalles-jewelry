@@ -186,7 +186,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                         <span className="material-symbols-outlined text-sm">lock</span>
                         <span>Pago 100% Seguro y Encriptado</span>
                     </div>
-                    <PaymentIcons className="flex gap-2 opacity-80" iconClassName="h-5 w-auto" />
+                    <PaymentIcons className="flex flex-wrap justify-center gap-2 opacity-80" iconClassName="h-5 w-auto" />
                 </div>
 
                 {/* Affirm info moved to bottom */}
