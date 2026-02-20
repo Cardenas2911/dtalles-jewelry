@@ -1,0 +1,12 @@
+---
+// Esta página maneja la redirección cuando un usuario cierra sesión en Shopify
+// Shopify redirige a /customer_identity/logout?return_url=...
+return Astro.redirect('/');
+---
+
+<meta http-equiv="refresh" content="0;url=/" />
+<script>
+    // Limpieza adicional de estado local si fuera necesario
+    // window.localStorage.removeItem('shopify_customer_token');
+    window.location.href = '/';
+</script>

@@ -127,8 +127,6 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export default function DesktopHeader() {
-    const [isVisible, setIsVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -138,28 +136,14 @@ export default function DesktopHeader() {
     const $favorites = useStore(favoriteItems);
     const favCount = Object.keys($favorites).length;
 
-    // Smart Sticky Logic
+    // Scroll para cambiar fondo (siempre visible)
     useEffect(() => {
         const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            setIsScrolled(currentScrollY > 20);
-
-            if (currentScrollY > 100) {
-                if (currentScrollY > lastScrollY) {
-                    setIsVisible(false);
-                } else {
-                    setIsVisible(true);
-                }
-            } else {
-                setIsVisible(true);
-            }
-
-            setLastScrollY(currentScrollY);
+            setIsScrolled(window.scrollY > 20);
         };
-
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    }, []);
 
     // Menu Hover Handlers
     const handleMouseEnter = (label: string) => {
@@ -177,20 +161,16 @@ export default function DesktopHeader() {
 
     return (
         <header
-            className={`hidden lg:flex flex-col fixed top-0 w-full z-50 transition-all duration-500 ease-in-out transform
-                ${isVisible ? 'translate-y-0' : '-translate-y-full'}
-            `}
+            className="hidden lg:flex flex-col fixed top-0 w-full z-50 transition-colors duration-300"
             onMouseLeave={handleMouseLeave}
         >
             {/* Announcement Bar */}
-            <div className={`w-full text-center py-2 text-[10px] uppercase tracking-widest font-medium transition-colors duration-300
-                ${isScrolled ? 'bg-[#050505]/95 text-[#d4af37]/60' : 'bg-[#d4af37]/10 text-[#d4af37]'}
-            `}>
+            <div className="relative z-50 w-full text-center py-2 text-[10px] uppercase tracking-widest font-medium bg-[#d4af37] text-[#050505] font-bold">
                 Envío asegurado a todo USA &nbsp; · &nbsp; Oro Sólido 10k Certificado &nbsp; · &nbsp; Garantía de por vida
             </div>
 
             {/* Main Header Bar */}
-            <div className={`w-full transition-all duration-300
+            <div className={`relative z-50 w-full transition-all duration-300
                 ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15' : 'bg-[#050505]'}
             `}>
                 <div className="max-w-[1440px] mx-auto px-10 h-20 flex items-center justify-between relative z-50">
@@ -243,23 +223,22 @@ export default function DesktopHeader() {
                     </nav>
 
                     {/* RIGHT: Actions */}
-                    <div className="flex-shrink-0 flex items-center gap-1">
+                    <div className="flex-shrink-0 flex items-center gap-6">
                         {/* Search */}
                         <PredictiveSearch />
 
                         {/* Divider */}
-                        <div className="w-px h-6 bg-[#d4af37]/20 mx-2" />
+                        <div className="w-px h-5 bg-[#d4af37]/30" />
 
                         {/* Favorites */}
                         <a
                             href={resolvePath('/favoritos')}
-                            className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
                             aria-label="Favoritos"
                         >
-                            <span className="material-symbols-outlined text-[22px]">favorite</span>
-                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Guardados</span>
+                            <span className="material-symbols-outlined text-[24px]">favorite</span>
                             {favCount > 0 && (
-                                <span className="absolute top-1.5 right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-black">
+                                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-[#050505]">
                                     {favCount}
                                 </span>
                             )}
@@ -267,28 +246,24 @@ export default function DesktopHeader() {
 
                         {/* Account */}
                         <a
-                            href="https://dtallesjewelry.myshopify.com/account/login"
+                            href="https://dtalles-jewelry.myshopify.com/account/login"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
                             aria-label="Cuenta"
                         >
-                            <span className="material-symbols-outlined text-[22px]">person</span>
-                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Cuenta</span>
+                            <span className="material-symbols-outlined text-[24px]">person</span>
                         </a>
 
                         {/* Cart */}
                         <button
                             onClick={() => setIsCartOpen(true)}
-                            className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-md text-[#FAFAF5]/70 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 group"
+                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
                             aria-label="Carrito"
                         >
-                            <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
-                            <span className="text-[9px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                                {cartCount > 0 ? `${cartCount} items` : 'Carrito'}
-                            </span>
+                            <span className="material-symbols-outlined text-[24px]">shopping_bag</span>
                             {cartCount > 0 && (
-                                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[10px] font-bold text-black">
+                                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-[#050505]">
                                     {cartCount}
                                 </span>
                             )}
@@ -307,7 +282,7 @@ export default function DesktopHeader() {
 
             {/* Mega Menu Panel */}
             <div
-                className={`absolute left-0 w-full z-50 transition-all duration-300 ease-out overflow-hidden
+                className={`absolute left-1/2 -translate-x-1/2 w-full max-w-5xl z-50 transition-all duration-300 ease-out overflow-hidden rounded-b-xl border-x border-b border-[#d4af37]/30
                     ${activeMenu && activeItem && !activeItem.highlight
                         ? 'opacity-100 visible translate-y-0'
                         : 'opacity-0 invisible -translate-y-3'
@@ -316,7 +291,6 @@ export default function DesktopHeader() {
                 style={{
                     top: '100%',
                     background: 'linear-gradient(180deg, #111 0%, #0a0a0a 100%)',
-                    borderTop: '1px solid rgba(212, 175, 55, 0.5)',
                     boxShadow: '0 20px 60px -10px rgba(0,0,0,0.9), 0 2px 0 0 rgba(212,175,55,0.3)'
                 }}
                 onMouseEnter={() => { if (hoverTimeout.current) clearTimeout(hoverTimeout.current); }}
@@ -325,7 +299,7 @@ export default function DesktopHeader() {
                 {activeItem && !activeItem.highlight && (
                     <div className="max-w-7xl mx-auto px-12 py-10 relative">
                         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
-                        <div className="grid grid-cols-4 gap-8">
+                        <div className="grid grid-cols-3 gap-8">
                             {/* Col 1: Categorías */}
                             <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
@@ -362,10 +336,7 @@ export default function DesktopHeader() {
                                 </ul>
                             </div>
 
-                            {/* Spacer */}
-                            <div />
-
-                            {/* Col 4: Visual */}
+                            {/* Col 3: Visual (Sin spacer previo) */}
                             <div className="relative h-60 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
                                 <img
