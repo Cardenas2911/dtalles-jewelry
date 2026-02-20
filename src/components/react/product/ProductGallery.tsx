@@ -42,7 +42,7 @@ export default function ProductGallery({ images, videoUrl }: ProductGalleryProps
     };
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 relative">
             {/* Desktop Mosaic / Main View */}
             <div className="hidden lg:grid grid-cols-2 gap-4">
                 {/* Main Hero Image (Large) */}

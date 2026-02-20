@@ -28,8 +28,8 @@ export default function ProductDetails({ details }: ProductDetailsProps) {
     };
 
     return (
-        <div className="mt-16 border-t border-white/10">
-            <h2 className="text-xl font-serif text-[#FAFAF5] py-8 text-center italic">Transparencia en los Detalles</h2>
+        <div className="border-t border-white/10 pt-6">
+            <h2 className="text-lg font-serif text-[#FAFAF5] mb-6 italic">Transparencia en los Detalles</h2>
 
             <div className="max-w-3xl mx-auto flex flex-col divide-y divide-white/10">
 

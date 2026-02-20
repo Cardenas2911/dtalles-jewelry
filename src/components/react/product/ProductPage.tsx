@@ -97,29 +97,28 @@ export default function ProductPage({ product }: ProductPageProps) {
             {/* Main Grid: Gallery + Buy Box */}
             <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-start">
 
-                {/* Left Col: Gallery */}
-                <div className="w-full">
+                {/* Left Col: Gallery (Sticky) */}
+                <div className="w-full lg:sticky lg:top-20 lg:self-start">
                     <ProductGallery
                         images={images}
                         videoUrl={product.videoUrl?.value}
                     />
                 </div>
 
-                {/* Right Col: Info (Buy Box) */}
-                <div className="mt-8 lg:mt-0 px-4 lg:px-0">
+                {/* Right Col: Info (Buy Box) + Details */}
+                <div className="mt-8 lg:mt-0 px-4 lg:px-0 flex flex-col gap-8">
                     <ProductInfo
                         product={{ ...product, featuredImage: { url: featuredImage } }}
                         variants={variants}
                         selectedVariant={selectedVariant}
                         onVariantChange={setSelectedVariant}
                     />
+
+                    <ProductDetails details={details} />
                 </div>
             </div>
 
-            {/* Below Fold: Details */}
-            <div className="px-4 lg:px-0 mt-16">
-                <ProductDetails details={details} />
-            </div>
+            {/* Below Fold: Details - MOVED UP */}
 
             {/* Mobile Sticky Bar - REMOVED (Now handled internally by ProductInfo -> StickyAddToCart) */}
             {/* <StickyBottomBar ... /> */}
