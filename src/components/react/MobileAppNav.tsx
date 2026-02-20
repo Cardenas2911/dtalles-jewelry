@@ -99,20 +99,7 @@ export default function MobileAppNav() {
     const $favorites = useStore(favoriteItems);
     const favCount = Object.keys($favorites).length;
 
-    // Smart Sticky Top Bar
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > 50) {
-                setIsTopBarVisible(currentScrollY < lastScrollY.current);
-            } else {
-                setIsTopBarVisible(true);
-            }
-            lastScrollY.current = currentScrollY;
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // El header ahora es siempre fijo por petición del usuario
 
     // Bloquear scroll del body cuando el menú esté abierto
     useEffect(() => {
@@ -127,8 +114,7 @@ export default function MobileAppNav() {
         <div className="lg:hidden">
 
             {/* ── TOP BAR ────────────────────────────────────────── */}
-            <header className={`fixed top-0 left-0 w-full z-40 bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15 h-16 flex items-center justify-between px-5 transition-transform duration-300
-                ${isTopBarVisible ? 'translate-y-0' : '-translate-y-full'}`}
+            <header className="fixed top-0 left-0 w-full z-40 bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15 h-16 flex items-center justify-between px-5 transition-transform duration-300 translate-y-0"
             >
                 <a href={resolvePath('/')} className="block">
                     <img

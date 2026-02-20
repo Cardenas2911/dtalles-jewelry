@@ -40,7 +40,7 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     return (
-        <div className="fixed top-16 lg:top-[112px] left-0 w-full z-30 px-4 py-1 pointer-events-none flex flex-col gap-2">
+        <div className="fixed top-16 lg:top-[112px] left-0 w-full z-30 px-4 py-0.5 pointer-events-none flex flex-col gap-1.5">
             <div className="max-w-7xl mx-auto w-full flex flex-col gap-2">
 
                 {/* Botón WhatsApp Premium */}
@@ -48,7 +48,7 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="pointer-events-auto flex items-center justify-between w-full bg-gradient-to-r from-[#25D366] via-[#2be06e] to-[#25D366] p-4 lg:p-5 rounded-2xl shadow-[0_0_25px_rgba(37,211,102,0.4)] border border-white/20 animate-pulse-glow relative overflow-hidden group"
+                    className="pointer-events-auto flex items-center justify-between w-full bg-gradient-to-r from-[#25D366] via-[#2be06e] to-[#25D366] px-4 py-3 lg:p-5 rounded-2xl shadow-[0_0_25px_rgba(37,211,102,0.4)] border border-white/20 animate-pulse-glow relative overflow-hidden group"
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
 
@@ -97,7 +97,7 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
 
                 {/* Contador de Urgencia Fijo */}
                 {timeLeft && (
-                    <div className="pointer-events-auto w-full bg-black/80 backdrop-blur-md border border-[#d4af37]/30 rounded-xl px-4 py-2 flex items-center justify-between shadow-[0_4px_15px_rgba(0,0,0,0.5)] animate-fade-in">
+                    <div className="pointer-events-auto w-full bg-black/80 backdrop-blur-md border border-[#d4af37]/30 rounded-xl px-4 py-1.5 flex items-center justify-between shadow-[0_4px_15px_rgba(0,0,0,0.5)] animate-fade-in">
                         <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[#d4af37] text-sm animate-pulse">schedule</span>
                             <span className="text-[10px] lg:text-xs text-white font-bold uppercase tracking-wider">Envío Hoy Mismo</span>
