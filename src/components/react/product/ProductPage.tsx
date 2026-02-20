@@ -98,7 +98,7 @@ export default function ProductPage({ product }: ProductPageProps) {
             <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-start">
 
                 {/* Left Col: Gallery (Sticky) */}
-                <div className="w-full lg:sticky lg:top-20 lg:self-start">
+                <div className="w-full lg:sticky lg:top-36 lg:self-start max-h-[calc(100vh-150px)] overflow-y-auto hide-scrollbar">
                     <ProductGallery
                         images={images}
                         videoUrl={product.videoUrl?.value}
