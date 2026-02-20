@@ -157,11 +157,15 @@ export default function ProductDetails({ details }: ProductDetailsProps) {
             </div>
 
             {/* Description HTML fallback if specific description exists */}
-            {details.descriptionHtml && (
-                <div className="mt-8 max-w-3xl mx-auto prose prose-sm prose-invert text-gray-500">
-                    <div dangerouslySetInnerHTML={{ __html: details.descriptionHtml }} />
+            {details.descriptionHtml ? (
+                <div className="mt-8 max-w-3xl mx-auto px-4 md:px-0">
+                    <div className="prose prose-sm prose-invert text-gray-400 max-w-none overflow-x-auto
+                        [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg
+                        [&_iframe]:max-w-full [&_table]:w-full [&_table]:block [&_table]:overflow-x-auto"
+                        dangerouslySetInnerHTML={{ __html: details.descriptionHtml }}
+                    />
                 </div>
-            )}
+            ) : null}
 
         </div>
     );

@@ -85,14 +85,14 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </span>
 
                     {/* Title */}
-                    <h1 className="text-3xl md:text-5xl font-serif text-white mb-2 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-serif text-white mb-2 leading-tight break-words">
                         {product.title}
                     </h1>
 
                     {/* Price Row */}
                     <div className="flex flex-col gap-2 mb-6">
-                        <div className="flex items-baseline gap-4">
-                            <span className="text-3xl md:text-5xl font-serif text-[#d4af37]">
+                        <div className="flex items-baseline gap-4 flex-wrap">
+                            <span className="text-3xl md:text-5xl font-serif text-[#d4af37] break-words">
                                 ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                             </span>
                             {selectedVariant.compareAtPrice && parseFloat(selectedVariant.compareAtPrice.amount) > price && (
