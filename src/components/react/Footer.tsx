@@ -19,15 +19,15 @@ export default function Footer() {
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent"></div>
 
             {/* Métodos de pago al inicio - Centrados y a color */}
-            <div className="max-w-[1920px] mx-auto px-6 pt-12 flex justify-center">
-                <PaymentIcons iconClassName="h-6 w-auto" />
+            <div className="max-w-[1920px] mx-auto px-6 pt-12 pb-8 flex justify-center">
+                <PaymentIcons iconClassName="h-6 w-auto" className="flex flex-wrap justify-center gap-4" />
             </div>
 
             {/* 1. Newsletter Section */}
             <div className="flex flex-col md:flex-row justify-between items-end border-b border-[#d4af37]/10 pb-16 mb-20 gap-10">
                 <div className="max-w-xl">
-                    <span className="text-[#d4af37] font-bold text-xs uppercase tracking-[0.2em] mb-4 block">The Gold Circle</span>
-                    <h2 className="text-3xl md:text-5xl font-serif text-white mb-6 leading-tight">
+                    <span className="text-[#d4af37] font-bold text-xs uppercase tracking-[0.2em] mb-6 block">The Gold Circle</span>
+                    <h2 className="text-3xl md:text-5xl font-serif text-white mb-8 leading-tight">
                         Únete a la lista exclusiva.
                     </h2>
                     <p className="text-gray-400 font-light text-sm md:text-base max-w-md leading-relaxed">
