@@ -12,7 +12,7 @@ const SLIDES = [
         titleAttribute: 'Oro Original Italiano 10 y 14 Kilates - DTalles Jewelry',
         alignment: 'items-start text-left', // Desktop: Left
         mobileAlignment: 'items-center text-center justify-end pb-20', // Mobile: Bottom Center
-        bgPosition: 'object-[75%_center] md:object-right',
+        bgPosition: 'object-center md:object-right',
         overline: 'EXCLUSIVIDAD ITALIANA',
         title: 'Oro Original Italiano 10 y 14 Kilates',
         subtitle: 'Autenticidad garantizada en cada gramo. El lujo del oro italiano directamente a tus manos.',
@@ -29,7 +29,7 @@ const SLIDES = [
         titleAttribute: 'Colección de Joyas para Mujer - Layering',
         alignment: 'items-start text-left', // Desktop: Left
         mobileAlignment: 'items-center text-center justify-end pb-20', // Mobile: Bottom Center
-        bgPosition: 'object-[75%_center] md:object-right',
+        bgPosition: 'object-center md:object-right',
         overline: 'NUEVA COLECCIÓN',
         title: 'Elegancia en Capas',
         subtitle: 'Descubre el arte del layering. Crea un look único para cada día.',
