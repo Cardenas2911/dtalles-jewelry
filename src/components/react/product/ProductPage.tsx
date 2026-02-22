@@ -3,7 +3,7 @@ import ProductGallery from './ProductGallery';
 import ProductInfo from './ProductInfo';
 import ProductDetails from './ProductDetails';
 import StickyBottomBar from './StickyBottomBar';
-import { fetchLivePricing } from '../../../lib/storefrontLive';
+import { fetchLiveProductData, type LiveProductData } from '../../../lib/storefrontLive';
 
 interface ProductPageProps {
     product: any; // Using any for flexibility with graphQL response structure, can tighten later
@@ -11,10 +11,15 @@ interface ProductPageProps {
 
 export default function ProductPage({ product }: ProductPageProps) {
     const initialVariants = product.variants.edges.map((e: any) => e.node);
-    const [selectedVariant, setSelectedVariant] = useState(initialVariants[0]);
-    // Precios en vivo desde Shopify (se actualizan sin rebuild)
-    const [liveVariants, setLiveVariants] = useState<typeof initialVariants | null>(null);
+
+    // Datos en vivo desde Shopify (se actualizan sin rebuild)
+    const [liveProduct, setLiveProduct] = useState<LiveProductData | null>(null);
     const [livePriceLoading, setLivePriceLoading] = useState(true);
+
+    const variants = liveProduct?.variants ?? initialVariants;
+
+    // Estado base para la selección del usuario. Inicialmente apunta la primera variante.
+    const [selectedVariant, setSelectedVariant] = useState(initialVariants[0]);
 
     useEffect(() => {
         if (!product?.id) {
@@ -22,21 +27,32 @@ export default function ProductPage({ product }: ProductPageProps) {
             return;
         }
         setLivePriceLoading(true);
-        fetchLivePricing(product.id).then((fetched) => {
-            if (fetched && fetched.length > 0) setLiveVariants(fetched);
+        fetchLiveProductData(product.id).then((fetched) => {
+            if (fetched) {
+                setLiveProduct(fetched);
+            }
             setLivePriceLoading(false);
         });
     }, [product.id]);
 
-    // Cuando llegan variantes en vivo, actualizar la variante seleccionada para mostrar precio actual
+    // Cuando llegan nuevas variantes vivas, buscar la equivalente (por título o SKU) para asegurar match total
     useEffect(() => {
-        if (!liveVariants?.length) return;
-        const currentId = selectedVariant?.id;
-        const updated = liveVariants.find((v: any) => v.id === currentId);
-        if (updated) setSelectedVariant(updated);
-    }, [liveVariants]);
+        if (liveProduct?.variants) {
+            // Emparejar de forma segura usando el título de la variante ("Talla 10", "Default Title", etc) o SKU
+            // Esto esquiva la pesadilla de las IDs de Shopify (numéricas vs Base64 vs gid://).
+            const matchingLiveVariant = liveProduct.variants.find(
+                (lv: any) => lv.title === selectedVariant.title || (lv.sku && lv.sku === selectedVariant.sku)
+            );
 
-    const variants = liveVariants ?? initialVariants;
+            if (matchingLiveVariant) {
+                setSelectedVariant(matchingLiveVariant);
+            }
+        }
+    }, [liveProduct]);
+
+    const handleVariantChange = (variant: any) => {
+        setSelectedVariant(variant);
+    };
 
     // Helper to extract human-readable value from metaobject or simple field
     const getMetafieldValue = (field: any) => {
@@ -87,23 +103,40 @@ export default function ProductPage({ product }: ProductPageProps) {
     // Taxonomía Check: Priority to specific jewelry fields (Shopify Namespace), fallback to generic
 
     // Extract values using helper
-    const mat = getMetafieldValue(product.shopifyMaterial) || getMetafieldValue(product.material);
-    const col = getMetafieldValue(product.shopifyColor);
-    const age = getMetafieldValue(product.shopifyAgeGroup);
-    const gen = getMetafieldValue(product.shopifyGender);
-    const des = getMetafieldValue(product.shopifyNecklaceDesign);
-    const typ = getMetafieldValue(product.shopifyJewelryType);
+    const getField = (key: keyof LiveProductData) => {
+        // Usa el valor vivo si existe
+        if (liveProduct && liveProduct[key] !== undefined) {
+            return liveProduct[key];
+        }
+        // Si no, usa el estático inicial
+        return product[key];
+    };
+
+    const mat = getMetafieldValue(getField('shopifyMaterial')) || getMetafieldValue(getField('material'));
+    const col = getMetafieldValue(getField('shopifyColor'));
+    const age = getMetafieldValue(getField('shopifyAgeGroup'));
+    const gen = getMetafieldValue(getField('shopifyGender'));
+    const des = getMetafieldValue(getField('shopifyNecklaceDesign'));
+    const typ = getMetafieldValue(getField('shopifyJewelryType'));
+
+    const vendor = getField('vendor');
+    const tags = getField('tags');
+    const descriptionHtml = getField('descriptionHtml');
+    const productTypeLive = getField('productType');
+
+    // Priority on taxonomy fields
+    const productType = product.productCategory?.productTaxonomyNode?.name || product.category?.name || typ || productTypeLive;
 
     const details = {
         material: mat,
-        weight: product.pesoReal?.value,
-        width: product.anchoMm?.value,
-        descriptionHtml: product.descriptionHtml,
+        weight: getField('pesoReal')?.value,
+        width: getField('anchoMm')?.value,
+        descriptionHtml: descriptionHtml,
         // Requested Fields from Taxonomy:
-        vendor: product.vendor,
-        tags: product.tags,
+        vendor: vendor,
+        tags: tags,
         // Try productCategory, then category, then new jewelryType, then productType
-        productType: product.productCategory?.productTaxonomyNode?.name || product.category?.name || typ || product.productType,
+        productType: productType,
         collections: product.collections?.edges?.map((e: any) => e.node.title),
 
         // New specific taxonomy fields
@@ -112,6 +145,9 @@ export default function ProductPage({ product }: ProductPageProps) {
         gender: gen,
         design: des
     };
+
+    // Product Title
+    const title = getField('title') || product.title;
 
     // Images conversion
     const images = product.images.edges.map((e: any) => e.node);
@@ -133,10 +169,10 @@ export default function ProductPage({ product }: ProductPageProps) {
                 {/* Right Col: Info (Buy Box) + Details */}
                 <div className="mt-8 lg:mt-0 px-4 lg:px-0 flex flex-col gap-8">
                     <ProductInfo
-                        product={{ ...product, featuredImage: { url: featuredImage } }}
+                        product={{ ...product, title: title, featuredImage: { url: featuredImage } }}
                         variants={variants}
                         selectedVariant={selectedVariant}
-                        onVariantChange={setSelectedVariant}
+                        onVariantChange={handleVariantChange}
                         livePriceLoading={livePriceLoading}
                     />
 

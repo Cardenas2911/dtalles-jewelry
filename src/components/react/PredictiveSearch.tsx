@@ -8,7 +8,7 @@ export default function PredictiveSearch() {
             className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
             aria-label="Buscar"
         >
-            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">search</span>
+            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[23px] 2xl:text-[26px]">search</span>
         </button>
     );
 }

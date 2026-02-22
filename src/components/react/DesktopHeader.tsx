@@ -197,7 +197,7 @@ export default function DesktopHeader() {
                             <img
                                 src={resolvePath('/images/Logo.webp')}
                                 alt="Dtalles Jewelry - Joyería de Oro en Miami"
-                                className="h-9 lg:h-10 xl:h-12 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+                                className="h-9 lg:h-10 xl:h-[50px] 2xl:h-[60px] w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
                             />
                         </a>
                     </div>
@@ -213,7 +213,7 @@ export default function DesktopHeader() {
                                 >
                                     <a
                                         href={item.href}
-                                        className={`relative flex flex-col items-center px-1.5 lg:px-2 xl:px-2.5 py-1.5 rounded-md text-[8px] lg:text-[8.5px] xl:text-[9.5px] font-semibold uppercase tracking-[0.08em] xl:tracking-[0.1em] transition-all duration-200 whitespace-nowrap
+                                        className={`relative flex flex-col items-center px-1.5 lg:px-2 xl:px-3 2xl:px-4 py-1.5 rounded-md text-[8px] lg:text-[9.5px] xl:text-[11px] 2xl:text-[13px] font-semibold uppercase tracking-[0.08em] xl:tracking-[0.1em] transition-all duration-200 whitespace-nowrap
                                             ${item.highlight
                                                 ? 'text-[#d4af37] hover:bg-[#d4af37]/10'
                                                 : isCurrentPage(item)
@@ -251,7 +251,7 @@ export default function DesktopHeader() {
                             className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Favoritos"
                         >
-                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">favorite</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[23px] 2xl:text-[26px]">favorite</span>
                             {favCount > 0 && (
                                 <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[8px] font-bold text-[#050505]">
                                     {favCount}
@@ -267,7 +267,7 @@ export default function DesktopHeader() {
                             className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Cuenta"
                         >
-                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">person</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[23px] 2xl:text-[26px]">person</span>
                         </a>
 
                         {/* Cart */}
@@ -276,7 +276,7 @@ export default function DesktopHeader() {
                             className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Carrito"
                         >
-                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">shopping_bag</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[23px] 2xl:text-[26px]">shopping_bag</span>
                             {cartCount > 0 && (
                                 <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[8px] font-bold text-[#050505]">
                                     {cartCount}

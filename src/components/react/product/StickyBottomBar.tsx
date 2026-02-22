@@ -61,7 +61,7 @@ export default function StickyBottomBar({ product, selectedVariant, featuredImag
                 <div className="flex flex-col">
                     <span className="text-white text-xs font-bold truncate max-w-[150px]">{product.title}</span>
                     <span className="text-[#d4af37] text-sm font-serif">
-                        ${parseFloat(selectedVariant.price.amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        ${parseFloat(selectedVariant.price.amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
                     </span>
                 </div>
                 <button
