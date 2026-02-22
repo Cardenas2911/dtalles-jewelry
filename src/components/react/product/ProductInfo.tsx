@@ -47,9 +47,11 @@ interface ProductInfoProps {
     variants: Variant[];
     selectedVariant: Variant;
     onVariantChange: (variant: Variant) => void;
+    /** Mientras se obtiene el precio en vivo desde Shopify (evita sensación de parpadeo) */
+    livePriceLoading?: boolean;
 }
 
-export default function ProductInfo({ product, variants, selectedVariant, onVariantChange }: ProductInfoProps) {
+export default function ProductInfo({ product, variants, selectedVariant, onVariantChange, livePriceLoading = false }: ProductInfoProps) {
     const [adding, setAdding] = useState(false);
 
     // Group variants by options (e.g. Size).
@@ -91,12 +93,17 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                         {product.title}
                     </h1>
 
-                    {/* Price Row */}
+                    {/* Price Row — indicador "Actualizando precio" mientras carga precio en vivo */}
                     <div className="flex flex-col items-center md:items-start gap-2 mb-6">
                         <div className="flex items-baseline gap-4 flex-wrap justify-center md:justify-start">
                             <span className="text-3xl md:text-5xl font-serif text-[#d4af37] break-words">
                                 ${price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                             </span>
+                            {livePriceLoading && (
+                                <span className="text-xs text-gray-400 font-sans animate-pulse" aria-live="polite">
+                                    Actualizando precio…
+                                </span>
+                            )}
                             {selectedVariant.compareAtPrice && parseFloat(selectedVariant.compareAtPrice.amount) > price && (
                                 <div className="flex flex-col items-start leading-none">
                                     <span className="text-lg md:text-xl text-gray-400 line-through decoration-red-500/60 decoration-2">

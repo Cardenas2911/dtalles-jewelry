@@ -46,7 +46,7 @@ const NAV_SECTIONS = [
     },
     {
         label: 'Religiosos',
-        href: resolvePath('/coleccion/religioso'),
+        href: resolvePath('/coleccion/religiosa'),
         icon: 'church',
         items: [
             { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
@@ -91,7 +91,7 @@ const DIRECT_LINKS = [
 export default function MobileAppNav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openSection, setOpenSection] = useState<string | null>(null);
-    const [isTopBarVisible, setIsTopBarVisible] = useState(true);
+    const [pathname, setPathname] = useState('');
     const lastScrollY = useRef(0);
 
     const $cartItems = useStore(cartItems);
@@ -99,7 +99,19 @@ export default function MobileAppNav() {
     const $favorites = useStore(favoriteItems);
     const favCount = Object.keys($favorites).length;
 
-    // El header ahora es siempre fijo por petición del usuario
+    useEffect(() => {
+        const update = () => setPathname(typeof window !== 'undefined' ? window.location.pathname : '');
+        update();
+        window.addEventListener('astro:page-load', update);
+        return () => window.removeEventListener('astro:page-load', update);
+    }, []);
+
+    const isCurrentPath = (href: string) => {
+        if (!pathname) return false;
+        if (pathname === href) return true;
+        if (href !== resolvePath('/') && pathname.startsWith(href + '/')) return true;
+        return false;
+    };
 
     // Bloquear scroll del body cuando el menú esté abierto
     useEffect(() => {
@@ -166,10 +178,10 @@ export default function MobileAppNav() {
             <nav className="fixed bottom-0 left-0 w-full z-50 bg-[#050505]/98 backdrop-blur-xl border-t border-[#d4af37]/20 h-[64px] px-2 shadow-[0_-4px_20px_rgba(0,0,0,0.6)]">
                 <div className="grid grid-cols-5 h-full items-center">
 
-                    {/* Inicio */}
-                    <a href={resolvePath('/')} className="flex flex-col items-center justify-center gap-1 group">
-                        <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">home</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Inicio</span>
+                    {/* Inicio — resaltado cuando es la página actual */}
+                    <a href={resolvePath('/')} className={`flex flex-col items-center justify-center gap-1 group ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : ''}`}>
+                        <span className={`material-symbols-outlined transition-colors text-[22px] ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : 'text-[#A0A0A0] group-hover:text-[#FAFAF5]'}`}>home</span>
+                        <span className={`text-[9px] font-medium tracking-wide ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : 'text-[#A0A0A0]'}`}>Inicio</span>
                     </a>
 
                     {/* Buscar */}
@@ -245,7 +257,7 @@ export default function MobileAppNav() {
                             <a
                                 href={resolvePath('/coleccion/nuevo')}
                                 onClick={() => setIsMenuOpen(false)}
-                                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-[11px] font-bold uppercase tracking-widest hover:bg-[#d4af37]/20 transition-colors"
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(resolvePath('/coleccion/nuevo')) ? 'bg-[#d4af37]/20 border-[#d4af37]/50 text-[#d4af37]' : 'bg-[#d4af37]/10 border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/20'}`}
                             >
                                 <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
                                 Lo Nuevo
@@ -253,7 +265,7 @@ export default function MobileAppNav() {
                             <a
                                 href={resolvePath('/servicios/vender-oro')}
                                 onClick={() => setIsMenuOpen(false)}
-                                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-white/5 border border-white/10 text-[#FAFAF5]/70 text-[11px] font-bold uppercase tracking-widest hover:border-[#d4af37]/40 hover:text-[#d4af37] transition-colors"
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(resolvePath('/servicios/vender-oro')) ? 'bg-[#d4af37]/10 border-[#d4af37]/40 text-[#d4af37]' : 'bg-white/5 border-white/10 text-[#FAFAF5]/70 hover:border-[#d4af37]/40 hover:text-[#d4af37]'}`}
                             >
                                 <span className="material-symbols-outlined text-[14px]">currency_exchange</span>
                                 Vender Oro
@@ -268,11 +280,11 @@ export default function MobileAppNav() {
                             <div key={section.label} className="border-b border-white/5">
                                 <button
                                     onClick={() => toggleSection(section.label)}
-                                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/5 transition-colors"
+                                    className={`w-full flex items-center justify-between px-6 py-4 hover:bg-white/5 transition-colors ${isCurrentPath(section.href) ? 'bg-[#d4af37]/10 border-l-2 border-[#d4af37]' : ''}`}
                                 >
                                     <span className="flex items-center gap-3">
                                         <span className="material-symbols-outlined text-[#d4af37] text-[18px]">{section.icon}</span>
-                                        <span className="text-[#FAFAF5] text-[13px] font-semibold uppercase tracking-[1.5px]">{section.label}</span>
+                                        <span className={`text-[13px] font-semibold uppercase tracking-[1.5px] ${isCurrentPath(section.href) ? 'text-[#d4af37]' : 'text-[#FAFAF5]'}`}>{section.label}</span>
                                     </span>
                                     <span className={`material-symbols-outlined text-[#d4af37]/60 text-[18px] transition-transform duration-200 ${openSection === section.label ? 'rotate-180' : ''}`}>
                                         expand_more

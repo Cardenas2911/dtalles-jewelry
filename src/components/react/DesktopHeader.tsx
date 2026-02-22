@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PredictiveSearch from './PredictiveSearch';
 import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
@@ -69,7 +69,7 @@ const NAV_ITEMS: NavItem[] = [
         promoText: 'ELEGANCIA PURA'
     },
     {
-        label: 'Religiosos', href: resolvePath('/coleccion/religioso'),
+        label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
             { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
             { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
@@ -129,12 +129,28 @@ const NAV_ITEMS: NavItem[] = [
 export default function DesktopHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
+    const [pathname, setPathname] = useState('');
     const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
 
     const $cartItems = useStore(cartItems);
     const cartCount = Object.values($cartItems).reduce((acc, item) => acc + item.quantity, 0);
     const $favorites = useStore(favoriteItems);
     const favCount = Object.keys($favorites).length;
+
+    // Ruta actual para marcar página activa (incluye navegación con View Transitions)
+    useEffect(() => {
+        const update = () => setPathname(typeof window !== 'undefined' ? window.location.pathname : '');
+        update();
+        window.addEventListener('astro:page-load', update);
+        return () => window.removeEventListener('astro:page-load', update);
+    }, []);
+
+    const isCurrentPage = (item: NavItem) => {
+        if (!pathname) return false;
+        if (pathname === item.href) return true;
+        if (item.href !== resolvePath('/') && pathname.startsWith(item.href + '/')) return true;
+        return false;
+    };
 
     // Scroll para cambiar fondo (siempre visible)
     useEffect(() => {
@@ -164,8 +180,8 @@ export default function DesktopHeader() {
             className="hidden lg:flex flex-col fixed top-0 w-full z-50 transition-colors duration-300"
             onMouseLeave={handleMouseLeave}
         >
-            {/* Announcement Bar */}
-            <div className="relative z-50 w-full text-center py-2 text-[10px] uppercase tracking-widest font-medium bg-[#d4af37] text-[#050505] font-bold">
+            {/* Announcement Bar — más compacto en 1024 */}
+            <div className="relative z-50 w-full text-center py-1.5 lg:py-2 text-[9px] lg:text-[10px] uppercase tracking-widest font-medium bg-[#d4af37] text-[#050505] font-bold">
                 Envío asegurado a todo USA &nbsp; · &nbsp; Oro Sólido 10k Certificado &nbsp; · &nbsp; Garantía de por vida
             </div>
 
@@ -173,44 +189,46 @@ export default function DesktopHeader() {
             <div className={`relative z-50 w-full transition-all duration-300
                 ${isScrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15' : 'bg-[#050505]'}
             `}>
-                <div className="max-w-[1440px] mx-auto px-10 h-20 flex items-center justify-between relative z-50">
+                <div className="max-w-[1440px] mx-auto px-4 lg:px-5 xl:px-8 h-16 xl:h-20 flex items-center justify-between relative z-50 gap-1">
 
-                    {/* LEFT: Logo */}
+                    {/* LEFT: Logo — más pequeño para dar espacio al menú en 1 línea */}
                     <div className="flex-shrink-0">
                         <a href={resolvePath('/')} className="block group">
                             <img
                                 src={resolvePath('/images/Logo.webp')}
                                 alt="Dtalles Jewelry - Joyería de Oro en Miami"
-                                className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+                                className="h-9 lg:h-10 xl:h-12 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
                             />
                         </a>
                     </div>
 
-                    {/* CENTER: Navigation */}
-                    <nav className="flex-1 flex justify-center">
-                        <ul className="flex items-center gap-1">
+                    {/* CENTER: Navigation — 1 sola fila, sin wrap; texto e iconos más pequeños */}
+                    <nav className="flex-1 flex justify-center min-w-0 overflow-hidden">
+                        <ul className="flex items-center gap-0 flex-nowrap justify-center">
                             {NAV_ITEMS.map((item) => (
                                 <li
                                     key={item.label}
-                                    className="relative"
+                                    className="relative flex-shrink-0"
                                     onMouseEnter={() => handleMouseEnter(item.label)}
                                 >
                                     <a
                                         href={item.href}
-                                        className={`relative flex flex-col items-center px-4 py-2 rounded-md text-[11.5px] font-semibold uppercase tracking-[1.8px] transition-all duration-200
+                                        className={`relative flex flex-col items-center px-1.5 lg:px-2 xl:px-2.5 py-1.5 rounded-md text-[8px] lg:text-[8.5px] xl:text-[9.5px] font-semibold uppercase tracking-[0.08em] xl:tracking-[0.1em] transition-all duration-200 whitespace-nowrap
                                             ${item.highlight
                                                 ? 'text-[#d4af37] hover:bg-[#d4af37]/10'
-                                                : activeMenu === item.label
+                                                : isCurrentPage(item)
                                                     ? 'text-[#d4af37] bg-white/5'
-                                                    : 'text-[#FAFAF5]/80 hover:text-[#FAFAF5] hover:bg-white/5'
+                                                    : activeMenu === item.label
+                                                        ? 'text-[#d4af37] bg-white/5'
+                                                        : 'text-[#FAFAF5]/80 hover:text-[#FAFAF5] hover:bg-white/5'
                                             }
                                         `}
                                     >
                                         {item.label}
-                                        {/* Indicador activo */}
+                                        {/* Indicador activo (hover o página actual) */}
                                         {!item.highlight && (
                                             <span className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-[#d4af37] transition-all duration-300
-                                                ${activeMenu === item.label ? 'w-5 opacity-100' : 'w-0 opacity-0'}
+                                                ${activeMenu === item.label || isCurrentPage(item) ? 'w-5 opacity-100' : 'w-0 opacity-0'}
                                             `} />
                                         )}
                                     </a>
@@ -219,23 +237,23 @@ export default function DesktopHeader() {
                         </ul>
                     </nav>
 
-                    {/* RIGHT: Actions */}
-                    <div className="flex-shrink-0 flex items-center gap-6">
+                    {/* RIGHT: Actions — iconos más pequeños para que el menú quepa en 1 línea */}
+                    <div className="flex-shrink-0 flex items-center gap-2 lg:gap-3 xl:gap-4">
                         {/* Search */}
                         <PredictiveSearch />
 
                         {/* Divider */}
-                        <div className="w-px h-5 bg-[#d4af37]/30" />
+                        <div className="w-px h-3.5 lg:h-4 bg-[#d4af37]/30 hidden sm:block" />
 
                         {/* Favorites */}
                         <a
                             href={resolvePath('/favoritos')}
-                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
+                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Favoritos"
                         >
-                            <span className="material-symbols-outlined text-[24px]">favorite</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">favorite</span>
                             {favCount > 0 && (
-                                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-[#050505]">
+                                <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[8px] font-bold text-[#050505]">
                                     {favCount}
                                 </span>
                             )}
@@ -246,21 +264,21 @@ export default function DesktopHeader() {
                             href="https://dtalles-jewelry.myshopify.com/account/login"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
+                            className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Cuenta"
                         >
-                            <span className="material-symbols-outlined text-[24px]">person</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">person</span>
                         </a>
 
                         {/* Cart */}
                         <button
                             onClick={() => setIsCartOpen(true)}
-                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-1"
+                            className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Carrito"
                         >
-                            <span className="material-symbols-outlined text-[24px]">shopping_bag</span>
+                            <span className="material-symbols-outlined text-[18px] lg:text-[19px] xl:text-[22px]">shopping_bag</span>
                             {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[9px] font-bold text-[#050505]">
+                                <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d4af37] text-[8px] font-bold text-[#050505]">
                                     {cartCount}
                                 </span>
                             )}
@@ -277,9 +295,9 @@ export default function DesktopHeader() {
                 />
             )}
 
-            {/* Mega Menu Panel */}
+            {/* Mega Menu Panel — más compacto en 1024 */}
             <div
-                className={`absolute left-1/2 -translate-x-1/2 w-full max-w-5xl z-50 transition-all duration-300 ease-out overflow-hidden rounded-b-xl border-x border-b border-[#d4af37]/30
+                className={`absolute left-1/2 -translate-x-1/2 w-full max-w-4xl xl:max-w-5xl z-50 transition-all duration-300 ease-out overflow-hidden rounded-b-xl border-x border-b border-[#d4af37]/30
                     ${activeMenu && activeItem && !activeItem.highlight && !activeItem.simple
                         ? 'opacity-100 visible translate-y-0'
                         : 'opacity-0 invisible -translate-y-3'
@@ -294,12 +312,12 @@ export default function DesktopHeader() {
                 onMouseLeave={handleMouseLeave}
             >
                 {activeItem && !activeItem.highlight && (
-                    <div className="max-w-7xl mx-auto px-12 py-10 relative">
-                        <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
-                        <div className="grid grid-cols-3 gap-8">
+                    <div className="max-w-7xl mx-auto px-6 lg:px-8 xl:px-12 py-6 lg:py-8 xl:py-10 relative">
+                        <div className="absolute top-0 left-6 lg:left-8 xl:left-12 right-6 lg:right-8 xl:right-12 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
+                        <div className="grid grid-cols-3 gap-4 lg:gap-6 xl:gap-8">
                             {/* Col 1: Categorías */}
-                            <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
-                                <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
+                            <div className="space-y-4 lg:space-y-5 border-r border-[#d4af37]/10 pr-4 lg:pr-6">
+                                <h4 className="text-[#d4af37] font-serif text-sm lg:text-base italic mb-1 flex items-center gap-2">
                                     <span className="w-3 h-px bg-[#d4af37]" /> Categorías
                                 </h4>
                                 <ul className="space-y-3">
@@ -318,8 +336,8 @@ export default function DesktopHeader() {
                             </div>
 
                             {/* Col 2: Estilos */}
-                            <div className="space-y-5 border-r border-[#d4af37]/10 pr-6">
-                                <h4 className="text-[#d4af37] font-serif text-base italic mb-1 flex items-center gap-2">
+                            <div className="space-y-4 lg:space-y-5 border-r border-[#d4af37]/10 pr-4 lg:pr-6">
+                                <h4 className="text-[#d4af37] font-serif text-sm lg:text-base italic mb-1 flex items-center gap-2">
                                     <span className="w-3 h-px bg-[#d4af37]" /> Estilos
                                 </h4>
                                 <ul className="space-y-3">
@@ -333,8 +351,8 @@ export default function DesktopHeader() {
                                 </ul>
                             </div>
 
-                            {/* Col 3: Visual (Sin spacer previo) */}
-                            <div className="relative h-60 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
+                            {/* Col 3: Visual (Sin spacer previo) — altura adaptada a 1024 */}
+                            <div className="relative h-48 lg:h-52 xl:h-60 rounded-sm overflow-hidden group cursor-pointer bg-[#1a1a1a]">
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
                                 <img
                                     src={activeItem.image}

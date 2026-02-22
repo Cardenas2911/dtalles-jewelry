@@ -2,62 +2,30 @@
 
 ---
 
-<section class="bg-[#111111] py-4 border-b border-white/5">
+<section class="bg-[#111111] py-4 md:py-4 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <!-- Móvil: grid 2x2, todo visible sin scroll. Desktop: una fila centrada -->
         <div
-            class="flex items-center justify-between md:justify-center md:gap-16 overflow-x-auto hide-scrollbar whitespace-nowrap py-2 px-2 md:px-0"
+            class="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-center md:gap-16 gap-x-4 gap-y-3 md:gap-y-0 py-2 md:py-0"
         >
-            {/* Item 1: Miami */}
-            <div class="flex items-center gap-3 min-w-max">
-                <span class="material-symbols-outlined text-[#d4af37]"
-                    >location_on</span
-                >
-                <span
-                    class="text-xs md:text-sm text-gray-300 uppercase tracking-wider font-medium"
-                    >Ubicados en Miami</span
-                >
+            <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
+                <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">location_on</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Ubicados en Miami</span>
             </div>
 
-            {/* Separator Mobile */}
-            <div class="w-px h-4 bg-white/10 mx-4 md:hidden"></div>
-
-            {/* Item 2: Oro Garantizado */}
-            <div class="flex items-center gap-3 min-w-max">
-                <span class="material-symbols-outlined text-[#d4af37]"
-                    >verified</span
-                >
-                <span
-                    class="text-xs md:text-sm text-gray-300 uppercase tracking-wider font-medium"
-                    >Oro 14k Garantizado</span
-                >
+            <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
+                <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">verified</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Oro 14k Garantizado</span>
             </div>
 
-            {/* Separator Mobile */}
-            <div class="w-px h-4 bg-white/10 mx-4 md:hidden"></div>
-
-            {/* Item 3: Envio */}
-            <div class="flex items-center gap-3 min-w-max">
-                <span class="material-symbols-outlined text-[#d4af37]"
-                    >local_shipping</span
-                >
-                <span
-                    class="text-xs md:text-sm text-gray-300 uppercase tracking-wider font-medium"
-                    >Envío Asegurado USA</span
-                >
+            <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
+                <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">local_shipping</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Envío Asegurado USA</span>
             </div>
 
-            {/* Separator Mobile */}
-            <div class="w-px h-4 bg-white/10 mx-4 md:hidden"></div>
-
-            {/* Item 4: Pagos */}
-            <div class="flex items-center gap-3 min-w-max">
-                <span class="material-symbols-outlined text-[#d4af37]"
-                    >lock</span
-                >
-                <span
-                    class="text-xs md:text-sm text-gray-300 uppercase tracking-wider font-medium"
-                    >Pagos 100% Seguros</span
-                >
+            <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
+                <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">lock</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Pagos 100% Seguros</span>
             </div>
         </div>
     </div>

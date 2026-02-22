@@ -15,7 +15,7 @@ const SLIDES = [
         bgPosition: 'object-center md:object-right',
         overline: 'EXCLUSIVIDAD ITALIANA',
         title: 'Oro Original Italiano 10 y 14 Kilates',
-        subtitle: 'Autenticidad garantizada en cada gramo. El lujo del oro italiano directamente a tus manos.',
+        subtitle: 'Autenticidad garantizada en cada prenda. El lujo del oro italiano directamente a tus manos.',
         cta: 'EXPLORAR COLECCIÓN',
         ctaLink: '/tienda',
         ctaStyle: 'bg-[#d4af37] text-black border-[#d4af37] hover:bg-white hover:border-white'
@@ -29,7 +29,8 @@ const SLIDES = [
         titleAttribute: 'Colección de Joyas para Mujer - Layering',
         alignment: 'items-start text-left', // Desktop: Left
         mobileAlignment: 'items-center text-center justify-end pb-20', // Mobile: Bottom Center
-        bgPosition: 'object-center md:object-right',
+        // Móvil: encuadre un poco a la derecha del centro para ver a la modelo sin pasarse
+        bgPosition: 'object-[75%_50%] md:object-right',
         overline: 'NUEVA COLECCIÓN',
         title: 'Elegancia en Capas',
         subtitle: 'Descubre el arte del layering. Crea un look único para cada día.',
@@ -80,7 +81,7 @@ export default function HeroSlider() {
 
     return (
         <section
-            className="relative w-full h-[100vh] md:h-[85vh] overflow-hidden bg-[#050505] font-sans group"
+            className="relative w-full h-[100vh] md:h-[80vh] lg:h-[75vh] xl:h-[85vh] overflow-hidden bg-[#050505] font-sans group"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             aria-label="Carrusel de Productos Destacados"
@@ -110,36 +111,36 @@ export default function HeroSlider() {
                             <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/40 md:to-transparent opacity-90 transition-opacity duration-1000 ${slide.alignment.includes('right') ? 'md:bg-gradient-to-l' : ''}`}></div>
                         </div>
 
-                        {/* 2. Content */}
-                        <div className={`relative z-20 h-full max-w-[1920px] mx-auto px-6 md:px-12 flex flex-col ${slide.mobileAlignment} md:justify-center md:${slide.alignment}`}>
-                            <div className={`w-full max-w-xl md:max-w-2xl opacity-0 ${isActive ? 'animate-fade-in-up' : ''}`} style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}>
+                        {/* 2. Content — espacio bajo el header (pt) para que el texto no quede pegado; escalado para 1024 */}
+                        <div className={`relative z-20 h-full max-w-[1920px] mx-auto pt-16 md:pt-20 lg:pt-24 xl:pt-28 px-6 md:px-8 lg:px-10 xl:px-12 flex flex-col ${slide.mobileAlignment} md:justify-center md:${slide.alignment}`}>
+                            <div className={`w-full max-w-xl md:max-w-lg lg:max-w-xl xl:max-w-2xl opacity-0 ${isActive ? 'animate-fade-in-up' : ''}`} style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}>
                                 {/* Overline */}
-                                <span className="block text-[#d4af37] text-xs md:text-sm font-bold tracking-[0.2em] mb-3 md:mb-4 uppercase font-sans text-shadow-sm">
+                                <span className="block text-[#d4af37] text-xs md:text-[0.8rem] lg:text-sm font-bold tracking-[0.15em] lg:tracking-[0.2em] mb-2 md:mb-3 lg:mb-4 uppercase font-sans text-shadow-sm">
                                     {slide.overline}
                                 </span>
 
-                                {/* Title */}
+                                {/* Title — en 1024 (lg) títulos más pequeños que en xl para evitar amontonamiento */}
                                 {index === 0 ? (
-                                    <h2 className="text-white font-serif text-[2.8rem] leading-[1.1] md:text-[4.5rem] md:leading-[1.1] mb-4 md:mb-6 text-balance font-bold drop-shadow-lg">
+                                    <h2 className="text-white font-serif text-[2.8rem] leading-[1.1] md:text-[3rem] lg:text-[3.25rem] xl:text-[4.5rem] md:leading-[1.15] lg:leading-[1.1] mb-3 md:mb-4 lg:mb-5 xl:mb-6 text-balance font-bold drop-shadow-lg">
                                         <span className="bg-gradient-to-r from-[#f5e3a3] via-[#d4af37] to-[#f5e3a3] bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
                                             {slide.title}
                                         </span>
                                     </h2>
                                 ) : (
-                                    <h2 className="text-white font-serif text-[2.5rem] leading-[1.1] md:text-[3.5rem] md:leading-tight mb-4 md:mb-6 text-balance font-bold drop-shadow-lg">
+                                    <h2 className="text-white font-serif text-[2.5rem] leading-[1.1] md:text-[2.75rem] lg:text-[3rem] xl:text-[3.5rem] md:leading-tight mb-3 md:mb-4 lg:mb-5 xl:mb-6 text-balance font-bold drop-shadow-lg">
                                         {slide.title}
                                     </h2>
                                 )}
 
                                 {/* Subtitle */}
-                                <p className="text-gray-100 text-sm md:text-[1.1rem] font-light mb-8 md:mb-10 leading-relaxed max-w-sm md:max-w-lg text-balance font-sans drop-shadow-md mx-auto md:mx-0">
+                                <p className="text-gray-100 text-sm md:text-base lg:text-[1rem] xl:text-[1.1rem] font-light mb-6 md:mb-7 lg:mb-8 xl:mb-10 leading-relaxed max-w-sm md:max-w-md lg:max-w-lg text-balance font-sans drop-shadow-md mx-auto md:mx-0">
                                     {slide.subtitle}
                                 </p>
 
                                 {/* CTA */}
                                 <a
                                     href={resolvePath(slide.ctaLink)}
-                                    className={`inline-flex items-center justify-center px-8 py-4 text-xs md:text-sm font-bold uppercase tracking-[2px] transition-all duration-300 border font-sans min-h-[48px] w-full md:w-auto ${slide.ctaStyle}`}
+                                    className={`inline-flex items-center justify-center px-6 py-3 lg:px-8 lg:py-4 text-xs md:text-sm font-bold uppercase tracking-[2px] transition-all duration-300 border font-sans min-h-[44px] lg:min-h-[48px] w-full md:w-auto ${slide.ctaStyle}`}
                                     style={{ fontWeight: 600 }}
                                 >
                                     {slide.cta}
@@ -151,7 +152,7 @@ export default function HeroSlider() {
             })}
 
             {/* 3. Progress Indicators */}
-            <div className="absolute bottom-6 md:bottom-10 left-0 right-0 z-30 flex justify-center gap-3 md:gap-4">
+            <div className="absolute bottom-5 md:bottom-8 lg:bottom-10 left-0 right-0 z-30 flex justify-center gap-2 md:gap-3 lg:gap-4">
                 {SLIDES.map((slide, index) => (
                     <button
                         key={slide.id}

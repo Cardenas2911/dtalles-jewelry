@@ -13,6 +13,9 @@ export interface CartItem {
 
 export const isCartOpen = atom(false);
 
+/** Muestra toast "Añadido a la bolsa" al añadir un ítem (UX) */
+export const showAddToCartToast = atom(false);
+
 // Use persistentAtom to save cart state to localStorage
 export const cartItems = persistentAtom<Record<string, CartItem>>('cartItems', {}, {
     encode: JSON.stringify,
@@ -42,6 +45,7 @@ export function addCartItem(item: CartItem) {
         });
     }
     setIsCartOpen(true);
+    showAddToCartToast.set(true);
 }
 
 export function removeCartItem(itemId: string) {

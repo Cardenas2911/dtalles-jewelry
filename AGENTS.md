@@ -17,7 +17,7 @@
 | **Backend**         | Shopify Storefront API (GraphQL)                         |
 | **Estado**          | Nano-stores (nanostores + @nanostores/react)             |
 | **Deploy**          | GitHub Pages via GitHub Actions                          |
-| **URL Producción**  | https://cardenas2911.github.io/dtalles-jewelry/          |
+| **URL Producción**  | https://dtallesjewelry.com (dominio personalizado)        |
 | **Idioma del Código**| Español (comentarios, variables, contenido)             |
 
 ---
@@ -56,12 +56,11 @@ src/
 - Usa `@tailwindcss/vite` como plugin de Vite en `astro.config.mjs`
 - Los tokens de diseño están en `src/styles/global.css` bajo `@theme {}`
 
-### GitHub Pages (Base Path)
-- El sitio se despliega en un **subdirectorio**: `/dtalles-jewelry/`
-- `astro.config.mjs` tiene `base: '/dtalles-jewelry'`
-- **Siempre usar `resolvePath()`** de `src/utils/paths.ts` para rutas a assets en componentes React
-- Los componentes Astro pueden usar rutas normales (Astro las resuelve automáticamente)
-- El archivo `public/.nojekyll` es **obligatorio** (evita que Jekyll ignore `_astro/`)
+### GitHub Pages (Dominio personalizado)
+- El sitio se despliega en GitHub Pages con **dominio personalizado** (`dtallesjewelry.com`), por lo que se sirve desde la raíz.
+- `astro.config.mjs` tiene `site: 'https://dtallesjewelry.com'` y **no** define `base` (rutas desde `/`).
+- **Siempre usar `resolvePath()`** de `src/utils/paths.ts` para rutas a assets en componentes React (por si en el futuro se usa un base path).
+- Los componentes Astro pueden usar rutas normales (Astro las resuelve automáticamente).
 
 ### Variables de Entorno
 El proyecto necesita estas variables para funcionar:
@@ -101,8 +100,9 @@ El proyecto necesita estas variables para funcionar:
 ```bash
 npm install
 npm run dev
-# Abre: http://localhost:4321/dtalles-jewelry/
+# Abre: http://localhost:4321/
 ```
+**Windows (PowerShell):** Si usas `cd ruta; npm run dev`, emplea `;` para encadenar. En PowerShell antiguo `&&` no es válido.
 
 ### Producción (Automático)
 Cada `git push` a `main` dispara el workflow `.github/workflows/deploy.yml`:

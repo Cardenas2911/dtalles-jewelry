@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductGallery from './ProductGallery';
 import ProductInfo from './ProductInfo';
 import ProductDetails from './ProductDetails';
 import StickyBottomBar from './StickyBottomBar';
+import { fetchLivePricing } from '../../../lib/storefrontLive';
 
 interface ProductPageProps {
     product: any; // Using any for flexibility with graphQL response structure, can tighten later
 }
 
 export default function ProductPage({ product }: ProductPageProps) {
-    const variants = product.variants.edges.map((e: any) => e.node);
-    // Default to first variant
-    const [selectedVariant, setSelectedVariant] = useState(variants[0]);
+    const initialVariants = product.variants.edges.map((e: any) => e.node);
+    const [selectedVariant, setSelectedVariant] = useState(initialVariants[0]);
+    // Precios en vivo desde Shopify (se actualizan sin rebuild)
+    const [liveVariants, setLiveVariants] = useState<typeof initialVariants | null>(null);
+    const [livePriceLoading, setLivePriceLoading] = useState(true);
+
+    useEffect(() => {
+        if (!product?.id) {
+            setLivePriceLoading(false);
+            return;
+        }
+        setLivePriceLoading(true);
+        fetchLivePricing(product.id).then((fetched) => {
+            if (fetched && fetched.length > 0) setLiveVariants(fetched);
+            setLivePriceLoading(false);
+        });
+    }, [product.id]);
+
+    // Cuando llegan variantes en vivo, actualizar la variante seleccionada para mostrar precio actual
+    useEffect(() => {
+        if (!liveVariants?.length) return;
+        const currentId = selectedVariant?.id;
+        const updated = liveVariants.find((v: any) => v.id === currentId);
+        if (updated) setSelectedVariant(updated);
+    }, [liveVariants]);
+
+    const variants = liveVariants ?? initialVariants;
 
     // Helper to extract human-readable value from metaobject or simple field
     const getMetafieldValue = (field: any) => {
@@ -112,6 +137,7 @@ export default function ProductPage({ product }: ProductPageProps) {
                         variants={variants}
                         selectedVariant={selectedVariant}
                         onVariantChange={setSelectedVariant}
+                        livePriceLoading={livePriceLoading}
                     />
 
                     <ProductDetails details={details} />
