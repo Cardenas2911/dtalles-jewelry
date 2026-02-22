@@ -28,23 +28,17 @@ const f = (productType?: string, tag?: string) => {
     return `${base}?${params.toString()}`;
 };
 
-// Navigation Data — tags verificados contra Shopify el 2026-02-19
+// Navigation Data — simplificada para evitar filtros vacíos
 const NAV_ITEMS: NavItem[] = [
     { label: 'Inicio', href: resolvePath('/'), simple: true },
     { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
     {
         label: 'Hombre', href: resolvePath('/hombre'),
         categories: [
-            { label: 'Cadenas', href: f('Cadena', 'hombre') },
-            { label: 'Pulseras', href: f('Pulsera', 'hombre') },
-            { label: 'Anillos', href: f('Anillo', 'hombre') },
-            { label: 'Collares con Dije', href: f('Collar con Dije', 'hombre') },
+            { label: 'Ver Colección Hombre', href: resolvePath('/hombre') },
         ],
         styles: [
-            { label: 'Cuban Links', href: f(undefined, 'cuban links') },
-            { label: 'Cadena Soga', href: f(undefined, 'cadena soga') },
-            { label: 'Miami Cuban', href: f(undefined, 'miami cuban') },
-            { label: 'Box Chain', href: f(undefined, 'box chain') },
+            { label: 'Cadenas y Esclavas', href: resolvePath('/hombre') },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
         alt: 'Cadena Cubana de Oro 10k - Joyería Exclusiva para Hombre',
@@ -53,16 +47,10 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Mujer', href: resolvePath('/mujer'),
         categories: [
-            { label: 'Collares', href: f('Collar', 'mujer') },
-            { label: 'Aretes', href: f('Aretes', 'mujer') },
-            { label: 'Anillos', href: f('Anillo', 'mujer') },
-            { label: 'Pulseras', href: f('Pulsera', 'mujer') },
+            { label: 'Ver Colección Mujer', href: resolvePath('/mujer') },
         ],
         styles: [
-            { label: 'Gargantillas', href: f(undefined, 'gargantilla') },
-            { label: 'Aretes de Aro', href: f(undefined, 'aretes de aro') },
-            { label: 'Minimalistas', href: f(undefined, 'minimalista') },
-            { label: 'Sets de Oro', href: f(undefined, 'set oro') },
+            { label: 'Aretes y Collares', href: resolvePath('/mujer') },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
         alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
@@ -71,16 +59,10 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
         categories: [
-            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
-            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
-            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
-            { label: 'Amuletos', href: f(undefined, 'amuleto') },
+            { label: 'Ver Joyería Religiosa', href: resolvePath('/coleccion/religiosa') },
         ],
         styles: [
-            { label: 'Cruz Minimalista', href: f(undefined, 'cruz minimalista') },
-            { label: 'Casino', href: f(undefined, 'casino') },
-            { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
-            { label: 'San Valentín', href: f(undefined, 'san valentin') },
+            { label: 'Medallas y Cruces', href: resolvePath('/coleccion/religiosa') },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
         alt: 'Medallas y Cruces de Oro 10k - Colección Religiosa',
@@ -89,16 +71,10 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Niños', href: resolvePath('/ninos'),
         categories: [
-            { label: 'Aretes', href: f('Aretes', 'niña') },
-            { label: 'Broqueles', href: f(undefined, 'broqueles') },
-            { label: 'Pulseras', href: f('Pulsera', 'niña') },
-            { label: 'Cadenas', href: f('Cadena', 'niña') },
+            { label: 'Ver Colección Niños', href: resolvePath('/ninos') },
         ],
         styles: [
-            { label: 'Florales', href: f(undefined, 'floral jewelry') },
-            { label: 'Mariquitas', href: f(undefined, 'aretes mariquita') },
-            { label: 'Ligeros', href: f(undefined, 'ligeros') },
-            { label: 'Básicos', href: f(undefined, 'básicos') },
+            { label: 'Joyería Hipoalergénica', href: resolvePath('/ninos') },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
         alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
@@ -107,16 +83,10 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Regalos', href: resolvePath('/guia-regalos'),
         categories: [
-            { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
-            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
-            { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
-            { label: 'Lujo', href: f(undefined, 'regalo lujo') },
+            { label: 'Ver Guía de Regalos', href: resolvePath('/guia-regalos') },
         ],
         styles: [
-            { label: 'Corazones', href: f(undefined, 'dije corazon') },
-            { label: 'Bridal', href: f(undefined, 'bridal') },
-            { label: 'Anillos de Compromiso', href: f(undefined, 'anillo compromiso') },
-            { label: 'Para Novia', href: f(undefined, 'regalo novia') },
+            { label: 'Detalles y Aniversarios', href: resolvePath('/guia-regalos') },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
         alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',

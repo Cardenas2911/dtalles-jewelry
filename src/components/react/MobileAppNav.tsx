@@ -14,20 +14,14 @@ const f = (productType?: string, tag?: string) => {
     return `${base}?${params.toString()}`;
 };
 
-// Misma estructura de navegación que el DesktopHeader (tags verificados contra Shopify)
+// Misma estructura de navegación que el DesktopHeader simplificada a las rutas válidas
 const NAV_SECTIONS = [
     {
         label: 'Hombre',
         href: resolvePath('/hombre'),
         icon: 'male',
         items: [
-            { label: 'Cadenas', href: f('Cadena', 'hombre') },
-            { label: 'Pulseras', href: f('Pulsera', 'hombre') },
-            { label: 'Anillos', href: f('Anillo', 'hombre') },
-            { label: 'Collares con Dije', href: f('Collar con Dije', 'hombre') },
-            { label: 'Cuban Links', href: f(undefined, 'cuban links') },
-            { label: 'Cadena Soga', href: f(undefined, 'cadena soga') },
-            { label: 'Miami Cuban', href: f(undefined, 'miami cuban') },
+            { label: 'Ver toda la Colección Hombre', href: resolvePath('/hombre') },
         ],
     },
     {
@@ -35,13 +29,7 @@ const NAV_SECTIONS = [
         href: resolvePath('/mujer'),
         icon: 'female',
         items: [
-            { label: 'Collares', href: f('Collar', 'mujer') },
-            { label: 'Aretes', href: f('Aretes', 'mujer') },
-            { label: 'Anillos', href: f('Anillo', 'mujer') },
-            { label: 'Pulseras', href: f('Pulsera', 'mujer') },
-            { label: 'Gargantillas', href: f(undefined, 'gargantilla') },
-            { label: 'Aretes de Aro', href: f(undefined, 'aretes de aro') },
-            { label: 'Sets de Oro', href: f(undefined, 'set oro') },
+            { label: 'Ver toda la Colección Mujer', href: resolvePath('/mujer') },
         ],
     },
     {
@@ -49,11 +37,7 @@ const NAV_SECTIONS = [
         href: resolvePath('/coleccion/religiosa'),
         icon: 'church',
         items: [
-            { label: 'Cruces', href: f(undefined, 'joyería religiosa') },
-            { label: 'Collares con Cruz', href: f('Collar con Dije', 'joyería religiosa') },
-            { label: 'Anillos', href: f('Anillo', 'joyería religiosa') },
-            { label: 'Amuletos', href: f(undefined, 'amuleto') },
-            { label: 'Buena Suerte', href: f(undefined, 'buena suerte') },
+            { label: 'Ver Joyería Religiosa', href: resolvePath('/coleccion/religiosa') },
         ],
     },
     {
@@ -61,10 +45,7 @@ const NAV_SECTIONS = [
         href: resolvePath('/ninos'),
         icon: 'child_care',
         items: [
-            { label: 'Aretes', href: f('Aretes', 'niña') },
-            { label: 'Broqueles', href: f(undefined, 'broqueles') },
-            { label: 'Pulseras', href: f('Pulsera', 'niña') },
-            { label: 'Cadenas', href: f('Cadena', 'niña') },
+            { label: 'Ver Colección Niños', href: resolvePath('/ninos') },
         ],
     },
     {
@@ -72,11 +53,7 @@ const NAV_SECTIONS = [
         href: resolvePath('/guia-regalos'),
         icon: 'redeem',
         items: [
-            { label: 'Para Ella', href: f(undefined, 'regalo mujer') },
-            { label: 'Para Él', href: f(undefined, 'regalo hombre') },
-            { label: 'Aniversario', href: f(undefined, 'regalo aniversario') },
-            { label: 'Corazones', href: f(undefined, 'dije corazon') },
-            { label: 'Bridal', href: f(undefined, 'bridal') },
+            { label: 'Ver Guía de Regalos', href: resolvePath('/guia-regalos') },
         ],
     },
 ];
