@@ -43,8 +43,12 @@ export default function CartDrawer() {
 
             const { data } = response;
             if (data?.cartCreate?.cart?.checkoutUrl) {
-                console.log("Redirecting to:", data.cartCreate.cart.checkoutUrl);
-                window.location.href = data.cartCreate.cart.checkoutUrl;
+                let checkoutUrl = new URL(data.cartCreate.cart.checkoutUrl);
+                // Forzamos el dominio hacia myshopify para evitar el 404 en el dominio headless (Astro)
+                checkoutUrl.hostname = 'dtalles-jewelry.myshopify.com';
+
+                console.log("Redirecting to:", checkoutUrl.toString());
+                window.location.href = checkoutUrl.toString();
             } else {
                 console.error("No checkout URL returned", JSON.stringify(response, null, 2));
                 if (data?.cartCreate?.userErrors?.length > 0) {
