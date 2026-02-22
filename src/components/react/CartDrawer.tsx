@@ -68,14 +68,14 @@ export default function CartDrawer() {
         <>
             {/* Overlay */}
             <div
-                className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${$isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] transition-opacity duration-300 ${$isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                     }`}
                 onClick={() => setIsCartOpen(false)}
             />
 
             {/* Drawer */}
             <div
-                className={`fixed top-0 right-0 h-full w-full max-w-md bg-[#050505] text-[#FAFAF5] shadow-2xl transform transition-transform duration-300 z-[60] flex flex-col border-l border-[#d4af37]/20 ${$isCartOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-full w-full max-w-md bg-[#050505] text-[#FAFAF5] shadow-2xl transform transition-transform duration-300 z-[70] flex flex-col border-l border-[#d4af37]/20 ${$isCartOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 {/* Header */}
@@ -204,8 +204,8 @@ export default function CartDrawer() {
                             )}
                         </button>
 
-                        <div className="flex justify-center pt-2 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 scale-90">
-                            <PaymentIcons iconClassName="h-4 w-auto text-white" />
+                        <div className="flex justify-center pt-2 w-full overflow-hidden">
+                            <PaymentIcons className="flex flex-nowrap justify-center gap-1 sm:gap-1.5" iconClassName="h-4 w-auto text-white" />
                         </div>
                     </div>
                 )}
