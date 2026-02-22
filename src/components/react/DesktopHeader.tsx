@@ -261,7 +261,7 @@ export default function DesktopHeader() {
 
                         {/* Account */}
                         <a
-                            href="https://dtalles-jewelry.myshopify.com/account/login"
+                            href="https://dtalles-jewelry.myshopify.com/account"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
@@ -288,12 +288,14 @@ export default function DesktopHeader() {
             </div>
 
             {/* Overlay del mega menú */}
-            {activeMenu && activeItem && !activeItem.highlight && !activeItem.simple && (
-                <div
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
-                    style={{ top: '0', animation: 'fadeIn 0.2s ease' }}
-                />
-            )}
+            {
+                activeMenu && activeItem && !activeItem.highlight && !activeItem.simple && (
+                    <div
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 pointer-events-none"
+                        style={{ top: '0', animation: 'fadeIn 0.2s ease' }}
+                    />
+                )
+            }
 
             {/* Mega Menu Panel — más compacto en 1024 */}
             <div
@@ -373,6 +375,6 @@ export default function DesktopHeader() {
                     </div>
                 )}
             </div>
-        </header>
+        </header >
     );
 }

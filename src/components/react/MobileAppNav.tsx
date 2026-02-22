@@ -211,7 +211,7 @@ export default function MobileAppNav() {
 
                     {/* Cuenta */}
                     <a
-                        href="https://dtalles-jewelry.myshopify.com/account/login"
+                        href="https://dtalles-jewelry.myshopify.com/account"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex flex-col items-center justify-center gap-1 group"
