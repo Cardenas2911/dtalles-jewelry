@@ -5,6 +5,7 @@ import ReviewSnippet from './ReviewSnippet';
 import StickyAddToCart from './StickyAddToCart';
 import PaymentIcons from '../PaymentIcons';
 import CountdownTimer from './CountdownTimer';
+import AffirmPromotionalMessage from '../AffirmPromotionalMessage';
 
 interface Variant {
     id: string;
@@ -121,6 +122,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                                 ~${(price / parseFloat(product.pesoReal.value)).toLocaleString('en-US', { maximumFractionDigits: 0 })}/gr (Oro Sólido)
                             </span>
                         )}
+                        <AffirmPromotionalMessage price={price} pageType="product" className="mb-0 mt-1" />
                     </div>
 
                     {/* Trust Badges - NEW */}
@@ -209,12 +211,6 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                         <span>Pago 100% Seguro y Encriptado</span>
                     </div>
                     <PaymentIcons className="flex flex-wrap justify-center gap-2 opacity-80" iconClassName="h-5 w-auto" />
-                </div>
-
-                {/* Affirm info moved to bottom */}
-                <div className="flex items-center justify-center gap-2 text-xs text-gray-500 font-light mt-2">
-                    <span>Paga en cuotas con</span>
-                    <span className="font-bold text-white">Affirm</span>
                 </div>
             </div>
 

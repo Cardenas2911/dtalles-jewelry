@@ -4,6 +4,7 @@ import { isCartOpen, cartItems, setIsCartOpen, removeCartItem, updateCartItemQua
 import { client } from '../../lib/shopify';
 import { CART_CREATE } from '../../lib/mutations/cart';
 import PaymentIcons from './PaymentIcons';
+import AffirmPromotionalMessage from './AffirmPromotionalMessage';
 
 export default function CartDrawer() {
     const $isCartOpen = useStore(isCartOpen);
@@ -184,6 +185,10 @@ export default function CartDrawer() {
                             <span className="material-symbols-outlined text-sm text-[#d4af37]">verified_user</span>
                             Sin cargos ocultos. Transparencia DTalles.
                         </p>
+
+                        <div className="flex justify-center w-full">
+                            <AffirmPromotionalMessage price={total} pageType="cart" className="mb-2 !mt-0 text-center" />
+                        </div>
 
                         <button
                             onClick={handleCheckout}
