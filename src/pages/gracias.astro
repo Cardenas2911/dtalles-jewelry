@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "¡Gracias por tu compra! | DTalles Jewelry";
+const description = "Tu orden ha sido confirmada. Gracias por confiar en DTalles Jewelry.";
+---
+
+<Layout title={title} description={description}>
+    <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-20 animate-fade-in">
+        <div class="w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-5xl text-[#d4af37]">check_circle</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-serif text-white mb-4 tracking-wide">
+            ¡Gracias por tu orden!
+        </h1>
+        
+        <p class="text-gray-400 max-w-lg mb-8 text-lg font-light leading-relaxed">
+            Hemos recibido tu pedido y estamos preparando tus joyas con el mayor cuidado. 
+            Recibirás un correo electrónico de confirmación con los detalles y el número de seguimiento de tu envío.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
+            <a 
+                href="/coleccion/nuevo" 
+                class="px-8 py-4 bg-[#d4af37] text-black font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors text-sm text-center"
+            >
+                Ver Nuevos Ingresos
+            </a>
+            <a 
+                href="/" 
+                class="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-[0.2em] hover:border-[#d4af37] hover:text-[#d4af37] transition-colors text-sm text-center"
+            >
+                Volver al Inicio
+            </a>
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-white/10 w-full max-w-md flex flex-col items-center gap-4 text-sm text-gray-500">
+            <p>¿Tienes alguna duda sobre tu orden?</p>
+            <a href="https://wa.me/14078855666" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[#d4af37] hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-lg">support_agent</span>
+                Contáctanos por WhatsApp
+            </a>
+        </div>
+    </div>
+</Layout>
