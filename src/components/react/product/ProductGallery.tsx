@@ -14,8 +14,9 @@ export default function ProductGallery({ images, videoUrl }: ProductGalleryProps
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Filter out duplicates if any, though Shopify usually handles this
-    const uniqueImages = images.filter((v, i, a) => a.findIndex(t => (t.url === v.url)) === i);
+    // Filter out duplicates if any, though Shopify usually handles this, adding safety for empty images array
+    const safeImages = images || [];
+    const uniqueImages = safeImages.filter((v, i, a) => a.findIndex(t => (t.url === v.url)) === i);
 
     // Combine images and video for the carousel
     const mediaItems = videoUrl
@@ -72,8 +73,8 @@ export default function ProductGallery({ images, videoUrl }: ProductGalleryProps
                         />
                     ) : (
                         <img
-                            src={(mediaItems[selectedImageIndex] as any).url}
-                            alt={(mediaItems[selectedImageIndex] as any).altText || 'Detalle de Joya'}
+                            src={(mediaItems[selectedImageIndex] as any)?.url || ''}
+                            alt={(mediaItems[selectedImageIndex] as any)?.altText || 'Detalle de Joya'}
                             className="w-full h-full object-cover"
                         />
                     )}
@@ -113,7 +114,7 @@ export default function ProductGallery({ images, videoUrl }: ProductGalleryProps
                 >
                     {mediaItems.map((item: any, index) => (
                         <div key={index} className="min-w-full snap-center relative bg-[#050505]">
-                            {item.type === 'video' ? (
+                            {item?.type === 'video' ? (
                                 <video
                                     src={videoUrl}
                                     autoPlay
@@ -124,8 +125,8 @@ export default function ProductGallery({ images, videoUrl }: ProductGalleryProps
                                 />
                             ) : (
                                 <img
-                                    src={item.url}
-                                    alt={item.altText || 'Detalle'}
+                                    src={item?.url || ''}
+                                    alt={item?.altText || 'Detalle'}
                                     className="w-full h-full object-cover"
                                 />
                             )}
