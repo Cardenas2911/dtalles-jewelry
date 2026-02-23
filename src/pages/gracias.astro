@@ -43,4 +43,20 @@ const description = "Tu orden ha sido confirmada. Gracias por confiar en DTalles
             </a>
         </div>
     </div>
+
+    <script is:inline>
+        // Protección simple contra accesos directos
+        // Verifica si el usuario viene del checkout de Shopify o si tiene el parámetro correcto
+        document.addEventListener('DOMContentLoaded', () => {
+            const referrer = document.referrer;
+            const urlParams = new URLSearchParams(window.location.search);
+            const isFromCheckout = referrer.includes('checkout') || referrer.includes('myshopify.com');
+            const hasOrderParam = urlParams.has('checkout_id') || urlParams.has('order');
+
+            // Si no viene del checkout y no tiene parámetros de orden, devolvemos al inicio para evitar que gente entre a dtallesjewelry.com/gracias directamente
+            if (!isFromCheckout && !hasOrderParam && !window.location.hostname.includes('localhost')) {
+                window.location.replace('/');
+            }
+        });
+    </script>
 </Layout>
