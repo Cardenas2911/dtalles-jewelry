@@ -59,4 +59,16 @@ const description = "Tu orden ha sido confirmada. Gracias por confiar en DTalles
             }
         });
     </script>
+    
+    <script>
+        // Limpiamos el carrito local (Astro/React) una vez se confirmó la compra
+        import { clearCart } from '../store/cart';
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            // Un modesto retraso asegura que el checkout de Shopify haya finalizado su sync
+            setTimeout(() => {
+                clearCart();
+            }, 500);
+        });
+    </script>
 </Layout>

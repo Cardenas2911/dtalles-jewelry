@@ -72,3 +72,7 @@ export function updateCartItemQuantity(itemId: string, quantity: number) {
         }
     }
 }
+
+export function clearCart() {
+    cartItems.set({});
+}
