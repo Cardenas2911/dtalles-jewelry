@@ -1,0 +1,1 @@
+import{p as a}from"./index.Dpt-qeBV.js";const t=a("dtalles_favorites",{},{encode:JSON.stringify,decode:JSON.parse});function n(e){const s=t.get();if(s[e.id]){const o={...s};delete o[e.id],t.set(o)}else t.setKey(e.id,{...e,addedAt:Date.now()})}export{t as f,n as t};

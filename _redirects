@@ -1,0 +1,2 @@
+/services/login_with_shop/buyer/start https://dtalles-jewelry.myshopify.com/account 301
+/cart/* https://dtalles-jewelry.myshopify.com/cart/:splat 301
