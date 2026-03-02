@@ -1,2 +1,6 @@
 /services/login_with_shop/buyer/start https://dtalles-jewelry.myshopify.com/account 301
 /cart/* https://dtalles-jewelry.myshopify.com/cart/:splat 301
+
+# Redirecciones desde enlaces nativos de Shopify hacia nuestro frontend Astro
+/products/* /producto/:splat 301
+/collections/* /tienda 301
