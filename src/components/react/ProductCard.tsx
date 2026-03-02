@@ -226,7 +226,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
 
                 {/* Mobile CTA (Always visible button/icon or simplified) */}
-                <div className="lg:hidden mt-3">
+                <div className="lg:hidden mt-3 relative z-50">
                     <button
                         onClick={handleQuickAdd}
                         className="w-full py-2.5 border border-[#d4af37]/50 text-[#d4af37] text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-2 active:bg-[#d4af37] active:text-black transition-colors"
