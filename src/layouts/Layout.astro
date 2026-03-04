@@ -8,6 +8,7 @@ import CartDrawer from "../components/react/CartDrawer";
 import SearchModal from "../components/react/SearchModal";
 import AddToCartToast from "../components/react/AddToCartToast";
 import FloatingSupport from "../components/react/FloatingSupport";
+import CookieBanner from "../components/react/CookieBanner";
 
 import "../styles/global.css";
 
@@ -130,6 +131,7 @@ const affirmApiKey = import.meta.env.PUBLIC_AFFIRM_API_KEY || "YOUR_AFFIRM_PUBLI
         <Footer client:visible />
         <MobileAppNav client:load />
         {!hideFloatingSupport && <FloatingSupport client:load />}
+        <CookieBanner client:load />
 
         {/* Script nativo de Affirm. Funciona globalmente para todos los componentes de React que inyecten class="affirm-as-low-as" */}
         <script is:inline define:vars={{ affirmApiKey }}>
