@@ -187,11 +187,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </div>
                 )}
 
-                {/* Badges and Reviews */}
-                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
-                    <ReviewSnippet lang={lang} />
-                    <TrustBadges lang={lang} />
-                </div>
+
 
                 {/* Scarcity / Urgency */}
                 <CountdownTimer lang={lang} />
