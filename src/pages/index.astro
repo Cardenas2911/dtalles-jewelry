@@ -10,11 +10,6 @@ import ServiceBlock from "../components/home/ServiceBlock.astro";
 import SEOBlock from "../components/home/SEOBlock.astro";
 import ReviewsBlock from "../components/home/ReviewsBlock.astro";
 
-// --- MOBILE COMPONENTS ---
-import MobileHeader from "../components/react/home/MobileHeader";
-import MobileHeroBanner from "../components/react/home/MobileHeroBanner";
-import MobileProductGrid from "../components/react/home/MobileProductGrid";
-import MobileCollectionGrid from "../components/react/home/MobileCollectionGrid";
 
 import { storefrontQuery } from "../lib/shopify";
 import { gql } from "graphql-request";
@@ -85,25 +80,13 @@ try {
 }
 ---
 
-<Layout title={seo.title} description={seo.description} hideHeaderOnMobile={true}>
+<Layout title={seo.title} description={seo.description}>
     {/* 
         ====================================================
-        VISTA MOBILE-FIRST (Estilo App)
+        VISTA PRINCIPAL
         ====================================================
     */}
-    <main class="w-full overflow-hidden block lg:hidden bg-white min-h-screen">
-        <MobileHeader client:load lang={lang} />
-        <MobileHeroBanner client:visible lang={lang} />
-        <MobileProductGrid client:visible products={bestSellers} lang={lang} />
-        <MobileCollectionGrid client:visible lang={lang} />
-    </main>
-
-    {/* 
-        ====================================================
-        VISTA DESKTOP (Layout Original)
-        ====================================================
-    */}
-    <main class="w-full overflow-hidden hidden lg:block">
+    <main class="w-full overflow-hidden">
         <Hero />
         <TrustBar />
         <BentoGrid />
