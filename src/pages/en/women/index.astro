@@ -1,0 +1,65 @@
+---
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { storefrontQuery } from "../../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../../lib/queries/products";
+import ProductCard from "../../../components/react/ProductCard";
+import StoreGrid from "../../../components/react/StoreGrid";
+import { getLangFromUrl } from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+const seo = {
+    title: "Gold Jewelry for Women | Necklaces, Earrings, & Gifts",
+    description:
+        "Find the perfect detail for her. From minimalist chokers to complete gift sets. Hypoallergenic 14k gold and luxury packaging included.",
+};
+
+let products = [];
+try {
+    const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
+        variables: {
+            handle: "mujer",
+        },
+    }, lang);
+    products =
+        response.data?.collection?.products?.edges?.map(
+            (edge: any) => edge.node,
+        ) || [];
+} catch (error) {
+    console.error("Error fetching Mujer collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+        <div class="px-6 mb-2">
+            <Breadcrumbs
+                items={[{ label: "Home", href: "/en" }, { label: "Women" }]}
+            />
+        </div>
+
+        <div class="px-6 pb-6 text-center">
+            <h1 class="main-heading">
+                Women's Collection: 14k Gold Jewelry - Timeless Elegance
+            </h1>
+            <p
+                class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed"
+            >
+                Fine and elegant designs to highlight her natural beauty. Guaranteed 14k gold.
+            </p>
+        </div>
+
+        {
+            products.length > 0 ? (
+                <StoreGrid client:load initialProducts={products} lang={lang} />
+            ) : (
+                <div class="text-center py-20 px-4">
+                    <p class="text-xl text-gray-500">
+                        No products found in this collection.
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</Layout>

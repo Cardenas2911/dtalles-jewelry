@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 export const GET_BLOG_JOBS = gql`
-  query getBlogArticles($first: Int = 10) {
+  query getBlogArticles($first: Int = 10, $language: LanguageCode) @inContext(language: $language) {
     articles(first: $first, sortKey: PUBLISHED_AT, reverse: true) {
       edges {
         node {
@@ -30,7 +30,7 @@ export const GET_BLOG_JOBS = gql`
 // Correct approach for a specific blog (e.g. "News"):
 
 export const GET_ARTICLES_BY_BLOG = gql`
-  query getArticlesByBlog($handle: String!, $first: Int = 12) {
+  query getArticlesByBlog($handle: String!, $first: Int = 12, $language: LanguageCode) @inContext(language: $language) {
     blog(handle: $handle) {
       title
       articles(first: $first, sortKey: PUBLISHED_AT, reverse: true) {
@@ -58,7 +58,7 @@ export const GET_ARTICLES_BY_BLOG = gql`
 `;
 
 export const GET_ARTICLE_BY_HANDLE = gql`
-  query getArticle($handle: String!, $blogHandle: String!) {
+  query getArticle($handle: String!, $blogHandle: String!, $language: LanguageCode) @inContext(language: $language) {
     blog(handle: $blogHandle) {
       articleByHandle(handle: $handle) {
         id

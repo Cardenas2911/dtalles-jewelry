@@ -1,15 +1,16 @@
 ---
-
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
-
 <section class="max-w-7xl mx-auto px-6 pb-32">
     <div class="text-center mb-16">
         <span
             class="text-[#d4af37] tracking-[0.2em] text-xs font-bold uppercase"
-            >Nuestros Clientes Dicen</span
+            >{t('home.reviews.overline')}</span
         >
         <h3 class="text-[#FAFAF5] font-serif text-3xl md:text-4xl mt-3">
-            Excelencia Comprobada
+            {t('home.reviews.title')}
         </h3>
     </div>
 
@@ -26,8 +27,7 @@
                 <span class="material-symbols-outlined text-sm">star</span>
             </div>
             <p class="text-gray-300 italic mb-6 font-light">
-                "La calidad es impresionante. Compré una cubana de 5mm y el peso
-                es exacto a lo prometido. El envío a Texas fue súper rápido."
+                {t('home.reviews.r1.text')}
             </p>
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
@@ -43,7 +43,7 @@
                         >Carlos R.</span
                     >
                     <span class="block text-gray-500 text-xs"
-                        >Compra Verificada</span
+                        >{t('home.reviews.verified')}</span
                     >
                 </div>
             </div>
@@ -61,9 +61,7 @@
                 <span class="material-symbols-outlined text-sm">star</span>
             </div>
             <p class="text-gray-300 italic mb-6 font-light">
-                "Buscaba un regalo especial para mi esposa y el set de
-                religiosos le encantó. La presentación es de otro nivel, muy
-                lujosa."
+                {t('home.reviews.r2.text')}
             </p>
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
@@ -78,7 +76,7 @@
                         >Maria G.</span
                     >
                     <span class="block text-gray-500 text-xs"
-                        >Compra Verificada</span
+                        >{t('home.reviews.verified')}</span
                     >
                 </div>
             </div>
@@ -96,8 +94,7 @@
                 <span class="material-symbols-outlined text-sm">star</span>
             </div>
             <p class="text-gray-300 italic mb-6 font-light">
-                "Excelente atención. Fui a su oficina en Miami para vender unas
-                piezas viejas y me dieron el mejor precio. Súper recomendados."
+                {t('home.reviews.r3.text')}
             </p>
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">

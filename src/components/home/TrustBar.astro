@@ -1,7 +1,8 @@
 ---
-
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
-
 <section class="bg-[#111111] py-4 md:py-4 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
         <!-- Móvil: grid 2x2, todo visible sin scroll. Desktop: una fila centrada -->
@@ -10,22 +11,22 @@
         >
             <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
                 <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">location_on</span>
-                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Ubicados en Miami</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">{t('home.trust.miami')}</span>
             </div>
 
             <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
                 <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">verified</span>
-                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Oro 14k Garantizado</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">{t('home.trust.gold')}</span>
             </div>
 
             <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
                 <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">local_shipping</span>
-                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Envío Asegurado USA</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">{t('home.trust.shipping')}</span>
             </div>
 
             <div class="flex items-center gap-2.5 md:gap-3 min-w-0">
                 <span class="material-symbols-outlined text-[#d4af37] text-[20px] md:text-[22px] flex-shrink-0" aria-hidden="true">lock</span>
-                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">Pagos 100% Seguros</span>
+                <span class="text-[11px] md:text-sm text-gray-300 uppercase tracking-wider font-medium truncate">{t('home.trust.secure')}</span>
             </div>
         </div>
     </div>

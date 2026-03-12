@@ -1,4 +1,5 @@
 import { addCartItem, setIsCartOpen } from '../../store/cart';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 interface AddToCartProps {
     product: {
@@ -10,9 +11,12 @@ interface AddToCartProps {
         variantTitle?: string;
     };
     compact?: boolean;
+    lang?: 'es' | 'en';
 }
 
-export default function AddToCart({ product, compact = false }: AddToCartProps) {
+export default function AddToCart({ product, compact = false, lang = 'es' }: AddToCartProps) {
+    const t = getTranslationFunctionForLang(lang);
+    
     const handleAdd = () => {
         addCartItem({
             ...product,
@@ -28,7 +32,7 @@ export default function AddToCart({ product, compact = false }: AddToCartProps) 
         >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100 animate-shimmer"></div>
             <span className={`relative z-10 flex items-center justify-center gap-1 md:gap-1.5 font-bold uppercase ${compact ? 'text-[9px] md:text-[10px] tracking-wide md:tracking-widest' : 'text-[10px] md:text-xs tracking-wide md:tracking-widest'}`}>
-                <span className="whitespace-nowrap leading-none line-clamp-1">Agregar al Carrito</span>
+                <span className="whitespace-nowrap leading-none line-clamp-1">{t('ui.cart.add')}</span>
                 {!compact && <span className="material-symbols-outlined text-[16px] md:text-[18px] hidden lg:inline">shopping_bag</span>}
             </span>
         </button>

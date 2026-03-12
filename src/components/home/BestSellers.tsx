@@ -1,17 +1,20 @@
 import React, { useRef } from 'react';
 import ProductCard from '../react/ProductCard';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute } from '../../utils/paths';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 interface BestSellersProps {
     products: any[];
+    lang?: 'es' | 'en';
 }
 
-export default function BestSellers({ products }: BestSellersProps) {
+export default function BestSellers({ products, lang }: BestSellersProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const t = getTranslationFunctionForLang(lang || 'es');
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 300; // Approx card width
+            const scrollAmount = 300;
             scrollContainerRef.current.scrollBy({
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth'
@@ -26,14 +29,14 @@ export default function BestSellers({ products }: BestSellersProps) {
             <div className="max-w-7xl mx-auto px-6 mb-10 flex items-end justify-between">
                 <div>
                     <span className="text-[#d4af37] tracking-[0.2em] text-xs font-bold uppercase block mb-3">
-                        Selección Exclusiva
+                        {t('home.bestsellers.overline')}
                     </span>
                     <h2 className="text-[#FAFAF5] font-serif text-3xl md:text-5xl">
-                        Favoritos en Miami
+                        {t('home.bestsellers.title')}
                     </h2>
                 </div>
 
-                {/* Navigation Arrows */}
+                {/* Flechas de navegación */}
                 <div className="hidden md:flex gap-2">
                     <button
                         onClick={() => scroll('left')}
@@ -52,7 +55,7 @@ export default function BestSellers({ products }: BestSellersProps) {
                 </div>
             </div>
 
-            {/* Scroll Container */}
+            {/* Contenedor scrollable */}
             <div
                 ref={scrollContainerRef}
                 className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 px-6 md:px-[max(24px,calc((100vw-1280px)/2))]"
@@ -60,17 +63,17 @@ export default function BestSellers({ products }: BestSellersProps) {
             >
                 {products.map((product) => (
                     <div key={product.id} className="min-w-[280px] md:min-w-[320px] snap-start">
-                        <ProductCard product={product} />
+                        <ProductCard product={product} lang={lang} />
                     </div>
                 ))}
 
-                {/* View More Card */}
+                {/* Tarjeta Ver Todo */}
                 <div className="min-w-[200px] snap-start flex items-center justify-center">
-                    <a href={resolvePath('/tienda')} className="group flex flex-col items-center gap-4 text-center">
+                    <a href={getRoute('/tienda', lang)} className="group flex flex-col items-center gap-4 text-center">
                         <div className="w-16 h-16 rounded-full border border-[#d4af37] flex items-center justify-center group-hover:bg-[#d4af37] transition-colors">
                             <span className="material-symbols-outlined text-[#d4af37] group-hover:text-black transition-colors">arrow_forward</span>
                         </div>
-                        <span className="text-sm font-bold uppercase tracking-widest text-[#d4af37]">Ver Todo</span>
+                        <span className="text-sm font-bold uppercase tracking-widest text-[#d4af37]">{t('home.bestsellers.viewAll')}</span>
                     </a>
                 </div>
             </div>

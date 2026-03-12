@@ -1,9 +1,12 @@
 ---
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import { client as shopifyClient } from "../../lib/shopify";
+import { storefrontQuery } from "../../lib/shopify";
 import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
 import StoreGrid from "../../components/react/StoreGrid";
 import Layout from "../../layouts/Layout.astro";
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 
 const seo = {
   title: "Joyería Religiosa de Oro: San Judas, Cruces y Rosarios",
@@ -13,11 +16,11 @@ const seo = {
 
 let products = [];
 try {
-  const response = await shopifyClient.request(GET_PRODUCTS_BY_COLLECTION, {
+  const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
     variables: {
       handle: "religioso",
     },
-  });
+  }, lang);
   products =
     response.data?.collection?.products?.edges?.map((edge: any) => edge.node) ||
     [];

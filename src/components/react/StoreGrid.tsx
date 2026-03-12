@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
 import FilterSidebar from './StoreGridShared/FilterSidebar';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 interface Product {
     id: string;
@@ -39,6 +40,7 @@ interface Product {
 
 interface StoreGridProps {
     initialProducts: Product[];
+    lang?: 'es' | 'en';
 }
 
 // -------------------------------------------------------
@@ -56,7 +58,7 @@ function getProductMaterials(tags: string[]): string[] {
     return Array.from(mats);
 }
 
-export default function StoreGrid({ initialProducts }: StoreGridProps) {
+export default function StoreGrid({ initialProducts, lang }: StoreGridProps) {
     const [products, setProducts] = useState(initialProducts);
     const [sortBy, setSortBy] = useState('featured');
     const [selectedFilters, setSelectedFilters] = useState({
@@ -94,6 +96,52 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
     // -------------------------------------------------------
     // 1. Extraer opciones de filtro desde los datos reales
     // -------------------------------------------------------
+    const t = getTranslationFunctionForLang(lang || 'es');
+    
+    // Mapeo dinámico usando llaves de ui.ts
+    const translateTag = (term: string) => {
+        if (!term) return term;
+        const key = term.toLowerCase()
+            .replace(/\s+/g, '') // Quitar espacios
+            .replace('ñ', 'n')   // Normalizar ñ
+            .replace('é', 'e');  // Normalizar tildes si las hay
+
+        // Intentar buscar la llave en el diccionario
+        // Mapeo manual de términos a llaves para mayor seguridad
+        const tagToKey: Record<string, string> = {
+            'anillo': 'taxonomy.ring',
+            'arete': 'taxonomy.earring',
+            'aretes': 'taxonomy.earrings',
+            'cadena': 'taxonomy.chain',
+            'cadenas': 'taxonomy.chains',
+            'collar': 'taxonomy.necklace',
+            'collares': 'taxonomy.necklaces',
+            'pulsera': 'taxonomy.bracelet',
+            'pulseras': 'taxonomy.bracelets',
+            'dije': 'taxonomy.pendant',
+            'dijes': 'taxonomy.pendants',
+            'hombre': 'taxonomy.men',
+            'mujer': 'taxonomy.women',
+            'niños': 'taxonomy.kids',
+            'niño': 'taxonomy.boy',
+            'niña': 'taxonomy.girl',
+            'bebe': 'taxonomy.baby',
+            'bebé': 'taxonomy.baby',
+            'unisex': 'taxonomy.unisex',
+            'religioso': 'taxonomy.religious',
+            'religiosos': 'taxonomy.religious',
+            'oro 10k': 'taxonomy.gold10k',
+            'oro 14k': 'taxonomy.gold14k',
+            'oro 18k': 'taxonomy.gold18k',
+            'plata': 'taxonomy.silver',
+            'plata 925': 'taxonomy.silver925',
+            'tricolor': 'taxonomy.tricolor'
+        };
+
+        const taxonomyKey = tagToKey[term.toLowerCase().trim()];
+        return taxonomyKey ? t(taxonomyKey as any) : term;
+    };
+
     const filterOptions = useMemo(() => {
         const categories = new Set<string>();
         const collections = new Set<string>();
@@ -200,6 +248,10 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
         setSortBy('featured');
     };
 
+    const handleSort = (value: string) => {
+        setSortBy(value);
+    };
+
     const hasActiveFilters =
         selectedFilters.category.length > 0 ||
         selectedFilters.collection.length > 0 ||
@@ -215,13 +267,12 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
 
             {/* Mobile Filter Trigger */}
             <div className="lg:hidden w-full flex justify-between items-center mb-6 pb-4 border-b border-[#d4af37]/20">
-                <span className="text-gray-400 text-xs uppercase tracking-widest">{products.length} Joyas</span>
+                <span className="text-gray-400 text-xs uppercase tracking-widest">{products.length} {t('store.jewelry')}</span>
                 <button
                     onClick={() => setIsSidebarOpen(true)}
                     className="flex items-center gap-2 text-[#d4af37] font-bold text-sm uppercase tracking-widest"
                 >
-                    <span className="material-symbols-outlined">tune</span>
-                    Filtros {hasActiveFilters && <span className="bg-[#d4af37] text-black rounded-full w-4 h-4 text-[10px] flex items-center justify-center ml-1">
+                    <span className="material-symbols-outlined">tune</span>{t('store.filters')} {hasActiveFilters && <span className="bg-[#d4af37] text-black rounded-full w-4 h-4 text-[10px] flex items-center justify-center ml-1">
                         {selectedFilters.category.length + selectedFilters.collection.length + selectedFilters.material.length}
                     </span>}
                 </button>
@@ -237,6 +288,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                     setPriceRange={setPriceRange}
                     totalProducts={initialProducts.length}
                     filteredCount={products.length}
+                    lang={lang}
                 />
                 {hasActiveFilters && (
                     <button
@@ -244,7 +296,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                         className="mt-4 w-full flex items-center justify-center gap-2 border border-[#d4af37]/40 text-[#d4af37] text-xs uppercase tracking-widest font-bold py-2.5 hover:bg-[#d4af37] hover:text-black transition-all duration-300 rounded-sm"
                     >
                         <span className="material-symbols-outlined text-[14px]">filter_alt_off</span>
-                        Limpiar Filtros
+                        {t('store.clearFilters')}
                     </button>
                 )}
             </div>
@@ -256,7 +308,8 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                 <div className="absolute right-0 top-0 bottom-0 w-80 bg-[#0a0a0a] border-l border-[#d4af37]/20 flex flex-col">
                     {/* Header fijo */}
                     <div className="flex justify-between items-center p-6 border-b border-[#d4af37]/10 flex-shrink-0">
-                        <h2 className="text-[#FAFAF5] font-serif text-xl">Filtros</h2>
+                        <h2 className="text-[#FAFAF5] font-serif text-xl">{t('store.filters')}</h2>
+
                         <button onClick={() => setIsSidebarOpen(false)}>
                             <span className="material-symbols-outlined text-gray-400 hover:text-[#d4af37] transition-colors">close</span>
                         </button>
@@ -272,6 +325,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                             setPriceRange={setPriceRange}
                             totalProducts={initialProducts.length}
                             filteredCount={products.length}
+                            lang={lang}
                         />
                     </div>
 
@@ -281,7 +335,8 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                             onClick={() => setIsSidebarOpen(false)}
                             className="w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-colors rounded-sm text-sm"
                         >
-                            Ver {products.length} Joyas
+                            {t('store.viewJewelry')} {products.length} {t('store.jewelry')}
+
                         </button>
                         {hasActiveFilters && (
                             <button
@@ -289,7 +344,8 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                                 className="w-full flex items-center justify-center gap-2 border border-[#d4af37]/40 text-[#d4af37] text-xs uppercase tracking-widest font-bold py-2.5 hover:bg-[#d4af37] hover:text-black transition-all duration-300 rounded-sm"
                             >
                                 <span className="material-symbols-outlined text-[14px]">filter_alt_off</span>
-                                Limpiar Filtros
+                                {t('store.clearFilters')}
+
                             </button>
                         )}
                     </div>
@@ -301,20 +357,23 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                 {/* Desktop Toolbar (Sort + Active Filter Chips) */}
                 <div className="hidden lg:flex flex-col gap-4 mb-8 pb-4 border-b border-[#d4af37]/10">
                     <div className="flex justify-between items-center">
-                        <span className="text-gray-400 text-sm tracking-widest uppercase">
-                            Mostrando <span className="text-[#FAFAF5]">{products.length}</span> de {initialProducts.length} Resultados
-                        </span>
-                        <div className="flex items-center gap-4">
-                            <span className="text-xs text-gray-500 uppercase">Ordenar:</span>
-                            <select
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                                className="bg-transparent text-[#FAFAF5] text-sm border-none focus:ring-0 cursor-pointer"
-                            >
-                                <option value="featured" className="bg-black">Destacado</option>
-                                <option value="price-low-high" className="bg-black">Precio: Bajo a Alto</option>
-                                <option value="price-high-low" className="bg-black">Precio: Alto a Bajo</option>
-                            </select>
+                        <p className="text-gray-400 text-xs hidden lg:block">
+                            {t('store.showing')} <span className="text-[#FAFAF5]">{products.length}</span> {t('store.of')} {initialProducts.length} {t('store.results')}
+                        </p>
+
+                        <div className="flex items-center gap-3">
+                            <span className="text-gray-400 text-xs uppercase tracking-widest hidden md:inline-block">{t('store.sort')}</span>
+                            <div className="relative group">
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => handleSort(e.target.value)}
+                                    className="appearance-none bg-transparent border border-[#d4af37]/20 text-[#FAFAF5] text-xs font-bold uppercase tracking-widest py-2 pl-4 pr-10 rounded-none cursor-pointer hover:border-[#d4af37] transition-colors focus:outline-none focus:border-[#d4af37]"
+                                >
+                                    <option value="featured" className="bg-black">{t('store.sort.featured')}</option>
+                                    <option value="price-low-high" className="bg-black">{t('store.sort.priceLowHigh')}</option>
+                                    <option value="price-high-low" className="bg-black">{t('store.sort.priceHighLow')}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -323,7 +382,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                         <div className="flex flex-wrap gap-2">
                             {[...selectedFilters.category, ...selectedFilters.collection, ...selectedFilters.material].map(f => (
                                 <span key={f} className="flex items-center gap-1 px-3 py-1 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-xs rounded-full">
-                                    {f}
+                                    {translateTag(f)}
                                     <button
                                         onClick={() => {
                                             if (selectedFilters.category.includes(f)) handleFilterChange('category', f);
@@ -342,7 +401,7 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                 {products.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12">
                         {products.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} product={product} lang={lang} />
                         ))}
                     </div>
                 ) : (
@@ -350,14 +409,14 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                         <span className="material-symbols-outlined text-5xl text-[#d4af37]/30 mb-4">diamond</span>
                         <h3 className="text-xl font-serif text-[#FAFAF5] mb-2">
                             {filterLabel
-                                ? 'No hay productos con este estilo todavía'
-                                : 'Sin resultados'
+                                ? t('store.emptyState.noStyleTitle')
+                                : t('store.emptyState.noResultsTitle')
                             }
                         </h3>
                         <p className="text-gray-400 mb-6 max-w-sm mx-auto text-sm">
                             {filterLabel
-                                ? `Aún no tenemos piezas para "${filterLabel}". Estamos trabajando en traer lo mejor para ti muy pronto. ✨`
-                                : 'Prueba ajustando tus filtros para encontrar lo que buscas.'
+                                ? `${t('store.emptyState.noStyleDesc')} "${filterLabel}"${t('store.emptyState.noStyleDescEnd')}`
+                                : t('store.emptyState.noResultsDesc')
                             }
                         </p>
                         <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -365,11 +424,12 @@ export default function StoreGrid({ initialProducts }: StoreGridProps) {
                                 onClick={clearFilters}
                                 className="text-[#d4af37] border-b border-[#d4af37] pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest"
                             >
-                                Ver toda la tienda
+                                {t('store.emptyState.viewAll')}
                             </button>
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );

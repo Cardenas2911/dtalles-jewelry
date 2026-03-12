@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { showAddToCartToast } from '../../store/cart';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
-export default function AddToCartToast() {
+export default function AddToCartToast({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     const visible = useStore(showAddToCartToast);
 
     useEffect(() => {
@@ -25,7 +27,7 @@ export default function AddToCartToast() {
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                     </svg>
                 </span>
-                <span className="text-[#FAFAF5] font-semibold text-sm">Añadido a la bolsa</span>
+                <span className="text-[#FAFAF5] font-semibold text-sm">{t('toast.added')}</span>
             </div>
         </div>
     );

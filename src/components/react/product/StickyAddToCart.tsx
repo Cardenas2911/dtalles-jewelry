@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface StickyAddToCartProps {
     productTitle: string;
@@ -8,10 +9,12 @@ interface StickyAddToCartProps {
     isSoldOut: boolean;
     onAddToCart: () => void;
     mainButtonId?: string; // ID of the main button to observe
+    lang?: 'es' | 'en';
 }
 
-export default function StickyAddToCart({ productTitle, price, compareAtPrice, image, isSoldOut, onAddToCart, mainButtonId = "main-add-to-cart" }: StickyAddToCartProps) {
+export default function StickyAddToCart({ productTitle, price, compareAtPrice, image, isSoldOut, onAddToCart, mainButtonId = "main-add-to-cart", lang = 'es' }: StickyAddToCartProps) {
     const [isVisible, setIsVisible] = useState(false);
+    const t = getTranslationFunctionForLang(lang);
 
     useEffect(() => {
         const mainButton = document.getElementById(mainButtonId);
@@ -75,7 +78,7 @@ export default function StickyAddToCart({ productTitle, price, compareAtPrice, i
                             ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
                             : 'bg-[#d4af37] text-black hover:bg-white'}`}
                 >
-                    {isSoldOut ? 'Agotado' : 'Agregar al Carrito'}
+                    {isSoldOut ? t('product.agotadoBtn') : t('product.agregarStickyDesktop')}
                 </button>
             </div>
         </div>

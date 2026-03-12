@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-const WHATSAPP_LINK = 'https://wa.me/17867644952?text=Hola%2C%20necesito%20ayuda%20VIP%20con%20una%20joya';
-
 export default function FloatingSupport() {
     const [isVisible, setIsVisible] = useState(false);
+    const [lang, setLang] = useState<'es' | 'en'>('es');
 
     useEffect(() => {
         const timer = setTimeout(() => setIsVisible(true), 1500);
+        // Detectar idioma desde la URL
+        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/en')) {
+            setLang('en');
+        }
         return () => clearTimeout(timer);
     }, []);
+
+    const isEn = lang === 'en';
+    const WHATSAPP_LINK = isEn
+        ? 'https://wa.me/17867644952?text=Hi%2C%20I%20need%20VIP%20help%20with%20a%20piece'
+        : 'https://wa.me/17867644952?text=Hola%2C%20necesito%20ayuda%20VIP%20con%20una%20joya';
 
     return (
         <a
@@ -23,7 +31,7 @@ export default function FloatingSupport() {
                 active:scale-[0.99] lg:hover:bottom-1
                 bottom-[64px] lg:bottom-0
             `}
-            aria-label="Chatea por WhatsApp"
+            aria-label={isEn ? 'Chat on WhatsApp' : 'Chatea por WhatsApp'}
         >
             <span className="absolute inset-0 bg-white/0 hover:bg-white/10 active:bg-white/15 transition-colors" aria-hidden />
             <div className="relative z-10 flex items-center justify-center gap-3 w-full max-w-7xl mx-auto">
@@ -33,10 +41,10 @@ export default function FloatingSupport() {
                     </svg>
                 </div>
                 <div className="flex flex-col items-start lg:items-center lg:flex-row lg:gap-4">
-                    <span className="text-white font-bold text-sm lg:text-base uppercase tracking-wide drop-shadow-sm">Chatea por WhatsApp</span>
+                    <span className="text-white font-bold text-sm lg:text-base uppercase tracking-wide drop-shadow-sm">{isEn ? 'Chat on WhatsApp' : 'Chatea por WhatsApp'}</span>
                     <span className="text-white/90 text-[11px] lg:text-[13px] font-medium flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        Atención VIP inmediata
+                        {isEn ? 'Instant VIP Support' : 'Atención VIP inmediata'}
                     </span>
                 </div>
             </div>

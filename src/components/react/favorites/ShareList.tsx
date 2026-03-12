@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { favoriteItems } from '../../../store/favorites';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
+import { getRoute } from '../../../utils/paths';
 
-export default function ShareList() {
+export default function ShareList({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     const $favorites = useStore(favoriteItems);
     const [copied, setCopied] = useState(false);
 
@@ -10,17 +13,14 @@ export default function ShareList() {
         const ids = Object.keys($favorites).join(',');
         if (!ids) return;
 
-        // Construct a shareable URL (Assuming we have a route that can read ?items=ids)
-        // For now, just sharing the store link or current page. 
-        // Ideally: /favoritos?items=id1,id2
-        const url = `${window.location.origin}/favoritos`;
+        const url = `${window.location.origin}${getRoute('/favoritos', lang)}`;
 
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'Mis Favoritos de DTalles',
-                    text: 'Mira las joyas que he guardado en mi cofre.',
-                    url: url // + query params if we implement that logic
+                    title: t('ui.favorites.shareTitle'),
+                    text: lang === 'en' ? 'Check out the jewelry I saved in my chest.' : 'Mira las joyas que he guardado en mi cofre.',
+                    url: url
                 });
             } catch (error) {
                 console.log('Error sharing', error);
@@ -44,7 +44,7 @@ export default function ShareList() {
             className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#d4af37] hover:text-white transition-colors"
         >
             <span className="material-symbols-outlined text-lg">share</span>
-            <span>{copied ? 'Enlace Copiado' : 'Compartir Lista'}</span>
+            <span>{copied ? t('ui.favorites.copied') : t('ui.favorites.shareList')}</span>
         </button>
     );
 }

@@ -1,11 +1,16 @@
 ---
 import DesktopHeader from "./react/DesktopHeader";
 import { isCartOpen } from "../store/cart";
-import { resolvePath } from "../utils/paths";
+import { resolvePath, getRoute } from "../utils/paths";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import LanguageSwitcher from "./react/LanguageSwitcher";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const SHOP_DOMAIN = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN;
 ---
 
-<DesktopHeader client:load />
+<DesktopHeader client:load lang={lang} />
 
 {/* Fallback/Spacing for Sticky Header? No, fixed header sits on top. */}
 {/* Mobile Menu Overlay below... maintained for now if used by BottomMenu */}
@@ -16,7 +21,8 @@ const SHOP_DOMAIN = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN;
   class="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl translate-x-full invisible transition-transform duration-500 ease-in-out"
 >
   <div class="flex flex-col h-full p-6">
-    <div class="flex justify-end">
+    <div class="flex justify-between items-center mb-8">
+      <LanguageSwitcher client:load lang={lang} />
       <button
         id="mobile-menu-close"
         class="text-[#FAFAF5] hover:text-[#d4af37] transition-colors p-2 -mr-2"
@@ -28,49 +34,49 @@ const SHOP_DOMAIN = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN;
     <div class="flex flex-col items-center justify-center flex-1 gap-8">
       <nav class="flex flex-col items-center gap-6">
         <a
-          href={resolvePath("/")}
+          href={getRoute("/", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Inicio</a
+          >{t('nav.home')}</a
         >
         <a
-          href={resolvePath("/tienda")}
+          href={getRoute("/tienda", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Tienda</a
+          >{t('nav.shop')}</a
         >
         <a
-          href={resolvePath("/mujer")}
+          href={getRoute("/mujer", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Mujer</a
+          >{t('nav.women')}</a
         >
         <a
-          href={resolvePath("/hombre")}
+          href={getRoute("/hombre", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Hombre</a
+          >{t('nav.men')}</a
         >
         <a
-          href={resolvePath("/ninos")}
+          href={getRoute("/ninos", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Niños</a
+          >{t('nav.kids')}</a
         >
         <a
-          href={resolvePath("/coleccion/religiosa")}
+          href={getRoute("/coleccion/religiosa", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Religiosa</a
+          >{t('nav.religious')}</a
         >
         <a
-          href={resolvePath("/guia-regalos")}
+          href={getRoute("/guia-regalos", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Regalos</a
+          >{t('nav.gifts')}</a
         >
         <a
-          href={resolvePath("/coleccion/nuevo")}
+          href={getRoute("/coleccion/nuevo", lang)}
           class="text-2xl font-serif text-[#FAFAF5] hover:text-[#d4af37] transition-colors"
-          >Lo Nuevo</a
+          >{t('nav.new')}</a
         >
         <a
-          href={resolvePath("/servicios/vender-oro")}
+          href={getRoute("/servicios/vender-oro", lang)}
           class="text-2xl font-serif text-[#d4af37] hover:text-white transition-colors"
-          >Vender Oro</a
+          >{t('nav.sellGold')}</a
         >
       </nav>
     </div>

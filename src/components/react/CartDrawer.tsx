@@ -5,8 +5,10 @@ import { client } from '../../lib/shopify';
 import { CART_CREATE } from '../../lib/mutations/cart';
 import PaymentIcons from './PaymentIcons';
 import AffirmPromotionalMessage from './AffirmPromotionalMessage';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
-export default function CartDrawer() {
+export default function CartDrawer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     const $isCartOpen = useStore(isCartOpen);
     const $cartItems = useStore(cartItems);
     const [mounted, setMounted] = useState(false);
@@ -81,7 +83,7 @@ export default function CartDrawer() {
             >
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-[#d4af37]/10">
-                    <h2 className="text-xl font-serif tracking-wide text-[#d4af37]">Tu Selección</h2>
+                    <h2 className="text-xl font-serif tracking-wide text-[#d4af37]">{t('cart.title')}</h2>
                     <button
                         onClick={() => setIsCartOpen(false)}
                         className="text-white/60 hover:text-[#d4af37] transition-colors"
@@ -95,15 +97,15 @@ export default function CartDrawer() {
                     {items.length > 0 && (
                         <div className="mb-6 p-4 bg-[#121212] border border-[#d4af37]/20 rounded-sm">
                             <div className="flex justify-between items-center mb-2">
-                                <span className="text-[10px] uppercase tracking-widest text-[#d4af37] font-bold">Estado del Envío</span>
-                                <span className="text-[10px] uppercase tracking-widest text-white/60">Asegurado 100%</span>
+                                <span className="text-[10px] uppercase tracking-widest text-[#d4af37] font-bold">{t('cart.shippingLabel')}</span>
+                                <span className="text-[10px] uppercase tracking-widest text-white/60">{t('cart.insured')}</span>
                             </div>
                             <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
                                 <div className="h-full bg-gradient-to-r from-[#d4af37] to-white w-full animate-shimmer"></div>
                             </div>
                             <p className="mt-2 text-[11px] text-gray-400 flex items-center gap-1">
                                 <span className="material-symbols-outlined text-xs text-[#d4af37]">verified</span>
-                                ¡Felicidades! Tu orden califica para <strong>Envío Express Gratis</strong>
+                                {t('cart.freeExpressMsg')} <strong>{t('cart.freeExpress')}</strong>
                             </p>
                         </div>
                     )}
@@ -111,12 +113,12 @@ export default function CartDrawer() {
                     {items.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-60">
                             <span className="material-symbols-outlined text-4xl text-[#d4af37]">shopping_bag</span>
-                            <p className="font-light">Tu carrito está vacío.</p>
+                            <p className="font-light">{t('cart.empty')}</p>
                             <button
                                 onClick={() => setIsCartOpen(false)}
                                 className="text-[#d4af37] underline underline-offset-4 text-sm uppercase tracking-wider hover:text-white"
                             >
-                                Seguir Comprando
+                                {t('cart.continue')}
                             </button>
                         </div>
                     ) : (
@@ -163,27 +165,27 @@ export default function CartDrawer() {
                     <div className="bg-[#121212] p-6 border-t border-[#d4af37]/10 space-y-4">
                         <div className="space-y-2 text-sm">
                             <div className="flex justify-between text-white/60">
-                                <span>Subtotal</span>
+                                <span>{t('cart.subtotal')}</span>
                                 <span>${subtotal.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between text-white/60">
-                                <span>Envío (Asegurado)</span>
-                                <span className="text-[#d4af37] font-medium uppercase tracking-widest text-[10px]">GRATIS</span>
+                                <span>{t('cart.shipping')}</span>
+                                <span className="text-[#d4af37] font-medium uppercase tracking-widest text-[10px]">{t('cart.free')}</span>
                             </div>
                             <div className="flex justify-between text-white/60">
-                                <span>Impuestos Estimados (7%)</span>
+                                <span>{t('cart.tax')}</span>
                                 <span>${tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
                         </div>
 
                         <div className="pt-4 border-t border-white/5 flex justify-between items-end">
-                            <span className="text-white/80 font-medium">Total Estimado</span>
+                            <span className="text-white/80 font-medium">{t('cart.total')}</span>
                             <span className="text-2xl font-serif text-[#d4af37]">${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
 
                         <p className="text-xs text-center text-white/40 flex items-center justify-center gap-1 py-1">
                             <span className="material-symbols-outlined text-sm text-[#d4af37]">verified_user</span>
-                            Sin cargos ocultos. Transparencia DTalles.
+                            {t('cart.transparency')}
                         </p>
 
                         <div className="flex justify-center w-full">
@@ -199,12 +201,12 @@ export default function CartDrawer() {
                             {isLoading ? (
                                 <span className="flex items-center gap-2">
                                     <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
-                                    Iniciando Pago...
+                                    {t('cart.loading')}
                                 </span>
                             ) : (
                                 <span className="flex items-center gap-2">
                                     <span className="material-symbols-outlined text-lg">lock</span>
-                                    <span>Proceder al Pago</span>
+                                    <span>{t('cart.checkout')}</span>
                                 </span>
                             )}
                         </button>

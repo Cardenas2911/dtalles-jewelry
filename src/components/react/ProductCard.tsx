@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { isFavorite, toggleFavorite, favoriteItems } from '../../store/favorites';
 import { addCartItem, setIsCartOpen } from '../../store/cart';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute, getClientLocalizedRoute } from '../../utils/paths';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 interface Product {
     id: string;
@@ -48,13 +49,15 @@ interface Product {
 
 interface ProductCardProps {
     product: Product;
+    lang?: 'es' | 'en';
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, lang }: ProductCardProps) {
     const $favorites = useStore(favoriteItems);
     const isFav = !!$favorites[product.id];
     const [isHovered, setIsHovered] = useState(false);
     const [adding, setAdding] = useState(false);
+    const t = getTranslationFunctionForLang(lang || 'es');
 
     // Logic for Badges
     const isNew = product.tags?.includes('Nuevo') || product.tags?.includes('New');
@@ -107,12 +110,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
             {/* 1. THE VITRINE (Image Area) */}
             <div className="relative aspect-[4/5] overflow-hidden bg-[#111111] border border-transparent group-hover:border-[#d4af37] transition-colors duration-300">
-                <a href={resolvePath(`/producto/${product.handle}`)} className="block w-full h-full relative">
+                <a href={lang ? getRoute(`/producto/${product.handle}`, lang) : getClientLocalizedRoute(`/producto/${product.handle}`)} className="block w-full h-full relative">
                     {/* Primary Image */}
                     <img
                         src={firstImage}
                         alt={product.featuredImage?.altText || product.title}
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${isHovered && secondImage ? 'opacity-0' : 'opacity-100'}`}
+                        className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${isHovered && secondImage ? 'opacity-0' : 'opacity-100'}`}
                         loading="lazy"
                     />
                     {/* Secondary Image (Human Scale) */}
@@ -120,7 +123,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         <img
                             src={secondImage}
                             alt={`${product.title} - Puesto`}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                             loading="lazy"
                         />
                     )}
@@ -130,12 +133,12 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <div className="absolute top-0 left-0 p-3 flex flex-col gap-1 z-20">
                     {isNew && (
                         <span className="bg-[#d4af37] text-black text-[10px] font-sans font-bold px-2 py-1 uppercase tracking-wider">
-                            Nuevo
+                            {t('card.new')}
                         </span>
                     )}
                     {isLowStock && (
                         <span className="bg-[#d4af37] text-black text-[10px] font-sans font-bold px-2 py-1 uppercase tracking-wider">
-                            Pocas Piezas
+                            {t('card.lowStock')}
                         </span>
                     )}
                     {hasDiscount && (
@@ -182,7 +185,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                             <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
                         ) : (
                             <>
-                                <span>Añadir Rápido</span>
+                                <span>{t('card.quickAdd')}</span>
                                 <span className="material-symbols-outlined text-[16px]">shopping_bag</span>
                             </>
                         )}
@@ -195,12 +198,12 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {/* Quality Label */}
                 <div className="text-[10px] text-[#A0A0A0] uppercase tracking-widest font-medium">
                     {/* Heuristic to guess gold karat from title or tags if not explicit meta. Defaulting to general promise */}
-                    {product.title.includes('10k') ? 'Oro 10k Garantizado' : product.title.includes('18k') ? 'Oro 18k Garantizado' : 'Oro 14k Garantizado'}
+                    {product.title.includes('10k') ? t('card.gold10k') : product.title.includes('18k') ? t('card.gold18k') : t('card.gold14k')}
                 </div>
 
                 {/* Title */}
                 <h3 className="text-[#FAFAF5] font-sans font-semibold text-sm md:text-[15px] leading-tight tracking-wide line-clamp-2 h-[2.4em] mb-1">
-                    <a href={resolvePath(`/producto/${product.handle}`)} className="hover:text-[#d4af37] transition-colors">
+                    <a href={lang ? getRoute(`/producto/${product.handle}`, lang) : getClientLocalizedRoute(`/producto/${product.handle}`)} className="hover:text-[#d4af37] transition-colors">
                         {product.title}
                     </a>
                 </h3>
@@ -220,7 +223,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
                     {/* Finance Microcopy */}
                     <div className="text-[9px] text-[#888] mt-0.5 font-light tracking-wide flex items-center gap-1">
-                        o 4 pagos de ${(price / 4).toLocaleString('en-US', { maximumFractionDigits: 0 })} con
+                        {t('card.financeOr')} ${(price / 4).toLocaleString('en-US', { maximumFractionDigits: 0 })} {t('card.financeWith')}
                         <span className="font-bold text-gray-500">Affirm</span>
                     </div>
                 </div>
@@ -231,7 +234,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         onClick={handleQuickAdd}
                         className="w-full py-2.5 border border-[#d4af37]/50 text-[#d4af37] text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-2 active:bg-[#d4af37] active:text-black transition-colors"
                     >
-                        Añadir
+                        {t('card.add')}
                     </button>
                 </div>
             </div>

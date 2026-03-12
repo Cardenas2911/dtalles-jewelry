@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 export const GET_PAGE = gql`
-  query getPage($handle: String!) {
+  query getPage($handle: String!, $language: LanguageCode) @inContext(language: $language) {
     pageByHandle(handle: $handle) {
       id
       title

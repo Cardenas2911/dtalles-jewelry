@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { addCartItem, setIsCartOpen } from '../../../store/cart';
-import { toggleFavorite } from '../../../store/favorites';
-import { resolvePath } from '../../../utils/paths';
+import { toggleFavorite } from '../../../store/favorites'; 
+import { getRoute } from '../../../utils/paths'; 
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface WishlistCardProps {
     item: {
@@ -11,19 +12,20 @@ interface WishlistCardProps {
         image: string;
         handle: string;
         variantId?: string;
-        availableForSale?: boolean; // Optional for now until store is updated
+        availableForSale?: boolean;
     };
+    lang?: 'es' | 'en';
 }
 
-export default function WishlistCard({ item }: WishlistCardProps) {
+export default function WishlistCard({ item, lang = 'es' }: WishlistCardProps) {
+    const t = getTranslationFunctionForLang(lang);
     const [moving, setMoving] = useState(false);
 
     const handleMoveToBag = () => {
         setMoving(true);
 
-        // 1. Add to Cart
         addCartItem({
-            id: item.variantId || item.id, // Fallback to ID if variantId missing (shouldn't happen with new logic)
+            id: item.variantId || item.id,
             title: item.title,
             price: parseFloat(item.price),
             image: item.image,
@@ -31,9 +33,8 @@ export default function WishlistCard({ item }: WishlistCardProps) {
             quantity: 1
         });
 
-        // 2. Remove from Favorites after delay
         setTimeout(() => {
-            toggleFavorite(item); // Toggle removes it if present
+            toggleFavorite(item);
             setMoving(false);
             setIsCartOpen(true);
         }, 600);
@@ -43,21 +44,19 @@ export default function WishlistCard({ item }: WishlistCardProps) {
         toggleFavorite(item);
     };
 
-    const isAvailable = item.availableForSale !== false; // Default to true if undefined (legacy items)
+    const isAvailable = item.availableForSale !== false;
 
     return (
-        <article className="group flex flex-col h-full bg-[#111] border border-white/5 relative hover:border-[#d4af37]/30 transition-colors duration-300">
-            {/* Remove Button (Top Right) */}
+        <article className="group relative flex flex-col h-full animate-fade-in-up bg-[#111] border border-white/5 hover:border-[#d4af37]/30 transition-colors duration-300">
             <button
                 onClick={handleRemove}
                 className="absolute top-2 right-2 z-20 text-gray-500 hover:text-red-500 transition-colors p-2"
-                aria-label="Eliminar de favoritos"
+                aria-label={t('ui.product.removeFav')}
             >
                 <span className="material-symbols-outlined text-xl">close</span>
             </button>
 
-            {/* Image */}
-            <a href={resolvePath(`/producto/${item.handle}`)} className="aspect-[4/5] overflow-hidden relative block bg-[#050505]">
+            <a href={getRoute(`/producto/${item.handle}`, lang)} className="aspect-[4/5] overflow-hidden relative block bg-[#050505]">
                 <img
                     src={item.image}
                     alt={item.title}
@@ -66,29 +65,24 @@ export default function WishlistCard({ item }: WishlistCardProps) {
                 />
             </a>
 
-            {/* Content */}
             <div className="p-4 flex flex-col flex-1 gap-3">
-                {/* Status */}
                 <div className="flex items-center gap-2">
                     <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? 'bg-emerald-500' : 'bg-gray-500'}`}></span>
                     <span className={`text-[10px] uppercase tracking-wider font-bold ${isAvailable ? 'text-emerald-500' : 'text-gray-500'}`}>
-                        {isAvailable ? 'En Stock' : 'Agotado'}
+                        {isAvailable ? t('ui.product.inStock') : t('ui.product.outOfStock')}
                     </span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-[#FAFAF5] font-serif text-lg leading-tight line-clamp-2">
-                    <a href={resolvePath(`/producto/${item.handle}`)}>{item.title}</a>
+                <h3 className="text-[#FAFAF5] font-sans font-medium text-sm md:text-base leading-tight mb-1 line-clamp-2">
+                    <a href={getRoute(`/producto/${item.handle}`, lang)}>{item.title}</a>
                 </h3>
 
-                {/* Price */}
                 <div className="mt-auto pt-2">
                     <span className="text-[#d4af37] text-xl font-light">
                         ${parseFloat(item.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                     </span>
                 </div>
 
-                {/* CTA */}
                 <button
                     onClick={handleMoveToBag}
                     disabled={moving || !isAvailable}
@@ -97,7 +91,7 @@ export default function WishlistCard({ item }: WishlistCardProps) {
                         : 'border-white/10 text-gray-500 cursor-not-allowed'
                         }`}
                 >
-                    {moving ? 'Moviendo...' : isAvailable ? 'Mover a la Bolsa' : 'Avísame'}
+                    {moving ? t('ui.product.moving') : isAvailable ? t('ui.product.moveToBag') : t('ui.product.notifyMe')}
                 </button>
             </div>
         </article>

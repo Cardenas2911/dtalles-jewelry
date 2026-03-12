@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 export const ALL_PRODUCTS_QUERY = gql`
-  query AllProducts($first: Int!, $cursor: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
+  query AllProducts($first: Int!, $cursor: String, $sortKey: ProductSortKeys, $reverse: Boolean, $language: LanguageCode) @inContext(language: $language) {
     products(first: $first, after: $cursor, sortKey: $sortKey, reverse: $reverse) {
       pageInfo {
         hasNextPage

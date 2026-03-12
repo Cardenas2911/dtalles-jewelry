@@ -1,10 +1,15 @@
 ---
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Layout from "../../layouts/Layout.astro";
-import { client as shopifyClient } from "../../lib/shopify";
+import { storefrontQuery } from "../../lib/shopify";
 import { gql } from "graphql-request";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getRoute } from "../../utils/paths";
 import ProductPage from "../../components/react/product/ProductPage";
 import ProductWhatsAppSticky from "../../components/react/product/ProductWhatsAppSticky";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 export async function getStaticPaths() {
   const query = gql`
@@ -219,7 +224,8 @@ export async function getStaticPaths() {
   `;
 
   try {
-    const response = await shopifyClient.request(query);
+    // Pasamos 'es' para que Shopify devuelva los datos en ESPAÑOL
+    const response = await storefrontQuery(query, {}, 'es');
     const products = response.data?.products;
 
     if (!products?.edges) {
@@ -337,8 +343,8 @@ if (tags.some((t: string) => t.toLowerCase() === "hombre")) {
 }
 
 const breadcrumbItems = [
-  { label: "Inicio", href: "/" },
-  { label: collectionName, href: collectionUrl },
+  { label: t('ui.nav.home'), href: getRoute("/", lang) },
+  { label: lang === 'en' ? collectionName : (collectionName === 'Infantil' ? 'Niños' : collectionName), href: getRoute(collectionUrl, lang) },
   { label: product.title },
 ];
 ---
@@ -360,21 +366,21 @@ const breadcrumbItems = [
     />
 
     <!-- React Orchestrator -->
-    <ProductPage client:load product={product} />
+    <ProductPage client:load product={product} lang={lang} />
 
-    <!-- Cross Selling / Trust Footer (Static for now/placeholder or Part of Layout) -->
+    <!-- Cross Selling / Trust Footer -->
     <div class="mt-24 border-t border-white/5 pt-16 text-center">
       <h3 class="text-2xl font-serif text-[#FAFAF5] mb-4">
-        ¿Dudas? Habla con un Experto
+        {lang === 'en' ? 'Questions? Talk to an Expert' : '¿Dudas? Habla con un Experto'}
       </h3>
       <p class="text-gray-400 mb-6">
-        Estamos disponibles en Miami para asesorarte.
+        {lang === 'en' ? 'We are available in Miami to advise you.' : 'Estamos disponibles en Miami para asesorarte.'}
       </p>
       <a
-        href="/contacto"
+        href={getRoute("/contacto", lang)}
         class="inline-block px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
       >
-        Contactar Soporte
+        {lang === 'en' ? 'Contact Support' : 'Contactar Soporte'}
       </a>
     </div>
   </div>

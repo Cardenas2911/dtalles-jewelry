@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
-export default function ContactForm() {
+export default function ContactForm({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
     const [formData, setFormData] = useState({
         name: '',
@@ -17,8 +19,6 @@ export default function ContactForm() {
         // Simulate API call
         setTimeout(() => {
             setStatus('success');
-            // Reset form optionally or keep it to show what was sent? 
-            // Specs say: "Mostrar un mensaje de éxito suave en el mismo lugar"
         }, 1500);
     };
 
@@ -38,16 +38,15 @@ export default function ContactForm() {
                 <div className="w-16 h-16 rounded-full bg-[#d4af37]/10 flex items-center justify-center mb-6 border border-[#d4af37]/30">
                     <span className="material-symbols-outlined text-[#d4af37] text-3xl">check</span>
                 </div>
-                <h3 className="text-2xl font-serif text-[#FAFAF5] mb-2">Mensaje Recibido</h3>
-                <p className="text-gray-400 font-light">
-                    Gracias por confiarnos tus dudas. <br />
-                    Cuidaremos cada detalle de tu solicitud.
+                <h3 className="text-2xl font-serif text-[#FAFAF5] mb-2">{t('ui.contact.successTitle')}</h3>
+                <p className="text-gray-400 font-light whitespace-pre-line">
+                    {t('ui.contact.successDesc')}
                 </p>
                 <button
                     onClick={() => setStatus('idle')}
                     className="mt-8 text-[#d4af37] text-sm uppercase tracking-widest hover:text-white transition-colors"
                 >
-                    Enviar otro mensaje
+                    {t('ui.contact.success')}
                 </button>
             </div>
         );
@@ -71,7 +70,7 @@ export default function ContactForm() {
                     htmlFor="name"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#d4af37] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                    ¿A quién tenemos el gusto de dirigirnos?
+                    {t('ui.contact.nameLabel')}
                 </label>
             </div>
 
@@ -91,7 +90,7 @@ export default function ContactForm() {
                     htmlFor="contact"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#d4af37] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                    Tu WhatsApp o Email
+                    {t('ui.contact.contactLabel')}
                 </label>
             </div>
 
@@ -104,16 +103,16 @@ export default function ContactForm() {
                     onChange={handleChange}
                     className="block py-2.5 px-0 w-full text-base text-[#FAFAF5] bg-transparent border-0 border-b border-[#666666] appearance-none focus:outline-none focus:ring-0 focus:border-[#d4af37] peer transition-colors"
                 >
-                    <option value="Asesoría de Regalo" className="bg-[#050505]">Asesoría de Regalo</option>
-                    <option value="Estado de mi Pedido" className="bg-[#050505]">Estado de mi Pedido</option>
-                    <option value="Vender mi Oro" className="bg-[#050505]">Vender mi Oro</option>
-                    <option value="Garantía" className="bg-[#050505]">Garantía</option>
+                    <option value="Asesoría de Regalo" className="bg-[#050505]">{t('ui.contact.reason.gift')}</option>
+                    <option value="Estado de mi Pedido" className="bg-[#050505]">{t('ui.contact.reason.order')}</option>
+                    <option value="Vender mi Oro" className="bg-[#050505]">{t('ui.contact.reason.sell')}</option>
+                    <option value="Garantía" className="bg-[#050505]">{t('ui.contact.reason.warranty')}</option>
                 </select>
                 <label
                     htmlFor="reason"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#d4af37] peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                    Motivo
+                    {t('ui.contact.reasonLabel')}
                 </label>
             </div>
 
@@ -133,11 +132,11 @@ export default function ContactForm() {
                     htmlFor="message"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#d4af37] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                    ¿Cómo podemos ayudarte?
+                    {t('ui.contact.messageLabel')}
                 </label>
             </div>
 
-            {/* Newsletter Checkbox (Anti-Dark Pattern: Default Unchecked) */}
+            {/* Newsletter Checkbox */}
             <div className="flex items-center mb-4">
                 <input
                     id="newsletter"
@@ -148,17 +147,17 @@ export default function ContactForm() {
                     className="w-4 h-4 text-[#d4af37] bg-transparent border-gray-600 rounded focus:ring-[#d4af37] focus:ring-offset-gray-800"
                 />
                 <label htmlFor="newsletter" className="ml-3 text-sm font-light text-gray-400 select-none cursor-pointer">
-                    Quiero recibir ofertas exclusivas de DTalles
+                    {t('ui.contact.newsletterLabel')}
                 </label>
             </div>
 
-            {/* Submit Button (Ghost Button) */}
+            {/* Submit Button */}
             <button
                 type="submit"
                 disabled={status === 'submitting'}
                 className="w-full md:w-auto px-12 py-4 bg-transparent border border-[#d4af37] text-[#d4af37] text-sm font-bold uppercase tracking-[0.2em] hover:bg-[#d4af37] hover:text-[#050505] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
             >
-                {status === 'submitting' ? 'Enviando...' : 'Iniciar Conversación'}
+                {status === 'submitting' ? t('ui.contact.sending') : t('ui.contact.cta')}
             </button>
         </form>
     );

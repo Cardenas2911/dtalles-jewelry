@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { resolvePath } from '../../utils/paths';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 // Slides Configuration
-const SLIDES = [
+const SLIDES_BASE = [
     {
         id: 1,
         image: '/images/hombre carrusel.webp',
@@ -59,7 +60,23 @@ const SLIDES = [
 
 const SLIDE_DURATION = 7000; // 7 seconds
 
-export default function HeroSlider() {
+interface HeroSliderProps {
+    lang?: 'es' | 'en';
+}
+
+export default function HeroSlider({ lang = 'es' }: HeroSliderProps) {
+    const t = getTranslationFunctionForLang(lang);
+    
+    // Inject translations into slides
+    const SLIDES = SLIDES_BASE.map(slide => ({
+        ...slide,
+        overline: t(`home.hero${slide.id}.overline` as any),
+        title: t(`home.hero${slide.id}.title` as any),
+        subtitle: t(`home.hero${slide.id}.subtitle` as any),
+        cta: t(`home.hero${slide.id}.cta` as any),
+        ctaLink: lang === 'en' ? `/en${slide.ctaLink}` : slide.ctaLink
+    }));
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -84,7 +101,7 @@ export default function HeroSlider() {
             className="relative w-full h-[100vh] md:h-[80vh] lg:h-[75vh] xl:h-[85vh] overflow-hidden bg-[#050505] font-sans group"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            aria-label="Carrusel de Productos Destacados"
+            aria-label={lang === 'en' ? 'Featured Products Carousel' : 'Carrusel de Productos Destacados'}
         >
             {SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;

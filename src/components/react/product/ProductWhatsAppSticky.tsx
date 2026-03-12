@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface ProductWhatsAppStickyProps {
     productTitle: string;
     productUrl: string;
+    lang?: 'es' | 'en';
 }
 
-export default function ProductWhatsAppSticky({ productTitle, productUrl }: ProductWhatsAppStickyProps) {
+export default function ProductWhatsAppSticky({ productTitle, productUrl, lang = 'es' }: ProductWhatsAppStickyProps) {
     const [timeLeft, setTimeLeft] = useState<{ hours: string, minutes: string, seconds: string } | null>(null);
+    const t = getTranslationFunctionForLang(lang);
 
     useEffect(() => {
         const calculateTimeLeft = () => {
@@ -36,7 +39,10 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
     }, []);
 
     const whatsappNumber = "17867644952";
-    const message = encodeURIComponent(`¡Hola! 👋 Me interesa este producto: ${productTitle}\nLink: ${productUrl}`);
+    const messageText = lang === 'en' 
+        ? `Hi! 👋 I'm interested in this product: ${productTitle}\nLink: ${productUrl}` 
+        : `¡Hola! 👋 Me interesa este producto: ${productTitle}\nLink: ${productUrl}`;
+    const message = encodeURIComponent(messageText);
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     return (
@@ -60,17 +66,17 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
                         </div>
                         <div>
                             <p className="text-black text-[10px] font-bold uppercase tracking-widest leading-none mb-1">
-                                ¡Consulta en Vivo!
+                                {t('whatsapp.liveConsult')}
                             </p>
-                            <p className="text-black text-sm font-black italic tracking-tight leading-none">
-                                CHAT CON EXPERTO MIAMI
+                            <p className="text-black text-sm font-black italic tracking-tight leading-none uppercase">
+                                {t('whatsapp.expertChat')}
                             </p>
                         </div>
                     </div>
 
                     <div className="flex items-center relative z-10">
-                        <span className="text-black font-bold text-xs bg-white/30 px-3 py-1 rounded-full backdrop-blur-md border border-white/40 group-hover:bg-white/50 transition-colors">
-                            CONECTAR
+                        <span className="text-black font-bold text-xs bg-white/30 px-3 py-1 rounded-full backdrop-blur-md border border-white/40 group-hover:bg-white/50 transition-colors uppercase">
+                            {t('whatsapp.connect')}
                         </span>
                         <span className="material-symbols-outlined text-black ml-2 animate-bounce-horizontal">arrow_forward</span>
                     </div>
@@ -100,10 +106,10 @@ export default function ProductWhatsAppSticky({ productTitle, productUrl }: Prod
                     <div className="pointer-events-auto w-full bg-black/80 backdrop-blur-md border border-[#d4af37]/30 border-t-0 rounded-b-xl px-4 py-1.5 flex items-center justify-between shadow-[0_4px_15px_rgba(0,0,0,0.5)] animate-fade-in">
                         <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[#d4af37] text-sm animate-pulse">schedule</span>
-                            <span className="text-[10px] lg:text-xs text-white font-bold uppercase tracking-wider">Envío Hoy Mismo</span>
+                            <span className="text-[10px] lg:text-xs text-white font-bold uppercase tracking-wider">{t('whatsapp.shipsToday')}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                            <span className="text-[9px] text-gray-400 uppercase hidden sm:inline">Ordena en:</span>
+                            <span className="text-[9px] text-gray-400 uppercase hidden sm:inline">{t('whatsapp.orderIn')}</span>
                             <div className="flex items-center gap-1.5 font-mono">
                                 <span className="bg-[#d4af37] text-black px-1.5 py-0.5 rounded text-xs font-black">{timeLeft.hours}</span>
                                 <span className="text-[#d4af37] font-bold">:</span>

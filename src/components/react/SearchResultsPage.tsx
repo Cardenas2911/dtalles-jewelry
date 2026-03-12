@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { client } from '../../lib/shopify';
+import { clientStorefrontQuery } from '../../lib/shopify';
 import { SEARCH_PRODUCTS_QUERY } from '../../lib/queries/search';
 import { resolvePath } from '../../utils/paths';
 
@@ -24,10 +24,8 @@ export default function SearchResultsPage() {
     const fetchResults = async (searchQuery: string) => {
         setLoading(true);
         try {
-            const response = await client.request(SEARCH_PRODUCTS_QUERY, {
-                variables: {
-                    query: `title:${searchQuery}* OR tag:${searchQuery}*`
-                }
+            const response = await clientStorefrontQuery(SEARCH_PRODUCTS_QUERY, {
+                query: `title:${searchQuery}* OR tag:${searchQuery}*`
             });
             // @ts-ignore
             const products = response.data?.products || response.products;

@@ -6,6 +6,7 @@ import StickyAddToCart from './StickyAddToCart';
 import PaymentIcons from '../PaymentIcons';
 import CountdownTimer from './CountdownTimer';
 import AffirmPromotionalMessage from '../AffirmPromotionalMessage';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface Variant {
     id: string;
@@ -50,13 +51,16 @@ interface ProductInfoProps {
     onVariantChange: (variant: Variant) => void;
     /** Mientras se obtiene el precio en vivo desde Shopify (evita sensación de parpadeo) */
     livePriceLoading?: boolean;
+    lang?: 'es' | 'en';
 }
 
-export default function ProductInfo({ product, variants, selectedVariant, onVariantChange, livePriceLoading = false }: ProductInfoProps) {
+export default function ProductInfo({ product, variants, selectedVariant, onVariantChange, livePriceLoading = false, lang = 'es' }: ProductInfoProps) {
     const [adding, setAdding] = useState(false);
+    const t = getTranslationFunctionForLang(lang);
 
     // Group variants by options (e.g. Size).
-    const optionName = selectedVariant.selectedOptions[0]?.name || 'Talla';
+    const isSizeLang = lang === 'en' ? 'Size' : 'Talla';
+    const optionName = selectedVariant.selectedOptions[0]?.name || isSizeLang;
     const uniqueOptionValues = Array.from(new Set(variants.map(v => v.selectedOptions[0]?.value))).filter(Boolean);
 
     const handleAddToCart = () => {
@@ -102,7 +106,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                             </span>
                             {livePriceLoading && (
                                 <span className="text-xs text-gray-400 font-sans animate-pulse" aria-live="polite">
-                                    Actualizando precio…
+                                    {t('product.actualizandoPrecio')}
                                 </span>
                             )}
                             {selectedVariant.compareAtPrice && parseFloat(selectedVariant.compareAtPrice.amount) > price && (
@@ -111,7 +115,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                                         ${parseFloat(selectedVariant.compareAtPrice.amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
                                     </span>
                                     <span className="bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mt-1 animate-pulse-slow">
-                                        Ahorras {Math.round(((parseFloat(selectedVariant.compareAtPrice.amount) - price) / parseFloat(selectedVariant.compareAtPrice.amount)) * 100)}%
+                                        {t('product.ahorras')}{Math.round(((parseFloat(selectedVariant.compareAtPrice.amount) - price) / parseFloat(selectedVariant.compareAtPrice.amount)) * 100)}%
                                     </span>
                                 </div>
                             )}
@@ -119,17 +123,17 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
 
                         {product.pesoReal?.value && (
                             <span className="text-xs text-gray-500 font-mono">
-                                ~${(price / parseFloat(product.pesoReal.value)).toLocaleString('en-US', { maximumFractionDigits: 0 })}/gr (Oro Sólido)
+                                ~${(price / parseFloat(product.pesoReal.value)).toLocaleString('en-US', { maximumFractionDigits: 0 })}/gr {t('product.oroSolido')}
                             </span>
                         )}
                         <AffirmPromotionalMessage price={price} pageType="product" className="mb-0 mt-1" />
                     </div>
 
                     {/* Trust Badges - NEW */}
-                    <TrustBadges />
+                    <TrustBadges lang={lang} />
 
                     {/* Review Snippet - NEW */}
-                    <ReviewSnippet />
+                    <ReviewSnippet lang={lang} />
 
                     {/* Social Proof Counter - NEW */}
                     <div className="mb-4 flex items-center gap-2 text-xs text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
@@ -138,7 +142,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
                         </span>
                         <span className="font-medium">
-                            <span className="text-orange-400 font-bold">{Math.floor(Math.random() * (22 - 8 + 1) + 8)}</span> personas viendo esta joya ahora mismo
+                            <span className="text-orange-400 font-bold">{Math.floor(Math.random() * (22 - 8 + 1) + 8)}</span>{t('product.personasViendo')}
                         </span>
                     </div>
 
@@ -149,7 +153,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     {selectedVariant.quantityAvailable !== undefined && selectedVariant.quantityAvailable > 0 && selectedVariant.quantityAvailable < 5 && (
                         <div className="mb-4 inline-flex items-center gap-2 text-xs font-bold text-[#d4af37] bg-[#d4af37]/10 px-3 py-1.5 rounded-full animate-pulse-slow">
                             <span className="w-2 h-2 rounded-full bg-[#d4af37]"></span>
-                            Solo quedan {selectedVariant.quantityAvailable} piezas
+                            {t('product.soloQuedan')}{selectedVariant.quantityAvailable}{t('product.piezas')}
                         </div>
                     )}
                 </div>
@@ -158,7 +162,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                 {uniqueOptionValues.length > 0 && uniqueOptionValues[0] !== 'Default Title' && (
                     <div>
                         <span className="text-gray-400 text-xs uppercase tracking-widest mb-3 block">
-                            Selecciona {optionName}: <span className="text-white font-bold">{selectedVariant.selectedOptions[0]?.value}</span>
+                            {t('product.selecciona')} {optionName}: <span className="text-white font-bold">{selectedVariant.selectedOptions[0]?.value}</span>
                         </span>
                         <div className="flex flex-wrap gap-2">
                             {uniqueOptionValues.map(value => {
@@ -183,6 +187,15 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                     </div>
                 )}
 
+                {/* Badges and Reviews */}
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                    <ReviewSnippet lang={lang} />
+                    <TrustBadges lang={lang} />
+                </div>
+
+                {/* Scarcity / Urgency */}
+                <CountdownTimer lang={lang} />
+
                 {/* Main CTA */}
                 <div className="pt-4">
                     <button
@@ -197,9 +210,9 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                         {adding ? (
                             <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
                         ) : isSoldOut ? (
-                            'Agotado - Avísame'
+                            t('product.agotado')
                         ) : (
-                            'Agregar a la Bolsa'
+                            t('product.agregar')
                         )}
                     </button>
                 </div>
@@ -208,7 +221,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                 <div className="flex flex-col items-center justify-center gap-2 mt-2">
                     <div className="flex items-center gap-2 text-xs text-gray-400">
                         <span className="material-symbols-outlined text-sm">lock</span>
-                        <span>Pago 100% Seguro y Encriptado</span>
+                        <span>{t('product.pagoSeguro')}</span>
                     </div>
                     <PaymentIcons className="flex flex-wrap justify-center gap-2 opacity-80" iconClassName="h-5 w-auto" />
                 </div>
@@ -222,6 +235,7 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
                 image={product.featuredImage?.url || ''}
                 isSoldOut={isSoldOut}
                 onAddToCart={handleAddToCart}
+                lang={lang}
             />
         </>
     );

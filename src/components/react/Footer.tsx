@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute } from '../../utils/paths';
 import PaymentIcons from './PaymentIcons';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
-export default function Footer() {
+export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     // Accordion State para movil
     const [openSection, setOpenSection] = useState<string | null>(null);
 
@@ -31,10 +33,10 @@ export default function Footer() {
                     <div className="max-w-xl">
                         <span className="text-[#d4af37] font-bold text-xs uppercase tracking-[0.2em] mb-4 block">The Gold Circle</span>
                         <h2 className="text-3xl md:text-5xl font-serif text-white mb-6 leading-tight">
-                            Únete a la lista exclusiva.
+                            {t('footer.joinList')}
                         </h2>
                         <p className="text-gray-400 font-light text-sm md:text-base max-w-md leading-relaxed">
-                            Recibe acceso anticipado a nuevas colecciones, eventos privados en Miami y ofertas reservadas solo para miembros.
+                            {t('footer.joinDesc')}
                         </p>
                     </div>
 
@@ -42,7 +44,7 @@ export default function Footer() {
                         <div className="relative group">
                             <input
                                 type="email"
-                                placeholder="Tu correo electrónico"
+                                placeholder={t('footer.emailPlaceholder')}
                                 className="w-full bg-transparent border-b border-gray-700 py-3 text-[#FAFAF5] placeholder-gray-600 focus:outline-none focus:border-[#d4af37] transition-all duration-300 text-base lg:text-lg font-light group-hover:border-gray-500"
                                 required
                             />
@@ -61,26 +63,21 @@ export default function Footer() {
                                 className="w-4 h-4 rounded-sm border-gray-700 bg-transparent text-[#d4af37] focus:ring-[#d4af37] focus:ring-offset-black transition-colors"
                             />
                             <label htmlFor="privacy" className="text-[10px] text-gray-500 uppercase tracking-widest cursor-pointer select-none hover:text-gray-300 transition-colors">
-                                Acepto la política de privacidad
+                                {t('footer.privacy')}
                             </label>
                         </div>
                     </form>
                 </div>
 
-                {/* 2. Main Navigation Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16 mb-20">
-
-                    {/* Col 1: Brand & Social */}
-                    <div className="space-y-8">
-                        <a href={resolvePath('/')} className="block w-fit">
-                            <img
-                                src={resolvePath('/images/Logo.webp')}
-                                alt="Dtalles Jewelry"
-                                className="h-16 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-                            />
+                {/* 2. Main Footer Links */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 pt-8 pb-16">
+                    {/* Col 1: Brand Info */}
+                    <div className="flex flex-col gap-6">
+                        <a href={getRoute('/', lang)} className="inline-block transition-transform hover:scale-105 origin-left">
+                            <img src={resolvePath('/images/Logo.webp')} alt="Dtalles Jewelry" className="h-[45px] w-auto" />
                         </a>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs font-light">
-                            Elevando el estándar del oro en Miami. Joyería fina garantizada para los momentos que importan.
+                            {lang === 'en' ? 'Raising the gold standard in Miami. Fine jewelry guaranteed for the moments that matter.' : 'Elevando el estándar del oro en Miami. Joyería fina garantizada para los momentos que importan.'}
                         </p>
 
                         {/* Iconos de redes sociales con SVG de marca */}
@@ -133,51 +130,51 @@ export default function Footer() {
                     {/* Col 2: EXPLORAR (Shop) */}
                     <div>
                         <FooterHeading
-                            title="Explorar"
+                            title={t('footer.explore')}
                             isOpen={openSection === 'shop'}
                             onClick={() => toggleSection('shop')}
                         />
                         <ul className={`space-y-4 overflow-hidden transition-all duration-500 ${openSection === 'shop' ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0 md:max-h-full md:opacity-100 md:mt-0'}`}>
-                            <FooterLink href={resolvePath('/coleccion/nuevo')} label="Lo Nuevo" isNew={true} />
-                            <FooterLink href={resolvePath('/coleccion/best-sellers')} label="Más Vendidos" />
-                            <FooterLink href={resolvePath('/mujer')} label="Joyería para Ella" />
-                            <FooterLink href={resolvePath('/hombre')} label="Joyería para Él" />
-                            <FooterLink href={resolvePath('/ninos')} label="Niños & Bebés" />
-                            <FooterLink href={resolvePath('/coleccion/religiosa')} label="Colección Religiosa" />
-                            <FooterLink href={resolvePath('/guia-regalos')} label="Guía de Regalos" />
+                            <FooterLink href={getRoute('/coleccion/nuevo', lang)} label={t('nav.new')} isNew={true} />
+                            <FooterLink href={getRoute('/coleccion/best-sellers', lang)} label={lang === 'en' ? 'Best Sellers' : 'Más Vendidos'} />
+                            <FooterLink href={getRoute('/mujer', lang)} label={t('nav.women')} />
+                            <FooterLink href={getRoute('/hombre', lang)} label={t('nav.men')} />
+                            <FooterLink href={getRoute('/ninos', lang)} label={t('nav.kids')} />
+                            <FooterLink href={getRoute('/coleccion/religiosa', lang)} label={t('nav.religious')} />
+                            <FooterLink href={getRoute('/guia-regalos', lang)} label={t('nav.gifts')} />
                         </ul>
                     </div>
 
                     {/* Col 3: Atención al Cliente */}
                     <div>
                         <FooterHeading
-                            title="Atención al Cliente"
+                            title={t('footer.support')}
                             isOpen={openSection === 'support'}
                             onClick={() => toggleSection('support')}
                         />
                         <ul className={`space-y-4 overflow-hidden transition-all duration-500 ${openSection === 'support' ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0 md:max-h-full md:opacity-100 md:mt-0'}`}>
-                            <FooterLink href={resolvePath('/rastrear')} label="Rastrear mi Orden" highlight={true} />
-                            <FooterLink href={resolvePath('/envios')} label="Envíos y Entregas" />
-                            <FooterLink href={resolvePath('/devoluciones')} label="Cambios y Devoluciones" />
-                            <FooterLink href={resolvePath('/garantia')} label="Garantía de Por Vida" />
-                            <FooterLink href={resolvePath('/guia-tallas')} label="Guía de Tallas" />
-                            <FooterLink href={resolvePath('/cuidado-joyas')} label="Cuidado de tus Joyas" />
-                            <FooterLink href={resolvePath('/faq')} label="Preguntas Frecuentes" />
+                            <FooterLink href={getRoute('/rastrear', lang)} label={lang === 'en' ? 'Track My Order' : 'Rastrear mi Orden'} highlight={true} />
+                            <FooterLink href={getRoute('/envios', lang)} label={lang === 'en' ? 'Shipping & Delivery' : 'Envíos y Entregas'} />
+                            <FooterLink href={getRoute('/devoluciones', lang)} label={lang === 'en' ? 'Returns & Exchanges' : 'Cambios y Devoluciones'} />
+                            <FooterLink href={getRoute('/garantia', lang)} label={lang === 'en' ? 'Lifetime Warranty' : 'Garantía de Por Vida'} />
+                            <FooterLink href={getRoute('/guia-tallas', lang)} label={lang === 'en' ? 'Size Guide' : 'Guía de Tallas'} />
+                            <FooterLink href={getRoute('/cuidado-joyas', lang)} label={lang === 'en' ? 'Jewelry Care' : 'Cuidado de tus Joyas'} />
+                            <FooterLink href={getRoute('/faq', lang)} label={lang === 'en' ? 'FAQ' : 'Preguntas Frecuentes'} />
                         </ul>
                     </div>
 
                     {/* Col 4: Mundo DTalles */}
                     <div>
                         <FooterHeading
-                            title="Mundo DTalles"
+                            title={t('footer.company')}
                             isOpen={openSection === 'company'}
                             onClick={() => toggleSection('company')}
                         />
                         <ul className={`space-y-4 overflow-hidden transition-all duration-500 ${openSection === 'company' ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0 md:max-h-full md:opacity-100 md:mt-0'}`}>
-                            <FooterLink href={resolvePath('/nosotros')} label="Nuestra Historia" />
-                            <FooterLink href={resolvePath('/servicios/vender-oro')} label="Vender Oro" highlight={true} />
-                            <FooterLink href={resolvePath('/blog')} label="El Blog de Joyería" />
-                            <FooterLink href={resolvePath('/contacto')} label="Contáctanos" />
+                            <FooterLink href={getRoute('/nosotros', lang)} label={lang === 'en' ? 'Our Story' : 'Nuestra Historia'} />
+                            <FooterLink href={getRoute('/servicios/vender-oro', lang)} label={t('nav.sellGold')} highlight={true} />
+                            <FooterLink href={getRoute('/blog', lang)} label={lang === 'en' ? 'Jewelry Blog' : 'El Blog de Joyería'} />
+                            <FooterLink href={getRoute('/contacto', lang)} label={lang === 'en' ? 'Contact Us' : 'Contáctanos'} />
                             <li className="pt-4 border-t border-white/5 mt-4">
                                 <p className="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-2">Showroom Miami</p>
                                 <p className="text-gray-400 text-sm font-light">
@@ -193,9 +190,9 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-[#d4af37]/10">
                     <div className="flex flex-wrap justify-center gap-8 text-[11px] text-gray-500 uppercase tracking-widest font-medium w-full">
                         <span>&copy; {currentYear} Dtalles Jewelry</span>
-                        <a href={resolvePath('/politicas')} className="hover:text-white transition-colors">Privacidad</a>
-                        <a href={resolvePath('/terminos')} className="hover:text-white transition-colors">Términos</a>
-                        <a href={resolvePath('/accesibilidad')} className="hover:text-white transition-colors">Accesibilidad</a>
+                        <a href={getRoute('/politicas', lang)} className="hover:text-white transition-colors">{t('footer.privacyPolicy')}</a>
+                        <a href={getRoute('/terminos', lang)} className="hover:text-white transition-colors">{t('footer.terms')}</a>
+                        <a href={getRoute('/accesibilidad', lang)} className="hover:text-white transition-colors">{t('footer.accessibility')}</a>
                     </div>
                 </div>
             </div>

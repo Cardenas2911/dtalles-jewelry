@@ -1,9 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import { client as shopifyClient } from "../../lib/shopify";
+import { storefrontQuery } from "../../lib/shopify";
 import { GET_ARTICLE_BY_HANDLE } from "../../lib/queries/blog";
 import { gql } from "graphql-request";
+import { getLangFromUrl } from "../../i18n/utils";
 
 // SSG: Fetch all articles to generate paths
 export async function getStaticPaths() {
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
   `;
 
   try {
-    const response = await shopifyClient.request(GET_ALL_ARTICLES);
+    const response = await storefrontQuery(GET_ALL_ARTICLES);
     const articles = response.data?.blog?.articles?.edges?.map((edge: any) => edge.node) || [];
     
     return articles.map((article: any) => ({
@@ -36,6 +37,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
 const BLOG_HANDLE = "news"; // Default blog handle
 
 let article = null;
@@ -43,10 +45,12 @@ let error = false;
 
 if (slug) {
   try {
-    const response = await shopifyClient.request(GET_ARTICLE_BY_HANDLE, {
-      handle: slug,
-      blogHandle: BLOG_HANDLE,
-    });
+    const response = await storefrontQuery(GET_ARTICLE_BY_HANDLE, {
+      variables: {
+        handle: slug,
+        blogHandle: BLOG_HANDLE,
+      }
+    }, lang);
     article = response.data?.blog?.articleByHandle;
   } catch (err) {
     console.error(`Error fetching article ${slug}:`, err);

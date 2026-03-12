@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
-import { client } from '../../lib/shopify';
+import { clientStorefrontQuery } from '../../lib/shopify';
 import ProductPage from './product/ProductPage';
 
 export default function ProductDynamic() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState<any>(null);
     const [error, setError] = useState(false);
+    const [lang, setLang] = useState<'es' | 'en'>('es');
 
     useEffect(() => {
+        const pathParts = window.location.pathname.split('/');
+        const currentLang = pathParts.includes('en') ? 'en' : 'es';
+        setLang(currentLang);
+
         const fetchProduct = async () => {
+
             try {
                 // Extract handle from URL: /producto/handle-name
                 const pathParts = window.location.pathname.split('/');
@@ -24,7 +30,7 @@ export default function ProductDynamic() {
                 console.log("Intentando cargar producto dinámicamente:", handle);
 
                 const GET_PRODUCT_BY_HANDLE = `
-                query getProductByHandle($handle: String!) {
+                query getProductByHandle($handle: String!, $language: LanguageCode) @inContext(language: $language) {
                     product(handle: $handle) {
                         id
                         title
@@ -229,8 +235,8 @@ export default function ProductDynamic() {
                     }
                 }`;
 
-                // Using any to bypass strict type checks on client.request for now
-                const response: any = await client.request(GET_PRODUCT_BY_HANDLE, { handle });
+                // Usando clientStorefrontQuery para respetar el idioma activo (ES/EN)
+                const response: any = await clientStorefrontQuery(GET_PRODUCT_BY_HANDLE, { handle });
 
                 if (response?.product) {
                     setProduct(response.product);
@@ -263,11 +269,11 @@ export default function ProductDynamic() {
     return (
         <div className="animate-fade-in relative pt-32 lg:pt-40">
             <div className="absolute top-28 left-0 w-full z-50 bg-[#d4af37]/90 text-black text-center text-xs font-bold py-1 uppercase tracking-widest pointer-events-none">
-                Producto Recién Llegado (Carga Dinámica)
+                {lang === 'en' ? 'Newly Arrived Product (Dynamic Fetch)' : 'Producto Recién Llegado (Carga Dinámica)'}
             </div>
             {/* Render full Product Page Component */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <ProductPage product={product} />
+                <ProductPage product={product} lang={lang} />
             </div>
         </div>
     );

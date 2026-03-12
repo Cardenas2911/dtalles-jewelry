@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl } from '../i18n/utils';
+
 export interface Props {
   title: string;
   description: string;
@@ -15,6 +17,15 @@ const {
   robots = 'index, follow'
 } = Astro.props;
 
+const lang = getLangFromUrl(Astro.url);
+
+// Generate localized alternate URLs for Google
+const cleanPathname = Astro.url.pathname.replace(/^\/en/, '');
+const alternateUrls = {
+  es: new URL(cleanPathname === '' ? '/' : cleanPathname, Astro.site).href,
+  en: new URL(`/en${cleanPathname === '/' ? '' : cleanPathname}`, Astro.site).href,
+};
+
 const siteName = 'DTalles Jewelry';
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 ---
@@ -28,6 +39,9 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+<link rel="alternate" hreflang="es" href={alternateUrls.es} />
+<link rel="alternate" hreflang="en" href={alternateUrls.en} />
+<link rel="alternate" hreflang="x-default" href={alternateUrls.es} />
 
 <!-- Primary Meta Tags -->
 <title>{fullTitle}</title>

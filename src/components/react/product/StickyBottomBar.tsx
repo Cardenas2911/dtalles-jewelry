@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { addCartItem, setIsCartOpen } from '../../../store/cart';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface StickyBottomBarProps {
     product: {
-        id: string; // Should be the Selected Variant ID really, but we need to track that state globally or pass it down. 
-        // For simplicity, we might default to main product if variant state isn't lifted (it is in Parent).
-        // So we need props: selectedVariant.
+        id: string;
         title: string;
         handle: string;
     };
@@ -16,15 +15,16 @@ interface StickyBottomBarProps {
         title: string;
     };
     featuredImage?: string;
+    lang?: 'es' | 'en';
 }
 
-export default function StickyBottomBar({ product, selectedVariant, featuredImage }: StickyBottomBarProps) {
+export default function StickyBottomBar({ product, selectedVariant, featuredImage, lang = 'es' }: StickyBottomBarProps) {
+    const t = getTranslationFunctionForLang(lang);
     const [isVisible, setIsVisible] = useState(false);
     const [adding, setAdding] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            // Show bar after scrolling past 600px (roughly past the main CTA area on mobile)
             if (window.scrollY > 600) {
                 setIsVisible(true);
             } else {
@@ -69,7 +69,7 @@ export default function StickyBottomBar({ product, selectedVariant, featuredImag
                     disabled={!selectedVariant.availableForSale || adding}
                     className="bg-[#d4af37] text-black text-xs font-bold py-3 px-6 uppercase tracking-wider rounded-sm"
                 >
-                    {adding ? '...' : 'Agregar'}
+                    {adding ? '...' : lang === 'en' ? 'Add' : 'Agregar'}
                 </button>
             </div>
         </div>

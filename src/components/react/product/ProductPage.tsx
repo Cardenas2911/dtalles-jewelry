@@ -7,9 +7,10 @@ import { fetchLiveProductData, type LiveProductData } from '../../../lib/storefr
 
 interface ProductPageProps {
     product: any; // Using any for flexibility with graphQL response structure, can tighten later
+    lang?: 'es' | 'en';
 }
 
-export default function ProductPage({ product }: ProductPageProps) {
+export default function ProductPage({ product, lang = 'es' }: ProductPageProps) {
     const initialVariants = product.variants.edges.map((e: any) => e.node);
 
     // Datos en vivo desde Shopify (se actualizan sin rebuild)
@@ -174,9 +175,10 @@ export default function ProductPage({ product }: ProductPageProps) {
                         selectedVariant={selectedVariant}
                         onVariantChange={handleVariantChange}
                         livePriceLoading={livePriceLoading}
+                        lang={lang}
                     />
 
-                    <ProductDetails details={details} />
+                    <ProductDetails details={details} lang={lang} />
                 </div>
             </div>
 

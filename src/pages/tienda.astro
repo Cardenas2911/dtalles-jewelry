@@ -2,14 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import StoreGrid from "../components/react/StoreGrid";
-import { client } from "../lib/shopify";
+import { storefrontQuery } from "../lib/shopify";
 import { ALL_PRODUCTS_QUERY } from "../lib/queries/allProducts";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getRoute } from "../utils/paths";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const isEnglish = lang === 'en';
 
 let products = [];
 try {
-    const response = await client.request(ALL_PRODUCTS_QUERY, {
+    const response = await storefrontQuery(ALL_PRODUCTS_QUERY, {
         variables: { first: 20 },
-    });
+    }, lang);
     if (response.errors) {
         console.error("Shopify API Errors:", response.errors);
     }
@@ -27,7 +33,10 @@ try {
     <div class="bg-[#050505] min-h-screen">
         <!-- BREADCRUMBS -->
         <div class="max-w-7xl mx-auto px-6 pt-28">
-            <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Tienda" }]} />
+            <Breadcrumbs items={[
+                { label: t('ui.nav.home'), href: getRoute("/", lang) }, 
+                { label: t('nav.shop') }
+            ]} />
         </div>
 
         <!-- Hero Section -->
@@ -46,26 +55,26 @@ try {
                 <h1
                     class="text-4xl md:text-6xl font-serif text-[#FAFAF5] mb-3 tracking-wide"
                 >
-                    Colección Exclusiva
+                    {isEnglish ? 'Exclusive Collection' : 'Colección Exclusiva'}
                 </h1>
                 <p
                     class="text-[#d4af37] font-serif italic text-2xl md:text-3xl mb-6"
                 >
-                    El Arte del Detalle
+                    {isEnglish ? 'The Art of Detail' : 'El Arte del Detalle'}
                 </p>
                 <p
                     class="text-gray-400 text-sm md:text-base font-sans max-w-lg mx-auto mb-8 tracking-wide px-4"
                 >
-                    Joyería en Oro 14k Certificado y Diamantes en Miami. <br
+                    {isEnglish ? 'Certified 14k Gold Jewelry and Diamonds in Miami.' : 'Joyería en Oro 14k Certificado y Diamantes en Miami.'} <br
                         class="hidden md:block"
-                    /> Piezas sólidas con garantía de por vida.
+                    /> {isEnglish ? 'Solid pieces with lifetime warranty.' : 'Piezas sólidas con garantía de por vida.'}
                 </p>
             </div>
         </div>
 
         <!-- Store Grid (React Component) -->
         <div class="max-w-[1920px] mx-auto pb-12">
-            <StoreGrid client:load initialProducts={products} />
+            <StoreGrid client:load initialProducts={products} lang={lang} />
         </div>
 
         <!-- Trust Section (Footer of Category) -->
@@ -84,11 +93,10 @@ try {
                         >
                     </div>
                     <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
-                        Autenticidad Garantizada
+                        {isEnglish ? 'Guaranteed Authenticity' : 'Autenticidad Garantizada'}
                     </h3>
                     <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
-                        Cada pieza incluye certificado de kilataje y peso real
-                        verificado.
+                        {isEnglish ? 'Each piece includes certified weight and verified karat.' : 'Cada pieza incluye certificado de kilataje y peso real verificado.'}
                     </p>
                 </div>
 
@@ -103,11 +111,10 @@ try {
                         >
                     </div>
                     <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
-                        Envíos Asegurados a USA
+                        {isEnglish ? 'Insured USA Shipping' : 'Envíos Asegurados a USA'}
                     </h3>
                     <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
-                        Tu detalle viaja protegido hasta tu puerta. Rastreo 24/7
-                        incluido.
+                        {isEnglish ? 'Your jewelry travels protected to your door. 24/7 tracking.' : 'Tu detalle viaja protegido hasta tu puerta. Rastreo 24/7 incluido.'}
                     </p>
                 </div>
 
@@ -122,11 +129,10 @@ try {
                         >
                     </div>
                     <h3 class="text-[#FAFAF5] font-serif text-lg mb-2">
-                        Experiencia DTalles
+                        {isEnglish ? 'DTalles Experience' : 'Experiencia DTalles'}
                     </h3>
                     <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
-                        Empaque de lujo listo para regalar incluido en cada
-                        orden.
+                        {isEnglish ? 'Luxury packaging ready for gifting included in every order.' : 'Empaque de lujo listo para regalar incluido en cada orden.'}
                     </p>
                 </div>
             </div>

@@ -9,6 +9,13 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dtallesjewelry.com',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   // Sin 'base' — con dominio personalizado el sitio sirve desde la raíz
   server: {
     host: true,

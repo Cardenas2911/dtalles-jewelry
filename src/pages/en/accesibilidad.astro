@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Accessibility Statement | DTalles Jewelry",
+  description: "Our commitment to digital accessibility for all our customers.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Home", href: "/en" }, { label: "Accessibility" }]} />
+
+    <div class="max-w-3xl mx-auto mt-12 animate-fade-in">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#FAFAF5] mb-8">Accessibility</h1>
+        
+        <div class="prose prose-invert prose-sm text-gray-400 font-light leading-relaxed">
+            <p>
+                At DTalles Jewelry, we are committed to ensuring that our website is accessible to people with disabilities. We continually seek to improve the user experience for everyone and apply relevant accessibility standards.
+            </p>
+
+            <h3>Support Measures</h3>
+            <p>DTalles Jewelry takes the following measures to ensure accessibility:</p>
+            <ul>
+                <li>Including accessibility as part of our internal mission statement.</li>
+                <li>Integrating accessibility practices into our web development processes (color contrast, keyboard navigation, ARIA labels).</li>
+            </ul>
+
+            <h3>Conformance Status</h3>
+            <p>
+                The Web Content Accessibility Guidelines (WCAG) define requirements for designers and developers to improve accessibility for people with disabilities. We strive to conform to WCAG 2.1 Level AA.
+            </p>
+
+            <h3>Feedback</h3>
+            <p>
+                We welcome your feedback on the accessibility of DTalles Jewelry. Please let us know if you encounter any accessibility barriers:
+                <br />
+                Email: accessibility@dtallesjewelry.com
+            </p>
+        </div>
+    </div>
+  </div>
+</Layout>

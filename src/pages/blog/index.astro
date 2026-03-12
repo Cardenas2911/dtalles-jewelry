@@ -1,8 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import { client as shopifyClient } from "../../lib/shopify";
+import { storefrontQuery } from "../../lib/shopify";
 import { GET_ARTICLES_BY_BLOG } from "../../lib/queries/blog";
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 
 const BLOG_HANDLE = "news"; // Default Shopify blog handle
 
@@ -10,9 +13,11 @@ let articles = [];
 let blogTitle = "Blog";
 
 try {
-  const response = await shopifyClient.request(GET_ARTICLES_BY_BLOG, {
-    handle: BLOG_HANDLE,
-  });
+  const response = await storefrontQuery(GET_ARTICLES_BY_BLOG, {
+    variables: {
+      handle: BLOG_HANDLE,
+    }
+  }, lang);
   articles = response.data?.blog?.articles?.edges?.map((edge: any) => edge.node) || [];
   blogTitle = response.data?.blog?.title || "Blog";
 } catch (error) {

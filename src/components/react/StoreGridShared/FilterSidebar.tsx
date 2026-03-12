@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface FilterSidebarProps {
     filters: {
@@ -17,7 +18,9 @@ interface FilterSidebarProps {
     setPriceRange: (range: { min: number; max: number }) => void;
     totalProducts: number;
     filteredCount: number;
+    lang?: 'es' | 'en';
 }
+
 
 export default function FilterSidebar({
     filters,
@@ -26,8 +29,49 @@ export default function FilterSidebar({
     priceRange,
     setPriceRange,
     totalProducts,
-    filteredCount
+    filteredCount,
+    lang = 'es'
 }: FilterSidebarProps) {
+
+    const t = getTranslationFunctionForLang(lang);
+
+    // Mapeo dinámico usando llaves de ui.ts
+    const translateTag = (term: string) => {
+        if (!term) return term;
+        
+        const tagToKey: Record<string, string> = {
+            'anillo': 'taxonomy.ring',
+            'arete': 'taxonomy.earring',
+            'aretes': 'taxonomy.earrings',
+            'cadena': 'taxonomy.chain',
+            'cadenas': 'taxonomy.chains',
+            'collar': 'taxonomy.necklace',
+            'collares': 'taxonomy.necklaces',
+            'pulsera': 'taxonomy.bracelet',
+            'pulseras': 'taxonomy.bracelets',
+            'dije': 'taxonomy.pendant',
+            'dijes': 'taxonomy.pendants',
+            'hombre': 'taxonomy.men',
+            'mujer': 'taxonomy.women',
+            'niños': 'taxonomy.kids',
+            'niño': 'taxonomy.boy',
+            'niña': 'taxonomy.girl',
+            'bebe': 'taxonomy.baby',
+            'bebé': 'taxonomy.baby',
+            'unisex': 'taxonomy.unisex',
+            'religioso': 'taxonomy.religious',
+            'religiosos': 'taxonomy.religious',
+            'oro 10k': 'taxonomy.gold10k',
+            'oro 14k': 'taxonomy.gold14k',
+            'oro 18k': 'taxonomy.gold18k',
+            'plata': 'taxonomy.silver',
+            'plata 925': 'taxonomy.silver925',
+            'tricolor': 'taxonomy.tricolor'
+        };
+
+        const taxonomyKey = tagToKey[term.toLowerCase().trim()];
+        return taxonomyKey ? t(taxonomyKey as any) : term;
+    };
 
     // Accordion State
     const [openSections, setOpenSections] = useState<string[]>(['category', 'price', 'collection']);
@@ -45,9 +89,9 @@ export default function FilterSidebar({
 
             {/* Header / Stats */}
             <div className="pb-4 border-b border-[#d4af37]/20">
-                <h3 className="text-[#FAFAF5] font-serif text-lg">Filtros</h3>
+                <h3 className="text-[#FAFAF5] font-serif text-lg">{t('store.filters')}</h3>
                 <p className="text-gray-500 text-xs mt-1">
-                    Mostrando {filteredCount} de {totalProducts} joyas
+                    {t('store.showing')} {filteredCount} {t('store.of')} {totalProducts} {t('store.jewelry')}
                 </p>
             </div>
 
@@ -57,7 +101,7 @@ export default function FilterSidebar({
                     onClick={() => toggleSection('category')}
                     className="flex justify-between items-center w-full mb-4 group"
                 >
-                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">Categoría</span>
+                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">{t('filter.category')}</span>
                     <span className={`material-symbols-outlined text-gray-500 group-hover:text-[#d4af37] transition-transform ${openSections.includes('category') ? 'rotate-180' : ''}`}>expand_more</span>
                 </button>
 
@@ -74,7 +118,7 @@ export default function FilterSidebar({
                                     checked={selectedFilters.category.includes(cat)}
                                     onChange={() => onFilterChange('category', cat)}
                                 />
-                                <span className={`text-sm ${selectedFilters.category.includes(cat) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{cat}</span>
+                                <span className={`text-sm ${selectedFilters.category.includes(cat) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{translateTag(cat)}</span>
                             </label>
                         ))}
                     </div>
@@ -87,7 +131,7 @@ export default function FilterSidebar({
                     onClick={() => toggleSection('price')}
                     className="flex justify-between items-center w-full mb-4 group"
                 >
-                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">Precio</span>
+                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">{t('filter.price')}</span>
                     <span className={`material-symbols-outlined text-gray-500 group-hover:text-[#d4af37] transition-transform ${openSections.includes('price') ? 'rotate-180' : ''}`}>expand_more</span>
                 </button>
 
@@ -107,7 +151,7 @@ export default function FilterSidebar({
                             className="w-full accent-[#d4af37] h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer"
                         />
                         <p className="text-center text-[#FAFAF5] text-sm mt-2">
-                            Hasta: <span className="font-bold text-[#d4af37]">${priceRange.max}</span>
+                            {t('filter.upTo')} <span className="font-bold text-[#d4af37]">${priceRange.max}</span>
                         </p>
                     </div>
                 )}
@@ -119,7 +163,7 @@ export default function FilterSidebar({
                     onClick={() => toggleSection('collection')}
                     className="flex justify-between items-center w-full mb-4 group"
                 >
-                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">Colección</span>
+                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">{t('filter.collection')}</span>
                     <span className={`material-symbols-outlined text-gray-500 group-hover:text-[#d4af37] transition-transform ${openSections.includes('collection') ? 'rotate-180' : ''}`}>expand_more</span>
                 </button>
 
@@ -136,7 +180,7 @@ export default function FilterSidebar({
                                     checked={selectedFilters.collection.includes(col)}
                                     onChange={() => onFilterChange('collection', col)}
                                 />
-                                <span className={`text-sm ${selectedFilters.collection.includes(col) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{col}</span>
+                                <span className={`text-sm ${selectedFilters.collection.includes(col) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{translateTag(col)}</span>
                             </label>
                         ))}
                     </div>
@@ -149,7 +193,7 @@ export default function FilterSidebar({
                     onClick={() => toggleSection('material')}
                     className="flex justify-between items-center w-full mb-4 group"
                 >
-                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">Material</span>
+                    <span className="text-[#d4af37] text-xs font-bold uppercase tracking-widest">{t('filter.material')}</span>
                     <span className={`material-symbols-outlined text-gray-500 group-hover:text-[#d4af37] transition-transform ${openSections.includes('material') ? 'rotate-180' : ''}`}>expand_more</span>
                 </button>
 
@@ -166,7 +210,7 @@ export default function FilterSidebar({
                                     checked={selectedFilters.material.includes(mat)}
                                     onChange={() => onFilterChange('material', mat)}
                                 />
-                                <span className={`text-sm ${selectedFilters.material.includes(mat) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{mat}</span>
+                                <span className={`text-sm ${selectedFilters.material.includes(mat) ? 'text-white' : 'text-gray-400'} group-hover:text-[#FAFAF5] transition-colors`}>{translateTag(mat)}</span>
                             </label>
                         ))}
                     </div>

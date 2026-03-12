@@ -52,7 +52,7 @@ export const PRODUCT_FRAGMENT = gql`
 `;
 
 export const GET_PRODUCTS_BY_COLLECTION = gql`
-  query getProductsByCollection($handle: String!, $first: Int = 12) {
+  query getProductsByCollection($handle: String!, $first: Int = 12, $language: LanguageCode) @inContext(language: $language) {
   collection(handle: $handle) {
     title
     products(first: $first) {
@@ -68,7 +68,7 @@ export const GET_PRODUCTS_BY_COLLECTION = gql`
 `;
 
 export const GET_PRODUCT_DETAILS = gql`
-  query getProductDetails($id: ID!) {
+  query getProductDetails($id: ID!, $language: LanguageCode) @inContext(language: $language) {
     product(id: $id) {
       id
       title
@@ -297,7 +297,7 @@ export const GET_PRODUCT_DETAILS = gql`
 `;
 
 export const GET_MENU_COLLECTIONS = gql`
-  query getMenuCollections {
+  query getMenuCollections($language: LanguageCode) @inContext(language: $language) {
   collections(first: 10, query: "title:Hombre OR title:Mujer OR title:Religiosa") {
       edges {
         node {
@@ -310,7 +310,7 @@ export const GET_MENU_COLLECTIONS = gql`
   `;
 
 export const GET_FEATURED_PRODUCTS = gql`
-  query getFeaturedProducts($first: Int = 8) {
+  query getFeaturedProducts($first: Int = 8, $language: LanguageCode) @inContext(language: $language) {
     products(first: $first) {
       edges {
         node {

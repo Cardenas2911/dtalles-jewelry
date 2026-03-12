@@ -1,0 +1,70 @@
+---
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { storefrontQuery } from "../../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../../lib/queries/products";
+import ProductCard from "../../../components/react/ProductCard";
+import StoreGrid from "../../../components/react/StoreGrid";
+import { getLangFromUrl } from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+const seo = {
+  title: "Kids Jewelry: Gold Earrings for Babies and Girls",
+  description:
+    "Care for their ears with hypoallergenic 14k gold earrings. Safety screw backs that won't hurt. The first detail for a lifetime.",
+};
+
+let products = [];
+try {
+  // Intentamos con 'infantil' o 'ninos', el handle debe existir en Shopify
+  const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
+    variables: {
+      handle: "ninos",
+    },
+  }, lang);
+  products =
+    response.data?.collection?.products?.edges?.map((edge: any) => edge.node) ||
+    [];
+} catch (error) {
+  console.error("Error fetching Ninos collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+    <div class="px-6 mb-2">
+      <Breadcrumbs
+        items={[{ label: "Home", href: "/en" }, { label: "Kids" }]}
+      />
+    </div>
+
+    <div class="px-6 pb-6 text-center">
+      <h1 class="main-heading">
+        Kids Collection: 14k Gold Earrings - Hypoallergenic
+      </h1>
+      <p
+        class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed mb-4"
+      >
+        Hypoallergenic 14k gold jewelry for babies and girls. The first detail for a lifetime.
+      </p>
+      <div
+        class="inline-block bg-[#d4af37]/10 text-[#d4af37] px-4 py-2 rounded-full text-xs"
+      >
+        <span class="font-bold">Safety First:</span> Screw back design
+      </div>
+    </div>
+
+    {
+      products.length > 0 ? (
+        <StoreGrid client:load initialProducts={products} lang={lang} />
+      ) : (
+        <div class="text-center py-20 px-4">
+          <p class="text-xl text-gray-500">
+            No products found in this collection.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</Layout>

@@ -2,9 +2,11 @@ import React from 'react';
 import { useStore } from '@nanostores/react';
 import { favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
-import { resolvePath } from '../../utils/paths';
+import { getRoute } from '../../utils/paths';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
 
-export default function FavoritesView() {
+export default function FavoritesView({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
     const $favorites = useStore(favoriteItems);
     const favoritesList = Object.values($favorites);
 
@@ -12,15 +14,15 @@ export default function FavoritesView() {
         return (
             <div className="flex flex-col items-center justify-center py-32 text-center">
                 <span className="material-symbols-outlined text-6xl text-gray-500 mb-6">favorite</span>
-                <h2 className="text-2xl font-serif text-[#FAFAF5] mb-2">Tu lista de deseos está vacía</h2>
+                <h2 className="text-2xl font-serif text-[#FAFAF5] mb-2">{t('ui.favorites.empty')}</h2>
                 <p className="text-gray-400 mb-8 max-w-sm">
-                    Guarda tus joyas favoritas aquí para no perderlas de vista.
+                    {lang === 'en' ? 'Save your favorite jewelry here to keep track of them.' : 'Guarda tus joyas favoritas aquí para no perderlas de vista.'}
                 </p>
                 <a
-                    href={resolvePath('/tienda')}
+                    href={getRoute('/tienda', lang)}
                     className="bg-[#d4af37] text-black px-8 py-3 rounded-full font-medium tracking-wide hover:bg-[#b08d29] transition-colors"
                 >
-                    Explorar Colección
+                    {t('ui.favorites.explore')}
                 </a>
             </div>
         );
@@ -37,8 +39,8 @@ export default function FavoritesView() {
                         handle: fav.handle,
                         priceRange: {
                             minVariantPrice: {
-                                amount: fav.price,
-                                currencyCode: 'USD' // Default currency assumption or need to store it
+                                amount: fav.price.toString(),
+                                currencyCode: 'USD'
                             }
                         },
                         featuredImage: {
@@ -47,11 +49,11 @@ export default function FavoritesView() {
                         },
                         productType: '',
                         tags: [],
-                        variantId: fav.variantId // Pass stored variant ID
+                        variantId: fav.variantId
                     };
 
                     return (
-                        <ProductCard key={fav.id} product={productAdapter} />
+                        <ProductCard key={fav.id} product={productAdapter} lang={lang} />
                     );
                 })}
             </div>

@@ -1,0 +1,9 @@
+---
+// Redirección de fallback para logout de Shopify
+return Astro.redirect('/');
+---
+
+<meta http-equiv="refresh" content="0;url=/" />
+<script>
+    window.location.href = '/';
+</script>

@@ -1,0 +1,16 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SearchResultsPage from "../../components/react/SearchResultsPage";
+---
+
+<Layout
+    title="Search Results | DTalles Jewelry"
+    description="Find the best jewelry at DTalles Jewelry."
+>
+    <div class="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto min-h-[60vh]">
+        <Breadcrumbs items={[{ label: "Home", href: "/en" }, { label: "Search" }]} />
+
+        <SearchResultsPage client:only="react" />
+    </div>
+</Layout>

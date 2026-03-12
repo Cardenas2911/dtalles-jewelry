@@ -1,5 +1,7 @@
 ---
 import HeroSlider from "./HeroSlider";
+import { getLangFromUrl } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<HeroSlider client:load />
+<HeroSlider client:load lang={lang} />

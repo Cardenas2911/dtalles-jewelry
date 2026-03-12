@@ -32,6 +32,7 @@ const schema = {
         priceRange: "$$$",
     },
 };
+const lang = "es";
 ---
 
 <Layout title={seo.title} description={seo.description}>
@@ -219,7 +220,7 @@ const schema = {
                 <div
                     class="bg-[#0a0a0a] p-8 md:p-12 rounded-sm border border-[#d4af37]/10 shadow-2xl"
                 >
-                    <ContactForm client:load />
+                    <ContactForm client:load lang={lang} />
                 </div>
             </div>
         </div>

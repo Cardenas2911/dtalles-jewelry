@@ -1,25 +1,32 @@
 ---
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Layout from "../../layouts/Layout.astro";
-import { client as shopifyClient } from "../../lib/shopify";
+import { storefrontQuery } from "../../lib/shopify";
 import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
 import ProductCard from "../../components/react/ProductCard";
 import StoreGrid from "../../components/react/StoreGrid";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getRoute } from "../../utils/paths";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const isEnglish = lang === 'en';
 
 const seo = {
-    title: "Joyas de Oro para Hombre | Cadenas y Esclavas 14k",
-    description:
-        "Colección Hombre: Cadenas y Esclavas de Oro Sólido. Eleva tu estatus con joyas de oro macizo. Cadenas Cubanas, esclavas y anillos de grado.",
+    title: isEnglish ? "Men's Gold Jewelry | 14k Chains & Bracelets" : "Joyas de Oro para Hombre | Cadenas y Esclavas 14k",
+    description: isEnglish 
+        ? "Men's Collection: Solid Gold Chains and Bracelets. Elevate your status with solid gold jewelry. Cuban Chains, bracelets and rings."
+        : "Colección Hombre: Cadenas y Esclavas de Oro Sólido. Eleva tu estatus con joyas de oro macizo. Cadenas Cubanas, esclavas y anillos de grado.",
 };
 
 let products = [];
 
 try {
-    const response = await shopifyClient.request(GET_PRODUCTS_BY_COLLECTION, {
+    const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
         variables: {
             handle: "hombre",
         },
-    });
+    }, lang);
     products =
         response.data?.collection?.products?.edges?.map(
             (edge: any) => edge.node,
@@ -39,29 +46,31 @@ try {
     <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
         <div class="px-6 mb-2">
             <Breadcrumbs
-                items={[{ label: "Inicio", href: "/" }, { label: "Hombre" }]}
+                items={[
+                    { label: t('ui.nav.home'), href: getRoute("/", lang) }, 
+                    { label: t('nav.men') }
+                ]}
             />
         </div>
 
         <div class="px-6 pb-6 text-center">
             <h1 class="main-heading">
-                Colección Hombre: Cadenas y Esclavas - Oro 14k Sólido
+                {isEnglish ? "Men's Collection: Chains & Bracelets - Solid 14k Gold" : "Colección Hombre: Cadenas y Esclavas - Oro 14k Sólido"}
             </h1>
             <p
                 class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed"
             >
-                Descubre nuestra selección de cadenas, anillos y esclavas
-                diseñadas para durar. Oro 14k garantizado.
+                {isEnglish ? "Discover our selection of chains, rings and bracelets designed to last. Guaranteed 14k Gold." : "Descubre nuestra selección de cadenas, anillos y esclavas diseñadas para durar. Oro 14k garantizado."}
             </p>
         </div>
 
         {
             products.length > 0 ? (
-                <StoreGrid client:load initialProducts={products} />
+                <StoreGrid client:load initialProducts={products} lang={lang} />
             ) : (
                 <div class="text-center py-20 px-4">
                     <p class="text-xl text-gray-500">
-                        No se encontraron productos en esta colección.
+                        {isEnglish ? "No products found in this collection." : "No se encontraron productos en esta colección."}
                     </p>
                 </div>
             )

@@ -3,7 +3,10 @@ import PredictiveSearch from './PredictiveSearch';
 import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
 import { favoriteItems } from '../../store/favorites';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute } from '../../utils/paths';
+
+import { getTranslationFunctionForLang } from '../../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher';
 
 // Tipos auxiliares
 interface NavSubItem { label: string; href: string; }
@@ -20,83 +23,85 @@ interface NavItem {
 }
 
 // Ayudante para construir URL de filtro
-const f = (productType?: string, tag?: string) => {
-    const base = resolvePath('/tienda');
+const f = (productType?: string, tag?: string, lang?: string) => {
+    const base = getRoute('/tienda', lang);
     const params = new URLSearchParams();
     if (productType) params.set('productType', productType);
     if (tag) params.set('tag', tag);
     return `${base}?${params.toString()}`;
 };
 
-// Navigation Data — simplificada para evitar filtros vacíos
-const NAV_ITEMS: NavItem[] = [
-    { label: 'Inicio', href: resolvePath('/'), simple: true },
-    { label: 'Tienda', href: resolvePath('/tienda'), simple: true },
+// Navigation Data — dinámica según el lenguaje
+const getNavItems = (t: any, lang: string): NavItem[] => [
+    { label: t('nav.home'), href: getRoute('/', lang), simple: true },
+    { label: t('nav.shop'), href: getRoute('/tienda', lang), simple: true },
     {
-        label: 'Hombre', href: resolvePath('/hombre'),
+        label: t('nav.men'), href: getRoute('/hombre', lang),
         categories: [
-            { label: 'Ver Colección Hombre', href: resolvePath('/hombre') },
+            { label: t('header.menu.viewMen'), href: getRoute('/hombre', lang) },
         ],
         styles: [
-            { label: 'Cadenas y Esclavas', href: resolvePath('/hombre') },
+            { label: t('header.menu.chains'), href: getRoute('/hombre', lang) },
         ],
         image: resolvePath('/images/menu-hombre.webp'),
         alt: 'Cadena Cubana de Oro 10k - Joyería Exclusiva para Hombre',
-        promoText: 'EL BRILLO CLÁSICO'
+        promoText: t('header.menu.menPromo')
     },
     {
-        label: 'Mujer', href: resolvePath('/mujer'),
+        label: t('nav.women'), href: getRoute('/mujer', lang),
         categories: [
-            { label: 'Ver Colección Mujer', href: resolvePath('/mujer') },
+            { label: t('header.menu.viewWomen'), href: getRoute('/mujer', lang) },
         ],
         styles: [
-            { label: 'Aretes y Collares', href: resolvePath('/mujer') },
+            { label: t('header.menu.earrings'), href: getRoute('/mujer', lang) },
         ],
         image: resolvePath('/images/menu-mujer.webp'),
         alt: 'Joyería Fina de Oro para Mujer - Aretes y Collares',
-        promoText: 'ELEGANCIA PURA'
+        promoText: t('header.menu.womenPromo')
     },
     {
-        label: 'Religiosos', href: resolvePath('/coleccion/religiosa'),
+        label: t('nav.religious'), href: getRoute('/coleccion/religiosa', lang),
         categories: [
-            { label: 'Ver Joyería Religiosa', href: resolvePath('/coleccion/religiosa') },
+            { label: t('header.menu.viewReligious'), href: getRoute('/coleccion/religiosa', lang) },
         ],
         styles: [
-            { label: 'Medallas y Cruces', href: resolvePath('/coleccion/religiosa') },
+            { label: t('header.menu.medals'), href: getRoute('/coleccion/religiosa', lang) },
         ],
         image: resolvePath('/images/menu-religiosos.webp'),
         alt: 'Medallas y Cruces de Oro 10k - Colección Religiosa',
-        promoText: 'DEVOCIÓN EN ORO'
+        promoText: t('header.menu.religiousPromo')
     },
     {
-        label: 'Niños', href: resolvePath('/ninos'),
+        label: t('nav.kids'), href: getRoute('/ninos', lang),
         categories: [
-            { label: 'Ver Colección Niños', href: resolvePath('/ninos') },
+            { label: t('header.menu.viewKids'), href: getRoute('/ninos', lang) },
         ],
         styles: [
-            { label: 'Joyería Hipoalergénica', href: resolvePath('/ninos') },
+            { label: t('header.menu.kidsJewelry'), href: getRoute('/ninos', lang) },
         ],
         image: resolvePath('/images/menu-ninos.webp'),
         alt: 'Joyería de Oro para Niños y Bebés - Hipoalergénico',
-        promoText: 'PEQUEÑOS TESOROS'
+        promoText: t('header.menu.kidsPromo')
     },
     {
-        label: 'Regalos', href: resolvePath('/guia-regalos'),
+        label: t('nav.gifts'), href: getRoute('/guia-regalos', lang),
         categories: [
-            { label: 'Ver Guía de Regalos', href: resolvePath('/guia-regalos') },
+            { label: t('header.menu.viewGifts'), href: getRoute('/guia-regalos', lang) },
         ],
         styles: [
-            { label: 'Detalles y Aniversarios', href: resolvePath('/guia-regalos') },
+            { label: t('header.menu.giftsJewelry'), href: getRoute('/guia-regalos', lang) },
         ],
         image: resolvePath('/images/menu-regalos.webp'),
         alt: 'Regalos de Joyería en Oro - Detalles Especiales y Aniversarios',
-        promoText: 'MOMENTOS DE ORO'
+        promoText: t('header.menu.giftsPromo')
     },
-    { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), highlight: true },
-    { label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'), highlight: true },
+    { label: t('nav.new'), href: getRoute('/coleccion/nuevo', lang), highlight: true },
+    { label: t('nav.sellGold'), href: getRoute('/servicios/vender-oro', lang), highlight: true },
 ];
 
-export default function DesktopHeader() {
+export default function DesktopHeader({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
+    const navItems = getNavItems(t, lang);
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [pathname, setPathname] = useState('');
@@ -143,7 +148,7 @@ export default function DesktopHeader() {
         }, 150);
     };
 
-    const activeItem = NAV_ITEMS.find(item => item.label === activeMenu);
+    const activeItem = navItems.find(item => item.label === activeMenu);
 
     return (
         <header
@@ -152,7 +157,7 @@ export default function DesktopHeader() {
         >
             {/* Announcement Bar — más compacto en 1024 */}
             <div className="relative z-50 w-full text-center py-1.5 lg:py-2 text-[9px] lg:text-[10px] uppercase tracking-widest font-medium bg-[#d4af37] text-[#050505] font-bold">
-                Envío asegurado a todo USA &nbsp; · &nbsp; Oro Sólido 10k Certificado &nbsp; · &nbsp; Garantía de por vida
+                {t('header.shipping')} &nbsp; · &nbsp; {t('header.gold')} &nbsp; · &nbsp; {t('header.warranty')}
             </div>
 
             {/* Main Header Bar */}
@@ -161,9 +166,9 @@ export default function DesktopHeader() {
             `}>
                 <div className="max-w-[1440px] mx-auto px-4 lg:px-5 xl:px-8 h-16 xl:h-20 flex items-center justify-between relative z-50 gap-1">
 
-                    {/* LEFT: Logo — más pequeño para dar espacio al menú en 1 línea */}
+                    {/* LEFT: Logo — más compacto para dar espacio al menú en 1 línea */}
                     <div className="flex-shrink-0">
-                        <a href={resolvePath('/')} className="block group">
+                        <a href={getRoute('/', lang)} className="block group">
                             <img
                                 src={resolvePath('/images/Logo.webp')}
                                 alt="Dtalles Jewelry - Joyería de Oro en Miami"
@@ -175,7 +180,7 @@ export default function DesktopHeader() {
                     {/* CENTER: Navigation — 1 sola fila, sin wrap; texto e iconos más pequeños */}
                     <nav className="flex-1 flex justify-center min-w-0 overflow-hidden">
                         <ul className="flex items-center gap-0 flex-nowrap justify-center">
-                            {NAV_ITEMS.map((item) => (
+                            {navItems.map((item) => (
                                 <li
                                     key={item.label}
                                     className="relative flex-shrink-0"
@@ -215,9 +220,14 @@ export default function DesktopHeader() {
                         {/* Divider */}
                         <div className="w-px h-3.5 lg:h-4 bg-[#d4af37]/30 hidden sm:block" />
 
+                        {/* Language Switcher */}
+                        <LanguageSwitcher lang={lang} />
+                        
+                        <div className="h-4 w-px bg-[#FAFAF5]/20 mx-1"></div>
+
                         {/* Favorites */}
                         <a
-                            href={resolvePath('/favoritos')}
+                            href={getRoute('/favoritos', lang)}
                             className="relative group text-[#FAFAF5]/80 hover:text-[#d4af37] transition-colors p-0.5"
                             aria-label="Favoritos"
                         >
@@ -290,7 +300,7 @@ export default function DesktopHeader() {
                             {/* Col 1: Categorías */}
                             <div className="space-y-4 lg:space-y-5 border-r border-[#d4af37]/10 pr-4 lg:pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-sm lg:text-base italic mb-1 flex items-center gap-2">
-                                    <span className="w-3 h-px bg-[#d4af37]" /> Categorías
+                                    <span className="w-3 h-px bg-[#d4af37]" /> {t('header.menu.categories')}
                                 </h4>
                                 <ul className="space-y-3">
                                     {activeItem.categories?.map(cat => (
@@ -303,14 +313,14 @@ export default function DesktopHeader() {
                                     ))}
                                 </ul>
                                 <a href={activeItem.href} className="inline-flex items-center gap-1 mt-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] border-b border-[#d4af37]/40 pb-1 hover:border-[#d4af37] transition-colors">
-                                    Ver Todo
+                                    {t('header.menu.viewAll')}
                                 </a>
                             </div>
 
                             {/* Col 2: Estilos */}
                             <div className="space-y-4 lg:space-y-5 border-r border-[#d4af37]/10 pr-4 lg:pr-6">
                                 <h4 className="text-[#d4af37] font-serif text-sm lg:text-base italic mb-1 flex items-center gap-2">
-                                    <span className="w-3 h-px bg-[#d4af37]" /> Estilos
+                                    <span className="w-3 h-px bg-[#d4af37]" /> {t('header.menu.styles')}
                                 </h4>
                                 <ul className="space-y-3">
                                     {activeItem.styles?.map(style => (
@@ -333,11 +343,11 @@ export default function DesktopHeader() {
                                 />
                                 <div className="absolute bottom-5 left-5 z-20">
                                     <span className="text-[#d4af37] text-[9px] font-bold uppercase tracking-[3px] mb-1.5 block">
-                                        Colección destacada
+                                        {t('header.menu.featuredCollection')}
                                     </span>
                                     <h3 className="text-white font-serif text-xl leading-tight">{activeItem.promoText}</h3>
                                     <a href={activeItem.href} className="mt-2 inline-block text-[10px] text-[#d4af37] uppercase tracking-widest border-b border-[#d4af37]/50 pb-0.5 hover:border-[#d4af37]">
-                                        Explorar
+                                        {t('header.menu.explore')}
                                     </a>
                                 </div>
                             </div>

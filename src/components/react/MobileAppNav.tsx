@@ -3,69 +3,72 @@ import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen, cartItems } from '../../store/cart';
 import { favoriteItems } from '../../store/favorites';
 import { setIsSearchOpen } from '../../store/search';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute } from '../../utils/paths';
+import { getTranslationFunctionForLang } from '../../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher';
 
 // Helper para construir URL de filtro (igual que DesktopHeader)
-const f = (productType?: string, tag?: string) => {
-    const base = resolvePath('/tienda');
+const f = (productType?: string, tag?: string, lang?: string) => {
+    const base = getRoute('/tienda', lang);
     const params = new URLSearchParams();
     if (productType) params.set('productType', productType);
     if (tag) params.set('tag', tag);
     return `${base}?${params.toString()}`;
 };
 
-// Misma estructura de navegación que el DesktopHeader simplificada a las rutas válidas
-const NAV_SECTIONS = [
+const getNavSections = (t: any, lang: string) => [
     {
-        label: 'Hombre',
-        href: resolvePath('/hombre'),
+        label: t('nav.men'),
+        href: getRoute('/hombre', lang),
         icon: 'male',
         items: [
-            { label: 'Ver toda la Colección Hombre', href: resolvePath('/hombre') },
+            { label: t('mobile.menu.viewAllMen'), href: getRoute('/hombre', lang) },
         ],
     },
     {
-        label: 'Mujer',
-        href: resolvePath('/mujer'),
+        label: t('nav.women'),
+        href: getRoute('/mujer', lang),
         icon: 'female',
         items: [
-            { label: 'Ver toda la Colección Mujer', href: resolvePath('/mujer') },
+            { label: t('mobile.menu.viewAllWomen'), href: getRoute('/mujer', lang) },
         ],
     },
     {
-        label: 'Religiosos',
-        href: resolvePath('/coleccion/religiosa'),
+        label: t('nav.religious'),
+        href: getRoute('/coleccion/religiosa', lang),
         icon: 'church',
         items: [
-            { label: 'Ver Joyería Religiosa', href: resolvePath('/coleccion/religiosa') },
+            { label: t('mobile.menu.viewAllReligious'), href: getRoute('/coleccion/religiosa', lang) },
         ],
     },
     {
-        label: 'Niños',
-        href: resolvePath('/ninos'),
+        label: t('nav.kids'),
+        href: getRoute('/ninos', lang),
         icon: 'child_care',
         items: [
-            { label: 'Ver Colección Niños', href: resolvePath('/ninos') },
+            { label: t('mobile.menu.viewAllKids'), href: getRoute('/ninos', lang) },
         ],
     },
     {
-        label: 'Regalos',
-        href: resolvePath('/guia-regalos'),
+        label: t('nav.gifts'),
+        href: getRoute('/guia-regalos', lang),
         icon: 'redeem',
         items: [
-            { label: 'Ver Guía de Regalos', href: resolvePath('/guia-regalos') },
+            { label: t('mobile.menu.viewAllGifts'), href: getRoute('/guia-regalos', lang) },
         ],
     },
 ];
 
 // Links directos (sin submenú)
-const DIRECT_LINKS = [
-    { label: 'Ver toda la Tienda', href: resolvePath('/tienda'), icon: 'storefront' },
-    { label: 'Lo Nuevo', href: resolvePath('/coleccion/nuevo'), icon: 'auto_awesome', gold: true },
-    { label: 'Vender Oro', href: resolvePath('/servicios/vender-oro'), icon: 'currency_exchange', gold: true },
+const getDirectLinks = (t: any, lang: string) => [
+    { label: t('mobile.menu.viewStore'), href: getRoute('/tienda', lang), icon: 'storefront' },
+    { label: t('nav.new'), href: getRoute('/coleccion/nuevo', lang), icon: 'auto_awesome', gold: true },
+    { label: t('nav.sellGold'), href: getRoute('/servicios/vender-oro', lang), icon: 'currency_exchange', gold: true },
 ];
 
-export default function MobileAppNav() {
+export default function MobileAppNav({ lang = 'es' }: { lang?: 'es' | 'en' }) {
+    const t = getTranslationFunctionForLang(lang);
+    const navSections = getNavSections(t, lang);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openSection, setOpenSection] = useState<string | null>(null);
     const [pathname, setPathname] = useState('');
@@ -105,7 +108,7 @@ export default function MobileAppNav() {
             {/* ── TOP BAR ────────────────────────────────────────── */}
             <header className="fixed top-0 left-0 w-full z-40 bg-[#050505]/95 backdrop-blur-md border-b border-[#d4af37]/15 h-16 flex items-center justify-between px-5 transition-transform duration-300 translate-y-0"
             >
-                <a href={resolvePath('/')} className="block">
+                <a href={getRoute('/', lang)} className="block">
                     <img
                         src={resolvePath('/images/Logo.webp')}
                         alt="Dtalles Jewelry"
@@ -114,20 +117,22 @@ export default function MobileAppNav() {
                 </a>
 
                 <div className="flex items-center gap-2">
+                    {/* Language Switcher con banderas */}
+                    <LanguageSwitcher lang={lang} />
                     {/* Buscar */}
                     <button
                         onClick={() => setIsSearchOpen(true)}
                         className="p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
-                        aria-label="Buscar"
+                        aria-label={t('ui.search.ariaLabel')}
                     >
                         <span className="material-symbols-outlined text-[22px]">search</span>
                     </button>
 
                     {/* Favoritos */}
                     <a
-                        href={resolvePath('/favoritos')}
+                        href={getRoute('/favoritos', lang)}
                         className="relative p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
-                        aria-label="Favoritos"
+                        aria-label={t('ui.favorites.ariaLabel')}
                     >
                         <span className="material-symbols-outlined text-[22px]">favorite</span>
                         {favCount > 0 && (
@@ -139,7 +144,7 @@ export default function MobileAppNav() {
                     <button
                         onClick={() => setIsCartOpen(true)}
                         className="relative p-2 text-[#FAFAF5]/70 hover:text-[#d4af37] transition-colors"
-                        aria-label="Carrito"
+                        aria-label={t('ui.cart.ariaLabel')}
                     >
                         <span className="material-symbols-outlined text-[22px]">shopping_bag</span>
                         {cartCount > 0 && (
@@ -156,15 +161,15 @@ export default function MobileAppNav() {
                 <div className="grid grid-cols-5 h-full items-center">
 
                     {/* Inicio — resaltado cuando es la página actual */}
-                    <a href={resolvePath('/')} className={`flex flex-col items-center justify-center gap-1 group ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : ''}`}>
-                        <span className={`material-symbols-outlined transition-colors text-[22px] ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : 'text-[#A0A0A0] group-hover:text-[#FAFAF5]'}`}>home</span>
-                        <span className={`text-[9px] font-medium tracking-wide ${isCurrentPath(resolvePath('/')) ? 'text-[#d4af37]' : 'text-[#A0A0A0]'}`}>Inicio</span>
+                    <a href={getRoute('/', lang)} className={`flex flex-col items-center justify-center gap-1 group ${isCurrentPath(getRoute('/', lang)) ? 'text-[#d4af37]' : ''}`}>
+                        <span className={`material-symbols-outlined transition-colors text-[22px] ${isCurrentPath(getRoute('/', lang)) ? 'text-[#d4af37]' : 'text-[#A0A0A0] group-hover:text-[#FAFAF5]'}`}>home</span>
+                        <span className={`text-[9px] font-medium tracking-wide ${isCurrentPath(getRoute('/', lang)) ? 'text-[#d4af37]' : 'text-[#A0A0A0]'}`}>{t('nav.home')}</span>
                     </a>
 
                     {/* Buscar */}
                     <button onClick={() => setIsSearchOpen(true)} className="flex flex-col items-center justify-center gap-1 group">
                         <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">search</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Buscar</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">{t('mobile.nav.search')}</span>
                     </button>
 
                     {/* Menú Central (FAB dorado vibrante) */}
@@ -180,9 +185,9 @@ export default function MobileAppNav() {
                     </div>
 
                     {/* Favoritos */}
-                    <a href={resolvePath('/favoritos')} className="flex flex-col items-center justify-center gap-1 group relative">
+                    <a href={getRoute('/favoritos', lang)} className="flex flex-col items-center justify-center gap-1 group relative">
                         <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">favorite</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Guardados</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">{t('mobile.nav.saved')}</span>
                         {favCount > 0 && <span className="absolute top-1 right-3 w-1.5 h-1.5 bg-[#d4af37] rounded-full"></span>}
                     </a>
 
@@ -194,7 +199,7 @@ export default function MobileAppNav() {
                         className="flex flex-col items-center justify-center gap-1 group"
                     >
                         <span className="material-symbols-outlined text-[#A0A0A0] group-hover:text-[#FAFAF5] transition-colors text-[22px]">person</span>
-                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">Cuenta</span>
+                        <span className="text-[9px] text-[#A0A0A0] font-medium tracking-wide">{t('mobile.nav.account')}</span>
                     </a>
                 </div>
             </nav>
@@ -214,16 +219,19 @@ export default function MobileAppNav() {
                 >
                     {/* Drawer Header */}
                     <div className="px-6 pt-14 pb-5 flex justify-between items-center border-b border-[#d4af37]/15 flex-shrink-0">
-                        <a href={resolvePath('/')} onClick={() => setIsMenuOpen(false)}>
+                        <a href={getRoute('/', lang)} onClick={() => setIsMenuOpen(false)}>
                             <img src={resolvePath('/images/Logo.webp')} alt="Dtalles Jewelry" className="h-10 w-auto object-contain" />
                         </a>
-                        <button
-                            onClick={() => setIsMenuOpen(false)}
-                            className="p-2 text-[#FAFAF5]/60 hover:text-[#d4af37] transition-colors"
-                            aria-label="Cerrar menú"
-                        >
-                            <span className="material-symbols-outlined text-[28px]">close</span>
-                        </button>
+                        <div className="flex items-center gap-4">
+                            <LanguageSwitcher lang={lang} className="text-[#FAFAF5]" />
+                            <button
+                                onClick={() => setIsMenuOpen(false)}
+                                className="p-2 text-[#FAFAF5]/60 hover:text-[#d4af37] transition-colors"
+                                aria-label="Cerrar menú"
+                            >
+                                <span className="material-symbols-outlined text-[28px]">close</span>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Nav Links (con accordion) */}
@@ -232,20 +240,20 @@ export default function MobileAppNav() {
                         {/* Links directos (Lo Nuevo + Vender Oro) */}
                         <div className="px-4 pt-4 pb-2 flex gap-2">
                             <a
-                                href={resolvePath('/coleccion/nuevo')}
+                                href={getRoute('/coleccion/nuevo', lang)}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(resolvePath('/coleccion/nuevo')) ? 'bg-[#d4af37]/20 border-[#d4af37]/50 text-[#d4af37]' : 'bg-[#d4af37]/10 border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/20'}`}
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(getRoute('/coleccion/nuevo', lang)) ? 'bg-[#d4af37]/20 border-[#d4af37]/50 text-[#d4af37]' : 'bg-[#d4af37]/10 border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/20'}`}
                             >
                                 <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
-                                Lo Nuevo
+                                {t('nav.new')}
                             </a>
                             <a
-                                href={resolvePath('/servicios/vender-oro')}
+                                href={getRoute('/servicios/vender-oro', lang)}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(resolvePath('/servicios/vender-oro')) ? 'bg-[#d4af37]/10 border-[#d4af37]/40 text-[#d4af37]' : 'bg-white/5 border-white/10 text-[#FAFAF5]/70 hover:border-[#d4af37]/40 hover:text-[#d4af37]'}`}
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full border text-[11px] font-bold uppercase tracking-widest transition-colors ${isCurrentPath(getRoute('/servicios/vender-oro', lang)) ? 'bg-[#d4af37]/10 border-[#d4af37]/40 text-[#d4af37]' : 'bg-white/5 border-white/10 text-[#FAFAF5]/70 hover:border-[#d4af37]/40 hover:text-[#d4af37]'}`}
                             >
                                 <span className="material-symbols-outlined text-[14px]">currency_exchange</span>
-                                Vender Oro
+                                {t('nav.sellGold')}
                             </a>
                         </div>
 
@@ -253,7 +261,7 @@ export default function MobileAppNav() {
                         <div className="mx-6 my-3 h-px bg-white/5" />
 
                         {/* Secciones con accordion */}
-                        {NAV_SECTIONS.map((section) => (
+                        {navSections.map((section) => (
                             <div key={section.label} className="border-b border-white/5">
                                 <button
                                     onClick={() => toggleSection(section.label)}
@@ -290,7 +298,7 @@ export default function MobileAppNav() {
                                                 onClick={() => setIsMenuOpen(false)}
                                                 className="flex items-center gap-2 pl-14 pr-6 py-3 text-[10px] font-bold text-[#d4af37] uppercase tracking-widest hover:opacity-70"
                                             >
-                                                Ver todo
+                                                {t('mobile.menu.viewAll')}
                                                 <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
                                             </a>
                                         </li>
@@ -302,13 +310,13 @@ export default function MobileAppNav() {
                         {/* Tienda completa - Vibrante e Intensa */}
                         <div className="px-4 py-6">
                             <a
-                                href={resolvePath('/tienda')}
+                                href={getRoute('/tienda', lang)}
                                 onClick={() => setIsMenuOpen(false)}
                                 className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-[#8a6d2b] via-[#d4af37] to-[#f5e3a3] shadow-[0_4px_20px_rgba(212,175,55,0.4)] transition-all active:scale-95 overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 skew-x-[-20deg]"></div>
                                 <span className="material-symbols-outlined text-black text-[20px] font-bold">storefront</span>
-                                <span className="text-black text-[14px] font-black uppercase tracking-[2px]">Ver Tienda Completa</span>
+                                <span className="text-black text-[14px] font-black uppercase tracking-[2px]">{t('mobile.menu.viewStore')}</span>
                                 <span className="material-symbols-outlined text-black/70 text-[18px] ml-auto animate-bounce-x">arrow_forward</span>
                             </a>
                         </div>
@@ -317,12 +325,12 @@ export default function MobileAppNav() {
                     {/* Drawer Footer */}
                     <div className="flex-shrink-0 px-6 py-5 border-t border-[#d4af37]/15 bg-[#0a0a0a] space-y-3">
                         <a
-                            href={resolvePath('/rastrear')}
+                            href={getRoute('/rastrear', lang)}
                             onClick={() => setIsMenuOpen(false)}
                             className="flex items-center gap-3 text-[11px] text-[#A0A0A0] uppercase tracking-widest hover:text-white transition-colors"
                         >
                             <span className="material-symbols-outlined text-[16px]">local_shipping</span>
-                            Rastrear Pedido
+                            {t('mobile.menu.trackOrder')}
                         </a>
                         <a
                             href="https://wa.me/17867644952?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20joyas"

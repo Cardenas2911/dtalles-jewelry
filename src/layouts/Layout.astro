@@ -9,6 +9,7 @@ import SearchModal from "../components/react/SearchModal";
 import AddToCartToast from "../components/react/AddToCartToast";
 import FloatingSupport from "../components/react/FloatingSupport";
 import CookieBanner from "../components/react/CookieBanner";
+import { getLangFromUrl } from "../i18n/utils";
 
 import "../styles/global.css";
 
@@ -17,14 +18,16 @@ interface Props {
     description: string;
     image?: string;
     hideFloatingSupport?: boolean;
+    hideHeaderOnMobile?: boolean;
 }
 
-const { title, description, image, hideFloatingSupport = false } = Astro.props;
+const { title, description, image, hideFloatingSupport = false, hideHeaderOnMobile = false } = Astro.props;
 const affirmApiKey = import.meta.env.PUBLIC_AFFIRM_API_KEY || "YOUR_AFFIRM_PUBLIC_API_KEY";
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="es" class="dark">
+<html lang={lang} class="dark">
     <head>
         <SEO title={title} description={description} image={image} />
         <ClientRouter />
@@ -116,20 +119,24 @@ const affirmApiKey = import.meta.env.PUBLIC_AFFIRM_API_KEY || "YOUR_AFFIRM_PUBLI
             href="#main-content"
             class="skip-link fixed left-4 top-4 z-[100] -translate-y-24 rounded-md bg-[#d4af37] px-4 py-2 text-sm font-bold text-[#050505] shadow-lg transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#050505]"
         >
-            Saltar al contenido
+            {lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}
         </a>
 
-        <CartDrawer client:load />
-        <SearchModal client:load />
-        <AddToCartToast client:load />
-        <Header />
+        <CartDrawer client:load lang={lang} />
+        <SearchModal client:load lang={lang} />
+        <AddToCartToast client:load lang={lang} />
+        <div class={hideHeaderOnMobile ? "hidden lg:block" : ""}>
+            <Header />
+        </div>
 
-        <main id="main-content" class="flex-1 w-full max-w-7xl mx-auto p-4 md:px-0" tabindex="-1">
+        <main id="main-content" class="w-full relative z-10 flex-grow" tabindex="-1">
             <slot />
         </main>
 
-        <Footer client:visible />
-        <MobileAppNav client:load />
+        <div class={hideHeaderOnMobile ? "hidden lg:block" : ""}>
+            <Footer client:visible lang={lang} />
+        </div>
+        <MobileAppNav client:load lang={lang} />
         {!hideFloatingSupport && <FloatingSupport client:load />}
         <CookieBanner client:load />
 
@@ -137,7 +144,7 @@ const affirmApiKey = import.meta.env.PUBLIC_AFFIRM_API_KEY || "YOUR_AFFIRM_PUBLI
         <script is:inline define:vars={{ affirmApiKey }}>
             _affirm_config = {
                 public_api_key: affirmApiKey,
-                script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js" 
+                script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
             };
             (function(m,g,n,d,a,e,h,c){var b=m[n]||{},k=document.createElement(e),p=document.getElementsByTagName(e)[0],l=function(a,b,c){return function(){a[b]._.push([c,arguments])}};b[d]=l(b,d,"set");var f=b[d];b[a]={};b[a]._=[];f._=[];b._=[];b[a][h]=l(b,a,h);b[c]=function(){b._.push([h,arguments])};a=0;for(c="set add save post open empty reset on off trigger ready setProduct".split(" ");a<c.length;a++)f[c[a]]=l(b,d,c[a]);a=0;for(c=["get","token","url","items"];a<c.length;a++)f[c[a]]=function(){};k.async=!0;k.src=g[d];p.parentNode.insertBefore(k,p);delete g[d];b(g);m[n]=b})(window,_affirm_config,"affirm","checkout","ui","script","ready","jsReady");
         </script>
