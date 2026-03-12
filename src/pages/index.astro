@@ -15,7 +15,6 @@ import MobileHeader from "../components/react/home/MobileHeader";
 import MobileHeroBanner from "../components/react/home/MobileHeroBanner";
 import MobileProductGrid from "../components/react/home/MobileProductGrid";
 import MobileCollectionGrid from "../components/react/home/MobileCollectionGrid";
-import MobileBottomNav from "../components/react/home/MobileBottomNav";
 
 import { storefrontQuery } from "../lib/shopify";
 import { gql } from "graphql-request";
@@ -97,7 +96,6 @@ try {
         <MobileHeroBanner client:visible lang={lang} />
         <MobileProductGrid client:visible products={bestSellers} lang={lang} />
         <MobileCollectionGrid client:visible lang={lang} />
-        <MobileBottomNav client:load lang={lang} />
     </main>
 
     {/* 

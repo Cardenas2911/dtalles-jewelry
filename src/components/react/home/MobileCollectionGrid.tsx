@@ -1,30 +1,30 @@
 import React from 'react';
 import { getTranslationFunctionForLang } from '../../../i18n/utils';
-import { getRoute } from '../../../utils/paths';
+import { resolvePath, getRoute } from '../../../utils/paths';
 
 export default function MobileCollectionGrid({ lang = 'es' }: { lang?: 'es' | 'en' }) {
     const t = getTranslationFunctionForLang(lang);
 
     const collections = [
         {
-            titleKey: 'home.collections.rings' as const,
-            handle: "anillos",
-            image: "https://cdn.shopify.com/s/files/1/0612/0357/9018/files/1907-M-removebg-preview_600x600.png?v=1690412808"
+            titleKey: 'nav.men' as const,
+            handle: "hombre",
+            image: resolvePath("/images/menu-hombre.webp")
         },
         {
-            titleKey: 'home.collections.chains' as const,
-            handle: "cadenas-1",
-            image: "https://dtallesjewelry.com/cdn/shop/files/A73F9005-EE48-4B7C-A5A5-A7AA8CE0F07E_720x.png?v=1738870129"
+            titleKey: 'nav.women' as const,
+            handle: "mujer",
+            image: resolvePath("/images/menu-mujer.webp")
         },
         {
-            titleKey: 'home.collections.earrings' as const,
-            handle: "aretes",
-            image: "https://dtallesjewelry.com/cdn/shop/files/IMG_3962.jpg?v=1710515152&width=720"
+            titleKey: 'nav.religious' as const,
+            handle: "coleccion/religiosa",
+            image: resolvePath("/images/menu-religiosos.webp")
         },
         {
-            titleKey: 'home.collections.bracelets' as const,
-            handle: "manillas",
-            image: "https://dtallesjewelry.com/cdn/shop/products/P3200762.jpg?v=1630121759&width=720"
+            titleKey: 'nav.gifts' as const,
+            handle: "guia-regalos",
+            image: resolvePath("/images/menu-regalos.webp")
         }
     ];
 
