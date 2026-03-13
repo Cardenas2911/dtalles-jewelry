@@ -49,6 +49,13 @@ export default function CartDrawer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
                 let checkoutUrl = new URL(data.cartCreate.cart.checkoutUrl);
                 // Forzamos el dominio hacia myshopify para evitar el 404 en el dominio headless (Astro)
                 checkoutUrl.hostname = 'dtalles-jewelry.myshopify.com';
+                
+                // Forzamos el idioma del checkout
+                if (lang === 'en') {
+                    checkoutUrl.searchParams.set('locale', 'en');
+                } else {
+                    checkoutUrl.searchParams.set('locale', 'es');
+                }
 
                 console.log("Redirecting to:", checkoutUrl.toString());
                 window.location.href = checkoutUrl.toString();
