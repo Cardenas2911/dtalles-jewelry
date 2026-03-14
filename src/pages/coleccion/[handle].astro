@@ -63,6 +63,21 @@ if (handle) {
     
     collection = response.data?.collection;
     products = collection?.products?.edges?.map((edge: any) => edge.node) || [];
+
+    // Fallback manual de traducción para títulos de colecciones comunes si Shopify no los tiene traducidos
+    if (collection && lang === 'es') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'new' || collection.title.toLowerCase() === 'new arrivals') {
+          collection.title = 'Nuevos Lanzamientos';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'best sellers') {
+          collection.title = 'Lo Más Vendido';
+       }
+    } else if (collection && lang === 'en') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'nuevo' || collection.title.toLowerCase() === 'nuevos lanzamientos') {
+          collection.title = 'New Arrivals';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'lo más vendido') {
+          collection.title = 'Best Sellers';
+       }
+    }
   } catch (err) {
     console.error(`Error fetching collection ${handle}:`, err);
     error = true;

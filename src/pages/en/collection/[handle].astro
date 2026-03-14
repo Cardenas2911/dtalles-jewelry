@@ -57,6 +57,14 @@ if (handle) {
     
     collection = response.data?.collection;
     products = collection?.products?.edges?.map((edge: any) => edge.node) || [];
+
+    if (collection && lang === 'en') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'new' || collection.title.toLowerCase() === 'nuevos lanzamientos') {
+          collection.title = 'New Arrivals';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'lo más vendido' || collection.title.toLowerCase() === 'best sellers') {
+          collection.title = 'Best Sellers';
+       }
+    }
   } catch (err) {
     console.error(`Error fetching collection ${handle}:`, err);
     error = true;
@@ -100,7 +108,7 @@ const seo = {
             )}
             {!collection.description && (
               <p class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed">
-                Exclusive Jewelry in 14k Gold.
+                Exclusive 14k Gold Jewelry.
               </p>
             )}
           </div>
