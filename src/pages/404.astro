@@ -31,7 +31,7 @@ const seo = {
   <script>
     // Simple Router logic for 404
     const pathname = window.location.pathname;
-    const isProductPath = pathname.includes('/producto/');
+    const isProductPath = pathname.includes('/producto/') || pathname.includes('/product/');
     
     if (isProductPath) {
         const notFound = document.getElementById('not-found-content');
