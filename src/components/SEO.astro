@@ -28,6 +28,10 @@ const alternateUrls = {
 
 const siteName = 'DTalles Jewelry';
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+
+// Configuración de locale para Open Graph
+const ogLocale = lang === 'en' ? 'en_US' : 'es_ES';
+const ogLocaleAlternate = lang === 'en' ? 'es_ES' : 'en_US';
 ---
 
 <!-- Global Metadata -->
@@ -52,9 +56,13 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:locale:alternate" content={ogLocaleAlternate} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image:alt" content={fullTitle} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />

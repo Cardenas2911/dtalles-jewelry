@@ -1,0 +1,21 @@
+# robots.txt — DTalles Jewelry
+# https://dtallesjewelry.com/robots.txt
+
+# Permitir todos los rastreadores en el contenido público
+User-agent: *
+Allow: /
+
+# Bloquear páginas de cuenta y rutas internas de Shopify
+Disallow: /account/
+Disallow: /account
+Disallow: /customer_identity/
+Disallow: /gracias-compra
+Disallow: /gracias-contacto
+Disallow: /gracias
+
+# Bloquear parámetros de búsqueda que generan contenido duplicado
+Disallow: /*?*sort=
+Disallow: /*?*page=
+
+# Referencia al sitemap para facilitar el rastreo
+Sitemap: https://dtallesjewelry.com/sitemap-index.xml

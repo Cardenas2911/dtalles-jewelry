@@ -276,10 +276,17 @@ const schema: any = {
     url: `https://dtallesjewelry.com/producto/${product.handle}`,
     priceCurrency: currency,
     price: price,
+    // Precio válido por 1 año desde la fecha del build
+    priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
     availability: product.availableForSale
       ? "https://schema.org/InStock"
       : "https://schema.org/OutOfStock",
     itemCondition: "https://schema.org/NewCondition",
+    seller: {
+      "@type": "Organization",
+      "@id": "https://dtallesjewelry.com/#organization",
+      name: "DTalles Jewelry"
+    },
     hasMerchantReturnPolicy: {
       "@type": "MerchantReturnPolicy",
       applicableCountry: "US",
@@ -289,6 +296,7 @@ const schema: any = {
     }
   }
 };
+
 
 if (product.pesoReal?.value) {
     schema["weight"] = {
@@ -347,11 +355,25 @@ const breadcrumbItems = [
   { label: lang === 'en' ? collectionName : (collectionName === 'Infantil' ? 'Niños' : collectionName), href: getRoute(collectionUrl, lang) },
   { label: product.title },
 ];
+
+// Schema BreadcrumbList para Google rich snippets (basado en los breadcrumbs visuales)
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    ...(item.href ? { "item": `https://dtallesjewelry.com${item.href}` } : {})
+  }))
+};
 ---
 
 <Layout title={seoTitle} description={seoDescription} image={mainImage} hideFloatingSupport={true}>
-  <!-- Inject JSON-LD -->
+  <!-- Inject JSON-LD: Product Schema -->
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <!-- Inject JSON-LD: BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <div
     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[210px] pb-32 lg:pt-[320px] lg:pb-16"
