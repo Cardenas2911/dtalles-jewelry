@@ -26,14 +26,14 @@ try {
 
 const seo = {
   title: `${blogTitle} | DTalles Jewelry`,
-  description: "Descubre las últimas tendencias en joyería, guías de cuidado y novedades de DTalles Jewelry.",
+  description: "Discover the latest jewelry trends, care guides, and news from DTalles Jewelry.",
 };
 ---
 
 <Layout title={seo.title} description={seo.description}>
   <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[60vh]">
     <Breadcrumbs
-      items={[{ label: "Inicio", href: "/" }, { label: blogTitle }]}
+      items={[{ label: "Home", href: "/en" }, { label: blogTitle }]}
     />
 
     <div class="text-center mb-16 animate-fade-in">
@@ -49,7 +49,7 @@ const seo = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {articles.map((article: any) => (
           <article class="group bg-[#111] border border-white/5 overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500">
-            <a href={`/blog/${article.handle}`} class="block aspect-[16/9] overflow-hidden relative">
+            <a href={`/en/blog/${article.handle}`} class="block aspect-[16/9] overflow-hidden relative">
               {article.image && (
                 <img
                   src={article.image.url}
@@ -61,18 +61,18 @@ const seo = {
             </a>
             <div class="p-8">
               <div class="text-xs text-[#d4af37] uppercase tracking-widest mb-3 font-medium">
-                 {new Date(article.publishedAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                 {new Date(article.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </div>
               <h2 class="text-xl md:text-2xl font-serif text-[#FAFAF5] mb-4 group-hover:text-[#d4af37] transition-colors leading-tight">
-                <a href={`/blog/${article.handle}`}>
+                <a href={`/en/blog/${article.handle}`}>
                   {article.title}
                 </a>
               </h2>
               <p class="text-gray-400 text-sm font-light leading-relaxed mb-6 line-clamp-3">
                 {article.excerpt || article.contentHtml?.replace(/<[^>]*>?/gm, '').substring(0, 120) + '...'}
               </p>
-              <a href={`/blog/${article.handle}`} class="inline-flex items-center gap-2 text-xs text-white border-b border-[#d4af37] pb-0.5 hover:text-[#d4af37] transition-colors font-bold uppercase tracking-widest">
-                Leer Artículo
+              <a href={`/en/blog/${article.handle}`} class="inline-flex items-center gap-2 text-xs text-white border-b border-[#d4af37] pb-0.5 hover:text-[#d4af37] transition-colors font-bold uppercase tracking-widest">
+                Read Article
               </a>
             </div>
           </article>
@@ -81,7 +81,7 @@ const seo = {
     ) : (
       <div class="text-center py-20">
         <p class="text-xl text-gray-500 font-light">
-          No hay artículos publicados aún.
+          No articles published yet.
         </p>
       </div>
     )}

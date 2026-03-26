@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import WishlistGrid from "../../components/react/favorites/WishlistGrid";
+import ShareList from "../../components/react/favorites/ShareList";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout
+    title={lang === 'en' ? "Your Personal Chest - DTalles Jewelry" : "Tu Cofre Personal - DTalles Jewelry"}
+    description={lang === 'en' ? "Your saved jewelry pieces." : "Tus piezas de joyería guardadas."}
+>
+    <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 lg:pt-40 lg:pb-24"
+    >
+        <Breadcrumbs items={[{ label: t('nav.home'), href: "/" }, { label: t('ui.favorites.ariaLabel') }]} />
+        {/* Header */}
+        <div
+            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 border-b border-white/5 pb-8"
+        >
+            <div>
+                <span
+                    class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] font-medium mb-3 block"
+                >
+                    {lang === 'en' ? 'Your Personal Collection' : 'Tu Colección Personal'}
+                </span>
+                <h1 class="text-3xl md:text-5xl font-serif text-[#FAFAF5]">
+                    {lang === 'en' ? 'Your Saved Wishes' : 'Tus Deseos Guardados'}
+                </h1>
+                <p class="text-white/40 font-light mt-3 max-w-sm">
+                    {lang === 'en' 
+                        ? 'Yellow gold pieces selected by you. Save them or make them yours today.'
+                        : 'Piezas de oro amarillo seleccionadas por ti. Guárdalas o hazlas tuyas hoy.'
+                    }
+                </p>
+            </div>
+
+            {/* Share Action */}
+            <ShareList client:idle lang={lang} />
+        </div>
+
+        {/* Grid */}
+        <WishlistGrid client:load lang={lang} />
+    </div>
+</Layout>

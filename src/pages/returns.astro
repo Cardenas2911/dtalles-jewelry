@@ -1,0 +1,72 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Returns & Exchanges | DTalles Jewelry",
+  description: "DTalles Jewelry return policy. Satisfaction guaranteed on all your 14k gold purchases.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Home", href: "/en" }, { label: "Returns" }]} />
+
+    <div class="max-w-4xl mx-auto mt-12 animate-fade-in">
+        <header class="text-center mb-16">
+            <h1 class="font-serif text-4xl md:text-5xl text-[#FAFAF5] mb-6">Returns & Exchanges</h1>
+            <p class="text-gray-400 font-light max-w-2xl mx-auto text-lg">
+                Your satisfaction is our priority. If you are not completely in love with your jewelry, we are here to help.
+            </p>
+        </header>
+
+        <section class="space-y-12 text-gray-300 font-light leading-relaxed">
+            <div class="bg-[#111] p-8 border-l-2 border-[#d4af37]">
+                <h2 class="text-2xl font-serif text-white mb-4">General Policy</h2>
+                <p>
+                    We accept returns for refund or exchange within <strong>14 days</strong> of the delivery date. 
+                    The item must be in its original, unworn condition, with all original tags and packaging intact.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-serif text-[#d4af37] mb-4">What can be returned?</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li>Regular stock jewelry (standard chains, bracelets).</li>
+                        <li>Items with manufacturing defects (reported within 48h).</li>
+                        <li>Gifts (processed as store credit).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif text-[#d4af37] mb-4">Non-Returnable</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li>Custom pieces (with engravings or names).</li>
+                        <li>Clearance items ("Final Sale").</li>
+                        <li>Jewelry showing signs of wear or alteration.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-serif text-white mb-4">Return Process</h3>
+                 <ol class="list-decimal pl-5 space-y-4 marker:text-[#d4af37]">
+                    <li>
+                        <strong>Request:</strong> Email us at soporte@dtallesjewelry.com with your order number and reason for return.
+                    </li>
+                    <li>
+                        <strong>Approval:</strong> You will receive a prepaid shipping label via email (the return shipping cost will be deducted from your refund, approx. $15).
+                    </li>
+                    <li>
+                        <strong>Shipping:</strong> Package the jewelry securely in its original box and drop it off at the designated post office.
+                    </li>
+                    <li>
+                        <strong>Refund:</strong> Once we receive and inspect the piece (3-5 business days), we will process the refund to your original payment method.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+    </div>
+  </div>
+</Layout>

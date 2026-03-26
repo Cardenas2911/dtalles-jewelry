@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Terms of Service | DTalles Jewelry",
+  description: "Terms and conditions of use for the DTalles Jewelry website.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Home", href: "/en" }, { label: "Terms" }]} />
+
+    <div class="max-w-3xl mx-auto mt-12 animate-fade-in">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#FAFAF5] mb-8">Terms of Service</h1>
+        
+        <div class="prose prose-invert prose-sm text-gray-400 font-light leading-relaxed">
+            <p>Welcome to DTalles Jewelry. By accessing this site, you agree to be bound by these terms and conditions.</p>
+
+            <h3>1. Use of the Site</h3>
+            <p>
+                You agree to use this site only for lawful purposes and in a manner that does not infringe the rights of, or restrict or inhibit the use and enjoyment of the site by any third party.
+            </p>
+
+            <h3>2. Products and Pricing</h3>
+            <p>
+                We strive to display as accurately as possible the colors and images of our products. We reserve the right to limit the quantities of any products or services we offer. Prices are subject to change without notice in accordance with the gold market.
+            </p>
+
+            <h3>3. Accuracy of Information</h3>
+            <p>
+                We are not responsible if information available on this site is not accurate, complete, or current. The material on this site is provided for general information purposes only.
+            </p>
+            
+            <h3>4. Governing Law</h3>
+            <p>
+                These terms shall be governed by and construed in accordance with the laws of the State of Florida, United States.
+            </p>
+        </div>
+    </div>
+  </div>
+</Layout>

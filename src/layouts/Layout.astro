@@ -51,7 +51,7 @@ const lang = getLangFromUrl(Astro.url);
                 "caption": "DTalles Jewelry"
               },
               "image": "https://dtallesjewelry.com/images/og-default.jpg",
-              "description": "Joyería de oro 14k y 10k en Miami. Cadenas cubanas, religiosas y regalos únicos. Envíos seguros a todo USA.",
+              "description": lang === 'en' ? "14k and 10k gold jewelry in Miami. Cuban chains, religious pieces and unique gifts. Secure shipping across USA." : "Joyería de oro 14k y 10k en Miami. Cadenas cubanas, religiosas y regalos únicos. Envíos seguros a todo USA.",
               "telephone": "+1-786-814-1460",
               "email": "info@dtallesjewelry.com",
               "address": {
@@ -99,7 +99,7 @@ const lang = getLangFromUrl(Astro.url);
               "@id": "https://dtallesjewelry.com/#website",
               "url": "https://dtallesjewelry.com",
               "name": "DTalles Jewelry",
-              "description": "Joyería de Oro 14k en Miami — Cadenas Cubanas, Religiosas y Regalos Únicos",
+              "description": lang === 'en' ? "14k Gold Jewelry in Miami — Cuban Links, Religious & Unique Gifts" : "Joyería de Oro 14k en Miami — Cadenas Cubanas, Religiosas y Regalos Únicos",
               "publisher": {
                 "@id": "https://dtallesjewelry.com/#organization"
               },

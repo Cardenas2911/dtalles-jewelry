@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { resolvePath } from "../../utils/paths";
+import ProductDynamic from "../../components/react/ProductDynamic";
+
+const seo = {
+  title: "Página no encontrada | DTalles Jewelry",
+  description: "Lo sentimos, la página que buscas no existe.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div id="not-found-content" class="pt-40 lg:pt-56 pb-20 text-center">
+    <h1 class="text-6xl font-bold mb-4 text-gray-200">404</h1>
+    <h2 class="text-3xl font-bold mb-6 text-[#FAFAF5]">Página no encontrada</h2>
+    <p class="text-gray-400 mb-8">
+      Parece que te has perdido en nuestra colección.
+    </p>
+    <a
+      href={resolvePath("/")}
+      class="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+      >Volver al Inicio</a
+    >
+  </div>
+
+  <div id="dynamic-product-container" class="hidden">
+      <!-- Dynamic Product Loader -->
+      <ProductDynamic client:only="react" />
+  </div>
+
+  <script>
+    // Simple Router logic for 404
+    const pathname = window.location.pathname;
+    const isProductPath = pathname.includes('/producto/') || pathname.includes('/product/');
+    
+    if (isProductPath) {
+        const notFound = document.getElementById('not-found-content');
+        const dynamicContainer = document.getElementById('dynamic-product-container');
+        
+        if (notFound && dynamicContainer) {
+            notFound.classList.add('hidden');
+            dynamicContainer.classList.remove('hidden');
+        }
+    }
+  </script>
+</Layout>

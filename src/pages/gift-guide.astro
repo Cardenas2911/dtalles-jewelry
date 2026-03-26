@@ -1,0 +1,120 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Gift Guide | DTalles Jewelry",
+  description: "Find the perfect gift. 14k gold jewelry for every occasion: anniversaries, birthdays, and special moments.",
+};
+
+const categories = [
+    {
+        title: "For Her",
+        img: "/images/gifts-her.webp",
+        desc: "Delicate and elegant pieces",
+        href: "/en/women",
+        color: "from-pink-900/50"
+    },
+    {
+        title: "For Him",
+        img: "/images/gifts-him.webp",
+        desc: "Solid chains and bracelets",
+        href: "/en/men",
+        color: "from-blue-900/50"
+    },
+    {
+        title: "Religious",
+        img: "/images/gifts-religious.webp",
+        desc: "Symbols of faith and protection",
+        href: "/en/collection/religious",
+        color: "from-yellow-900/50"
+    },
+    {
+        title: "For Kids",
+        img: "/images/gifts-kids.webp",
+        desc: "Their first gold jewelry",
+        href: "/en/kids",
+        color: "from-purple-900/50"
+    }
+];
+
+const occasions = [
+    { title: "Birthday", icon: "cake" },
+    { title: "Anniversary", icon: "favorite" },
+    { title: "Baptism", icon: "water_drop" },
+    { title: "Graduation", icon: "school" }
+];
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
+    <Breadcrumbs items={[{ label: "Home", href: "/en" }, { label: "Gift Guide" }]} />
+
+    {/* Hero Section */}
+    <div class="text-center max-w-4xl mx-auto mt-12 mb-20 animate-fade-in">
+        <span class="text-[#d4af37] text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+          The Gifting Suite
+        </span>
+        <h1 class="font-serif text-4xl md:text-6xl text-[#FAFAF5] mb-6">
+          The Art of Giving
+        </h1>
+        <p class="text-gray-400 font-light text-lg max-w-xl mx-auto">
+          Because a 14k Gold piece isn't just a gift — it's a memory for a lifetime. Find the perfect piece for that special someone.
+        </p>
+    </div>
+
+    {/* Main Categories Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto mb-24">
+        {categories.map((cat) => (
+            <a href={cat.href} class="group relative h-[400px] overflow-hidden rounded-sm border border-white/5 hover:border-[#d4af37]/50 transition-colors duration-500">
+                <div class={`absolute inset-0 bg-gradient-to-br ${cat.color} to-black opacity-60 group-hover:opacity-80 transition-opacity duration-500`}></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10">
+                    <h3 class="font-serif text-3xl md:text-4xl text-white mb-2 transform group-hover:-translate-y-2 transition-transform duration-500">{cat.title}</h3>
+                    <p class="text-gray-300 font-light text-sm tracking-wide opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                        {cat.desc}
+                    </p>
+                    <span class="mt-8 text-[#d4af37] text-xs uppercase tracking-widest border border-[#d4af37]/30 px-6 py-2 rounded-full hover:bg-[#d4af37] hover:text-black transition-all">
+                        Explore Collection
+                    </span>
+                </div>
+            </a>
+        ))}
+    </div>
+
+    {/* Occasions Banner */}
+    <div class="bg-[#111] border-y border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+             <h2 class="font-serif text-2xl text-white mb-12">Gifts by Occasion</h2>
+             <div class="flex flex-wrap justify-center gap-12 md:gap-24">
+                 {occasions.map((occ) => (
+                     <div class="flex flex-col items-center gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
+                         <div class="w-16 h-16 rounded-full border border-[#d4af37]/30 flex items-center justify-center text-[#d4af37] bg-[#050505] group-hover:scale-110 transition-transform duration-300">
+                             <span class="material-symbols-outlined text-2xl">{occ.icon}</span>
+                         </div>
+                         <span class="text-sm font-light text-gray-300 uppercase tracking-widest">{occ.title}</span>
+                     </div>
+                 ))}
+             </div>
+        </div>
+    </div>
+
+    {/* Concierge CTA */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0 max-w-6xl mx-auto mt-24 border border-white/10 bg-[#0a0a0a]">
+        <div class="p-12 md:p-20 flex flex-col justify-center">
+            <span class="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-4">Personalized Service</span>
+            <h2 class="font-serif text-3xl text-white mb-6">Undecided? Let us help.</h2>
+            <p class="text-gray-400 font-light mb-8 leading-relaxed">
+                Our jewelry experts can help you select the perfect piece based on your budget and occasion. Message us for a VIP consultation.
+            </p>
+            <a href="/en/contact" class="inline-flex items-center gap-2 text-white border-b border-[#d4af37] pb-1 hover:text-[#d4af37] transition-colors w-fit">
+                <span>Contact an Expert</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+        <div class="relative min-h-[300px] bg-[#111] flex items-center justify-center">
+             <span class="material-symbols-outlined text-8xl text-white/5">diamond</span>
+        </div>
+    </div>
+
+  </div>
+</Layout>

@@ -1,0 +1,373 @@
+﻿
+> app@0.0.1 build
+> astro build
+
+[2m13:08:16[22m [34m[content][39m Syncing content
+[2m13:08:16[22m [34m[content][39m Synced content
+[2m13:08:16[22m [34m[types][39m Generated [2m48ms[22m
+[2m13:08:16[22m [34m[build][39m output: [34m"static"[39m
+[2m13:08:16[22m [34m[build][39m mode: [34m"static"[39m
+[2m13:08:16[22m [34m[build][39m directory: [34mC:\Users\User\Desktop\Develop\Dtallesjewelry\dist\[39m
+[2m13:08:16[22m [34m[build][39m Collecting build info...
+[2m13:08:16[22m [34m[build][39m [32mÔ£ô Completed in 88ms.[39m
+[2m13:08:16[22m [34m[build][39m Building static entrypoints...
+[33m[1m13:08:17[22m [WARN] [vite][39m 
+/images/showroom-bg.webp referenced in /images/showroom-bg.webp didn't resolve at build time, it will remain unchanged to be resolved at runtime
+[2m13:08:18[22m [34m[vite][39m [32mÔ£ô built in 2.21s[39m
+[2m13:08:18[22m [34m[build][39m [32mÔ£ô Completed in 2.25s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m13:08:18[22m [34m[vite][39m transforming...
+[2m13:08:20[22m [34m[vite][39m [32mÔ£ô[39m 407 modules transformed.
+[2m13:08:20[22m [34m[vite][39m rendering chunks...
+[2m13:08:20[22m [34m[vite][39m computing gzip size...
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/gql.BxQgxVmM.js                                                [39m[1m[2m  0.09 kB[22m[1m[22m[2m Ôöé gzip:  0.11 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/search.X5QTXqBq.js                                             [39m[1m[2m  0.10 kB[22m[1m[22m[2m Ôöé gzip:  0.11 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/gracias.astro_astro_type_script_index_0_lang.BjPWSjMu.js       [39m[1m[2m  0.17 kB[22m[1m[22m[2m Ôöé gzip:  0.16 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/gracias.astro_astro_type_script_index_0_lang.BRiIkcKz.js       [39m[1m[2m  0.17 kB[22m[1m[22m[2m Ôöé gzip:  0.16 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/favorites.BAdUhc2r.js                                          [39m[1m[2m  0.27 kB[22m[1m[22m[2m Ôöé gzip:  0.22 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.DIEz7UgV.js                                              [39m[1m[2m  0.42 kB[22m[1m[22m[2m Ôöé gzip:  0.29 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.daetGfa_.js                                              [39m[1m[2m  0.52 kB[22m[1m[22m[2m Ôöé gzip:  0.32 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/AffirmPromotionalMessage.D8TcFvn3.js                           [39m[1m[2m  0.52 kB[22m[1m[22m[2m Ôöé gzip:  0.38 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/cart.DLN6Tch6.js                                               [39m[1m[2m  0.56 kB[22m[1m[22m[2m Ôöé gzip:  0.33 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/search.CzNPfD9A.js                                             [39m[1m[2m  0.67 kB[22m[1m[22m[2m Ôöé gzip:  0.31 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/jsx-runtime.D_zvdyIk.js                                        [39m[1m[2m  0.73 kB[22m[1m[22m[2m Ôöé gzip:  0.46 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/AddToCartToast.Bn_OhcF3.js                                     [39m[1m[2m  1.13 kB[22m[1m[22m[2m Ôöé gzip:  0.67 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ShareList.BtHEQkHu.js                                          [39m[1m[2m  1.21 kB[22m[1m[22m[2m Ôöé gzip:  0.71 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/paths.DV4JUTVD.js                                              [39m[1m[2m  1.42 kB[22m[1m[22m[2m Ôöé gzip:  0.69 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.Dpt-qeBV.js                                              [39m[1m[2m  2.50 kB[22m[1m[22m[2m Ôöé gzip:  1.04 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/Header.astro_astro_type_script_index_0_lang.Ds802r36.js        [39m[1m[2m  2.53 kB[22m[1m[22m[2m Ôöé gzip:  0.78 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/SearchResultsPage.CpVRP18r.js                                  [39m[1m[2m  2.59 kB[22m[1m[22m[2m Ôöé gzip:  1.25 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/BestSellers.DIBOOsPk.js                                        [39m[1m[2m  2.65 kB[22m[1m[22m[2m Ôöé gzip:  1.05 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/CookieBanner.DCQjonaN.js                                       [39m[1m[2m  2.95 kB[22m[1m[22m[2m Ôöé gzip:  1.35 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/FloatingSupport.C_zzCS6A.js                                    [39m[1m[2m  3.32 kB[22m[1m[22m[2m Ôöé gzip:  1.72 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.UCiZe19v.js                                              [39m[1m[2m  3.89 kB[22m[1m[22m[2m Ôöé gzip:  1.52 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/SearchModal.Dmvwti0S.js                                        [39m[1m[2m  3.96 kB[22m[1m[22m[2m Ôöé gzip:  1.65 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/WishlistGrid.CL3GMBvP.js                                       [39m[1m[2m  4.04 kB[22m[1m[22m[2m Ôöé gzip:  1.61 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/LanguageSwitcher.DO1EKNRb.js                                   [39m[1m[2m  4.08 kB[22m[1m[22m[2m Ôöé gzip:  0.95 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ProductCard.B_cbVwKZ.js                                        [39m[1m[2m  5.39 kB[22m[1m[22m[2m Ôöé gzip:  2.00 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ContactForm.BjROnnPc.js                                        [39m[1m[2m  5.46 kB[22m[1m[22m[2m Ôöé gzip:  1.44 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ProductWhatsAppSticky.CU7EmfGK.js                              [39m[1m[2m  5.94 kB[22m[1m[22m[2m Ôöé gzip:  2.33 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/HeroSlider.Cxpw1_G5.js                                         [39m[1m[2m  7.10 kB[22m[1m[22m[2m Ôöé gzip:  2.66 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.DiEladB3.js                                              [39m[1m[2m  7.85 kB[22m[1m[22m[2m Ôöé gzip:  3.05 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/CartDrawer.2CWV0kpL.js                                         [39m[1m[2m  8.13 kB[22m[1m[22m[2m Ôöé gzip:  2.56 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/shopify.DeH4sc1k.js                                            [39m[1m[2m  9.41 kB[22m[1m[22m[2m Ôöé gzip:  3.90 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ProductDynamic.iwTq66zv.js                                     [39m[1m[2m 10.29 kB[22m[1m[22m[2m Ôöé gzip:  1.63 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/DesktopHeader.DS7zA-Ns.js                                      [39m[1m[2m 10.67 kB[22m[1m[22m[2m Ôöé gzip:  3.31 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/MobileAppNav.BRMQY2Fn.js                                       [39m[1m[2m 13.18 kB[22m[1m[22m[2m Ôöé gzip:  3.86 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/Footer.DvBFd4uK.js                                             [39m[1m[2m 13.48 kB[22m[1m[22m[2m Ôöé gzip:  4.48 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js  [39m[1m[2m 15.36 kB[22m[1m[22m[2m Ôöé gzip:  5.28 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/StoreGrid.BrASOYVU.js                                          [39m[1m[2m 15.89 kB[22m[1m[22m[2m Ôöé gzip:  3.78 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/utils.CtWrTzri.js                                              [39m[1m[2m 24.96 kB[22m[1m[22m[2m Ôöé gzip:  8.17 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/PaymentIcons.B5hD3Hx-.js                                       [39m[1m[2m 28.41 kB[22m[1m[22m[2m Ôöé gzip:  9.28 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/ProductPage.DeIM7aBP.js                                        [39m[1m[2m 30.33 kB[22m[1m[22m[2m Ôöé gzip:  7.50 kB[22m
+[2m13:08:20[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.i8_f7Fkk.js                                             [39m[1m[2m182.74 kB[22m[1m[22m[2m Ôöé gzip: 57.60 kB[22m
+[2m13:08:20[22m [34m[vite][39m [32mÔ£ô built in 1.59s[39m
+
+[42m[30m generating static routes [39m[49m
+[2m13:08:20[22m [32mÔûÂ[39m src/pages/404.astro
+[2m13:08:20[22m   [34mÔööÔöÇ[39m [2m/404.html[22m [2m(+41ms)[22m 
+[2m13:08:20[22m [32mÔûÂ[39m src/pages/about-us.astro
+[2m13:08:20[22m   [34mÔööÔöÇ[39m [2m/about-us/index.html[22m [2m(+14ms)[22m 
+[2m13:08:20[22m [32mÔûÂ[39m src/pages/accesibilidad.astro
+[2m13:08:20[22m   [34mÔööÔöÇ[39m [2m/accesibilidad/index.html[22m [2m(+16ms)[22m 
+[2m13:08:20[22m [32mÔûÂ[39m src/pages/account/logout.astro
+[2m13:08:20[22m   [34mÔööÔöÇ[39m [2m/account/logout/index.html[22m [2m(+2ms)[22m 
+[2m13:08:20[22m [32mÔûÂ[39m src/pages/blog/[slug].astro
+[2m13:08:21[22m [32mÔûÂ[39m src/pages/blog/index.astro
+[2m13:08:21[22m   [34mÔööÔöÇ[39m [2m/blog/index.html[22m [2m(+324ms)[22m 
+[2m13:08:21[22m [32mÔûÂ[39m src/pages/collection/religious.astro
+[2m13:08:21[22m   [34mÔööÔöÇ[39m [2m/collection/religious/index.html[22m [2m(+344ms)[22m 
+[2m13:08:21[22m [32mÔûÂ[39m src/pages/collection/[handle].astro
+[2m13:08:21[22m   [34mÔö£ÔöÇ[39m [2m/collection/hombre/index.html[22m [2m(+338ms)[22m 
+[2m13:08:22[22m   [34mÔö£ÔöÇ[39m [2m/collection/mujer/index.html[22m [31m(+1.20s)[39m 
+[2m13:08:23[22m   [34mÔö£ÔöÇ[39m [2m/collection/ninos/index.html[22m [2m(+253ms)[22m 
+[2m13:08:23[22m   [34mÔö£ÔöÇ[39m [2m/collection/religioso/index.html[22m [2m(+156ms)[22m 
+[2m13:08:23[22m   [34mÔö£ÔöÇ[39m [2m/collection/dijes-medallas/index.html[22m [2m(+252ms)[22m 
+[2m13:08:24[22m   [34mÔö£ÔöÇ[39m [2m/collection/oro-10k/index.html[22m [2m(+248ms)[22m 
+[2m13:08:24[22m   [34mÔö£ÔöÇ[39m [2m/collection/regalos/index.html[22m [2m(+249ms)[22m 
+[2m13:08:24[22m   [34mÔö£ÔöÇ[39m [2m/collection/pulseras/index.html[22m [2m(+188ms)[22m 
+[2m13:08:24[22m   [34mÔö£ÔöÇ[39m [2m/collection/nuevo/index.html[22m [2m(+216ms)[22m 
+[2m13:08:25[22m   [34mÔö£ÔöÇ[39m [2m/collection/best-sellers/index.html[22m [2m(+249ms)[22m 
+[2m13:08:25[22m   [34mÔö£ÔöÇ[39m [2m/collection/cadenas/index.html[22m [2m(+305ms)[22m 
+[2m13:08:25[22m   [34mÔö£ÔöÇ[39m [2m/collection/cuban-links/index.html[22m [2m(+230ms)[22m 
+[2m13:08:25[22m   [34mÔö£ÔöÇ[39m [2m/collection/tendencias/index.html[22m [2m(+223ms)[22m 
+[2m13:08:26[22m   [34mÔö£ÔöÇ[39m [2m/collection/aretes/index.html[22m [2m(+228ms)[22m 
+[2m13:08:26[22m   [34mÔö£ÔöÇ[39m [2m/collection/anillo/index.html[22m [2m(+199ms)[22m 
+[2m13:08:26[22m   [34mÔö£ÔöÇ[39m [2m/collection/taxes-13/index.html[22m [2m(+233ms)[22m 
+[2m13:08:26[22m   [34mÔööÔöÇ[39m [2m/collection/soga/index.html[22m [2m(+223ms)[22m 
+[2m13:08:26[22m [32mÔûÂ[39m src/pages/contact.astro
+[2m13:08:26[22m   [34mÔööÔöÇ[39m [2m/contact/index.html[22m [2m(+9ms)[22m 
+[2m13:08:26[22m [32mÔûÂ[39m src/pages/customer_identity/logout.astro
+[2m13:08:26[22m   [34mÔööÔöÇ[39m [2m/customer_identity/logout/index.html[22m [2m(+2ms)[22m 
+[2m13:08:26[22m [32mÔûÂ[39m src/pages/es/404.astro
+[2m13:08:26[22m   [34mÔööÔöÇ[39m [2m/es/404/index.html[22m [2m(+8ms)[22m 
+[2m13:08:26[22m [32mÔûÂ[39m src/pages/es/accesibilidad.astro
+[2m13:08:26[22m   [34mÔööÔöÇ[39m [2m/es/accesibilidad/index.html[22m [2m(+9ms)[22m 
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/account/logout.astro
+[2m13:08:27[22m   [34mÔööÔöÇ[39m [2m/es/account/logout/index.html[22m [2m(+2ms)[22m 
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/blog/[slug].astro
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/blog/index.astro
+[2m13:08:27[22m   [34mÔööÔöÇ[39m [2m/es/blog/index.html[22m [2m(+166ms)[22m 
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/busqueda.astro
+[2m13:08:27[22m   [34mÔööÔöÇ[39m [2m/es/busqueda/index.html[22m [2m(+6ms)[22m 
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/coleccion/religiosa.astro
+[2m13:08:27[22m   [34mÔööÔöÇ[39m [2m/es/coleccion/religiosa/index.html[22m [2m(+203ms)[22m 
+[2m13:08:27[22m [32mÔûÂ[39m src/pages/es/coleccion/[handle].astro
+[2m13:08:27[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/hombre/index.html[22m[DEBUG] Fetching collection: hombre
+ [2m(+233ms)[22m 
+[2m13:08:27[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/mujer/index.html[22m[DEBUG] Fetching collection: mujer
+ [2m(+337ms)[22m 
+[2m13:08:28[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/ninos/index.html[22m[DEBUG] Fetching collection: ninos
+ [2m(+183ms)[22m 
+[2m13:08:28[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/religioso/index.html[22m[DEBUG] Fetching collection: religioso
+ [2m(+158ms)[22m 
+[2m13:08:28[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/dijes-medallas/index.html[22m[DEBUG] Fetching collection: dijes-medallas
+ [2m(+179ms)[22m 
+[2m13:08:28[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/oro-10k/index.html[22m[DEBUG] Fetching collection: oro-10k
+ [2m(+195ms)[22m 
+[2m13:08:28[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/regalos/index.html[22m[DEBUG] Fetching collection: regalos
+ [2m(+252ms)[22m 
+[2m13:08:29[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/pulseras/index.html[22m[DEBUG] Fetching collection: pulseras
+ [2m(+173ms)[22m 
+[2m13:08:29[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/nuevo/index.html[22m[DEBUG] Fetching collection: nuevo
+ [2m(+213ms)[22m 
+[2m13:08:29[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/best-sellers/index.html[22m[DEBUG] Fetching collection: best-sellers
+ [2m(+247ms)[22m 
+[2m13:08:29[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/cadenas/index.html[22m[DEBUG] Fetching collection: cadenas
+ [2m(+210ms)[22m 
+[2m13:08:30[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/cuban-links/index.html[22m[DEBUG] Fetching collection: cuban-links
+ [2m(+197ms)[22m 
+[2m13:08:30[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/tendencias/index.html[22m[DEBUG] Fetching collection: tendencias
+ [2m(+200ms)[22m 
+[2m13:08:30[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/aretes/index.html[22m[DEBUG] Fetching collection: aretes
+ [2m(+228ms)[22m 
+[2m13:08:30[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/anillo/index.html[22m[DEBUG] Fetching collection: anillo
+ [2m(+207ms)[22m 
+[2m13:08:30[22m   [34mÔö£ÔöÇ[39m [2m/es/coleccion/taxes-13/index.html[22m[DEBUG] Fetching collection: taxes-13
+ [2m(+262ms)[22m 
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/coleccion/soga/index.html[22m[DEBUG] Fetching collection: soga
+ [2m(+363ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/contacto.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/contacto/index.html[22m [2m(+7ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/cuidado-joyas.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/cuidado-joyas/index.html[22m [2m(+5ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/customer_identity/logout.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/customer_identity/logout/index.html[22m [2m(+2ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/devoluciones.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/devoluciones/index.html[22m [2m(+5ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/enlaces.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/enlaces/index.html[22m [2m(+2ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/envios.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/envios/index.html[22m [2m(+7ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/faq.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/faq/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/favoritos.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/favoritos/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/garantia.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/garantia/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/gracias.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/gracias/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/gracias-compra.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/gracias-compra/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/gracias-contacto.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/gracias-contacto/index.html[22m [2m(+7ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/guia-regalos/quinceaneras.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/guia-regalos/quinceaneras/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/guia-regalos.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/guia-regalos/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/guia-tallas.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/guia-tallas/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/hombre/cuban-links.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/hombre/cuban-links/index.html[22m [2m(+6ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/hombre/index.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/hombre/index.html[22mServer Trace - First Product Data: {
+  "id": "gid://shopify/Product/8626041127111",
+  "title": "Classic Cuban Chain, 6mm (24\") in 10k Gold",
+  "handle": "cadena-cubana-clasica-6mm-oro-10k-24-pulgadas",
+  "productType": "Chain",
+  "tags": [
+    "24 pulgadas",
+    "6mm",
+    "cadena",
+    "cadena ligera",
+    "cuban links",
+    "hombre",
+    "miami cuban",
+    "oro 10k",
+    "regalo hombre"
+  ],
+  "availableForSale": true,
+  "totalInventory": 5,
+  "priceRange": {
+    "minVariantPrice": {
+      "amount": "2550.0",
+      "currencyCode": "USD"
+    }
+  },
+  "featuredImage": {
+    "url": "https://cdn.shopify.com/s/files/1/0760/5433/1591/files/cadena-cubana-clasica-6mm-24-pulgadas-oro-10k-hombre-dtalles.webp?v=1771559917",
+    "altText": null,
+    "width": 1200,
+    "height": 1600
+  },
+  "images": {
+    "edges": [
+      {
+        "node": {
+          "url": "https://cdn.shopify.com/s/files/1/0760/5433/1591/files/cadena-cubana-clasica-6mm-24-pulgadas-oro-10k-hombre-dtalles.webp?v=1771559917",
+          "altText": null,
+          "width": 1200,
+          "height": 1600
+        }
+      }
+    ]
+  },
+  "variants": {
+    "edges": [
+      {
+        "node": {
+          "id": "gid://shopify/ProductVariant/46200093638855",
+          "sku": null,
+          "quantityAvailable": 5,
+          "price": {
+            "amount": "2550.0",
+            "currencyCode": "USD"
+          },
+          "compareAtPrice": {
+            "amount": "2700.0",
+            "currencyCode": "USD"
+          }
+        }
+      }
+    ]
+  }
+}
+ [2m(+145ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/mujer/compromiso.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/mujer/compromiso/index.html[22m [2m(+9ms)[22m 
+[2m13:08:31[22m [32mÔûÂ[39m src/pages/es/mujer/index.astro
+[2m13:08:31[22m   [34mÔööÔöÇ[39m [2m/es/mujer/index.html[22m [2m(+246ms)[22m 
+[2m13:08:32[22m [32mÔûÂ[39m src/pages/es/ninos/index.astro
+[2m13:08:32[22m   [34mÔööÔöÇ[39m [2m/es/ninos/index.html[22m [2m(+203ms)[22m 
+[2m13:08:32[22m [32mÔûÂ[39m src/pages/es/nosotros.astro
+[2m13:08:32[22m   [34mÔööÔöÇ[39m [2m/es/nosotros/index.html[22m [2m(+5ms)[22m 
+[2m13:08:32[22m [32mÔûÂ[39m src/pages/es/politicas.astro
+[2m13:08:32[22m   [34mÔööÔöÇ[39m [2m/es/politicas/index.html[22m [2m(+7ms)[22m 
+[2m13:08:32[22m [32mÔûÂ[39m src/pages/es/producto/[handle].astro
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/aretes-flor-sakura-oro-10-kilates/index.html[22m [2m(+11ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-cruz-lineal-minimalista-oro-10k/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-eslabon-graduado-oro-10-kilates/index.html[22m [2m(+10ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/pulsera-tejido-entrelazado-graduado-oro-10-kilates/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-cubana-doble-7mm-oro-10k-22-pulgadas/index.html[22m [2m(+12ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-paperclip-oro-10k-18-pulgadas-2mm/index.html[22m [2m(+11ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-cubana-clasica-6mm-oro-10k-24-pulgadas/index.html[22m [2m(+9ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/aretes-gota-agua-oro-10k-abombados/index.html[22m [2m(+9ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/arracadas-tubulares-lisas-grandes-oro-10k/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/aretes-mariquita-esmaltada-oro-10k-suerte/index.html[22m [2m(+9ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/anillo-compromiso-estilo-trio-baguettes-oro-10k-talla-7/index.html[22m [2m(+10ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/anillo-sello-poker-oro-10k-talla-10/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/collar-corazon-abombado-cadena-soga-oro-10k/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-cubana-mariposas-8mm-oro-10-kilates/index.html[22m [2m(+9ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/anillo-sello-celosia-barroca-oro-10-kilates/index.html[22m [2m(+9ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-soga-facetada-8mm-oro-10-kilates/index.html[22m [2m(+8ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-soga-4mm-oro-10-kilates/index.html[22m [2m(+7ms)[22m 
+[2m13:08:32[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-medalla-virgen-guadalupe-oro-10-kilates/index.html[22m [2m(+9ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/dije-virgen-del-cisne-texturizada-oro-10k/index.html[22m [2m(+9ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-dije-virgen-caridad-oro-10-kilates/index.html[22m [2m(+11ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/aretes-nudo-soga-oro-10-kilates/index.html[22m [2m(+8ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/cadena-medalla-personalizada-foto-oro-10-kilates/index.html[22m [2m(+7ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/dije-corazon-circones-oro-10-kilates/index.html[22m [2m(+8ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/anillo-corazon-facetado-oro-10k/index.html[22m [2m(+9ms)[22m 
+[2m13:08:33[22m   [34mÔö£ÔöÇ[39m [2m/es/producto/anillo-corazon-micro-pave-oro-10k-mujer/index.html[22m [2m(+9ms)[22m 
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/producto/anillo-corazon-statement-baguettes-oro-10k/index.html[22m [2m(+9ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/rastrear.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/rastrear/index.html[22m [2m(+6ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/servicios/vender-oro.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/servicios/vender-oro/index.html[22m [2m(+7ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/terminos.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/terminos/index.html[22m [2m(+6ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/tienda.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/tienda/index.html[22m [2m(+238ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/[page].astro
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/es/index.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/es/index.html[22m [2m(+188ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/faq.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/faq/index.html[22m [2m(+5ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/gift-guide.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/gift-guide/index.html[22m [2m(+6ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/gracias.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/gracias/index.html[22m [2m(+6ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/gracias-compra.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/gracias-compra/index.html[22m [2m(+7ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/gracias-contacto.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/gracias-contacto/index.html[22m [2m(+7ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/jewelry-care.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/jewelry-care/index.html[22m [2m(+8ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/kids/index.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/kids/index.html[22m [2m(+207ms)[22m 
+[2m13:08:33[22m [32mÔûÂ[39m src/pages/links.astro
+[2m13:08:33[22m   [34mÔööÔöÇ[39m [2m/links/index.html[22m [2m(+2ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/men/index.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/men/index.html[22m [2m(+202ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/privacy-policy.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/privacy-policy/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/product/[handle].astro
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/aretes-flor-sakura-oro-10-kilates/index.html[22m [2m(+10ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-cruz-lineal-minimalista-oro-10k/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-eslabon-graduado-oro-10-kilates/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/pulsera-tejido-entrelazado-graduado-oro-10-kilates/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-cubana-doble-7mm-oro-10k-22-pulgadas/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-paperclip-oro-10k-18-pulgadas-2mm/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-cubana-clasica-6mm-oro-10k-24-pulgadas/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/aretes-gota-agua-oro-10k-abombados/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/arracadas-tubulares-lisas-grandes-oro-10k/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/aretes-mariquita-esmaltada-oro-10k-suerte/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/anillo-compromiso-estilo-trio-baguettes-oro-10k-talla-7/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/anillo-sello-poker-oro-10k-talla-10/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/collar-corazon-abombado-cadena-soga-oro-10k/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/cadena-cubana-mariposas-8mm-oro-10-kilates/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10-karat-gold-baroque-lattice-signet-ring/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/8mm-faceted-rope-chain-10-karat-gold/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/4mm-rope-chain-10k-gold/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/chain-our-lady-of-guadalupe-10k-gold-medallion/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/textured-virgin-of-el-cisne-10k-gold-pendant/index.html[22m [2m(+8ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10k-gold-our-lady-of-charity-chain-pendant/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10-karat-gold-rope-knot-earrings/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10-karat-gold-photo-necklace/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/i-said-heart-zircon-10-karat-gold/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10k-gold-faceted-heart-ring/index.html[22m [2m(+11ms)[22m 
+[2m13:08:34[22m   [34mÔö£ÔöÇ[39m [2m/product/10k-gold-micro-pave-heart-ring-for-women/index.html[22m [2m(+11ms)[22m 
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/product/statement-heart-ring-with-baguette-diamonds-in-10k-gold/index.html[22m [2m(+10ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/returns.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/returns/index.html[22m [2m(+6ms)[22m 
+[2m13:08:34[22m [35m╬╗[39m src/pages/robots.txt.ts
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/robots.txt[22m [2m(+1ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/search.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/search/index.html[22m [2m(+9ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/services/sell-gold.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/services/sell-gold/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/shipping.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/shipping/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/size-guide.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/size-guide/index.html[22m [2m(+7ms)[22m 
+[2m13:08:34[22m [32mÔûÂ[39m src/pages/store.astro
+[2m13:08:34[22m   [34mÔööÔöÇ[39m [2m/store/index.html[22m [2m(+215ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/terms.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/terms/index.html[22m [2m(+6ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/track-order.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/track-order/index.html[22m [2m(+7ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/warranty.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/warranty/index.html[22m [2m(+9ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/wishlist.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/wishlist/index.html[22m [2m(+10ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/women/index.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/women/index.html[22m [2m(+210ms)[22m 
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/[page].astro
+[2m13:08:35[22m [32mÔûÂ[39m src/pages/index.astro
+[2m13:08:35[22m   [34mÔööÔöÇ[39m [2m/index.html[22m [2m(+196ms)[22m 
+[2m13:08:35[22m [32mÔ£ô Completed in 15.50s.
+[39m
+[2m13:08:35[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
+[2m13:08:35[22m [34m[build][39m 149 page(s) built in [1m19.52s[22m
+[2m13:08:35[22m [34m[build][39m [1mComplete![22m

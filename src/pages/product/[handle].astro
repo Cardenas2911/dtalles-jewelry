@@ -1,0 +1,316 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { storefrontQuery } from "../../lib/shopify";
+import { gql } from "graphql-request";
+import ProductPage from "../../components/react/product/ProductPage";
+import ProductWhatsAppSticky from "../../components/react/product/ProductWhatsAppSticky";
+
+// SSG: Trae todos los productos en INGLÉS para generar las rutas con datos EN
+export async function getStaticPaths() {
+  const query = gql`
+    query getAllProductsEN($language: LanguageCode) @inContext(language: $language) {
+      products(first: 100) {
+        edges {
+          node {
+            id
+            title
+            handle
+            vendor
+            descriptionHtml
+            description
+            totalInventory
+            availableForSale
+            tags
+            productType
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 20) {
+              edges {
+                node {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+            variants(first: 20) {
+              edges {
+                node {
+                  id
+                  title
+                  sku
+                  availableForSale
+                  quantityAvailable
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+            pesoReal: metafield(namespace: "custom", key: "peso_real") {
+              value
+              type
+            }
+            anchoMm: metafield(namespace: "custom", key: "ancho_mm") {
+              value
+              type
+            }
+            material: metafield(namespace: "custom", key: "material") {
+              value
+              type
+            }
+            shopifyColor: metafield(namespace: "shopify", key: "color-pattern") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            shopifyMaterial: metafield(namespace: "shopify", key: "jewelry-material") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            shopifyJewelryType: metafield(namespace: "shopify", key: "jewelry-type") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            shopifyNecklaceDesign: metafield(namespace: "shopify", key: "necklace-design") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            shopifyAgeGroup: metafield(namespace: "shopify", key: "age-group") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            shopifyGender: metafield(namespace: "shopify", key: "target-gender") {
+              value
+              references(first: 10) {
+                nodes {
+                  ... on Metaobject {
+                    fields { key value }
+                  }
+                }
+              }
+            }
+            videoUrl: metafield(namespace: "custom", key: "video_url") {
+              value
+              type
+            }
+            collections(first: 5) {
+              edges {
+                node {
+                  title
+                  handle
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    // Pasamos 'en' como lang para que Shopify devuelva los datos en INGLÉS
+    const response = await storefrontQuery(query, {}, 'en');
+    const products = response.data?.products;
+
+    if (!products?.edges) {
+      return [];
+    }
+
+    return products.edges.map((edge: any) => ({
+      params: { handle: edge.node.handle },
+      props: { product: edge.node },
+    }));
+  } catch (error) {
+    console.error("Error fetching EN product paths from Shopify:", error);
+    return [];
+  }
+}
+
+const { handle } = Astro.params;
+const { product } = Astro.props as { product: any };
+
+if (!product) {
+  return new Response("Product Data Missing", { status: 404 });
+}
+
+// SEO & Schema en inglés
+const seoTitle = `${product.title} | DTalles Jewelry`;
+const seoDescription =
+  product.description?.substring(0, 160) ||
+  `Buy ${product.title} at DTalles. Guaranteed Gold.`;
+const mainImage = product.images?.edges[0]?.node?.url;
+const currency = product.priceRange.minVariantPrice.currencyCode || "USD";
+const price = product.priceRange.minVariantPrice.amount;
+const sku = product.variants?.edges[0]?.node?.sku || product.variants?.edges[0]?.node?.id;
+
+const schema: any = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  name: product.title,
+  image: product.images?.edges.map((e: any) => e.node.url),
+  description: product.description?.replace(/<[^>]*>?/gm, "") || seoDescription,
+  sku: sku,
+  brand: {
+    "@type": "Brand",
+    name: "DTalles Jewelry",
+  },
+  material: product.material?.value,
+  offers: {
+    "@type": "Offer",
+    url: `https://dtallesjewelry.com/en/product/${product.handle}`,
+    priceCurrency: currency,
+    price: price,
+    availability: product.availableForSale
+      ? "https://schema.org/InStock"
+      : "https://schema.org/OutOfStock",
+    itemCondition: "https://schema.org/NewCondition",
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "US",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      returnMethod: "https://schema.org/ReturnByMail"
+    }
+  }
+};
+
+if (product.pesoReal?.value) {
+    schema["weight"] = {
+        "@type": "QuantitativeValue",
+        value: product.pesoReal.value,
+        unitCode: "GRM"
+    };
+}
+
+if (product.anchoMm?.value) {
+    schema["width"] = {
+        "@type": "QuantitativeValue",
+        value: product.anchoMm.value,
+        unitCode: "MMT"
+    };
+}
+
+if (product.videoUrl?.value) {
+  schema["subjectOf"] = {
+    "@type": "VideoObject",
+    name: `Detail view of ${product.title}`,
+    description: `Detailed video view of ${product.title}`,
+    thumbnailUrl: mainImage,
+    contentUrl: product.videoUrl.value,
+    uploadDate: new Date().toISOString(),
+  };
+}
+
+// Breadcrumbs en inglés
+const tags = product.tags || [];
+let collectionName = "Store";
+let collectionUrl = "/en/store";
+
+if (tags.some((t: string) => t.toLowerCase() === "hombre")) {
+  collectionName = "Men";
+  collectionUrl = "/en/men";
+} else if (tags.some((t: string) => t.toLowerCase() === "mujer")) {
+  collectionName = "Women";
+  collectionUrl = "/en/women";
+} else if (
+  tags.some(
+    (t: string) =>
+      t.toLowerCase() === "ninos" || t.toLowerCase() === "infantil",
+  )
+) {
+  collectionName = "Kids";
+  collectionUrl = "/en/kids";
+} else if (tags.some((t: string) => t.toLowerCase() === "religiosa")) {
+  collectionName = "Religious";
+  collectionUrl = "/en/collection/religious";
+}
+
+const breadcrumbItems = [
+  { label: "Home", href: "/en" },
+  { label: collectionName, href: collectionUrl },
+  { label: product.title },
+];
+---
+
+<Layout title={seoTitle} description={seoDescription} image={mainImage} hideFloatingSupport={true}>
+  <!-- Inject JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <div
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[210px] pb-32 lg:pt-[320px] lg:pb-16"
+  >
+    <Breadcrumbs items={breadcrumbItems} />
+
+    <!-- WhatsApp Premium Mobile Button -->
+    <ProductWhatsAppSticky 
+      client:load 
+      productTitle={product.title} 
+      productUrl={`https://dtallesjewelry.com/en/product/${product.handle}`} 
+      lang="en"
+    />
+
+    <!-- React Product Page Orchestrator -->
+    <ProductPage client:load product={product} lang="en" />
+
+    <!-- Support Section (English) -->
+    <div class="mt-24 border-t border-white/5 pt-16 text-center">
+      <h3 class="text-2xl font-serif text-[#FAFAF5] mb-4">
+        Questions? Talk to an Expert
+      </h3>
+      <p class="text-gray-400 mb-6">
+        We are available in Miami to assist you.
+      </p>
+      <a
+        href="/en/contact"
+        class="inline-block px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
+      >
+        Contact Support
+      </a>
+    </div>
+  </div>
+</Layout>

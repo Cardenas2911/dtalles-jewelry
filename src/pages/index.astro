@@ -18,13 +18,13 @@ import { getLangFromUrl } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 
 const seo = {
-    title: "DTalles Jewelry: Joyería en Miami | Oro 14k y Regalos Únicos",
+    title: "DTalles Jewelry: Miami Jewelry | 14k Gold & Unique Gifts",
     description:
-        "El Portal de Oro en Miami. Cadenas Cubanas, religiosas y regalos inolvidables en oro 14k sólido. Calidad garantizada y envíos seguros a todo USA.",
+        "The Gold Portal in Miami. Cuban Links, religious pieces and unforgettable gifts in solid 14k gold. Guaranteed quality and secure shipping worldwide.",
 };
 
 const GET_BEST_SELLERS = gql`
-    query getBestSellers {
+    query getBestSellers($language: LanguageCode) @inContext(language: $language) {
         products(first: 8, sortKey: BEST_SELLING) {
             edges {
                 node {

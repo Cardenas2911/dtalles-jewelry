@@ -74,7 +74,18 @@ export default function LanguageSwitcher({ lang = 'es', className = '' }: { lang
         const search = window.location.search;
         let newPath = path;
 
-        if (newLang === 'en') {
+        if (newLang === 'es') {
+            // Ir de EN a ES
+            const base = import.meta.env.BASE_URL;
+            let cleanPath = path;
+            if (base !== '/') {
+                 const cleanBase = base.replace(/\/$/, '');
+                 if (cleanPath.startsWith(cleanBase)) {
+                     cleanPath = cleanPath.substring(cleanBase.length);
+                 }
+            }
+            newPath = getSpanishRoute(cleanPath);
+        } else {
             // Ir de ES a EN
             const base = import.meta.env.BASE_URL;
             let cleanPath = path;
@@ -84,10 +95,8 @@ export default function LanguageSwitcher({ lang = 'es', className = '' }: { lang
                      cleanPath = cleanPath.substring(cleanBase.length);
                  }
             }
+            cleanPath = cleanPath.replace(/^\/es/, '') || '/';
             newPath = getRoute(cleanPath, 'en');
-        } else {
-            // Ir de EN a ES
-            newPath = getSpanishRoute(path);
         }
 
         window.location.href = `${newPath}${search}`;

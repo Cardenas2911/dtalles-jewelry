@@ -44,7 +44,7 @@ export const enToEsMap: Record<string, string> = Object.fromEntries(
  * Returns a localized route path for navigation links (Spanish to Target).
  */
 export const getRoute = (path: string, lang?: string) => {
-    if (!lang || lang === 'es') return resolvePath(path);
+    const targetLang = lang || 'en';
 
     const base = import.meta.env.BASE_URL;
     const cleanBase = base === '/' ? '' : base.replace(/\/$/, '');
@@ -54,7 +54,7 @@ export const getRoute = (path: string, lang?: string) => {
         cleanPath = cleanPath.slice(0, -1);
     }
     
-    // Check exact match
+    // Check exact match (cleanPath is assumed to be the Spanish path)
     let translatedPath = esToEnMap[cleanPath] || cleanPath;
 
     // Handle dynamic prefixes
@@ -66,8 +66,14 @@ export const getRoute = (path: string, lang?: string) => {
         }
     }
     
-    const langPath = translatedPath === '/' ? `/${lang}/` : `/${lang}${translatedPath}`;
-    return `${cleanBase}${langPath}`;
+    if (targetLang === 'en') {
+        const langPath = translatedPath === '/' ? '/' : `${translatedPath}`;
+        return `${cleanBase}${langPath}`;
+    } else {
+        // lang === 'es'
+        const langPath = cleanPath === '/' ? '/es/' : `/es${cleanPath}`;
+        return `${cleanBase}${langPath}`;
+    }
 };
 
 /**
@@ -85,9 +91,6 @@ export const getSpanishRoute = (path: string) => {
         }
     }
 
-    // Remove /en prefix
-    cleanPath = cleanPath.replace(/^\/en/, '') || '/';
-    
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
     }
@@ -104,7 +107,7 @@ export const getSpanishRoute = (path: string) => {
         }
     }
 
-    return resolvePath(translatedPath);
+    return resolvePath(translatedPath === '/' ? '/es/' : `/es${translatedPath}`);
 };
 
 /**
@@ -112,13 +115,10 @@ export const getSpanishRoute = (path: string) => {
  * based on the current window.location.pathname.
  */
 export const getClientLocalizedRoute = (path: string) => {
-    // Si estamos en SSR, devolvemos el path normal resuelto (idealmente los componentes React 
-    // deberían recibir el lang por prop para SSR, pero esto es un fallback seguro).
     if (typeof window === 'undefined') return resolvePath(path);
     
-    // Detectamos si el navegador está en la versión inglesa
-    const isEnglish = window.location.pathname.startsWith('/en');
-    const lang = isEnglish ? 'en' : 'es';
+    const isSpanish = window.location.pathname.startsWith('/es');
+    const lang = isSpanish ? 'es' : 'en';
     
     return getRoute(path, lang);
 };

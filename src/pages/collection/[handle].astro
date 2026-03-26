@@ -1,0 +1,151 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import StoreGrid from "../../components/react/StoreGrid";
+import { storefrontQuery } from "../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { gql } from 'graphql-request';
+import { getLangFromUrl } from "../../i18n/utils";
+
+// SSG: Fetch all collections to generate paths
+export async function getStaticPaths() {
+  const GET_ALL_COLLECTIONS = gql`
+    query getAllCollections {
+      collections(first: 100) {
+        edges {
+          node {
+            handle
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await storefrontQuery(GET_ALL_COLLECTIONS);
+    const collections = response.data?.collections?.edges?.map((edge: any) => edge.node) || [];
+    
+    const handles = new Set(collections.map((c: any) => c.handle));
+    ['nuevo', 'best-sellers'].forEach(h => handles.add(h));
+
+    return Array.from(handles).map((handle) => ({
+      params: { handle },
+    }));
+  } catch (error) {
+    console.error("Error fetching collections for SSG:", error);
+    return [
+        { params: { handle: 'nuevo' } },
+        { params: { handle: 'best-sellers' } }
+    ];
+  }
+}
+
+const { handle } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
+
+let collection = null;
+let products = [];
+let error = false;
+
+if (handle) {
+  try {
+    const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
+      variables: {
+        handle: handle,
+      },
+    }, lang);
+    
+    collection = response.data?.collection;
+    products = collection?.products?.edges?.map((edge: any) => edge.node) || [];
+
+    if (collection && lang === 'en') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'new' || collection.title.toLowerCase() === 'nuevos lanzamientos') {
+          collection.title = 'New Arrivals';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'lo más vendido' || collection.title.toLowerCase() === 'best sellers') {
+          collection.title = 'Best Sellers';
+       }
+    }
+  } catch (err) {
+    console.error(`Error fetching collection ${handle}:`, err);
+    error = true;
+  }
+}
+
+const seo = {
+  title: collection?.title
+    ? `${collection.title} | DTalles Jewelry`
+    : "Collection not found",
+  description:
+    collection?.description ||
+    `Explore our exclusive ${collection?.title || ""} collection at DTalles Jewelry. Guaranteed 14k Gold.`,
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 min-h-[60vh]">
+    <div class="px-6 mb-2">
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/en" },
+          { label: "Collections", href: "/en/store" },
+          { label: collection?.title || handle || "Collection" },
+        ]}
+      />
+    </div>
+
+    {
+      collection ? (
+        <>
+          <div class="px-6 pb-6 text-center">
+            <h1 class="font-serif text-3xl md:text-5xl text-[#FAFAF5] mb-4">
+              {collection.title}
+            </h1>
+            {collection.description && (
+              <div
+                class="text-sm text-gray-400 font-light max-w-lg mx-auto leading-relaxed prose prose-invert prose-sm"
+                set:html={collection.descriptionHtml || collection.description}
+              />
+            )}
+            {!collection.description && (
+              <p class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed">
+                Exclusive 14k Gold Jewelry.
+              </p>
+            )}
+          </div>
+
+          {products.length > 0 ? (
+            <StoreGrid client:load initialProducts={products} lang={lang} />
+          ) : (
+            <div class="text-center py-20 px-4">
+              <span class="material-symbols-outlined text-6xl text-gray-700 mb-4">
+                manage_search
+              </span>
+              <p class="text-xl text-gray-500 font-light">
+                No products available in this collection at the moment.
+              </p>
+              <a
+                href="/en/store"
+                class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
+              >
+                View All
+              </a>
+            </div>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-32 px-4">
+          <h1 class="text-3xl text-gray-500 mb-4">Collection not found</h1>
+          <p class="text-gray-400 mb-8">
+            The collection "{handle}" does not exist or is unavailable.
+          </p>
+          <a
+            href="/en/store"
+            class="text-[#d4af37] underline underline-offset-4 hover:text-white"
+          >
+            Back to store
+          </a>
+        </div>
+      )
+    }
+  </div>
+</Layout>

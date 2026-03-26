@@ -2,6 +2,7 @@ import React from 'react';
 import { useStore } from '@nanostores/react';
 import { cartItems, setIsCartOpen } from '../../../store/cart';
 import { getTranslationFunctionForLang } from '../../../i18n/utils';
+import { getRoute } from '../../../utils/paths';
 import LanguageSwitcher from '../LanguageSwitcher';
 
 export default function MobileHeader({ lang = 'es' }: { lang?: 'es' | 'en' }) {
@@ -16,7 +17,7 @@ export default function MobileHeader({ lang = 'es' }: { lang?: 'es' | 'en' }) {
 
             {/* Center: Logo */}
             <div className="absolute left-1/2 -translate-x-1/2">
-                <a href="/" className="font-serif text-2xl font-bold tracking-tight text-black flex flex-col items-center">
+                <a href={getRoute('/', lang)} className="font-serif text-2xl font-bold tracking-tight text-black flex flex-col items-center">
                     DTalles
                     <span className="text-[9px] uppercase tracking-[0.2em] font-sans font-light mt-[2px]">Jewelry</span>
                 </a>

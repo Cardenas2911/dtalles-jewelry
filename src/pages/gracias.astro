@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const title = "¡Gracias por tu compra! | DTalles Jewelry";
-const description = "Tu orden ha sido confirmada. Gracias por confiar en DTalles Jewelry.";
+const title = "Thank You for Your Purchase! | DTalles Jewelry";
+const description = "Your order has been confirmed. Thank you for trusting DTalles Jewelry.";
 ---
 
 <Layout title={title} description={description}>
@@ -12,60 +12,55 @@ const description = "Tu orden ha sido confirmada. Gracias por confiar en DTalles
         </div>
         
         <h1 class="text-4xl md:text-5xl font-serif text-white mb-4 tracking-wide">
-            ¡Gracias por tu orden!
+            Thank You for Your Order!
         </h1>
         
         <p class="text-gray-400 max-w-lg mb-8 text-lg font-light leading-relaxed">
-            Hemos recibido tu pedido y estamos preparando tus joyas con el mayor cuidado. 
-            Recibirás un correo electrónico de confirmación con los detalles y el número de seguimiento de tu envío.
+            We have received your order and are preparing your jewelry with the utmost care. 
+            You will receive a confirmation email with the details and tracking number for your shipment.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
             <a 
-                href="/coleccion/nuevo" 
+                href="/en/collection/new" 
                 class="px-8 py-4 bg-[#d4af37] text-black font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors text-sm text-center"
             >
-                Ver Nuevos Ingresos
+                View New Arrivals
             </a>
             <a 
-                href="/" 
+                href="/en" 
                 class="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-[0.2em] hover:border-[#d4af37] hover:text-[#d4af37] transition-colors text-sm text-center"
             >
-                Volver al Inicio
+                Back to Home
             </a>
         </div>
         
         <div class="mt-16 pt-8 border-t border-white/10 w-full max-w-md flex flex-col items-center gap-4 text-sm text-gray-500">
-            <p>¿Tienes alguna duda sobre tu orden?</p>
-            <a href="https://wa.me/14078855666" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[#d4af37] hover:text-white transition-colors">
+            <p>Have a question about your order?</p>
+            <a href="https://wa.me/17867644952" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[#d4af37] hover:text-white transition-colors">
                 <span class="material-symbols-outlined text-lg">support_agent</span>
-                Contáctanos por WhatsApp
+                Contact us via WhatsApp
             </a>
         </div>
     </div>
 
     <script is:inline>
-        // Protección simple contra accesos directos
-        // Verifica si el usuario viene del checkout de Shopify o si tiene el parámetro correcto
         document.addEventListener('DOMContentLoaded', () => {
             const referrer = document.referrer;
             const urlParams = new URLSearchParams(window.location.search);
             const isFromCheckout = referrer.includes('checkout') || referrer.includes('myshopify.com');
             const hasOrderParam = urlParams.has('checkout_id') || urlParams.has('order');
 
-            // Si no viene del checkout y no tiene parámetros de orden, devolvemos al inicio para evitar que gente entre a dtallesjewelry.com/gracias directamente
             if (!isFromCheckout && !hasOrderParam && !window.location.hostname.includes('localhost')) {
-                window.location.replace('/');
+                window.location.replace('/en');
             }
         });
     </script>
     
     <script>
-        // Limpiamos el carrito local (Astro/React) una vez se confirmó la compra
-        import { clearCart } from '../store/cart';
+        import { clearCart } from "../store/cart";
         
         document.addEventListener("DOMContentLoaded", () => {
-            // Un modesto retraso asegura que el checkout de Shopify haya finalizado su sync
             setTimeout(() => {
                 clearCart();
             }, 500);

@@ -1,0 +1,170 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import StoreGrid from "../../../components/react/StoreGrid";
+import { storefrontQuery } from "../../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../../lib/queries/products";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import { gql } from 'graphql-request';
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import { getRoute } from "../../../utils/paths";
+
+// SSG: Fetch all collections to generate paths
+// SSG: Fetch all collections to generate paths
+export async function getStaticPaths() {
+  const GET_ALL_COLLECTIONS = gql`
+    query getAllCollections {
+      collections(first: 100) {
+        edges {
+          node {
+            handle
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await storefrontQuery(GET_ALL_COLLECTIONS);
+    const collections = response.data?.collections?.edges?.map((edge: any) => edge.node) || [];
+    
+    // Ensure critical collections are always present even if API misses them (e.g. newly created)
+    const handles = new Set(collections.map((c: any) => c.handle));
+    ['nuevo', 'best-sellers'].forEach(h => handles.add(h));
+
+    return Array.from(handles).map((handle) => ({
+      params: { handle },
+    }));
+  } catch (error) {
+    console.error("Error fetching collections for SSG:", error);
+    // Fallback headers
+    return [
+        { params: { handle: 'nuevo' } },
+        { params: { handle: 'best-sellers' } }
+    ];
+  }
+}
+
+const { handle } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+let collection = null;
+let products = [];
+let error = false;
+
+if (handle) {
+  try {
+    console.log(`[DEBUG] Fetching collection: ${handle}`);
+    const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
+      variables: {
+        handle: handle,
+      },
+    }, lang);
+    
+    collection = response.data?.collection;
+    products = collection?.products?.edges?.map((edge: any) => edge.node) || [];
+
+    // Fallback manual de traducción para títulos de colecciones comunes si Shopify no los tiene traducidos
+    if (collection && lang === 'es') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'new' || collection.title.toLowerCase() === 'new arrivals') {
+          collection.title = 'Nuevos Lanzamientos';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'best sellers') {
+          collection.title = 'Lo Más Vendido';
+       }
+    } else if (collection && lang === 'en') {
+       if (handle === 'nuevo' || collection.title.toLowerCase() === 'nuevo' || collection.title.toLowerCase() === 'nuevos lanzamientos') {
+          collection.title = 'New Arrivals';
+       } else if (handle === 'best-sellers' || collection.title.toLowerCase() === 'lo más vendido') {
+          collection.title = 'Best Sellers';
+       }
+    }
+  } catch (err) {
+    console.error(`Error fetching collection ${handle}:`, err);
+    error = true;
+  }
+}
+
+// Redirect if collection doesn't exist (optional, or show 404 content)
+if (!collection && !error) {
+   // Debugging info in console
+   console.warn(`[DEBUG] Rendering 404 state for collection: ${handle}`);
+}
+
+const seo = {
+  title: collection?.title
+    ? `${collection.title} | DTalles Jewelry`
+    : "Colección no encontrada",
+  description:
+    collection?.description ||
+    `Explora nuestra exclusiva colección ${collection?.title || ""} en DTalles Jewelry. Oro 14k garantizado.`,
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 min-h-[60vh]">
+    <div class="px-6 mb-2">
+      <Breadcrumbs
+        items={[
+          { label: t('ui.nav.home'), href: getRoute("/", lang) },
+          { label: lang === 'en' ? 'Collections' : 'Colecciones', href: getRoute("/tienda", lang) },
+          { label: collection?.title || handle || (lang === 'en' ? "Collection" : "Colección") },
+        ]}
+      />
+    </div>
+
+    {
+      collection ? (
+        <>
+          <div class="px-6 pb-6 text-center">
+            <h1 class="font-serif text-3xl md:text-5xl text-[#FAFAF5] mb-4">
+              {collection.title}
+            </h1>
+            {collection.description && (
+              <div
+                class="text-sm text-gray-400 font-light max-w-lg mx-auto leading-relaxed prose prose-invert prose-sm"
+                set:html={collection.descriptionHtml || collection.description}
+              />
+            )}
+            {!collection.description && (
+              <p class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed">
+                {lang === 'en' ? 'Exclusive 14k Gold Jewelry.' : 'Joyas exclusivas en Oro 14k.'}
+              </p>
+            )}
+          </div>
+
+          {products.length > 0 ? (
+            <StoreGrid client:load initialProducts={products} lang={lang} />
+          ) : (
+            <div class="text-center py-20 px-4">
+              <span class="material-symbols-outlined text-6xl text-gray-700 mb-4">
+                manage_search
+              </span>
+              <p class="text-xl text-gray-500 font-light">
+                {lang === 'en' ? 'No products available in this collection at the moment.' : 'No hay productos disponibles en esta colección por el momento.'}
+              </p>
+              <a
+                href={getRoute("/tienda", lang)}
+                class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
+              >
+                {t('home.viewAll')}
+              </a>
+            </div>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-32 px-4">
+          <h1 class="text-3xl text-gray-500 mb-4">{lang === 'en' ? 'Collection not found' : 'Colección no encontrada'}</h1>
+          <p class="text-gray-400 mb-8">
+            {lang === 'en' ? `Collection "${handle}" does not exist or is not available.` : `La colección "${handle}" no existe o no está disponible.`}
+          </p>
+          <a
+            href={getRoute("/tienda", lang)}
+            class="text-[#d4af37] underline underline-offset-4 hover:text-white"
+          >
+            {lang === 'en' ? 'Back to store' : 'Volver a la tienda'}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</Layout>

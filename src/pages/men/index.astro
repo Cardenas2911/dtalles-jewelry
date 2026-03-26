@@ -1,0 +1,66 @@
+---
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { storefrontQuery } from "../../lib/shopify";
+import { GET_PRODUCTS_BY_COLLECTION } from "../../lib/queries/products";
+import ProductCard from "../../components/react/ProductCard";
+import StoreGrid from "../../components/react/StoreGrid";
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+const seo = {
+    title: "14k Gold Jewelry for Men | Cuban Links and Bracelets",
+    description:
+        "Men's Collection: Solid Gold Chains and Bracelets. Elevate your status with authentic solid gold jewelry. Cuban links, ID bracelets, and graduation rings.",
+};
+
+let products = [];
+
+try {
+    const response = await storefrontQuery(GET_PRODUCTS_BY_COLLECTION, {
+        variables: {
+            handle: "hombre",
+        },
+    }, lang);
+    products =
+        response.data?.collection?.products?.edges?.map(
+            (edge: any) => edge.node,
+        ) || [];
+} catch (error) {
+    console.error("Error fetching Hombre collection:", error);
+}
+---
+
+<Layout title={seo.title} description={seo.description}>
+    <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40">
+        <div class="px-6 mb-2">
+            <Breadcrumbs
+                items={[{ label: "Home", href: "/en" }, { label: "Men" }]}
+            />
+        </div>
+
+        <div class="px-6 pb-6 text-center">
+            <h1 class="main-heading">
+                Men's Collection: Chains & Bracelets - Solid 14k Gold
+            </h1>
+            <p
+                class="text-sm text-gray-400 font-light max-w-xs mx-auto leading-relaxed"
+            >
+                Discover our curated selection of chains, rings and bracelets designed to last a lifetime. Guaranteed 14k gold.
+            </p>
+        </div>
+
+        {
+            products.length > 0 ? (
+                <StoreGrid client:load initialProducts={products} lang={lang} />
+            ) : (
+                <div class="text-center py-20 px-4">
+                    <p class="text-xl text-gray-500">
+                        No products found in this collection.
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</Layout>

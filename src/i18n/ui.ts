@@ -3,7 +3,7 @@ export const languages = {
   en: 'English',
 };
 
-export const defaultLang = 'es';
+export const defaultLang = 'en';
 
 export const ui = {
   es: {
@@ -282,6 +282,13 @@ export const ui = {
     'taxonomy.silver': 'Plata',
     'taxonomy.silver925': 'Plata 925',
     'taxonomy.tricolor': 'Tricolor',
+    'links.title': 'Enlaces | DTalles Jewelry',
+    'links.description': 'Encuentra todos nuestros enlaces oficiales: Tienda Online, WhatsApp, Plan Renueva y Citas en Showroom.',
+    'links.shop': 'Tienda Online',
+    'links.whatsapp': 'Habla con Nosotros',
+    'links.renew': 'Plan Renueva',
+    'links.showroom': 'Citas en Showroom',
+    'links.miami': 'Miami, FL',
   },
   en: {
     'nav.home': 'Home',
@@ -559,5 +566,12 @@ export const ui = {
     'taxonomy.silver': 'Silver',
     'taxonomy.silver925': '925 Silver',
     'taxonomy.tricolor': 'Tricolor',
+    'links.title': 'Links | DTalles Jewelry',
+    'links.description': 'Find all our official links: Online Shop, WhatsApp, Renew Plan, and Showroom Appointments.',
+    'links.shop': 'Online Shop',
+    'links.whatsapp': 'Chat with Us',
+    'links.renew': 'Renew Plan',
+    'links.showroom': 'Showroom Appointments',
+    'links.miami': 'Miami, FL',
   },
 } as const;

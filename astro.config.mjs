@@ -10,8 +10,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://dtallesjewelry.com',
   i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
     routing: {
       prefixDefaultLocale: false
     }

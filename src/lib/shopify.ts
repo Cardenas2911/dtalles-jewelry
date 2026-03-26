@@ -13,8 +13,8 @@ export const client = createStorefrontApiClient({
  * @param options Object containing variables map
  * @param lang App current language string ('es' | 'en'), default 'es'
  */
-export async function storefrontQuery(query: string, options: { variables?: Record<string, any> } = {}, lang: string = 'es') {
-    const languageCode = lang.toUpperCase() === 'EN' ? 'EN' : 'ES';
+export async function storefrontQuery(query: string, options: { variables?: Record<string, any> } = {}, lang: string = 'en') {
+    const languageCode = lang.toUpperCase() === 'ES' ? 'ES' : 'EN';
     const variables = {
         ...(options.variables || {}),
         language: languageCode
@@ -32,8 +32,8 @@ export async function storefrontQuery(query: string, options: { variables?: Reco
  */
 export async function clientStorefrontQuery(query: string, variables: Record<string, any> = {}) {
     // Detectar idioma desde el URL del navegador
-    const isEnglish = typeof window !== 'undefined' && window.location.pathname.startsWith('/en');
-    const languageCode = isEnglish ? 'EN' : 'ES';
+    const isSpanish = typeof window !== 'undefined' && window.location.pathname.startsWith('/es');
+    const languageCode = isSpanish ? 'ES' : 'EN';
     return client.request(query, {
         variables: {
             ...variables,

@@ -18,7 +18,14 @@
 | **Estado**          | Nano-stores (nanostores + @nanostores/react)             |
 | **Deploy**          | GitHub Pages via GitHub Actions                          |
 | **URL Producción**  | https://dtallesjewelry.com (dominio personalizado)        |
-| **Idioma del Código**| Español (comentarios, variables, contenido)             |
+| **Idioma del Código**| Español (comentarios, variables), Inglés (contenido principal SSR) |
+
+---
+
+## 🌍 Internacionalización (i18n)
+- **Idioma Principal:** Inglés (`dtallesjewelry.com/`)
+- **Idioma Secundario:** Español (`dtallesjewelry.com/es/`)
+- **Guía de Traducciones:** Leer y seguir las instrucciones en `GuiaTraducciones.md`. Todos los componentes DEBEN usar `getRoute(path, lang)` de `src/utils/paths.ts` para enlaces dinámicos. NUNCA "hardcodear" URLs de navegación.
 
 ---
 

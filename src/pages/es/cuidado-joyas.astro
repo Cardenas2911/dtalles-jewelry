@@ -1,0 +1,210 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+const seo = {
+  title: "Guía Definitiva: Cuidado de Joyas y Oro 14k | DTalles Jewelry",
+  description: "¿Cómo limpiar y cuidar sus joyas de oro para que duren siempre? Descubra los secretos de nuestros expertos en DTalles Jewelry. Guía de limpieza y almacenamiento.",
+  image: "/images/ritual-de-limpieza.webp"
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Guía Definitiva para el Cuidado de Joyas de Oro 14k",
+  "image": "https://dtallesjewelry.com/images/ritual-de-limpieza.webp",
+  "author": {
+    "@type": "Organization",
+    "name": "DTalles Jewelry"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DTalles Jewelry",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://dtallesjewelry.com/logo-gold.png"
+    }
+  },
+  "description": "Aprenda a limpiar y mantener sus joyas de oro 14k con nuestra guía experta.",
+  "mainEntity": {
+      "@type": "HowTo",
+      "name": "Cómo limpiar joyas de Oro 14k en casa",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "text": "Mezcle agua tibia con jabón suave en un recipiente pequeño."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Sumerja su joya de oro por 10-15 minutos para aflojar la suciedad."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Frote suavemente con un cepillo de cerdas suaves, prestando atención a los eslabones."
+        },
+        {
+          "@type": "HowToStep",
+          "text": "Enjuague con agua tibia y seque con un paño de microfibra sin pelusas."
+        }
+      ]
+  }
+};
+---
+
+<Layout title={seo.title} description={seo.description} image={seo.image}>
+    {/* SCHEMA INJECTION */}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <div class="bg-[#050505] min-h-screen text-[#FAFAF5]">
+        
+        {/* BREADCRUMBS */}
+        <div class="max-w-4xl mx-auto px-6 pt-28">
+            <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Cuidado de Joyas" }]} />
+        </div>
+
+        {/* HERO SECTION */}
+        <section class="relative pt-32 pb-20 px-6 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#d4af37]/10 via-[#050505] to-[#050505] -z-10"></div>
+            <div class="max-w-4xl mx-auto text-center animate-fade-in">
+                <span class="text-[#d4af37] text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Guía de Mantenimiento</span>
+                <h1 class="text-4xl md:text-6xl font-serif text-white mb-8 leading-tight">
+                    El Arte de Cuidar <br/> <span class="italic text-[#d4af37]">su Legado</span>
+                </h1>
+                <p class="text-gray-400 font-light text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                    El oro 14k es eterno, pero su brillo depende del trato que recibe. 
+                    Descubra los secretos para preservar la magnificencia de sus piezas por generaciones.
+                </p>
+            </div>
+        </section>
+
+        {/* MAIN CONTENT */}
+        <div class="max-w-5xl mx-auto px-6 pb-32 space-y-24">
+
+            {/* 1. THE RITUAL (Cleaning) */}
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center group">
+                <div class="order-2 md:order-1 space-y-8">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="w-12 h-[1px] bg-[#d4af37]"></span>
+                        <h2 class="text-2xl font-serif text-[#d4af37]">El Ritual de Limpieza</h2>
+                    </div>
+                    <p class="text-gray-300 font-light leading-relaxed">
+                        Para mantener el resplandor de sus cadenas y esclavas, recomendamos una limpieza suave pero efectiva al menos una vez al mes.
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] border border-[#d4af37]/20 text-sm font-serif">1</div>
+                            <div>
+                                <h3 class="text-white font-medium mb-1">La Preparación</h3>
+                                <p class="text-sm text-gray-400 font-light">Mezcle agua tibia con unas gotas de jabón líquido suave (sin detergentes agresivos) en un recipiente.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] border border-[#d4af37]/20 text-sm font-serif">2</div>
+                            <div>
+                                <h3 class="text-white font-medium mb-1">La Inmersión</h3>
+                                <p class="text-sm text-gray-400 font-light">Deje reposar su joya por 15 minutos. Esto permite que el agua jabonosa penetre en los eslabones y afloje impurezas.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] border border-[#d4af37]/20 text-sm font-serif">3</div>
+                            <div>
+                                <h3 class="text-white font-medium mb-1">El Detalle</h3>
+                                <p class="text-sm text-gray-400 font-light">Use un cepillo de cerdas extra suaves (como uno de bebé) para limpiar delicadamente entre cada eslabón o engarce.</p>
+                            </div>
+                        </li>
+                         <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] border border-[#d4af37]/20 text-sm font-serif">4</div>
+                            <div>
+                                <h3 class="text-white font-medium mb-1">El Secado</h3>
+                                <p class="text-sm text-gray-400 font-light">Enjuague con agua tibia abundante y seque inmediatamente con un paño de microfibra para evitar manchas de agua.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                {/* Visual - Real Image */}
+                <div class="order-1 md:order-2 relative h-[500px] bg-[#111] rounded-sm overflow-hidden border border-[#d4af37]/20 group-hover:border-[#d4af37]/40 transition-colors duration-500 shadow-2xl">
+                    <img 
+                        src="/images/ritual-de-limpieza.webp" 
+                        alt="Limpieza profesional de joyas de oro en Dtalles Jewelry" 
+                        class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                    />
+                     <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                        <p class="text-xs text-[#d4af37] uppercase tracking-widest text-center">Cuidados Esenciales</p>
+                    </div>
+                </div>
+            </section>
+
+             {/* 2. THE LIFESTYLE (Do's and Don'ts) */}
+            <section class="bg-[#0a0a0a] p-8 md:p-16 rounded-sm border border-white/5 mx-auto max-w-6xl">
+                 <div class="text-center mb-12">
+                     <span class="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] mb-3 block">Estilo de Vida</span>
+                    <h2 class="text-3xl font-serif text-white">Lo que su Oro <span class="text-[#d4af37] italic">Ama y Odia</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {/* LOVES (Do's) */}
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-serif text-white flex items-center gap-3">
+                             <span className="material-symbols-outlined text-green-500">check_circle</span>
+                             Hábitos Recomendados
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Último en poner:</strong> Póngase sus joyas después de aplicar perfumes, lociones o spray para el cabello. Los químicos cosméticos pueden opacar el brillo.</span>
+                            </li>
+                             <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Limpieza post-uso:</strong> Al final del día, limpie suavemente su joya con un paño seco para remover aceites corporales y sudor.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Revisión periódica:</strong> Verifique los broches y cierres regularmente para asegurar que funcionen correctamente.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* HATES (Don'ts) */}
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-serif text-white flex items-center gap-3">
+                             <span className="material-symbols-outlined text-red-500">cancel</span>
+                             Evitar Estrictamente
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Cloro y Piscinas:</strong> El cloro es el enemigo #1 del oro. Puede debilitar la estructura del metal y causar roturas irreparables.</span>
+                            </li>
+                             <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Gimnasio y Pesas:</strong> El oro es un metal blando. El contacto con barras de acero puede rayarlo o deformarlo gravemente.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                                <span><strong>Limpiadores Caseros:</strong> Nunca use pasta dental, bicarbonato directo o lejía. Son abrasivos que rayan la superficie pulida.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+             {/* 3. STORAGE (The Vault) */}
+             <section class="max-w-4xl mx-auto text-center space-y-8">
+                <span class="material-symbols-outlined text-[#d4af37] text-5xl">sensor_door</span>
+                <h2 class="text-3xl md:text-4xl font-serif text-white">El Santuario</h2>
+                 <p class="text-gray-400 font-light text-base md:text-lg leading-relaxed">
+                    Cuando no esté usando sus joyas, guárdelas en su estuche original o en bolsas de tela suave individuales. 
+                    El contacto entre diamantes y oro puede causar rayones. Manténgalas en un lugar fresco y seco, lejos de la humedad directa del baño.
+                </p>
+                <div class="pt-8">
+                     <a href="/tienda" class="inline-block px-8 py-3 border border-[#d4af37] text-[#d4af37] text-xs font-bold uppercase tracking-widest hover:bg-[#d4af37] hover:text-[#050505] transition-all duration-300">
+                        Ver Colección
+                    </a>
+                </div>
+             </section>
+
+        </div>
+    </div>
+</Layout>
