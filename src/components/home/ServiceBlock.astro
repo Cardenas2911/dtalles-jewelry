@@ -1,5 +1,5 @@
 ---
-import { resolvePath } from "../../utils/paths";
+import { resolvePath, getRoute } from "../../utils/paths";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const bgImage = resolvePath("/images/jeweler-appraising.webp");
@@ -55,7 +55,7 @@ const t = useTranslations(lang);
                     class="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
                 >
                     <a
-                        href={lang === 'en' ? "/en/services/vender-oro" : "/vender-oro"}
+                        href={getRoute("/servicios/vender-oro", lang)}
                         class="bg-black text-[#d4af37] border border-[#d4af37] px-8 py-4 font-bold tracking-widest text-xs uppercase hover:bg-[#d4af37] hover:text-black transition-all"
                     >
                         {t('home.service.cta')}

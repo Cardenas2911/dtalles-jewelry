@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { resolvePath } from '../../utils/paths';
+import { resolvePath, getRoute } from '../../utils/paths';
 import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 // Slides Configuration
@@ -74,7 +74,7 @@ export default function HeroSlider({ lang = 'es' }: HeroSliderProps) {
         title: t(`home.hero${slide.id}.title` as any),
         subtitle: t(`home.hero${slide.id}.subtitle` as any),
         cta: t(`home.hero${slide.id}.cta` as any),
-        ctaLink: lang === 'en' ? `/en${slide.ctaLink}` : slide.ctaLink
+        ctaLink: getRoute(slide.ctaLink, lang)
     }));
 
     const [currentSlide, setCurrentSlide] = useState(0);

@@ -4,6 +4,7 @@ import { isSearchOpen, setIsSearchOpen } from '../../store/search';
 import { clientStorefrontQuery } from '../../lib/shopify';
 import { SEARCH_PRODUCTS_QUERY } from '../../lib/queries/search';
 import { getTranslationFunctionForLang } from '../../i18n/utils';
+import { getRoute } from '../../utils/paths';
 
 export default function SearchModal({ lang = 'es' }: { lang?: 'es' | 'en' }) {
     const t = getTranslationFunctionForLang(lang);
@@ -95,7 +96,7 @@ export default function SearchModal({ lang = 'es' }: { lang?: 'es' | 'en' }) {
                             {results.map((product) => (
                                 <a
                                     key={product.id}
-                                    href={`/producto/${product.handle}`}
+                                    href={getRoute(`/producto/${product.handle}`, lang)}
                                     className="flex items-center gap-4 p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-colors border border-white/5 group"
                                     onClick={() => setIsSearchOpen(false)}
                                 >

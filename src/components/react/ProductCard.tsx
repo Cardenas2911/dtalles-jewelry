@@ -4,6 +4,7 @@ import { isFavorite, toggleFavorite, favoriteItems } from '../../store/favorites
 import { addCartItem, setIsCartOpen } from '../../store/cart';
 import { resolvePath, getRoute, getClientLocalizedRoute } from '../../utils/paths';
 import { getTranslationFunctionForLang } from '../../i18n/utils';
+import { tagTranslations } from '../../i18n/ui';
 
 interface Product {
     id: string;
@@ -60,7 +61,10 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
     const t = getTranslationFunctionForLang(lang || 'es');
 
     // Logic for Badges
-    const isNew = product.tags?.includes('Nuevo') || product.tags?.includes('New');
+    const isNew = product.tags?.some(tag => {
+        const lower = tag.toLowerCase();
+        return lower === 'nuevo' || lower === 'new';
+    });
     const inventory = product.totalInventory || product.variants?.edges?.[0]?.node?.quantityAvailable || 0;
     const isLowStock = inventory > 0 && inventory < 5;
 

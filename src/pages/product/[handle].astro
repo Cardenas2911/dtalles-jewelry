@@ -249,14 +249,14 @@ if (product.videoUrl?.value) {
 // Breadcrumbs en inglés
 const tags = product.tags || [];
 let collectionName = "Store";
-let collectionUrl = "/en/store";
+let collectionUrl = "/store";
 
 if (tags.some((t: string) => t.toLowerCase() === "hombre")) {
   collectionName = "Men";
-  collectionUrl = "/en/men";
+  collectionUrl = "/men";
 } else if (tags.some((t: string) => t.toLowerCase() === "mujer")) {
   collectionName = "Women";
-  collectionUrl = "/en/women";
+  collectionUrl = "/women";
 } else if (
   tags.some(
     (t: string) =>
@@ -264,14 +264,14 @@ if (tags.some((t: string) => t.toLowerCase() === "hombre")) {
   )
 ) {
   collectionName = "Kids";
-  collectionUrl = "/en/kids";
+  collectionUrl = "/kids";
 } else if (tags.some((t: string) => t.toLowerCase() === "religiosa")) {
   collectionName = "Religious";
-  collectionUrl = "/en/collection/religious";
+  collectionUrl = "/collection/religious";
 }
 
 const breadcrumbItems = [
-  { label: "Home", href: "/en" },
+  { label: "Home", href: "/" },
   { label: collectionName, href: collectionUrl },
   { label: product.title },
 ];
@@ -306,7 +306,7 @@ const breadcrumbItems = [
         We are available in Miami to assist you.
       </p>
       <a
-        href="/en/contact"
+        href="/contact"
         class="inline-block px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
       >
         Contact Support

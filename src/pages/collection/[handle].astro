@@ -86,8 +86,8 @@ const seo = {
     <div class="px-6 mb-2">
       <Breadcrumbs
         items={[
-          { label: "Home", href: "/en" },
-          { label: "Collections", href: "/en/store" },
+          { label: "Home", href: "/" },
+          { label: "Collections", href: "/store" },
           { label: collection?.title || handle || "Collection" },
         ]}
       />
@@ -124,7 +124,7 @@ const seo = {
                 No products available in this collection at the moment.
               </p>
               <a
-                href="/en/store"
+                href="/store"
                 class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] uppercase tracking-widest text-xs font-bold hover:bg-[#d4af37] hover:text-black transition-colors"
               >
                 View All
@@ -139,7 +139,7 @@ const seo = {
             The collection "{handle}" does not exist or is unavailable.
           </p>
           <a
-            href="/en/store"
+            href="/store"
             class="text-[#d4af37] underline underline-offset-4 hover:text-white"
           >
             Back to store

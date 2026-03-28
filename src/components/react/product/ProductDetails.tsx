@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getTranslationFunctionForLang } from '../../../i18n/utils';
+import { tagTranslations } from '../../../i18n/ui';
 
 interface ProductDetailsProps {
     details: {
@@ -118,11 +119,15 @@ export default function ProductDetails({ details, lang = 'es' }: ProductDetailsP
                                 <div className="flex flex-col col-span-2">
                                     <span className="text-gray-500 text-xs uppercase mb-2">{t('details.etiquetas')}</span>
                                     <div className="flex flex-wrap gap-2">
-                                        {details.tags.map(tag => (
-                                            <span key={tag} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-gray-300">
-                                                {tag}
-                                            </span>
-                                        ))}
+                                        {details.tags.map(tag => {
+                                            const lowerTag = tag.toLowerCase();
+                                            const translatedTag = tagTranslations[lang]?.[lowerTag] || tag;
+                                            return (
+                                                <span key={tag} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-gray-300">
+                                                    {translatedTag}
+                                                </span>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}

@@ -1,5 +1,5 @@
 ---
-import { resolvePath } from "../../utils/paths";
+import { resolvePath, getRoute } from "../../utils/paths";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
@@ -12,7 +12,7 @@ const t = useTranslations(lang);
     >
         {/* Item 1: Cuban Links — Columna izquierda, altura completa */}
         <a
-            href={resolvePath(lang === 'en' ? "/en/men" : "/hombre")}
+            href={getRoute("/hombre", lang)}
 
             class="group relative overflow-hidden h-[420px] md:h-full rounded-lg block animate-on-scroll"
         >
@@ -51,7 +51,7 @@ const t = useTranslations(lang);
         <div class="grid grid-rows-[1fr_1fr_1fr] gap-4 md:gap-5 h-full">
             {/* Item 2: Religiosa */}
             <a
-                href={resolvePath(lang === 'en' ? "/en/collection/religiosa" : "/coleccion/religiosa")}
+                href={getRoute("/coleccion/religiosa", lang)}
                 class="group relative overflow-hidden h-[220px] md:h-full rounded-lg block animate-on-scroll delay-100"
             >
                 <div
@@ -80,7 +80,7 @@ const t = useTranslations(lang);
 
             {/* Item 3: Mujer */}
             <a
-                href={resolvePath(lang === 'en' ? "/en/women" : "/mujer")}
+                href={getRoute("/mujer", lang)}
 
                 class="group relative overflow-hidden h-[220px] md:h-full rounded-lg block animate-on-scroll delay-200"
             >
@@ -110,7 +110,7 @@ const t = useTranslations(lang);
 
             {/* Item 4: Regalos */}
             <a
-                href={resolvePath(lang === 'en' ? "/en/gift-guide" : "/guia-regalos")}
+                href={getRoute("/guia-regalos", lang)}
 
                 class="group relative overflow-hidden h-[220px] md:h-full rounded-lg block animate-on-scroll delay-300"
             >

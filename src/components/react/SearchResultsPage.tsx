@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { clientStorefrontQuery } from '../../lib/shopify';
 import { SEARCH_PRODUCTS_QUERY } from '../../lib/queries/search';
-import { resolvePath } from '../../utils/paths';
+import { getRoute, getClientLocalizedRoute } from '../../utils/paths';
 
 export default function SearchResultsPage() {
     const [query, setQuery] = useState('');
@@ -56,7 +56,7 @@ export default function SearchResultsPage() {
                     {results.map((product) => (
                         <div key={product.id} className="group cursor-pointer">
                             <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-[#121212] mb-3 shadow-md transition-transform duration-500 group-hover:scale-[1.02]">
-                                <a href={resolvePath(`/producto/${product.handle}`)} className="absolute inset-0 z-0 block">
+                                <a href={getClientLocalizedRoute(`/producto/${product.handle}`)} className="absolute inset-0 z-0 block">
                                     <img
                                         src={product.featuredImage?.url}
                                         alt={product.featuredImage?.altText || product.title}
@@ -67,7 +67,7 @@ export default function SearchResultsPage() {
                             </div>
                             <div className="text-center px-1 flex flex-col gap-2">
                                 <h3 className="text-sm font-medium text-slate-200 line-clamp-1 group-hover:text-[#d4af37] transition-colors tracking-wide">
-                                    <a href={resolvePath(`/producto/${product.handle}`)}>{product.title}</a>
+                                    <a href={getClientLocalizedRoute(`/producto/${product.handle}`)}>{product.title}</a>
                                 </h3>
                                 <p className="text-md font-bold text-[#d4af37]">
                                     ${parseFloat(product.priceRange.minVariantPrice.amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
@@ -80,7 +80,7 @@ export default function SearchResultsPage() {
                 <div className="flex flex-col items-center justify-center py-20 text-center text-gray-400">
                     <span className="material-symbols-outlined text-6xl mb-4 opacity-50">search_off</span>
                     <p className="text-xl">No encontramos resultados para tu búsqueda.</p>
-                    <a href={resolvePath('/tienda')} className="mt-6 text-[#d4af37] hover:underline">Ver todo el catálogo</a>
+                    <a href={getClientLocalizedRoute('/tienda')} className="mt-6 text-[#d4af37] hover:underline">Ver todo el catálogo</a>
                 </div>
             )}
         </div>

@@ -8,22 +8,22 @@ export default function MobileCollectionGrid({ lang = 'es' }: { lang?: 'es' | 'e
     const collections = [
         {
             titleKey: 'nav.men' as const,
-            handle: "hombre",
+            href: "/hombre",
             image: resolvePath("/images/menu-hombre.webp")
         },
         {
             titleKey: 'nav.women' as const,
-            handle: "mujer",
+            href: "/mujer",
             image: resolvePath("/images/menu-mujer.webp")
         },
         {
             titleKey: 'nav.religious' as const,
-            handle: "coleccion/religiosa",
+            href: "/coleccion/religiosa",
             image: resolvePath("/images/menu-religiosos.webp")
         },
         {
             titleKey: 'nav.gifts' as const,
-            handle: "guia-regalos",
+            href: "/guia-regalos",
             image: resolvePath("/images/menu-regalos.webp")
         }
     ];
@@ -36,7 +36,7 @@ export default function MobileCollectionGrid({ lang = 'es' }: { lang?: 'es' | 'e
                 {collections.map((coll, idx) => (
                     <a
                         key={idx}
-                        href={getRoute(`/coleccion/${coll.handle}`, lang)}
+                        href={getRoute(coll.href, lang)}
                         className="relative aspect-square rounded-2xl overflow-hidden shadow-sm group block"
                     >
                         {/* Background Image */}
