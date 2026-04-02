@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getRoute } from "../../utils/paths";
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 
 const seo = {
   title: "Preguntas Frecuentes | DTalles Jewelry",
@@ -37,7 +41,7 @@ const faqs = [
 
 <Layout title={seo.title} description={seo.description}>
   <div class="max-w-[1920px] mx-auto pt-32 lg:pt-40 pb-20 px-6 min-h-[80vh]">
-    <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "FAQ" }]} />
+    <Breadcrumbs items={[{ label: "Inicio", href: getRoute("/", lang) }, { label: "FAQ" }]} />
 
     <div class="max-w-4xl mx-auto mt-12">
       <div class="text-center mb-16 animate-fade-in">
@@ -68,10 +72,16 @@ const faqs = [
         ))}
       </div>
 
+      <div class="mt-12 p-6 border-l-2 border-[#d4af37]/30 bg-white/5 rounded-r-sm">
+        <p class="text-gray-500 text-[11px] leading-relaxed italic">
+          Tasas desde 0–36% APR (Tasa de interés anual). Las opciones de pago a través de Affirm están sujetas a una verificación de elegibilidad y son proporcionadas por estos socios prestamistas: <a href="https://affirm.com/lenders" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#d4af37] transition-colors">affirm.com/lenders</a>. Las opciones dependen del monto de su compra y es posible que se requiera un pago inicial. Residentes de CA: Los préstamos de Affirm Loan Services, LLC se realizan o se organizan de acuerdo con una licencia de la Ley de Financiamiento de California. Para obtener licencias y divulgaciones, consulte <a href="https://affirm.com/licenses" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#d4af37] transition-colors">affirm.com/licenses</a>. Por ejemplo, una compra de $800 podría dividirse en 12 pagos mensuales de $72.21 al 15% APR. Para obtener detalles completos, consulte las <a href="https://www.affirm.com/disclosures" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#d4af37] transition-colors">Divulgaciones de Affirm</a>.
+        </p>
+      </div>
+
        <div class="mt-20 text-center p-12 border border-[#d4af37]/20 bg-[#0a0a0a] rounded-sm">
             <h3 class="text-2xl font-serif text-white mb-4">¿Aún tienes dudas?</h3>
             <p class="text-gray-400 mb-8">Nuestro equipo está disponible para ayudarte por WhatsApp o Correo.</p>
-            <a href="/contacto" class="inline-block px-8 py-3 bg-[#d4af37] text-black font-bold uppercase tracking-widest text-xs hover:bg-white transition-colors">
+            <a href={getRoute("/contacto", lang)} class="inline-block px-8 py-3 bg-[#d4af37] text-black font-bold uppercase tracking-widest text-xs hover:bg-white transition-colors">
                 Contactar Soporte
             </a>
        </div>

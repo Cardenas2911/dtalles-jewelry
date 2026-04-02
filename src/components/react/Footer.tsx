@@ -188,11 +188,20 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
 
                 {/* 3. Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-[#d4af37]/10">
-                    <div className="flex flex-wrap justify-center gap-8 text-[11px] text-gray-500 uppercase tracking-widest font-medium w-full">
-                        <span>&copy; {currentYear} Dtalles Jewelry</span>
-                        <a href={getRoute('/politicas', lang)} className="hover:text-white transition-colors">{t('footer.privacyPolicy')}</a>
-                        <a href={getRoute('/terminos', lang)} className="hover:text-white transition-colors">{t('footer.terms')}</a>
-                        <a href={getRoute('/accesibilidad', lang)} className="hover:text-white transition-colors">{t('footer.accessibility')}</a>
+                    <div className="flex flex-col items-center gap-6 w-full">
+                        <p className="text-[10px] text-gray-500 uppercase tracking-widest text-center max-w-2xl px-4 leading-relaxed">
+                            {t('footer.affirmDetail')}{' '}
+                            <a href="https://www.affirm.com/disclosures" target="_blank" rel="noopener noreferrer" className="text-[#d4af37] hover:text-white transition-colors underline underline-offset-4 decoration-[#d4af37]/30">
+                                {t('footer.affirmLink')}
+                            </a>.
+                        </p>
+                        
+                        <div className="flex flex-wrap justify-center gap-8 text-[11px] text-gray-500 uppercase tracking-widest font-medium w-full">
+                            <span>&copy; {currentYear} Dtalles Jewelry</span>
+                            <a href={getRoute('/politicas', lang)} className="hover:text-white transition-colors">{t('footer.privacyPolicy')}</a>
+                            <a href={getRoute('/terminos', lang)} className="hover:text-white transition-colors">{t('footer.terms')}</a>
+                            <a href={getRoute('/accesibilidad', lang)} className="hover:text-white transition-colors">{t('footer.accessibility')}</a>
+                        </div>
                     </div>
                 </div>
             </div>
