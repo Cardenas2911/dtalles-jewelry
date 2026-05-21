@@ -20,7 +20,7 @@ const PARAM_ID = import.meta.env.PUBLIC_SNAP_PARAM_ID ?? '';
 const ORIGINATION_URL = import.meta.env.PUBLIC_SNAP_ORIGINATION_URL ?? 'https://bk.snapfinance.com/origination';
 const BANNER_CDN = import.meta.env.PUBLIC_SNAP_BANNER_CDN ?? 'https://assets.snapfinance.com/app/images';
 
-const href = PARAM_ID ? `${ORIGINATION_URL}?paramId=${encodeURIComponent(PARAM_ID)}` : ORIGINATION_URL;
+const href = PARAM_ID ? `${ORIGINATION_URL}?paramId=${PARAM_ID}` : ORIGINATION_URL;
 const imgSrc = `${BANNER_CDN}/${lang}_apply_image_06.jpeg`;
 const esFallback = `${BANNER_CDN}/es_apply_image_06.jpeg`;
 const logoSrc = resolvePath('/images/snap/snap-logo.svg');

@@ -17,7 +17,7 @@ const ORIGINATION_URL: string = env.PUBLIC_SNAP_ORIGINATION_URL ?? 'https://bk.s
 const BANNER_CDN: string = env.PUBLIC_SNAP_BANNER_CDN ?? 'https://assets.snapfinance.com/app/images';
 
 const buildHref = () =>
-    PARAM_ID ? `${ORIGINATION_URL}?paramId=${encodeURIComponent(PARAM_ID)}` : ORIGINATION_URL;
+    PARAM_ID ? `${ORIGINATION_URL}?paramId=${PARAM_ID}` : ORIGINATION_URL;
 
 const buildImgSrc = (lang: 'en' | 'es') => `${BANNER_CDN}/${lang}_apply_image_06.jpeg`;
 const ES_FALLBACK_SRC = `${BANNER_CDN}/es_apply_image_06.jpeg`;
