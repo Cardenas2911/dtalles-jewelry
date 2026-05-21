@@ -70,6 +70,15 @@ export default function PaymentIcons({ className = "flex flex-wrap justify-cente
             <CardWrapper>
                 <Affirm {...commonIconProps} />
             </CardWrapper>
+
+            {/* Snap Finance */}
+            <CardWrapper bg="bg-[#0078D7]">
+                <img
+                    src="/images/snap/snap-logo.svg"
+                    alt="Snap Finance"
+                    style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain' }}
+                />
+            </CardWrapper>
         </div>
     );
 }

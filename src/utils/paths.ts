@@ -33,7 +33,8 @@ export const esToEnMap: Record<string, string> = {
     '/rastrear': '/track-order',
     '/favoritos': '/wishlist',
     '/busqueda': '/search',
-    '/servicios/vender-oro': '/services/sell-gold'
+    '/servicios/vender-oro': '/services/sell-gold',
+    '/financiamiento': '/financing'
 };
 
 export const enToEsMap: Record<string, string> = Object.fromEntries(

@@ -1,0 +1,89 @@
+---
+import { ui } from '../i18n/ui';
+import { resolvePath } from '../utils/paths';
+
+interface Props {
+    variant?: 'compact' | 'card' | 'hero';
+    lang?: 'en' | 'es';
+    source: 'product' | 'cart' | 'financing' | 'footer';
+    class?: string;
+}
+
+const { variant = 'card', lang = 'en', source, class: className = '' } = Astro.props;
+
+const t = (key: string): string => {
+    const dict = (ui as Record<string, Record<string, string>>)[lang] ?? ui.en;
+    return dict[key] ?? key;
+};
+
+const PARAM_ID = import.meta.env.PUBLIC_SNAP_PARAM_ID ?? '';
+const ORIGINATION_URL = import.meta.env.PUBLIC_SNAP_ORIGINATION_URL ?? 'https://bk.snapfinance.com/origination';
+const BANNER_CDN = import.meta.env.PUBLIC_SNAP_BANNER_CDN ?? 'https://assets.snapfinance.com/app/images';
+
+const href = PARAM_ID ? `${ORIGINATION_URL}?paramId=${encodeURIComponent(PARAM_ID)}` : ORIGINATION_URL;
+const imgSrc = `${BANNER_CDN}/${lang}_apply_image_06.jpeg`;
+const esFallback = `${BANNER_CDN}/es_apply_image_06.jpeg`;
+const logoSrc = resolvePath('/images/snap/snap-logo.svg');
+---
+
+{variant === 'card' && (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        aria-label={t('snap.aria.banner')}
+        data-snap-source={source}
+        class:list={['group block p-6 rounded-lg bg-white/5 border border-white/10 hover:border-[#d4af37]/40 transition-all duration-300 no-underline', className]}
+    >
+        <img
+            src={imgSrc}
+            alt={t('snap.img.alt')}
+            loading="lazy"
+            width="300"
+            height="250"
+            class="w-full h-auto rounded shadow-[4px_2px_6px_#010101]"
+            onerror={`this.onerror=null; if(this.dataset.fb!=='es'){this.dataset.fb='es'; this.src='${esFallback}';} else { this.style.display='none'; }`}
+        />
+        <span class="block mt-4 text-sm text-[#d4af37] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform">
+            {t('snap.financing.snap_cta')} →
+        </span>
+    </a>
+)}
+
+{variant === 'compact' && (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        aria-label={t('snap.aria.banner')}
+        data-snap-source={source}
+        class:list={['group flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#d4af37]/30 transition-all duration-300 no-underline', className]}
+    >
+        <img src={logoSrc} alt="" aria-hidden="true" width="48" height="20" class="h-5 w-auto shrink-0" />
+        <span class="flex flex-col leading-tight">
+            <span class="text-[11px] uppercase tracking-wider text-white/50">{t('snap.product.heading')}</span>
+            <span class="text-sm font-medium text-white/90 group-hover:text-[#d4af37] transition-colors">{t('snap.product.cta')}</span>
+        </span>
+    </a>
+)}
+
+{variant === 'hero' && (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        aria-label={t('snap.aria.banner')}
+        data-snap-source={source}
+        class:list={['group block', className]}
+    >
+        <img
+            src={imgSrc}
+            alt={t('snap.img.alt')}
+            loading="lazy"
+            width="728"
+            height="90"
+            class="w-full h-auto rounded shadow-[4px_2px_6px_#010101]"
+            onerror={`this.onerror=null; if(this.dataset.fb!=='es'){this.dataset.fb='es'; this.src='${esFallback}';} else { this.style.display='none'; }`}
+        />
+    </a>
+)}

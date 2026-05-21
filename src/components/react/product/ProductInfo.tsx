@@ -6,6 +6,7 @@ import StickyAddToCart from './StickyAddToCart';
 import PaymentIcons from '../PaymentIcons';
 import CountdownTimer from './CountdownTimer';
 import AffirmPromotionalMessage from '../AffirmPromotionalMessage';
+import SnapFinanceBanner from '../SnapFinanceBanner';
 import { getTranslationFunctionForLang } from '../../../i18n/utils';
 
 interface Variant {
@@ -191,6 +192,9 @@ export default function ProductInfo({ product, variants, selectedVariant, onVari
 
                 {/* Scarcity / Urgency */}
                 <CountdownTimer lang={lang} />
+
+                {/* Snap Finance — premium financing alt above CTA */}
+                <SnapFinanceBanner variant="compact" lang={lang} source="product" />
 
                 {/* Main CTA */}
                 <div className="pt-4">

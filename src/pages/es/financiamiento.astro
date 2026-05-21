@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SnapFinanceBanner from '../../components/SnapFinanceBanner.astro';
+import { ui } from '../../i18n/ui';
+
+const lang = 'es' as const;
+const t = (key: string): string => (ui as Record<string, Record<string, string>>)[lang][key] ?? key;
+
+const title = t('snap.financing.title') + ' | DTalles Jewelry';
+const description = t('snap.financing.subtitle');
+---
+
+<Layout title={title} description={description}>
+    <main class="bg-[#050505] text-[#FAFAF5] min-h-screen pt-32 pb-24">
+        <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+
+            <header class="text-center mb-16">
+                <span class="text-[#d4af37] text-xs uppercase tracking-[0.3em] mb-4 block">Dtalles Jewelry</span>
+                <h1 class="font-serif text-4xl md:text-6xl text-white mb-6">{t('snap.financing.title')}</h1>
+                <p class="text-gray-400 font-light text-lg max-w-2xl mx-auto">{t('snap.financing.subtitle')}</p>
+            </header>
+
+            <section class="grid md:grid-cols-2 gap-8 mb-20">
+                <div class="p-8 rounded-lg bg-white/5 border border-white/10">
+                    <h2 class="font-serif text-2xl text-[#d4af37] mb-6">{t('snap.financing.affirm_title')}</h2>
+                    <ul class="space-y-3 text-gray-300 text-sm mb-8">
+                        <li>✓ {t('snap.financing.affirm_best_for')}</li>
+                        <li>✓ {t('snap.financing.affirm_check')}</li>
+                        <li>✓ {t('snap.financing.affirm_type')}</li>
+                    </ul>
+                    <p class="text-white/50 text-xs uppercase tracking-widest">{t('snap.financing.affirm_cta')}</p>
+                </div>
+
+                <div class="p-8 rounded-lg bg-white/5 border border-white/10 flex flex-col">
+                    <h2 class="font-serif text-2xl text-[#d4af37] mb-6">{t('snap.financing.snap_title')}</h2>
+                    <ul class="space-y-3 text-gray-300 text-sm mb-8">
+                        <li>✓ {t('snap.financing.snap_best_for')}</li>
+                        <li>✓ {t('snap.financing.snap_check')}</li>
+                        <li>✓ {t('snap.financing.snap_type')}</li>
+                    </ul>
+                    <div class="mt-auto">
+                        <SnapFinanceBanner variant="card" lang={lang} source="financing" />
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-3xl text-white text-center mb-10">{t('snap.financing.faq_title')}</h2>
+                <div class="space-y-6">
+                    <details class="group border-b border-white/10 pb-4">
+                        <summary class="cursor-pointer text-[#d4af37] font-medium text-base flex justify-between items-center">
+                            <span>{t('snap.financing.faq_q1')}</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-gray-300 text-sm mt-3 leading-relaxed">{t('snap.financing.faq_a1')}</p>
+                    </details>
+                    <details class="group border-b border-white/10 pb-4">
+                        <summary class="cursor-pointer text-[#d4af37] font-medium text-base flex justify-between items-center">
+                            <span>{t('snap.financing.faq_q2')}</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-gray-300 text-sm mt-3 leading-relaxed">{t('snap.financing.faq_a2')}</p>
+                    </details>
+                    <details class="group border-b border-white/10 pb-4">
+                        <summary class="cursor-pointer text-[#d4af37] font-medium text-base flex justify-between items-center">
+                            <span>{t('snap.financing.faq_q3')}</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-gray-300 text-sm mt-3 leading-relaxed">{t('snap.financing.faq_a3')}</p>
+                    </details>
+                    <details class="group border-b border-white/10 pb-4">
+                        <summary class="cursor-pointer text-[#d4af37] font-medium text-base flex justify-between items-center">
+                            <span>{t('snap.financing.faq_q4')}</span>
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-gray-300 text-sm mt-3 leading-relaxed">{t('snap.financing.faq_a4')}</p>
+                    </details>
+                </div>
+                <p class="text-xs text-white/40 text-center mt-10">{t('snap.disclaimer')}</p>
+            </section>
+        </div>
+    </main>
+</Layout>

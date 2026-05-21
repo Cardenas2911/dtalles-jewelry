@@ -157,6 +157,7 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
                             <FooterLink href={getRoute('/envios', lang)} label={lang === 'en' ? 'Shipping & Delivery' : 'Envíos y Entregas'} />
                             <FooterLink href={getRoute('/devoluciones', lang)} label={lang === 'en' ? 'Returns & Exchanges' : 'Cambios y Devoluciones'} />
                             <FooterLink href={getRoute('/garantia', lang)} label={lang === 'en' ? 'Lifetime Warranty' : 'Garantía de Por Vida'} />
+                            <FooterLink href={getRoute('/financiamiento', lang)} label={lang === 'en' ? 'Financing Options' : 'Opciones de Financiamiento'} highlight={true} />
                             <FooterLink href={getRoute('/guia-tallas', lang)} label={lang === 'en' ? 'Size Guide' : 'Guía de Tallas'} />
                             <FooterLink href={getRoute('/cuidado-joyas', lang)} label={lang === 'en' ? 'Jewelry Care' : 'Cuidado de tus Joyas'} />
                             <FooterLink href={getRoute('/faq', lang)} label={lang === 'en' ? 'FAQ' : 'Preguntas Frecuentes'} />

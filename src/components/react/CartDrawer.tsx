@@ -5,7 +5,10 @@ import { client } from '../../lib/shopify';
 import { CART_CREATE } from '../../lib/mutations/cart';
 import PaymentIcons from './PaymentIcons';
 import AffirmPromotionalMessage from './AffirmPromotionalMessage';
+import SnapFinanceBanner from './SnapFinanceBanner';
 import { getTranslationFunctionForLang } from '../../i18n/utils';
+
+const SNAP_MIN_AMOUNT = Number(import.meta.env.PUBLIC_SNAP_MIN_AMOUNT ?? 150);
 
 export default function CartDrawer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
     const t = getTranslationFunctionForLang(lang);
@@ -198,6 +201,10 @@ export default function CartDrawer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
                         <div className="flex justify-center w-full">
                             <AffirmPromotionalMessage price={total} pageType="cart" className="mb-2 !mt-0 text-center" />
                         </div>
+
+                        {subtotal >= SNAP_MIN_AMOUNT && (
+                            <SnapFinanceBanner variant="compact" lang={lang} source="cart" className="!p-2 text-xs" />
+                        )}
 
                         <button
                             onClick={handleCheckout}
