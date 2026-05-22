@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ui } from '../../i18n/ui';
 import { resolvePath } from '../../utils/paths';
 
@@ -44,6 +44,50 @@ const tr = (lang: 'en' | 'es', key: string, fallback: string): string => {
     return dict[key] || fallback;
 };
 
+interface SnapCompactProps {
+    anchorProps: Record<string, string>;
+    lang: 'en' | 'es';
+    imgAlt: string;
+    cta: string;
+    className: string;
+}
+
+function SnapCompactBanner({ anchorProps, lang, imgAlt, cta, className }: SnapCompactProps) {
+    const [imgOk, setImgOk] = useState<boolean | null>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
+
+    useEffect(() => {
+        const img = imgRef.current;
+        if (!img) return;
+        if (img.complete) {
+            setImgOk(img.naturalWidth > 0);
+        }
+    }, []);
+
+    return (
+        <a {...anchorProps} className={`inline-block ${className}`}>
+            <img
+                ref={imgRef}
+                src={buildImgSrc(lang)}
+                onLoad={() => setImgOk(true)}
+                onError={() => setImgOk(false)}
+                alt={imgAlt}
+                style={{
+                    boxShadow: '4px 2px 6px #010101',
+                    border: 'none',
+                    display: imgOk === false ? 'none' : 'block',
+                }}
+            />
+            {imgOk === false && (
+                <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#0078D7] hover:bg-[#005FB0] text-white rounded font-bold uppercase tracking-wide text-sm transition-colors shadow-md">
+                    {cta}
+                    <span aria-hidden="true">→</span>
+                </span>
+            )}
+        </a>
+    );
+}
+
 export default function SnapFinanceBanner({
     variant = 'compact',
     lang = 'en',
@@ -77,19 +121,7 @@ export default function SnapFinanceBanner({
     } as const;
 
     if (variant === 'compact') {
-        return (
-            <a
-                {...commonAnchorProps}
-                className={`inline-block ${className}`}
-            >
-                <img
-                    src={buildImgSrc(lang)}
-                    onError={handleImgError}
-                    alt={imgAlt}
-                    style={{ boxShadow: '4px 2px 6px #010101', border: 'none' }}
-                />
-            </a>
-        );
+        return <SnapCompactBanner anchorProps={commonAnchorProps} lang={lang} imgAlt={imgAlt} cta={cta} className={className} />;
     }
 
     if (variant === 'card') {
