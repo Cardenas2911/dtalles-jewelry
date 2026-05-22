@@ -17,7 +17,7 @@ const ORIGINATION_URL: string = env.PUBLIC_SNAP_ORIGINATION_URL ?? 'https://bk.s
 const BANNER_CDN: string = env.PUBLIC_SNAP_BANNER_CDN ?? 'https://assets.snapfinance.com/app/images';
 
 const buildHref = () =>
-    PARAM_ID ? `${ORIGINATION_URL}?paramId=${PARAM_ID}` : ORIGINATION_URL;
+    PARAM_ID ? `${ORIGINATION_URL}?paramId=${encodeURIComponent(PARAM_ID)}` : ORIGINATION_URL;
 
 const buildImgSrc = (lang: 'en' | 'es') => `${BANNER_CDN}/${lang}_apply_image_06.jpeg`;
 const ES_FALLBACK_SRC = `${BANNER_CDN}/es_apply_image_06.jpeg`;
@@ -80,17 +80,14 @@ export default function SnapFinanceBanner({
         return (
             <a
                 {...commonAnchorProps}
-                className={`group w-full flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 py-3 px-5 rounded-lg bg-[#0078D7] hover:bg-[#005FB0] text-white shadow-md hover:shadow-[0_0_20px_rgba(0,120,215,0.35)] transition-all duration-300 no-underline ${className}`}
+                className={`inline-block ${className}`}
             >
-                <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold opacity-80">
-                    {heading}
-                </span>
-                <span className="flex items-center gap-2">
-                    <span className="text-sm font-bold uppercase tracking-wide">
-                        {cta}
-                    </span>
-                    <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </span>
+                <img
+                    src={buildImgSrc(lang)}
+                    onError={handleImgError}
+                    alt={imgAlt}
+                    style={{ boxShadow: '4px 2px 6px #010101', border: 'none' }}
+                />
             </a>
         );
     }
