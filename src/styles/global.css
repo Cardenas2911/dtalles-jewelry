@@ -201,3 +201,9 @@ h1 {
 .animate-pulse-slow {
   animation: pulse-slow 3s infinite ease-in-out;
 }
+
+/* Hide floating chat / bottom nav when jewel finder modal is open */
+body.jewel-finder-open [aria-label="Chat on WhatsApp"],
+body.jewel-finder-open [aria-label="Chatea por WhatsApp"] {
+  display: none !important;
+}

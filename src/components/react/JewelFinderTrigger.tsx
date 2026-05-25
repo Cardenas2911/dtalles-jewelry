@@ -13,15 +13,23 @@ export default function JewelFinderTrigger({ lang, variant = 'inline' }: JewelFi
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = '';
-    return () => { document.body.style.overflow = ''; };
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('jewel-finder-open');
+    } else {
+      document.body.style.overflow = '';
+      document.body.classList.remove('jewel-finder-open');
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.classList.remove('jewel-finder-open');
+    };
   }, [open]);
 
   const triggerClass =
     variant === 'hero'
-      ? 'inline-flex items-center gap-2 px-8 py-3 border border-[#d4af37] text-[#d4af37] font-sans font-bold text-xs uppercase tracking-[2px] hover:bg-[#d4af37] hover:text-black transition-all duration-300'
-      : 'inline-flex items-center gap-2 px-5 py-2 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-xs uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-colors';
+      ? 'inline-flex items-center gap-2 px-4 py-2.5 md:px-8 md:py-3 border border-[#d4af37] text-[#d4af37] font-sans font-bold text-[10px] md:text-xs uppercase tracking-wider md:tracking-[2px] text-center hover:bg-[#d4af37] hover:text-black transition-all duration-300 max-w-full'
+      : 'inline-flex items-center gap-2 px-3 py-2 md:px-5 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-[10px] md:text-xs uppercase tracking-wider md:tracking-widest text-center hover:bg-[#d4af37] hover:text-black transition-colors max-w-full';
 
   const modal = open && typeof document !== 'undefined' ? createPortal(
     <div
@@ -40,13 +48,13 @@ export default function JewelFinderTrigger({ lang, variant = 'inline' }: JewelFi
         <span className="material-symbols-outlined text-[22px]">close</span>
       </button>
 
-      <div className="min-h-screen flex items-start md:items-center justify-center px-3 py-16 md:px-8 md:py-12">
+      <div className="min-h-screen flex items-start md:items-center justify-center px-2 py-20 md:px-8 md:py-12">
         <div
           className="
             w-full max-w-5xl
             bg-gradient-to-b from-[#0a0a0a] to-[#050505]
             border border-[#d4af37]/30
-            rounded-lg
+            rounded-md md:rounded-lg
             shadow-[0_0_60px_rgba(212,175,55,0.15)]
             overflow-hidden
           "
