@@ -1,7 +1,12 @@
 ---
 import HeroSlider from "./HeroSlider";
+import JewelFinderTrigger from "../react/JewelFinderTrigger";
 import { getLangFromUrl } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 ---
 
 <HeroSlider client:load lang={lang} />
+
+<div class="bg-[#050505] py-6 flex justify-center border-b border-white/5">
+  <JewelFinderTrigger client:load lang={lang} variant="hero" />
+</div>

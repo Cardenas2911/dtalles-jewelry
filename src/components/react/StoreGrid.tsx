@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { favoriteItems } from '../../store/favorites';
 import ProductCard from './ProductCard';
 import FilterSidebar from './StoreGridShared/FilterSidebar';
+import JewelFinderTrigger from './JewelFinderTrigger';
 import { getTranslationFunctionForLang } from '../../i18n/utils';
 
 interface Product {
@@ -263,7 +264,11 @@ export default function StoreGrid({ initialProducts, lang }: StoreGridProps) {
     // Render
     // -------------------------------------------------------
     return (
-        <div className="w-full relative min-h-screen flex flex-col lg:flex-row gap-8 px-4 md:px-12 pt-8">
+        <>
+            <div className="px-4 py-6 flex justify-center border-b border-white/5">
+                <JewelFinderTrigger lang={lang || 'es'} variant="inline" />
+            </div>
+            <div className="w-full relative min-h-screen flex flex-col lg:flex-row gap-8 px-4 md:px-12 pt-8">
 
             {/* Mobile Filter Trigger */}
             <div className="lg:hidden w-full flex justify-between items-center mb-6 pb-4 border-b border-[#d4af37]/20">
@@ -431,6 +436,7 @@ export default function StoreGrid({ initialProducts, lang }: StoreGridProps) {
                 )}
 
             </div>
-        </div>
+            </div>
+        </>
     );
 }
