@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import JewelFinder from '../components/react/jewelFinder/JewelFinder';
+
+const lang = 'en';
+---
+
+<Layout
+  title="Find your jewel - DTalles Jewelry"
+  description="Answer 3 quick questions and discover the perfect jewels for you based on your budget."
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Find your jewel',
+    description: '3-question quiz to discover jewels based on budget and preferences.',
+    applicationCategory: 'ShoppingApplication',
+    inLanguage: 'en',
+    url: `${Astro.site}find-your-jewel`,
+  })} />
+  <div class="bg-[#050505] min-h-screen pt-28 pb-12">
+    <JewelFinder client:load lang={lang} mode="page" />
+  </div>
+</Layout>
