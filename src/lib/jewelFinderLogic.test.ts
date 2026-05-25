@@ -20,7 +20,7 @@ const mkProduct = (id: string, type = 'Anillo', price = '75'): FinderProduct => 
 const baseAnswers: QuizAnswers = {
   recipient: 'women',
   jewelryType: 'ring',
-  budget: '50_100',
+  budget: '500_1000',
 };
 
 describe('decideFallbackStrategy', () => {

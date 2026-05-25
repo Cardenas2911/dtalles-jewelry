@@ -1,7 +1,7 @@
 // Respuestas del wizard. null/undefined = "no respondida" o "comodín" (sin filtro)
 export type Recipient = 'women' | 'men' | 'kids' | 'unsure';
 export type JewelryType = 'ring' | 'necklace' | 'earring' | 'bracelet' | 'any';
-export type BudgetBracket = 'under_50' | '50_100' | '100_200' | '200_500' | 'over_500';
+export type BudgetBracket = 'under_500' | '500_1000' | '1000_2000' | 'over_2000';
 
 export interface QuizAnswers {
   recipient: Recipient | null;

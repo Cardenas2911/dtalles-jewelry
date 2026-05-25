@@ -18,11 +18,10 @@ export const JEWELRY_TYPE_TO_PRODUCT_TYPES: Record<JewelryType, string[]> = {
 };
 
 export const BUDGET_RANGES: Record<BudgetBracket, PriceRange> = {
-  under_50: { min: 0, max: 50 },
-  '50_100': { min: 50, max: 100 },
-  '100_200': { min: 100, max: 200 },
-  '200_500': { min: 200, max: 500 },
-  over_500: { min: 500, max: null },
+  under_500: { min: 0, max: 500 },
+  '500_1000': { min: 500, max: 1000 },
+  '1000_2000': { min: 1000, max: 2000 },
+  over_2000: { min: 2000, max: null },
 };
 
 export const PRICE_RELAX_MULTIPLIER = 1.5;
@@ -50,9 +49,8 @@ export const JEWELRY_TYPE_OPTIONS: Array<{ value: JewelryType; i18nKey: string; 
 ];
 
 export const BUDGET_OPTIONS: Array<{ value: BudgetBracket; i18nKey: string }> = [
-  { value: 'under_50', i18nKey: 'finder.budget.under_50' },
-  { value: '50_100', i18nKey: 'finder.budget.50_100' },
-  { value: '100_200', i18nKey: 'finder.budget.100_200' },
-  { value: '200_500', i18nKey: 'finder.budget.200_500' },
-  { value: 'over_500', i18nKey: 'finder.budget.over_500' },
+  { value: 'under_500', i18nKey: 'finder.budget.under_500' },
+  { value: '500_1000', i18nKey: 'finder.budget.500_1000' },
+  { value: '1000_2000', i18nKey: 'finder.budget.1000_2000' },
+  { value: 'over_2000', i18nKey: 'finder.budget.over_2000' },
 ];
