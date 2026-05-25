@@ -44,15 +44,20 @@ function ProductGrid({
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
       {products.map((p) => (
-        <div key={p.id} className="relative">
-          <ProductCard product={p as any} lang={lang} />
+        <div key={p.id} className="flex flex-col">
           {showFallbackTag && 'fallbackReason' in p && (
-            <span className="absolute top-3 left-1/2 -translate-x-1/2 z-20 bg-[#d4af37] text-black text-[10px] font-bold px-3 py-1 uppercase tracking-wider">
-              {p.fallbackReason === 'price_relaxed'
-                ? t('finder.results.tagPriceRelaxed' as any)
-                : t('finder.results.tagTypeRelaxed' as any)}
-            </span>
+            <div className="mb-2 flex justify-center">
+              <span className="inline-flex items-center gap-1.5 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-[10px] font-bold px-3 py-1.5 uppercase tracking-wider rounded-sm">
+                <span className="material-symbols-outlined text-[14px]">
+                  {p.fallbackReason === 'price_relaxed' ? 'trending_up' : 'swap_horiz'}
+                </span>
+                {p.fallbackReason === 'price_relaxed'
+                  ? t('finder.results.tagPriceRelaxed' as any)
+                  : t('finder.results.tagTypeRelaxed' as any)}
+              </span>
+            </div>
           )}
+          <ProductCard product={p as any} lang={lang} />
         </div>
       ))}
     </div>

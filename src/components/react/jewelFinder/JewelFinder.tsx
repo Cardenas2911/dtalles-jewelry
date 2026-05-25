@@ -50,20 +50,13 @@ export default function JewelFinder({ lang, mode = 'page', onClose }: JewelFinde
     window.location.href = getRoute('/tienda', lang);
   };
 
-  return (
-    <div className="bg-[#050505] text-[#FAFAF5] min-h-screen md:min-h-0">
-      {mode === 'modal' && onClose && (
-        <div className="flex justify-end p-4">
-          <button
-            onClick={onClose}
-            className="text-[#A0A0A0] hover:text-[#d4af37] transition-colors"
-            aria-label={t('finder.closeModal' as any)}
-          >
-            <span className="material-symbols-outlined text-[28px]">close</span>
-          </button>
-        </div>
-      )}
+  const containerClass =
+    mode === 'modal'
+      ? 'bg-transparent text-[#FAFAF5]'
+      : 'bg-[#050505] text-[#FAFAF5] min-h-screen';
 
+  return (
+    <div className={containerClass}>
       {phase === 'welcome' && <WelcomeStep onStart={() => setPhase('q1')} lang={lang} />}
 
       {phase === 'q1' && (

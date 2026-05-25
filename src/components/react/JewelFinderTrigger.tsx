@@ -31,11 +31,32 @@ export default function JewelFinderTrigger({ lang, variant = 'inline' }: JewelFi
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] bg-black/80 overflow-y-auto"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md overflow-y-auto"
+          style={{ animation: 'fadeIn 0.25s ease-out forwards' }}
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('finder.title' as any)}
         >
-          <div className="min-h-screen md:py-8">
-            <div className="max-w-5xl mx-auto md:my-8 bg-[#050505] md:rounded shadow-2xl">
+          <button
+            onClick={() => setOpen(false)}
+            className="fixed top-4 right-4 z-[110] w-11 h-11 flex items-center justify-center rounded-full bg-[#0a0a0a] border border-[#d4af37]/60 text-[#d4af37] hover:bg-[#d4af37] hover:text-black hover:rotate-90 transition-all duration-300 shadow-[0_4px_24px_rgba(212,175,55,0.25)]"
+            aria-label={t('finder.closeModal' as any)}
+          >
+            <span className="material-symbols-outlined text-[22px]">close</span>
+          </button>
+
+          <div className="min-h-screen px-3 py-6 md:px-8 md:py-12">
+            <div
+              className="
+                max-w-5xl mx-auto
+                bg-gradient-to-b from-[#0a0a0a] to-[#050505]
+                border border-[#d4af37]/30
+                rounded-lg
+                shadow-[0_0_60px_rgba(212,175,55,0.15)]
+                overflow-hidden
+              "
+            >
               <JewelFinder lang={lang} mode="modal" onClose={() => setOpen(false)} />
             </div>
           </div>
