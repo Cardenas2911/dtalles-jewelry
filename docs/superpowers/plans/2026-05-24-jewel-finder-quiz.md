@@ -284,7 +284,10 @@ git commit -m "feat(jewel-finder): tipos compartidos del wizard"
 **Files:**
 - Create: `src/components/react/jewelFinder/config.ts`
 
-> **NOTA:** Los valores `productTypeShopify` y `collectionHandle` DEBEN ajustarse a lo que Task 1 reveló. Los valores aquí son la apuesta inicial — si Shopify usa "Anillos" plural, etc., reemplazar.
+> **Valores confirmados por Task 1 contra Shopify real:**
+> - productTypes existentes: `Anillo · Aretes (plural) · Cadena · Collar · Collar con Dije · Dije · Pulsera`
+> - Collection handles: `mujer · hombre · ninos`
+> - "Necklace" en UI mapea a 3 productTypes (Collar + Collar con Dije + Cadena) porque el catálogo los separa pero el usuario los concibe como "collar".
 
 - [ ] **Step 1: Crear `config.ts`**
 
@@ -299,14 +302,15 @@ export const RECIPIENT_TO_COLLECTION: Record<Recipient, string | null> = {
   unsure: null,
 };
 
-// Mapeo de JewelryType → valor exacto de productType en Shopify.
-// AJUSTAR según resultado de scripts/inspect-catalog.mjs
-export const JEWELRY_TYPE_TO_PRODUCT_TYPE: Record<JewelryType, string | null> = {
-  ring: 'Anillo',
-  necklace: 'Collar',
-  earring: 'Arete',
-  bracelet: 'Pulsera',
-  any: null,
+// Mapeo de JewelryType → ARRAY de valores exactos de productType en Shopify.
+// Una opción de UI puede cubrir varios productTypes del catálogo.
+// Array vacío = sin filtro de tipo.
+export const JEWELRY_TYPE_TO_PRODUCT_TYPES: Record<JewelryType, string[]> = {
+  ring: ['Anillo'],
+  necklace: ['Collar', 'Collar con Dije', 'Cadena'],
+  earring: ['Aretes'],
+  bracelet: ['Pulsera'],
+  any: [],
 };
 
 // Rangos de presupuesto en USD.
@@ -581,6 +585,13 @@ git commit -m "feat(jewel-finder): lógica pura de fallback con tests"
 **Files:**
 - Create: `src/lib/queries/jewelFinder.ts`
 
+> **Estrategia revisada (post-Task 1):** La Storefront API tiene limitaciones:
+> - El top-level `products(query: ...)` SÍ acepta `product_type:X` pero NO acepta `variants.price:>=X`.
+> - `collection.products(query: ...)` NO existe; usa `filters: [ProductFilter!]` con `{ price: { min, max } }` y `{ available: true }`.
+> - El `filters: [{ productType }]` existe pero hace match laxo — no es confiable, **siempre filtraremos productType client-side**.
+>
+> **Aproximación:** fetch amplio (hasta 100 productos) con los filtros server-side que SÍ funcionan, luego filtramos productType + precio en el cliente con `combineResults`.
+
 - [ ] **Step 1: Crear queries**
 
 ```typescript
@@ -614,18 +625,16 @@ export const FINDER_PRODUCT_FRAGMENT = gql`
   }
 `;
 
-// Query principal: filtra por género (colección), tipo y precio en un solo paso.
-// Si recipient es null/unsure → usa `products` top-level.
-// Si recipient mapea a una colección → usa `collection(handle).products`.
-export const FINDER_QUERY_WITH_COLLECTION = gql`
-  query finderWithCollection(
+// Cuando hay género: usa collection.products con filters (price + available funcionan, productType NO).
+export const FINDER_QUERY_BY_COLLECTION = gql`
+  query finderByCollection(
     $collectionHandle: String!
-    $productQuery: String!
     $first: Int!
+    $filters: [ProductFilter!]
     $language: LanguageCode
   ) @inContext(language: $language) {
     collection(handle: $collectionHandle) {
-      products(first: $first, query: $productQuery, sortKey: BEST_SELLING) {
+      products(first: $first, filters: $filters, sortKey: BEST_SELLING) {
         edges { node { ...FinderProductFragment } }
       }
     }
@@ -633,6 +642,7 @@ export const FINDER_QUERY_WITH_COLLECTION = gql`
   ${FINDER_PRODUCT_FRAGMENT}
 `;
 
+// Cuando no hay género: usa products top-level con query (product_type + available SÍ, price NO).
 export const FINDER_QUERY_GLOBAL = gql`
   query finderGlobal(
     $productQuery: String!
@@ -651,14 +661,18 @@ export const FINDER_QUERY_GLOBAL = gql`
 
 ```bash
 git add src/lib/queries/jewelFinder.ts
-git commit -m "feat(jewel-finder): queries GraphQL"
+git commit -m "feat(jewel-finder): queries GraphQL (collection con filters, global con query)"
 ```
 
 ---
 
 ## Task 7: Orquestador de queries
 
-Función que combina respuestas → query string → fetch → decide fallback → fetch fallback → combineResults.
+Función que combina respuestas → fetch desde Shopify (con los filtros server-side que funcionan) → filtra productType + precio client-side → decide fallback → fetch fallback → combineResults.
+
+**Estrategia:**
+- **Con género (collection):** `collection.products(filters: [{available:true}, {price:{min,max}}])`. Filtra **productType client-side** porque el filter de Shopify es laxo.
+- **Sin género (unsure):** `products(query: "product_type:X AND available_for_sale:true")`. Filtra **precio client-side** porque `variants.price` no funciona en query string. Si tipo es "any" también, query es `available_for_sale:true`.
 
 **Files:**
 - Create: `src/lib/jewelFinderQuery.ts`
@@ -669,16 +683,19 @@ Función que combina respuestas → query string → fetch → decide fallback �
 import type { AlternativeProduct, FinderProduct, PriceRange, QuizAnswers, QuizResult } from '../components/react/jewelFinder/types';
 import {
   BUDGET_RANGES,
-  JEWELRY_TYPE_TO_PRODUCT_TYPE,
+  JEWELRY_TYPE_TO_PRODUCT_TYPES,
   MAX_PRIMARY_RESULTS,
   MAX_ALTERNATIVE_RESULTS,
   RECIPIENT_TO_COLLECTION,
 } from '../components/react/jewelFinder/config';
 import {
+  FINDER_QUERY_BY_COLLECTION,
   FINDER_QUERY_GLOBAL,
-  FINDER_QUERY_WITH_COLLECTION,
 } from './queries/jewelFinder';
 import { buildExpandedPriceRange, combineResults, decideFallbackStrategy } from './jewelFinderLogic';
+
+// Cuánto pedir al server para tener margen tras filtrar client-side.
+const SERVER_FETCH_SIZE = 100;
 
 interface FetchConfig {
   url: string;
@@ -693,22 +710,7 @@ function getStorefrontConfig(): FetchConfig | null {
   return { url: `https://${domain}/api/${version}/graphql.json`, token };
 }
 
-function buildProductQueryString(opts: {
-  productType: string | null;
-  priceRange: PriceRange;
-  excludeTypes?: string[];
-}): string {
-  const parts: string[] = ['available_for_sale:true'];
-  if (opts.productType) parts.push(`product_type:'${opts.productType}'`);
-  if (opts.priceRange.min > 0) parts.push(`variants.price:>=${opts.priceRange.min}`);
-  if (opts.priceRange.max !== null) parts.push(`variants.price:<=${opts.priceRange.max}`);
-  if (opts.excludeTypes && opts.excludeTypes.length > 0) {
-    opts.excludeTypes.forEach((t) => parts.push(`-product_type:'${t}'`));
-  }
-  return parts.join(' AND ');
-}
-
-async function runQuery(
+async function runRawQuery(
   config: FetchConfig,
   query: string,
   variables: Record<string, unknown>,
@@ -733,25 +735,76 @@ async function runQuery(
   return edges.map((e: { node: FinderProduct }) => e.node);
 }
 
-async function fetchByAnswers(
+/**
+ * Filtra una lista de productos por tipos permitidos. Lista vacía = sin filtro.
+ */
+export function filterByProductTypes(products: FinderProduct[], allowedTypes: string[]): FinderProduct[] {
+  if (allowedTypes.length === 0) return products;
+  const set = new Set(allowedTypes);
+  return products.filter((p) => set.has(p.productType));
+}
+
+/**
+ * Filtra una lista de productos por rango de precio (precio mínimo de variantes).
+ */
+export function filterByPriceRange(products: FinderProduct[], range: PriceRange): FinderProduct[] {
+  return products.filter((p) => {
+    const price = parseFloat(p.priceRange.minVariantPrice.amount);
+    if (price < range.min) return false;
+    if (range.max !== null && price > range.max) return false;
+    return true;
+  });
+}
+
+/**
+ * Excluye productos cuyo productType está en la lista.
+ */
+export function excludeProductTypes(products: FinderProduct[], excluded: string[]): FinderProduct[] {
+  if (excluded.length === 0) return products;
+  const set = new Set(excluded);
+  return products.filter((p) => !set.has(p.productType));
+}
+
+/**
+ * Fetch principal según género: si hay colección usa filters; si no, usa query top-level.
+ */
+async function fetchPrimaryPool(
   config: FetchConfig,
   collectionHandle: string | null,
-  productType: string | null,
+  allowedTypes: string[],
   priceRange: PriceRange,
-  excludeTypes: string[],
-  lang: 'es' | 'en',
-  first: number
+  lang: 'es' | 'en'
 ): Promise<FinderProduct[]> {
-  const productQuery = buildProductQueryString({ productType, priceRange, excludeTypes });
   if (collectionHandle) {
-    return runQuery(config, FINDER_QUERY_WITH_COLLECTION, { collectionHandle, productQuery, first }, lang);
+    // Server: collection + available + price. Client: productType.
+    const filters: Array<Record<string, unknown>> = [{ available: true }];
+    filters.push({ price: { min: priceRange.min, max: priceRange.max ?? 999999 } });
+    const raw = await runRawQuery(config, FINDER_QUERY_BY_COLLECTION, {
+      collectionHandle,
+      first: SERVER_FETCH_SIZE,
+      filters,
+    }, lang);
+    return filterByProductTypes(raw, allowedTypes);
   }
-  return runQuery(config, FINDER_QUERY_GLOBAL, { productQuery, first }, lang);
+
+  // Sin colección: query top-level con productType + available. Client filtra precio.
+  const queryParts: string[] = ['available_for_sale:true'];
+  if (allowedTypes.length === 1) {
+    queryParts.push(`product_type:${JSON.stringify(allowedTypes[0])}`);
+  } else if (allowedTypes.length > 1) {
+    const ors = allowedTypes.map((t) => `product_type:${JSON.stringify(t)}`).join(' OR ');
+    queryParts.push(`(${ors})`);
+  }
+  const productQuery = queryParts.join(' AND ');
+  const raw = await runRawQuery(config, FINDER_QUERY_GLOBAL, {
+    productQuery,
+    first: SERVER_FETCH_SIZE,
+  }, lang);
+  return filterByPriceRange(raw, priceRange);
 }
 
 /**
  * Punto de entrada principal. Recibe respuestas y devuelve QuizResult listo para ResultsView.
- * Lanza error si la config falta o si la query principal falla.
  */
 export async function runJewelFinderQuery(answers: QuizAnswers, lang: 'es' | 'en'): Promise<QuizResult> {
   const config = getStorefrontConfig();
@@ -761,42 +814,36 @@ export async function runJewelFinderQuery(answers: QuizAnswers, lang: 'es' | 'en
   }
 
   const collectionHandle = RECIPIENT_TO_COLLECTION[answers.recipient];
-  const productType = JEWELRY_TYPE_TO_PRODUCT_TYPE[answers.jewelryType];
+  const allowedTypes = JEWELRY_TYPE_TO_PRODUCT_TYPES[answers.jewelryType];
   const priceRange = BUDGET_RANGES[answers.budget];
 
-  // 1. Query principal
-  const primary = await fetchByAnswers(
-    config,
-    collectionHandle,
-    productType,
-    priceRange,
-    [],
-    lang,
-    MAX_PRIMARY_RESULTS + 4 // pedimos extra para que combineResults tenga margen
-  );
+  // 1. Query principal con filtrado client-side.
+  const primary = await fetchPrimaryPool(config, collectionHandle, allowedTypes, priceRange, lang);
 
-  // 2. Decidir fallback
+  // 2. Decidir fallback.
   const strategy = decideFallbackStrategy(primary, answers);
 
-  // 3. Ejecutar fallback si aplica
+  // 3. Ejecutar fallback si aplica.
   let alternatives: AlternativeProduct[] = [];
   if (strategy.runFallback) {
     const fallbackPromises: Promise<AlternativeProduct[]>[] = [];
+    const hasSpecificType = allowedTypes.length > 0;
 
-    if (strategy.fallbackPlan.includes('price_relaxed') && productType) {
+    if (strategy.fallbackPlan.includes('price_relaxed') && hasSpecificType) {
       const expanded = buildExpandedPriceRange(priceRange);
       fallbackPromises.push(
-        fetchByAnswers(config, collectionHandle, productType, expanded, [], lang, MAX_ALTERNATIVE_RESULTS).then((arr) =>
+        fetchPrimaryPool(config, collectionHandle, allowedTypes, expanded, lang).then((arr) =>
           arr.map((p) => ({ ...p, fallbackReason: 'price_relaxed' as const }))
         )
       );
     }
 
-    if (strategy.fallbackPlan.includes('type_relaxed') && productType) {
-      // Mismo género, mismo presupuesto, EXCLUYE el tipo original.
+    if (strategy.fallbackPlan.includes('type_relaxed') && hasSpecificType) {
+      // Mismo género, mismo presupuesto, OTROS tipos (todos menos los del usuario).
+      // Fetcheamos todo el género + precio, luego excluimos los tipos pedidos.
       fallbackPromises.push(
-        fetchByAnswers(config, collectionHandle, null, priceRange, [productType], lang, MAX_ALTERNATIVE_RESULTS).then((arr) =>
-          arr.map((p) => ({ ...p, fallbackReason: 'type_relaxed' as const }))
+        fetchPrimaryPool(config, collectionHandle, [], priceRange, lang).then((arr) =>
+          excludeProductTypes(arr, allowedTypes).map((p) => ({ ...p, fallbackReason: 'type_relaxed' as const }))
         )
       );
     }
@@ -813,7 +860,7 @@ export async function runJewelFinderQuery(answers: QuizAnswers, lang: 'es' | 'en
 
 ```bash
 git add src/lib/jewelFinderQuery.ts
-git commit -m "feat(jewel-finder): orquestador de queries principal + fallback"
+git commit -m "feat(jewel-finder): orquestador con fetch híbrido server/client-side"
 ```
 
 ---
