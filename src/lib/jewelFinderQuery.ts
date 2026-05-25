@@ -2,8 +2,6 @@ import type { AlternativeProduct, FinderProduct, PriceRange, QuizAnswers, QuizRe
 import {
   BUDGET_RANGES,
   JEWELRY_TYPE_TO_PRODUCT_TYPES,
-  MAX_PRIMARY_RESULTS,
-  MAX_ALTERNATIVE_RESULTS,
   RECIPIENT_TO_COLLECTION,
 } from '../components/react/jewelFinder/config';
 import {
