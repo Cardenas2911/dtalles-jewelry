@@ -47,7 +47,7 @@ export default function JewelFinder({ lang, mode = 'page', onClose }: JewelFinde
   };
 
   const goToStore = () => {
-    window.location.href = getRoute(lang === 'es' ? '/tienda' : '/store', lang);
+    window.location.href = getRoute('/tienda', lang);
   };
 
   return (
