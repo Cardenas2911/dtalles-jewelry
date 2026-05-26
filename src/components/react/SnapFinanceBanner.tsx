@@ -25,14 +25,16 @@ const ES_FALLBACK_SRC = `${BANNER_CDN}/es_apply_image_06.jpeg`;
 const FALLBACK_COPY = {
     en: {
         heading: "Don't qualify with Affirm?",
-        cta: 'Apply with Snap Finance — no credit needed',
+        cta: 'Apply with Snap Finance',
+        ctaShort: 'Apply with Snap',
         ariaLabel: 'Apply with Snap Finance (opens in new tab)',
         imgAlt: 'Snap Finance - Apply Here',
         snapCta: 'Apply now',
     },
     es: {
         heading: '¿No calificas con Affirm?',
-        cta: 'Aplica con Snap Finance — sin crédito',
+        cta: 'Aplica con Snap Finance',
+        ctaShort: 'Aplica con Snap',
         ariaLabel: 'Aplica con Snap Finance (abre en pestaña nueva)',
         imgAlt: 'Snap Finance - Aplica Aquí',
         snapCta: 'Aplica ahora',
@@ -49,10 +51,11 @@ interface SnapCompactProps {
     lang: 'en' | 'es';
     imgAlt: string;
     cta: string;
+    ctaShort: string;
     className: string;
 }
 
-function SnapCompactBanner({ anchorProps, lang, imgAlt, cta, className }: SnapCompactProps) {
+function SnapCompactBanner({ anchorProps, lang, imgAlt, cta, ctaShort, className }: SnapCompactProps) {
     const [imgOk, setImgOk] = useState<boolean | null>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
@@ -65,7 +68,7 @@ function SnapCompactBanner({ anchorProps, lang, imgAlt, cta, className }: SnapCo
     }, []);
 
     return (
-        <a {...anchorProps} className={`inline-block ${className}`}>
+        <a {...anchorProps} className={`inline-block max-w-full ${className}`}>
             <img
                 ref={imgRef}
                 src={buildImgSrc(lang)}
@@ -76,11 +79,14 @@ function SnapCompactBanner({ anchorProps, lang, imgAlt, cta, className }: SnapCo
                     boxShadow: '4px 2px 6px #010101',
                     border: 'none',
                     display: imgOk === false ? 'none' : 'block',
+                    maxWidth: '100%',
+                    height: 'auto',
                 }}
             />
             {imgOk === false && (
-                <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#0078D7] hover:bg-[#005FB0] text-white rounded font-bold uppercase tracking-wide text-sm transition-colors shadow-md">
-                    {cta}
+                <span className="inline-flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2 md:px-6 md:py-3 bg-[#0078D7] hover:bg-[#005FB0] text-white rounded font-bold uppercase tracking-wide text-[11px] md:text-sm transition-colors shadow-md text-center leading-tight max-w-full">
+                    <span className="md:hidden">{ctaShort}</span>
+                    <span className="hidden md:inline">{cta}</span>
                     <span aria-hidden="true">→</span>
                 </span>
             )}
@@ -97,6 +103,7 @@ export default function SnapFinanceBanner({
     const fallback = FALLBACK_COPY[lang];
     const heading = tr(lang, 'snap.product.heading', fallback.heading);
     const cta = tr(lang, 'snap.product.cta', fallback.cta);
+    const ctaShort = tr(lang, 'snap.product.ctaShort', fallback.ctaShort);
     const ariaLabel = tr(lang, 'snap.aria.banner', fallback.ariaLabel);
     const imgAlt = tr(lang, 'snap.img.alt', fallback.imgAlt);
     const snapCta = tr(lang, 'snap.financing.snap_cta', fallback.snapCta);
@@ -121,7 +128,7 @@ export default function SnapFinanceBanner({
     } as const;
 
     if (variant === 'compact') {
-        return <SnapCompactBanner anchorProps={commonAnchorProps} lang={lang} imgAlt={imgAlt} cta={cta} className={className} />;
+        return <SnapCompactBanner anchorProps={commonAnchorProps} lang={lang} imgAlt={imgAlt} cta={cta} ctaShort={ctaShort} className={className} />;
     }
 
     if (variant === 'card') {

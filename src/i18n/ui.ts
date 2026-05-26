@@ -293,7 +293,8 @@ export const ui = {
     'links.miami': 'Miami, FL',
     // Snap Finance
     'snap.product.heading': '¿No calificas con Affirm?',
-    'snap.product.cta': 'Aplica con Snap Finance — sin crédito',
+    'snap.product.cta': 'Aplica con Snap Finance',
+    'snap.product.ctaShort': 'Aplica con Snap',
     'snap.cart.short': '¿Sin crédito? Aplica con Snap →',
     'snap.footer.link': 'Opciones de Financiamiento',
     'snap.financing.title': 'Opciones de Financiamiento',
@@ -750,7 +751,8 @@ export const tagTranslations: Record<string, Record<string, string>> = {
     'regalo hombre': 'Gifts for Men',
     // Snap Finance
     'snap.product.heading': "Don't qualify with Affirm?",
-    'snap.product.cta': 'Apply with Snap Finance — no credit needed',
+    'snap.product.cta': 'Apply with Snap Finance',
+    'snap.product.ctaShort': 'Apply with Snap',
     'snap.cart.short': 'No credit? Apply with Snap →',
     'snap.footer.link': 'Financing Options',
     'snap.financing.title': 'Financing Options',
